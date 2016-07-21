@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema name="datachile">
+    <Dimension name="Date" type="TimeDimension">
+        <Hierarchy hasAll="true" primaryKey="id">
+            <Table schema="public" name="dim_date" />
+            <Level column="the_year" levelType="TimeYears" name="Year" type="Numeric" uniqueMembers="true"/>
+            <Level column="month_of_year" levelType="TimeMonths" name="Month" type="Numeric" uniqueMembers="false" />
+            <Level column="day_of_month" levelType="TimeDays" name="Day" type="Numeric" uniqueMembers="false" />
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Geography">
+        <Hierarchy hasAll="true" primaryKey="id">
+            <Table name="dim_comunas" schema="public" />
+            <Level name="Region" column="region_id" nameColumn="region_name" uniqueMembers="true" />
+            <Level name="Comuna" column="comuna_datachile_id" nameColumn="comuna_name" uniqueMembers="true"  />
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Country">
+        <Hierarchy hasAll="true" primaryKey="id">
+            <Table name="dim_countries" schema="public" />
+            <Level name="Country" column="country_code" nameColumn="country_name" uniqueMembers="true" />
+        </Hierarchy>
+    </Dimension>
+
+    <!-- Dimension name="HS">
+        <Hierarchy hasAll="true" primaryKey="level3">
+            <Table name="hs_levels" schema="oec" />
+            <Level name="HS2" column="level1" nameColumn="level1_name" uniqueMembers="true" />
+            <Level name="HS4" column="level2" nameColumn="level2_name" uniqueMembers="true" />
+            <Level name="HS6" column="level3" nameColumn="level3_name" uniqueMembers="true" />
+        </Hierarchy>
+    </Dimension -->
+
+
+    <Cube name="exports">
+        <Table name="pg_exports" schema="economy" />
+
+        <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+        <DimensionUsage name="Destination Country" source="Country" foreignKey="country_dest_id" />
+        <DimensionUsage name="Export Geography" source="Geography" foreignKey="exporter_comuna_id" />
+        <!-- DimensionUsage name="HS" source="HS" foreignKey="hs_6digit" / -->
+
+        <Measure name="Q Traded" column="q_traded" aggregator="sum" />
+        <Measure name="FOB US" column="fob_us" aggregator="sum" />
+    </Cube>
+</Schema>
