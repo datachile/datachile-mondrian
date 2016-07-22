@@ -18,7 +18,7 @@
     </Dimension>
 
     <Dimension name="Country">
-        <Hierarchy hasAll="true" primaryKey="id">
+        <Hierarchy hasAll="true" primaryKey="country_code">
             <Table name="dim_countries" schema="public" />
             <Level name="Country" column="country_code" nameColumn="country_name" uniqueMembers="true" />
         </Hierarchy>
