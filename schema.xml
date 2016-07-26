@@ -31,8 +31,17 @@
             <Level name="HS4" column="level2" nameColumn="level2_name" uniqueMembers="true" />
             <Level name="HS6" column="level3" nameColumn="level3_name" uniqueMembers="true" />
         </Hierarchy>
-    </Dimension -->
+        </Dimension -->
 
+    <Dimension name="ISICrev4">
+        <Hierarchy hasAll="true" primaryKey="level4">
+            <Table name="dim_isic" schema="public" />
+            <Level name="Level 1" column="level1" nameColumn="level1_description" uniqueMembers="true" />
+            <Level name="Level 2" column="level2" nameColumn="level2_description" uniqueMembers="true" />
+            <Level name="Level 3" column="level3" nameColumn="level3_description" uniqueMembers="true" />
+            <Level name="Level 4" column="level4" nameColumn="level4_description" uniqueMembers="true" />
+        </Hierarchy>
+    </Dimension>
 
     <Cube name="exports">
         <Table name="pg_exports" schema="economy" />
@@ -45,4 +54,24 @@
         <Measure name="Q Traded" column="q_traded" aggregator="sum" />
         <Measure name="FOB US" column="fob_us" aggregator="sum" />
     </Cube>
+
+    <!--
+    <Cube name="imports">
+    </Cube>
+    -->
+
+    <Cube name="tax_data">
+        <Table name="tax_data" schema="economy" />
+        <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+        <DimensionUsage name="Export Geography" source="Geography" foreignKey="comuna_id" />
+        <DimensionUsage name="ISICrev4" source="ISICrev4" foreignKey="ciuu4_Cube" />
+
+        <Measure name="Output" column="output" aggregator="sum" />
+        <Measure name="Labour" column="labour" aggregator="sum" />
+        <Measure name="Labour Cost" column="Labour cost" aggregator="sum" />
+        <Measure name="Investment" column="investment" aggregator="sum" />
+        <Measure name="Intermediates" column="intermediates" aggregator="sum" />
+    </Cube>
+
+
 </Schema>
