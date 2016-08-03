@@ -64,7 +64,7 @@
         <Table name="tax_data" schema="economy" />
         <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
         <DimensionUsage name="Export Geography" source="Geography" foreignKey="comuna_id" />
-        <DimensionUsage name="ISICrev4" source="ISICrev4" foreignKey="ciuu4_Cube" />
+        <DimensionUsage name="ISICrev4" source="ISICrev4" foreignKey="ciiu4_ori" />
 
         <Measure name="Output" column="output" aggregator="sum" />
         <Measure name="Labour" column="labour" aggregator="sum" />
