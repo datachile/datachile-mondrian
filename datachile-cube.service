@@ -1,0 +1,19 @@
+# systemd unit definition
+# copy to /etc/systemd/system/datachile-cube.service
+# systemctl enable datachile-cube
+# systemctl start datachile-cube
+[Unit]
+Description=DataChile Mondrian REST
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+User=hermes
+Environment=JRUBY_OPTS=--server
+PIDFile=/home/hermes/datachile-mondrian/datachile-mondrian.pid
+WorkingDirectory=/home/hermes/datachile-mondrian
+ExecStart=/home/hermes/.rvm/bin/datachile_bundle exec puma -b tcp://0.0.0.0:5000
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target
