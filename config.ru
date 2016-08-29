@@ -36,4 +36,6 @@ use Rack::Cors do
   end
 end
 
+use Rack::CommonLogger, $stdout
+
 run Mondrian::REST::Api
