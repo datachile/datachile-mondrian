@@ -24,14 +24,14 @@
         </Hierarchy>
     </Dimension>
 
-    <!-- Dimension name="HS">
+    <Dimension name="HS">
         <Hierarchy hasAll="true" primaryKey="level3">
-            <Table name="hs_levels" schema="oec" />
+            <Table name="hs_levels" schema="economy" />
             <Level name="HS2" column="level1" nameColumn="level1_name" uniqueMembers="true" />
             <Level name="HS4" column="level2" nameColumn="level2_name" uniqueMembers="true" />
             <Level name="HS6" column="level3" nameColumn="level3_name" uniqueMembers="true" />
         </Hierarchy>
-        </Dimension -->
+    </Dimension>
 
     <Dimension name="ISICrev4">
         <Hierarchy hasAll="true" primaryKey="level4">
@@ -49,16 +49,34 @@
         <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
         <DimensionUsage name="Destination Country" source="Country" foreignKey="country_dest_id" />
         <DimensionUsage name="Export Geography" source="Geography" foreignKey="exporter_comuna_id" />
-        <!-- DimensionUsage name="HS" source="HS" foreignKey="hs_6digit" / -->
+        <DimensionUsage name="HS" source="HS" foreignKey="hs_level3" />
 
         <Measure name="Q Traded" column="q_traded" aggregator="sum" />
         <Measure name="FOB US" column="fob_us" aggregator="sum" />
     </Cube>
 
-    <!--
     <Cube name="imports">
+        <Table name="pg_imports" schema="economy" />
+        <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+        <DimensionUsage name="Origin Country" source="Country" foreignKey="country_origin_id" />
+        <DimensionUsage name="Import Geography" source="Geography" foreignKey="importer_comuna_id" />
+        <DimensionUsage name="HS" source="HS" foreignKey="hs_6digits" />
+
+        <Measure name="CIF US" column="cif_us" aggregator="sum" />
     </Cube>
-    -->
+
+    <VirtualCube name="exports_and_imports" defaultMeasure="Trade Balance">
+        <VirtualCubeDimension name="Date" />
+        <VirtualCubeDimension name="Geography" />
+        <VirtualCubeDimension name="HS" />
+        <VirtualCubeMeasure cubeName="exports" name="[Measures].[FOB US]" />
+        <VirtualCubeMeasure cubeName="imports" name="[Measures].[CIF US]" />
+
+        <CalculatedMember name="Trade Balance" dimension="Measures">
+            <Formula>[Measures].[FOB US] - [Measures].[CIF US]</Formula>
+        </CalculatedMember>
+    </VirtualCube>
+
 
     <Cube name="tax_data">
         <Table name="tax_data" schema="economy" />
@@ -68,10 +86,8 @@
 
         <Measure name="Output" column="output" aggregator="sum" />
         <Measure name="Labour" column="labour" aggregator="sum" />
-        <Measure name="Labour Cost" column="Labour cost" aggregator="sum" />
+        <Measure name="Labour Cost" column="labour_cost" aggregator="sum" />
         <Measure name="Investment" column="investment" aggregator="sum" />
         <Measure name="Intermediates" column="intermediates" aggregator="sum" />
     </Cube>
-
-
 </Schema>
