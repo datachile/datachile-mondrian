@@ -65,6 +65,19 @@
         <Measure name="CIF US" column="cif_us" aggregator="sum" />
     </Cube>
 
+    <Cube name="tax_data">
+        <Table name="tax_data" schema="economy" />
+        <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+        <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_id" />
+        <DimensionUsage name="ISICrev4" source="ISICrev4" foreignKey="ciiu4_ori" />
+
+        <Measure name="Output" column="output" aggregator="sum" />
+        <Measure name="Labour" column="labour" aggregator="sum" />
+        <Measure name="Labour Cost" column="labour_cost" aggregator="sum" />
+        <Measure name="Investment" column="investment" aggregator="sum" />
+        <Measure name="Intermediates" column="intermediates" aggregator="sum" />
+    </Cube>
+
     <VirtualCube name="exports_and_imports" defaultMeasure="Trade Balance">
         <VirtualCubeDimension name="Date" />
         <VirtualCubeDimension name="Geography" />
@@ -76,18 +89,4 @@
             <Formula>[Measures].[FOB US] - [Measures].[CIF US]</Formula>
         </CalculatedMember>
     </VirtualCube>
-
-
-    <Cube name="tax_data">
-        <Table name="tax_data" schema="economy" />
-        <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
-        <DimensionUsage name="Export Geography" source="Geography" foreignKey="comuna_id" />
-        <DimensionUsage name="ISICrev4" source="ISICrev4" foreignKey="ciiu4_ori" />
-
-        <Measure name="Output" column="output" aggregator="sum" />
-        <Measure name="Labour" column="labour" aggregator="sum" />
-        <Measure name="Labour Cost" column="labour_cost" aggregator="sum" />
-        <Measure name="Investment" column="investment" aggregator="sum" />
-        <Measure name="Intermediates" column="intermediates" aggregator="sum" />
-    </Cube>
 </Schema>
