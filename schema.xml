@@ -56,7 +56,31 @@
     </Cube>
 
     <Cube name="imports">
-        <Table name="pg_imports" schema="economy" />
+        <Table name="pg_imports" schema="economy">
+            <AggName name="datachile_imports_1">
+                <AggFactCount column="pg_imports_fact_count" />
+                <AggMeasure column="pg_imports_CIF_US" name="[Measures].[CIF US]" />
+                <AggLevel column="dim_date_Year" name="[Date].[Year]" />
+                <AggLevel column="dim_countries_Country_(Key)" name="[Origin Country].[Country]" />
+                <AggLevel column="dim_comunas_Region_(Key)" name="[Import Geography].[Region]" />
+                <AggLevel column="dim_comunas_Comuna_(Key)" name="[Import Geography].[Comuna]" />
+            </AggName>
+            <AggName name="datachile_imports_2">
+                <AggFactCount column="pg_imports_fact_count" />
+                <AggMeasure column="pg_imports_CIF_US" name="[Measures].[CIF US]" />
+                <AggLevel column="dim_date_Year" name="[Date].[Year]" />
+                <AggLevel column="dim_date_Month" name="[Date].[Month]" />
+                <AggLevel column="dim_comunas_Region_(Key)" name="[Import Geography].[Region]" />
+                <AggLevel column="dim_comunas_Comuna_(Key)" name="[Import Geography].[Comuna]" />
+            </AggName>
+            <AggName name="datachile_imports_3">
+                <AggFactCount column="pg_imports_fact_count" />
+                <AggMeasure column="pg_imports_CIF_US" name="[Measures].[CIF US]" />
+                <AggLevel column="dim_comunas_Region_(Key)" name="[Import Geography].[Region]" />
+                <AggLevel column="dim_comunas_Comuna_(Key)" name="[Import Geography].[Comuna]" />
+                <AggLevel column="hs_levels_HS2_(Key)" name="[HS].[HS2]" />
+            </AggName>
+        </Table>
         <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
         <DimensionUsage name="Origin Country" source="Country" foreignKey="country_origin_id" />
         <DimensionUsage name="Import Geography" source="Geography" foreignKey="importer_comuna_id" />

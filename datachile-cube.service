@@ -1,7 +1,3 @@
-# systemd unit definition
-# copy to /etc/systemd/system/datachile-cube.service
-# systemctl enable datachile-cube
-# systemctl start datachile-cube
 [Unit]
 Description=DataChile Mondrian REST
 
@@ -9,7 +5,7 @@ Description=DataChile Mondrian REST
 Type=simple
 RemainAfterExit=yes
 User=hermes
-Environment=JRUBY_OPTS=--server
+Environment=JRUBY_OPTS=--server 'JAVA_OPTS=-Dlog4j.configuration=file:log4j.properties -Dmondrian.rolap.aggregates.Use=true -Dmondrian.rolap.aggregates.Read=true'
 PIDFile=/home/hermes/datachile-mondrian/datachile-mondrian.pid
 WorkingDirectory=/home/hermes/datachile-mondrian
 ExecStart=/home/hermes/.rvm/bin/datachile_bundle exec puma -b tcp://0.0.0.0:5000
