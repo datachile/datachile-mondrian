@@ -1,0 +1,47 @@
+#+TITLE: Datachile notes
+
+* Non-additive measures in Mondrian
+
+This will be useful when we need to query measures that don't rollup a
+hierarchy (e.g.: CASEN variables, etc)
+
+#+BEGIN_QUOTE
+Here's an MDX query on the FoodMart schema that contains a
+non-additive and semi-additive measure.
+
+#+BEGIN_SRC mdx
+with member [Measures].[Non Additive Unit Sales] as
+  case when [Time].Level is [Time].[Month]
+     and [Gender].Level is [Gender].[Gender]
+     and [Customers].Level is [Customers].[Name]
+     and [Product].Level is [Product].[Product Name]
+  then [Measures].[Unit Sales]
+  else null
+  end
+member [Measures].[Semi Additive Unit Sales] as
+  case when [Time].Level is [Time].[Month]
+  then [Measures].[Unit Sales].Value
+  else ClosingPeriod([Time].[Month]).Value
+  end
+select
+   {[Measures].[Unit Sales],
+     [Measures].[Non Additive Unit Sales],
+     [Measures].[Semi Additive Unit Sales]}
+   * [Gender].Members ON COLUMNS,
+  [Time].Members ON ROWS
+from [Sales]
+#+END_SRC
+
+The non-additive measure only has a value when you are at the lowest
+level of every single dimension (I omitted a few dimensions to keep
+the example short, but you get the idea). In my experience MDX queries
+always have some degree of aggregation, and this measure would not
+contain values in those queries.  The semi-additive measure adds on
+all dimensions except Time, and for values of Quarter and Year, it
+takes the value of the last Month in that period.  You can take the
+same approach to build measures with more complex rollup behaviors.
+
+(from http://forums.pentaho.com/showthread.php?65993-Support-for-non-additive-and-semi-additive-measures&p=202196#post202196)
+#+END_QUOTE
+
+* Ranking in MDX
