@@ -5,7 +5,7 @@ Description=DataChile Mondrian REST
 Type=simple
 RemainAfterExit=yes
 User=hermes
-Environment=JRUBY_OPTS=--server 'JAVA_OPTS=-Dlog4j.configuration=file:log4j.properties -Dmondrian.rolap.aggregates.Use=true -Dmondrian.rolap.aggregates.Read=true'
+Environment=JRUBY_OPTS=--server 'JAVA_OPTS=-Xmn512m -Xms2048m -Xmx2048m -Dlog4j.configuration=file:log4j.properties -Dmondrian.rolap.aggregates.Use=true -Dmondrian.rolap.aggregates.Read=true -Dmondrian.rolap.nonempty=true'
 PIDFile=/home/hermes/datachile-mondrian/datachile-mondrian.pid
 WorkingDirectory=/home/hermes/datachile-mondrian
 ExecStart=/home/hermes/.rvm/bin/datachile_bundle exec puma -b tcp://0.0.0.0:5000
