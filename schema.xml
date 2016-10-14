@@ -45,7 +45,48 @@
   </Dimension>
 
   <Cube name="exports">
-    <Table name="pg_exports" schema="economy" />
+    <Table name="pg_exports" schema="economy">
+      <AggName name="datachile_exports_1">
+        <AggFactCount column="pg_exports_fact_count">
+        </AggFactCount>
+        <AggMeasure column="pg_exports_Q_Traded" name="[Measures].[Q Traded]">
+        </AggMeasure>
+        <AggMeasure column="pg_exports_FOB_US" name="[Measures].[FOB US]">
+        </AggMeasure>
+        <AggLevel column="dim_date_Year" name="[Date].[Year]">
+        </AggLevel>
+        <AggLevel column="dim_countries_Country_(Key)" name="[Destination Country].[Country]">
+        </AggLevel>
+      </AggName>
+      <AggName name="datachile_exports_2">
+        <AggFactCount column="pg_exports_fact_count">
+        </AggFactCount>
+        <AggMeasure column="pg_exports_Q_Traded" name="[Measures].[Q Traded]">
+        </AggMeasure>
+        <AggMeasure column="pg_exports_FOB_US" name="[Measures].[FOB US]">
+        </AggMeasure>
+        <AggLevel column="dim_date_Year" name="[Date].[Year]">
+        </AggLevel>
+        <AggLevel column="hs_levels_HS0_(Key)" name="[HS].[HS0]">
+        </AggLevel>
+      </AggName>
+      <AggName name="datachile_exports_3">
+        <AggFactCount column="pg_exports_fact_count">
+        </AggFactCount>
+        <AggMeasure column="pg_exports_Q_Traded" name="[Measures].[Q Traded]">
+        </AggMeasure>
+        <AggMeasure column="pg_exports_FOB_US" name="[Measures].[FOB US]">
+        </AggMeasure>
+        <AggLevel column="dim_date_Year" name="[Date].[Year]">
+        </AggLevel>
+        <AggLevel column="dim_comunas_Region_(Key)" name="[Export Geography].[Region]">
+        </AggLevel>
+        <AggLevel column="hs_levels_HS0_(Key)" name="[HS].[HS0]">
+        </AggLevel>
+        <AggLevel column="hs_levels_HS2_(Key)" name="[HS].[HS2]">
+        </AggLevel>
+      </AggName>
+    </Table>
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Destination Country" source="Country" foreignKey="country_dest_id" />
@@ -57,9 +98,11 @@
 
     <CalculatedMember name="Geo Rank" dimension="Measures">
       <Formula>
-           Rank([Export Geography].CurrentMember,
-                Order([Export Geography].CurrentMember.Siblings,
-                Measures.[FOB US], BDESC))
+        IIf(IsEmpty([Measures].[FOB US]),
+          Null,
+          Rank([Export Geography].CurrentMember,
+               Order([Export Geography].CurrentMember.Siblings,
+               Measures.[FOB US], BDESC)))
       </Formula>
     </CalculatedMember>
 
@@ -108,7 +151,6 @@
         </AggLevel>
       </AggName>
     </Table>
-
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Origin Country" source="Country" foreignKey="country_origin_id" />
     <DimensionUsage name="Import Geography" source="Geography" foreignKey="importer_comuna_id" />
