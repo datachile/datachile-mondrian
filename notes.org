@@ -1,6 +1,31 @@
 #+TITLE: Datachile notes
 
-* Non-additive measures in Mondrian
+* Text Generation
+
+** Examples from OEC
+
+In 2014 Argentina exported $69B, making it the 47th largest exporter
+in the world. During the last five years the exports of Argentina have
+increased at an annualized rate of 4.2%, from $56.1B in 2009 to $69B
+in 2014. The most recent exports are led by Soybean Meal which
+represent 17.2% of the total exports of Argentina, followed by
+Delivery Trucks, which account for 5.62%.
+
+Templatized:
+
+In =<LatestYear>= =<Country>= exported =<SUM(Exports) GROUP BY Year
+HAVING Year = LatestYear>=, making it the =<Rank(Country,
+Country.Siblings, Exports>= largest exporter
+in the world. During the last five years the exports of =<Country>= have
+increased at an annualized rate of =<Annualize(firstYear, lastYear)>=,
+from $56.1B in 2009 to $69B in 2014. The most recent exports are led
+by Soybean Meal which represent 17.2% of the total exports of
+Argentina, followed by Delivery Trucks, which account for 5.62%.
+
+
+* Mondrian Musings
+
+** Non-additive measures in Mondrian
 
 This will be useful when we need to query measures that don't rollup a
 hierarchy (e.g.: CASEN variables, etc)
@@ -44,4 +69,52 @@ same approach to build measures with more complex rollup behaviors.
 (from http://forums.pentaho.com/showthread.php?65993-Support-for-non-additive-and-semi-additive-measures&p=202196#post202196)
 #+END_QUOTE
 
-* Ranking in MDX
+** Ranking in MDX
+
+Example of the ~Rank()~ function. ~OrderedRegion~ is a set of Regions
+ordered by their associated ~CIF US~ measure. ~Region Rank~ is the
+position of a Region in the ~OrderedRegion~ set.
+
+(I don't think this works)
+
+#+BEGIN_SRC mdx
+
+WITH
+
+MEMBER [Measures].[Comuna Rank] AS
+   Rank([Import Geography].Level.CurrentMember,
+        Order([Import Geography].Level.Members, [Measures].[CIF US], BDESC))
+
+MEMBER [Measures].[Rank in Region] AS
+   Rank([Import Geography].Level.CurrentMember,
+        Order([Import Geography].Level.CurrentMember.Parent.Children,
+              [Measures].[CIF US],
+              BDESC))
+
+select NON EMPTY {[Measures].[CIF US], [Measures].[Comuna Rank], [Measures].[Rank in Region]} ON 0,
+  NON EMPTY filter([Date].Year.Members, [Date].CurrentMember.Value > 2000) ON 1,
+  NON EMPTY [Import Geography].[Comuna].Members ON 2,
+  NON EMPTY [HS].[HS0].Members ON 3
+from [imports]
+
+#+END_SRC
+
+Here's another, which seems to work and perform well.
+
+
+#+BEGIN_SRC mdx
+WITH
+
+MEMBER [Measures].[Comuna Rank] AS
+   Rank([Import Geography].CurrentMember,
+        Order([Import Geography].CurrentMember.Siblings, Measures.[CIF US], BDESC))
+
+select NON EMPTY {[Measures].[CIF US], [Measures].[Comuna Rank] } ON 0,
+  NON EMPTY filter([Date].Year.Members, Date.Year.CurrentMember.Name >= "2000" and Date.Year.CurrentMember.Name <= "2010") ON 1,
+  Order([Import Geography].Region.Members, Measures.[CIF US], BDESC) ON 2
+
+from [imports]
+
+#+END_SRC
+
+(adapted from: https://msdn.microsoft.com/en-us/library/ms144726.aspx)
