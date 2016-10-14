@@ -18,7 +18,7 @@ logger.level = Logger::DEBUG
 PARAMS = {
   driver: 'postgresql',
   host: 'hermes',
-  port: 5432,
+  port: 5433,
   database: 'datachile',
   username: 'datachile',
   password: 'yapoweon',
