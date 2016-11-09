@@ -13,7 +13,7 @@
     <Hierarchy hasAll="true" primaryKey="id">
       <Table name="dim_comunas" schema="public" />
       <Level name="Region" column="region_id" nameColumn="region_name" uniqueMembers="true" />
-      <Level name="Comuna" column="comuna_datachile_id" nameColumn="comuna_name" uniqueMembers="true"  />
+      <Level name="Comuna" column="comuna_datachile_id" nameColumn="comuna_name" uniqueMembers="false"  />
     </Hierarchy>
   </Dimension>
 
@@ -28,9 +28,9 @@
     <Hierarchy hasAll="true" primaryKey="level3">
       <Table name="hs_levels" schema="economy" />
       <Level name="HS0" column="level0" nameColumn="level0_name" uniqueMembers="true" />
-      <Level name="HS2" column="level1" nameColumn="level1_name" uniqueMembers="true" />
-      <Level name="HS4" column="level2" nameColumn="level2_name" uniqueMembers="true" />
-      <Level name="HS6" column="level3" nameColumn="level3_name" uniqueMembers="true" />
+      <Level name="HS2" column="level1" nameColumn="level1_name" uniqueMembers="false" />
+      <Level name="HS4" column="level2" nameColumn="level2_name" uniqueMembers="false" />
+      <Level name="HS6" column="level3" nameColumn="level3_name" uniqueMembers="false" />
     </Hierarchy>
   </Dimension>
 
@@ -38,82 +38,42 @@
     <Hierarchy hasAll="true" primaryKey="level4">
       <Table name="dim_isic" schema="public" />
       <Level name="Level 1" column="level1" nameColumn="level1_description" uniqueMembers="true" />
-      <Level name="Level 2" column="level2" nameColumn="level2_description" uniqueMembers="true" />
-      <Level name="Level 3" column="level3" nameColumn="level3_description" uniqueMembers="true" />
-      <Level name="Level 4" column="level4" nameColumn="level4_description" uniqueMembers="true" />
+      <Level name="Level 2" column="level2" nameColumn="level2_description" uniqueMembers="false" />
+      <Level name="Level 3" column="level3" nameColumn="level3_description" uniqueMembers="false" />
+      <Level name="Level 4" column="level4" nameColumn="level4_description" uniqueMembers="false" />
     </Hierarchy>
   </Dimension>
 
   <Cube name="exports">
-    <Table name="pg_exports" schema="economy">
-      <AggName name="datachile_exports_1">
-        <AggFactCount column="pg_exports_fact_count">
-        </AggFactCount>
-        <AggMeasure column="pg_exports_Q_Traded" name="[Measures].[Q Traded]">
-        </AggMeasure>
-        <AggMeasure column="pg_exports_FOB_US" name="[Measures].[FOB US]">
-        </AggMeasure>
-        <AggLevel column="dim_date_Year" name="[Date].[Year]">
-        </AggLevel>
-        <AggLevel column="dim_countries_Country_(Key)" name="[Destination Country].[Country]">
-        </AggLevel>
-      </AggName>
-      <AggName name="datachile_exports_2">
-        <AggFactCount column="pg_exports_fact_count">
-        </AggFactCount>
-        <AggMeasure column="pg_exports_Q_Traded" name="[Measures].[Q Traded]">
-        </AggMeasure>
-        <AggMeasure column="pg_exports_FOB_US" name="[Measures].[FOB US]">
-        </AggMeasure>
-        <AggLevel column="dim_date_Year" name="[Date].[Year]">
-        </AggLevel>
-        <AggLevel column="hs_levels_HS0_(Key)" name="[HS].[HS0]">
-        </AggLevel>
-      </AggName>
-      <AggName name="datachile_exports_3">
-        <AggFactCount column="pg_exports_fact_count">
-        </AggFactCount>
-        <AggMeasure column="pg_exports_Q_Traded" name="[Measures].[Q Traded]">
-        </AggMeasure>
-        <AggMeasure column="pg_exports_FOB_US" name="[Measures].[FOB US]">
-        </AggMeasure>
-        <AggLevel column="dim_date_Year" name="[Date].[Year]">
-        </AggLevel>
-        <AggLevel column="dim_comunas_Region_(Key)" name="[Export Geography].[Region]">
-        </AggLevel>
-        <AggLevel column="hs_levels_HS0_(Key)" name="[HS].[HS0]">
-        </AggLevel>
-        <AggLevel column="hs_levels_HS2_(Key)" name="[HS].[HS2]">
-        </AggLevel>
-      </AggName>
+    <Table name="pg_exports_grouped" schema="economy">
     </Table>
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Destination Country" source="Country" foreignKey="country_dest_id" />
-    <DimensionUsage name="Export Geography" source="Geography" foreignKey="exporter_comuna_id" />
-    <DimensionUsage name="HS" source="HS" foreignKey="hs_level3" />
+    <DimensionUsage name="Geography" source="Geography" foreignKey="exporter_comuna_id" />
+    <DimensionUsage name="Export HS" source="HS" foreignKey="hs_level3" />
 
-    <Measure name="Q Traded" column="q_traded" aggregator="sum" />
+    <!-- Measure name="Q Traded" column="q_traded" aggregator="sum" / -->
     <Measure name="FOB US" column="fob_us" aggregator="sum" />
 
     <CalculatedMember name="Geo Rank" dimension="Measures">
       <Formula>
         IIf(IsEmpty([Measures].[FOB US]),
           Null,
-          Rank([Export Geography].CurrentMember,
-               Order([Export Geography].CurrentMember.Siblings,
+          Rank([Geography].CurrentMember,
+               Order([Geography].CurrentMember.Siblings,
                Measures.[FOB US], BDESC)))
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Geo Rank Across Time" dimension="Measures">
       <Annotations>
-        <Annotation name="description">Rank of this particularly geography across all its siblings, by time</Annotation>
+        <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
       </Annotations>
       <Formula>
-        Rank([Export Geography].CurrentMember,
-          Order([Export Geography].CurrentMember.Siblings,
-                Aggregate({[Date].CurrentMember}*{[Destination Country].[All Destination Countrys]}*{[HS].[All HSs]},
+        Rank([Geography].CurrentMember,
+          Order([Geography].CurrentMember.Siblings,
+                Aggregate({[Date].CurrentMember}*{[Destination Country].[All Destination Countrys]}*{[Export HS].[All Export HSs]},
                           [Measures].[FOB US]),
                 BDESC))
 
@@ -123,61 +83,34 @@
   </Cube>
 
   <Cube name="imports">
-    <Table name="pg_imports" schema="economy">
-      <AggName name="datachile_imports_2">
-        <AggFactCount column="pg_imports_fact_count">
-        </AggFactCount>
-        <AggMeasure column="pg_imports_CIF_US" name="[Measures].[CIF US]">
-        </AggMeasure>
-        <AggLevel column="dim_date_Year" name="[Date].[Year]">
-        </AggLevel>
-        <AggLevel column="dim_countries_Country_(Key)" name="[Origin Country].[Country]">
-        </AggLevel>
-        <AggLevel column="hs_levels_HS0_(Key)" name="[HS].[HS0]">
-        </AggLevel>
-      </AggName>
-      <AggName name="datachile_imports_5">
-        <AggFactCount column="pg_imports_fact_count">
-        </AggFactCount>
-        <AggMeasure column="pg_imports_CIF_US" name="[Measures].[CIF US]">
-        </AggMeasure>
-        <AggLevel column="dim_date_Year" name="[Date].[Year]">
-        </AggLevel>
-        <AggLevel column="dim_comunas_Region_(Key)" name="[Import Geography].[Region]">
-        </AggLevel>
-        <AggLevel column="hs_levels_HS0_(Key)" name="[HS].[HS0]">
-        </AggLevel>
-        <AggLevel column="hs_levels_HS2_(Key)" name="[HS].[HS2]">
-        </AggLevel>
-      </AggName>
+    <Table name="pg_imports_grouped" schema="economy">
     </Table>
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Origin Country" source="Country" foreignKey="country_origin_id" />
-    <DimensionUsage name="Import Geography" source="Geography" foreignKey="importer_comuna_id" />
-    <DimensionUsage name="HS" source="HS" foreignKey="hs_6digits" />
+    <DimensionUsage name="Geography" source="Geography" foreignKey="importer_comuna_id" />
+    <DimensionUsage name="Import HS" source="HS" foreignKey="hs_6digits" />
 
     <Measure name="CIF US" column="cif_us" aggregator="sum" />
 
     <CalculatedMember name="Geo Rank Across Time" dimension="Measures">
       <Annotations>
-        <Annotation name="description">Rank of this particularly geography across all its siblings, by time</Annotation>
+        <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
       </Annotations>
       <Formula>
-        Rank([Import Geography].CurrentMember,
-          Order([Import Geography].CurrentMember.Siblings,
-                Aggregate({[Date].CurrentMember}*{[Origin Country].[All Origin Countrys]}*{[HS].[All HSs]},
+        Rank([Geography].CurrentMember,
+          Order([Geography].CurrentMember.Siblings,
+                Aggregate({[Date].CurrentMember}*{[Origin Country].[All Origin Countrys]}*{[Import HS].[All Import HSs]},
                           [Measures].[CIF US]),
                 BDESC))
 
       </Formula>
     </CalculatedMember>
-
   </Cube>
 
   <Cube name="tax_data">
     <Table name="tax_data" schema="economy" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
-    <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_id" />
+    <DimensionUsage name="Tax Geography" source="Geography" foreignKey="comuna_id" />
     <DimensionUsage name="ISICrev4" source="ISICrev4" foreignKey="ciiu4_ori" />
 
     <Measure name="Output" column="output" aggregator="sum" />
@@ -187,15 +120,95 @@
     <Measure name="Intermediates" column="intermediates" aggregator="sum" />
   </Cube>
 
-  <VirtualCube name="exports_and_imports" defaultMeasure="Trade Balance">
+  <Cube name="income_gini">
+    <Table name="fact_income_gini" schema="economy" />
+
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
+
+    <Measure name="region_mean_income" column="region_mean_income" visible="false" aggregator="min" />
+    <Measure name="region_median_income" column="median_income" visible="false" aggregator="min" />
+    <Measure name="region_gini_income" column="region_gini_income" visible="false" aggregator="min" />
+    <Measure name="comuna_mean_income" column="comuna_mean_income" visible="false" aggregator="min" />
+    <Measure name="comuna_median_income" column="comuna_median_income" visible="false" aggregator="min" />
+    <Measure name="comuna_gini_income" column="comuna_gini_income" visible="false" aggregator="min" />
+
+    <Measure name="region_ci_mean_income_lower" column="region_ci_mean_income_lower" visible="false" aggregator="min" />
+    <Measure name="region_ci_mean_income_upper" column="region_ci_mean_income_upper" visible="false" aggregator="min" />
+    <Measure name="region_ci_median_income_lower" column="region_ci_median_income_lower" visible="false" aggregator="min" />
+    <Measure name="region_ci_median_income_upper" column="region_ci_median_income_upper" visible="false" aggregator="min" />
+    <Measure name="region_ci_gini_income_lower" column="region_ci_gini_income_lower" visible="false" aggregator="min" />
+    <Measure name="region_ci_gini_income_upper" column="region_ci_gini_income_upper" visible="false" aggregator="min" />
+    <Measure name="comuna_ci_mean_income_lower" column="comuna_ci_mean_income_lower" visible="false" aggregator="min" />
+    <Measure name="comuna_ci_mean_income_upper" column="comuna_ci_mean_income_upper" visible="false" aggregator="min" />
+    <Measure name="comuna_ci_median_income_lower" column="comuna_ci_median_income_lower" visible="false" aggregator="min" />
+    <Measure name="comuna_ci_median_income_upper" column="comuna_ci_median_income_upper" visible="false" aggregator="min" />
+    <Measure name="comuna_ci_gini_income_lower" column="comuna_ci_gini_income_lower" visible="false" aggregator="min" />
+    <Measure name="comuna_ci_gini_income_upper" column="comuna_ci_gini_income_upper" visible="false" aggregator="min" />
+
+    <!-- This is a hackish way of implementing non-additive measures
+         Taken from: http://forums.pentaho.com/showthread.php?65993-Support-for-non-additive-and-semi-additive-measures&p=202196#post202196 -->
+    <CalculatedMember name="Mean Income" dimension="Measures">
+      <Formula>
+        CASE WHEN [Date].Level is [Date].Year
+        THEN
+          CASE
+            WHEN [Geography].Level is [Geography].[Region] THEN [Measures].[region_mean_income]
+            WHEN [Geography].Level is [Geography].[Comuna] THEN [Measures].[comuna_mean_income]
+            ELSE Null
+          END
+        ELSE Null
+        END
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="Median Income" dimension="Measures">
+      <Formula>
+        CASE WHEN [Date].Level is [Date].Year
+        THEN
+          CASE
+            WHEN [Geography].Level is [Geography].[Region] THEN [Measures].[region_median_income]
+            WHEN [Geography].Level is [Geography].[Comuna] THEN [Measures].[comuna_median_income]
+            ELSE Null
+          END
+        ELSE Null
+        END
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="Gini" dimension="Measures">
+      <Formula>
+        CASE WHEN [Date].Level is [Date].Year
+        THEN
+          CASE
+            WHEN [Geography].Level is [Geography].[Region] THEN [Measures].[region_gini_income]
+            WHEN [Geography].Level is [Geography].[Comuna] THEN [Measures].[comuna_gini_income]
+            ELSE Null
+          END
+        ELSE Null
+        END
+      </Formula>
+    </CalculatedMember>
+
+  </Cube>
+
+
+  <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
     <VirtualCubeDimension name="Geography" />
-    <VirtualCubeDimension name="HS" />
+
     <VirtualCubeMeasure cubeName="exports" name="[Measures].[FOB US]" />
     <VirtualCubeMeasure cubeName="imports" name="[Measures].[CIF US]" />
 
-    <CalculatedMember name="Trade Balance" dimension="Measures">
-      <Formula>[Measures].[FOB US] - [Measures].[CIF US]</Formula>
+    <CalculatedMember name="FOB" dimension="Measures" visible="true">
+      <Formula>ValidMeasure([Measures].[FOB US])</Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="CIF" dimension="Measures" visible="true">
+      <Formula>ValidMeasure([Measures].[CIF US])</Formula>
     </CalculatedMember>
   </VirtualCube>
+
+
+
 </Schema>
