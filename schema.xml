@@ -97,11 +97,11 @@
         <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
       </Annotations>
       <Formula>
-        Rank([Geography].CurrentMember,
-          Order([Geography].CurrentMember.Siblings,
-                Aggregate({[Date].CurrentMember}*{[Origin Country].[All Origin Countrys]}*{[Import HS].[All Import HSs]},
-                          [Measures].[CIF US]),
-                BDESC))
+            Rank([Geography].CurrentMember,
+              Order([Geography].CurrentMember.Siblings,
+                    Aggregate({[Date].CurrentMember}*{[Origin Country].[All Origin Countrys]}*{[Import HS].[All Import HSs]},
+                              [Measures].[CIF US]),
+                    BDESC))
 
       </Formula>
     </CalculatedMember>
@@ -189,7 +189,6 @@
         END
       </Formula>
     </CalculatedMember>
-
   </Cube>
 
 
@@ -197,8 +196,8 @@
     <VirtualCubeDimension name="Date" />
     <VirtualCubeDimension name="Geography" />
 
-    <VirtualCubeMeasure cubeName="exports" name="[Measures].[FOB US]" />
-    <VirtualCubeMeasure cubeName="imports" name="[Measures].[CIF US]" />
+    <VirtualCubeMeasure cubeName="exports" name="[Measures].[FOB US]" visible="false" />
+    <VirtualCubeMeasure cubeName="imports" name="[Measures].[CIF US]" visible="false" />
 
     <CalculatedMember name="FOB" dimension="Measures" visible="true">
       <Formula>ValidMeasure([Measures].[FOB US])</Formula>
@@ -207,8 +206,10 @@
     <CalculatedMember name="CIF" dimension="Measures" visible="true">
       <Formula>ValidMeasure([Measures].[CIF US])</Formula>
     </CalculatedMember>
+
+    <CalculatedMember name="Trade Balance" dimension="Measures" visible="true">
+      <Formula>([Measures].[FOB US] - [Measures].[CIF US])</Formula>
+    </CalculatedMember>
   </VirtualCube>
-
-
 
 </Schema>
