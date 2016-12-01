@@ -13,7 +13,7 @@
     <Hierarchy hasAll="true" primaryKey="id">
       <Table name="dim_comunas" schema="public" />
       <Level name="Region" column="region_id" nameColumn="region_name" uniqueMembers="true" />
-      <Level name="Comuna" column="comuna_datachile_id" nameColumn="comuna_name" uniqueMembers="false"  />
+      <Level name="Comuna" column="comuna_datachile_id" nameColumn="comuna_name" uniqueMembers="false" />
     </Hierarchy>
   </Dimension>
 
@@ -37,7 +37,12 @@
   <Dimension name="ISICrev4">
     <Hierarchy hasAll="true" primaryKey="level4">
       <Table name="dim_isic" schema="public" />
-      <Level name="Level 1" column="level1" nameColumn="level1_description" uniqueMembers="true" />
+      <Level name="Level 1" column="level1" nameColumn="level1_description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Level 1 ES</Annotation>
+        </Annotations>
+        <Property name="Level 1 ES" column="es_level1_description" />
+      </Level>
       <Level name="Level 2" column="level2" nameColumn="level2_description" uniqueMembers="false" />
       <Level name="Level 3" column="level3" nameColumn="level3_description" uniqueMembers="false" />
       <Level name="Level 4" column="level4" nameColumn="level4_description" uniqueMembers="false" />
@@ -59,10 +64,10 @@
     <CalculatedMember name="Geo Rank" dimension="Measures">
       <Formula>
         IIf(IsEmpty([Measures].[FOB US]),
-          Null,
-          Rank([Geography].CurrentMember,
-               Order([Geography].CurrentMember.Siblings,
-               Measures.[FOB US], BDESC)))
+            Null,
+            Rank([Geography].CurrentMember,
+                 Order([Geography].CurrentMember.Siblings,
+                 Measures.[FOB US], BDESC)))
       </Formula>
     </CalculatedMember>
 
@@ -71,11 +76,13 @@
         <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
       </Annotations>
       <Formula>
+        Iif(IsEmpty([Measures].[FOB US]),
+            Null,
         Rank([Geography].CurrentMember,
           Order([Geography].CurrentMember.Siblings,
                 Aggregate({[Date].CurrentMember}*{[Destination Country].[All Destination Countrys]}*{[Export HS].[All Export HSs]},
                           [Measures].[FOB US]),
-                BDESC))
+                BDESC)))
 
       </Formula>
     </CalculatedMember>
@@ -97,11 +104,13 @@
         <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
       </Annotations>
       <Formula>
+        Iif(IsEmpty([Measures].[CIF US]),
+            Null,
             Rank([Geography].CurrentMember,
-              Order([Geography].CurrentMember.Siblings,
-                    Aggregate({[Date].CurrentMember}*{[Origin Country].[All Origin Countrys]}*{[Import HS].[All Import HSs]},
-                              [Measures].[CIF US]),
-                    BDESC))
+                 Order([Geography].CurrentMember.Siblings,
+                       Aggregate({[Date].CurrentMember}*{[Origin Country].[All Origin Countrys]}*{[Import HS].[All Import HSs]},
+                                 [Measures].[CIF US]),
+                       BDESC)))
 
       </Formula>
     </CalculatedMember>
