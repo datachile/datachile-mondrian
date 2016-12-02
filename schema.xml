@@ -60,6 +60,16 @@
 
     <!-- Measure name="Q Traded" column="q_traded" aggregator="sum" / -->
     <Measure name="FOB US" column="fob_us" aggregator="sum" />
+    <Measure name="rca_internal" column="region_rca" aggregator="min" visible="false" />
+
+    <CalculatedMember name="RCA" dimension="Measures">
+      <Formula>
+        CASE
+          WHEN [Geography].Level is [Geography].[Region] AND [Export HS].Level is [Export HS].[HS6] THEN [Measures].[rca_internal]
+          ELSE Null
+        END
+      </Formula>
+    </CalculatedMember>
 
     <CalculatedMember name="Geo Rank" dimension="Measures">
       <Formula>
