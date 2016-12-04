@@ -65,7 +65,7 @@
     <CalculatedMember name="RCA" dimension="Measures">
       <Formula>
         CASE
-          WHEN [Geography].Level is [Geography].[Region] AND [Export HS].Level is [Export HS].[HS6] THEN [Measures].[rca_internal]
+          WHEN [Geography].Level is [Geography].[Region] AND [Export HS].Level is [Export HS].[HS4] THEN [Measures].[rca_internal]
           ELSE Null
         END
       </Formula>
