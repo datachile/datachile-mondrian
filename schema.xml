@@ -154,6 +154,24 @@
     <Measure name="Labour Cost" column="labour_cost" aggregator="sum" />
     <Measure name="Investment" column="investment" aggregator="sum" />
     <Measure name="Intermediates" column="intermediates" aggregator="sum" />
+
+    <CalculatedMember name="Value Added" dimension="Measures">
+      <Formula>
+        [Measures].[Output] - [Measures].[Intermediates]
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="Labour Productivity Based on Sales" dimension="Measures">
+      <Formula>
+        Iif([Measures].[Labour] > 0, [Measures].[Output]/[Measures].[Labour], Null)
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="Labour Productivity Based on Value Added" dimension="Measures">
+      <Formula>
+        Iif([Measures].[Labour] > 0, [Measures].[Value Added] / [Measures].[Labour], Null)
+      </Formula>
+    </CalculatedMember>
   </Cube>
 
   <Cube name="income_gini">
