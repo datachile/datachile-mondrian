@@ -45,9 +45,24 @@
         </Annotations>
         <Property name="Level 1 ES" column="es_level1_description" />
       </Level>
-      <Level name="Level 2" column="level2" nameColumn="level2_description" uniqueMembers="false" />
-      <Level name="Level 3" column="level3" nameColumn="level3_description" uniqueMembers="false" />
-      <Level name="Level 4" column="level4" nameColumn="level4_description" uniqueMembers="false" />
+      <Level name="Level 2" column="level2" nameColumn="level2_description" uniqueMembers="false">
+        <Annotations>
+          <Annotation name="es_caption">Level 2 ES</Annotation>
+        </Annotations>
+        <Property name="Level 2 ES" column="es_level2_description" />
+      </Level>
+      <Level name="Level 3" column="level3" nameColumn="level3_description" uniqueMembers="false">
+        <Annotations>
+          <Annotation name="es_caption">Level 3 ES</Annotation>
+        </Annotations>
+        <Property name="Level 3 ES" column="es_level3_description" />
+      </Level>
+      <Level name="Level 4" column="level4" nameColumn="level4_description" uniqueMembers="false">
+        <Annotations>
+          <Annotation name="es_caption">Level 4 ES</Annotation>
+        </Annotations>
+        <Property name="Level 4 ES" column="es_level4_description" />
+      </Level>
     </Hierarchy>
   </Dimension>
 
