@@ -22,7 +22,12 @@
       <Table name="dim_countries_new" schema="public" />
       <Level name="Region" column="region_code" nameColumn="region" uniqueMembers="true" />
       <Level name="Subregion" column="sub_region_code" nameColumn="sub_region" uniqueMembers="true" />
-      <Level name="Country" column="country_code" nameColumn="country_name" uniqueMembers="true" />
+      <Level name="Country" column="country_code" nameColumn="country_name" uniqueMembers="true">
+          <Annotations>
+              <Annotation name="es_caption">Country ES</Annotation>
+          </Annotations>
+          <Property name="Country ES" column="es_country_name" />
+      </Level>
     </Hierarchy>
   </Dimension>
 
