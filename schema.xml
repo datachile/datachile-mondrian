@@ -67,8 +67,7 @@
   </Dimension>
 
   <Cube name="exports">
-    <Table name="pg_exports_grouped" schema="economy">
-    </Table>
+    <Table name="pg_exports_grouped" schema="economy" />
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Destination Country" source="Country" foreignKey="country_dest_id" />
@@ -172,6 +171,77 @@
         Iif([Measures].[Labour] > 0, [Measures].[Value Added] / [Measures].[Labour], Null)
       </Formula>
     </CalculatedMember>
+  </Cube>
+
+  <Cube name="rd_survey">
+    <Table name="fact_rd_survey" schema="public" />
+
+    <Dimension name="Year">
+      <Hierarchy hasAll="true">
+        <Level column="ano" nameColumn="ano" name="Year" uniqueMembers="true" />
+      </Hierarchy>>
+    </Dimension>
+
+    <DimensionUsage name="Headquarters Country" source="Country" foreignKey="headquarters_country_id" />
+
+    <Dimension name="ISICrev4" foreignKey="CIIU_level1">
+      <!-- dim_isic that only contains the first level -->
+      <Hierarchy hasAll="true" primaryKey="level1">
+        <View alias="isicrev4_level1">
+          <SQL>SELECT distinct(level1), level1_description, es_level1_description from dim_isic</SQL>
+        </View>
+        <Level name="Level 1" column="level1" nameColumn="level1_description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Level 1 ES</Annotation>
+          </Annotations>
+          <Property name="Level 1 ES" column="es_level1_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Ownership Type" foreignKey="forma_propiedad">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="ownership_type">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric"/>
+            <ColumnDef name="description" type="String"/>
+            <ColumnDef name="es_description" type="String"/>
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Private Domestic</Value>
+              <Value column="es_description">Privada Nacional</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Private Foreign</Value>
+              <Value column="es_description">Privada Extranjera</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Mixed</Value>
+              <Value column="es_description">Mixta</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">State-owned</Value>
+              <Value column="es_description">Estatal</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="Ownership Type" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure name="sales" column="ventas" visible="true" aggregator="sum" />
+    <Measure name="exports" column="exportaciones" visible="true" aggregator="sum" />
+
   </Cube>
 
   <Cube name="income_gini">
