@@ -204,6 +204,76 @@
       </Hierarchy>
     </Dimension>
 
+    <Dimension name="Business Type" foreignKey="org_juridica">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="ownership_type">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric"/>
+            <ColumnDef name="description" type="String"/>
+            <ColumnDef name="es_description" type="String"/>
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Individual</Value>
+              <Value column="es_description">Personal Natural</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Limited Liability Company</Value>
+              <Value column="es_description">Sociedad de Responsabilidad Limitada</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">General Partnership</Value>
+              <Value column="es_description">Sociedad Colectiva</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">Closed Corporation</Value>
+              <Value column="es_description">Sociedad Anónima Cerrada</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Open Stock Coporation</Value>
+              <Value column="es_description">Sociedad Anónima Abierta</Value>
+            </Row>
+            <Row>
+              <Value column="id">6</Value>
+              <Value column="description">Cooperative</Value>
+              <Value column="es_description">Cooperativa</Value>
+            </Row>
+            <Row>
+              <Value column="id">7</Value>
+              <Value column="description">State-owned</Value>
+              <Value column="es_description">Pública</Value>
+            </Row>
+            <Row>
+              <Value column="id">8</Value>
+              <Value column="description">Joint-stock company</Value>
+              <Value column="es_description">Sociedad por Acciones</Value>
+            </Row>
+            <Row>
+              <Value column="id">9</Value>
+              <Value column="description">Single-owner limited liability company</Value>
+              <Value column="es_description">EIRL</Value>
+            </Row>
+            <Row>
+              <Value column="id">10</Value>
+              <Value column="description">Other</Value>
+              <Value column="es_description">Other</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="Business Type" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
     <Dimension name="Ownership Type" foreignKey="forma_propiedad">
       <Hierarchy hasAll="true">
         <InlineTable alias="ownership_type">
