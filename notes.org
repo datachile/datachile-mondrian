@@ -118,3 +118,91 @@ from [imports]
 #+END_SRC
 
 (adapted from: https://msdn.microsoft.com/en-us/library/ms144726.aspx)
+** Implementing (hacking) custom aggregations
+
+Taken from here: http://jira.pentaho.com/browse/MONDRIAN-570?focusedCommentId=253824&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-253824
+
+#+BEGIN_QUOTE
+
+I found a (dirty) workaround for registering an additional aggregator that performs arbitrary SQL aggregrations at DB (in my case I used the Percentile_Disc function of Oracle).
+
+First The aggregator must be registered at Mondrian which I have done in static inializer block in my =DynamicSchemaProcessor=:
+
+#+BEGIN_SRC java
+  static
+  {
+    int index = RolapAggregator.enumeration.getMax();
+    registerAggregator(new NoneRolapAggregator(++index));
+  }
+
+  private static void registerAggregator(final RolapAggregator aggregator)
+  {
+    // reset field 'ordinalToValueMap' in order to make enumeration mutable again
+    try
+    {
+      final Field f = ReflectionUtil.getField(EnumeratedValues.class, "ordinalToValueMap");
+      f.setAccessible(true); // allow setting private fields
+      f.set(RolapAggregator.enumeration, null);
+    }
+    catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException e)
+    {
+      throw new RuntimeException(e);
+    }
+
+    RolapAggregator.enumeration.register(aggregator);
+    RolapAggregator.enumeration.makeImmutable();
+  }
+#+END_SRC
+
+Note: Setting private fields of mondrian classes is not the way things should be done - but currently there is no other solution to add custom aggregators (except for the solution described in http://blog.endpoint.com/2009/07/subverting-postgresql-aggregates-for.html).
+
+Here is the implementation of the NoneRolapAggregator:
+
+#+BEGIN_SRC java
+
+/**
+ * {@link Aggregator} implementation for performing all aggregation at DB.
+ * NOTE: This aggregator does not use segments that are already loaded (into cache).
+ * It always queries back to DB for doing the required aggregation.
+ */
+public class NoneRolapAggregator extends RolapAggregator {
+
+  public NoneRolapAggregator(final int index) {
+    super("None", index, false);
+  }
+
+  public Aggregator getRollup()  {
+    return this;
+  }
+
+  public Object aggregate(final Evaluator evaluator, final TupleList members, final Calc exp) {
+    // See AggregateFunDef$AggregateCalc.aggregate where logic for distinct-count
+    // is implemented (which also queries back to DB for aggregated value, independently from segments).
+    // See also http://lists.pentaho.org/pipermail/mondrian/2007-November/000901.html
+    final Evaluator evaluator2 = evaluator.pushAggregation(members);
+    evaluator2.setNonEmpty(false);
+    return evaluator2.evaluateCurrent();
+  }
+
+  public String getExpression(final String operand) {
+    return operand;
+  }
+
+  public boolean supportsFastAggregates(final Datatype dataType)  {
+    return false;
+  }
+}
+
+#+END_SRC
+
+With this NoneRolapAggregator I can use MeasureExpressions to use arbitrary SQL aggregations. E.g.,
+
+#+BEGIN_SRC xml
+<Measure name="Percentile75" caption="Percentile 75%" dataType="Numeric" aggregator="None" visible="true" >
+  <MeasureExpression>
+    <SQL dialect="Oracle">PERCENTILE_DISC(0.75) WITHIN GROUP (ORDER BY MyRawValue ASC)</SQL>
+  </MeasureExpression>
+</Measure>
+#+END_SRC
+
+#+END_QUOTE
