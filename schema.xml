@@ -181,12 +181,7 @@
   <Cube name="rd_survey">
     <Table name="fact_rd_survey" schema="public" />
 
-    <Dimension name="Year">
-      <Hierarchy hasAll="true">
-        <Level column="ano" nameColumn="ano" name="Year" uniqueMembers="true" />
-      </Hierarchy>>
-    </Dimension>
-
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Headquarters Country" source="Country" foreignKey="headquarters_country_id" />
 
     <Dimension name="ISICrev4" foreignKey="CIIU_level1">
@@ -316,6 +311,22 @@
 
     <Measure name="sales" column="ventas" visible="true" aggregator="sum" />
     <Measure name="exports" column="exportaciones" visible="true" aggregator="sum" />
+
+    <!-- expenditure by region -->
+    <Measure name="gasto_I_TARAPACA" column="gasto_I_TARAPACA" visible="true" aggregator="sum" />
+    <Measure name="gasto_II_ANTOFAGASTA" column="gasto_II_ANTOFAGASTA" visible="true" aggregator="sum" />      
+    <Measure name="gasto_III_ATACAMA" column="gasto_III_ATACAMA" visible="true" aggregator="sum" />           
+    <Measure name="gasto_IV_COQUIMBO" column="gasto_IV_COQUIMBO" visible="true" aggregator="sum" />
+    <Measure name="gasto_V_VALPARAISO" column="gasto_V_VALPARAISO" visible="true" aggregator="sum" />
+    <Measure name="gasto_VI_OHIGGINS" column="gasto_VI_OHIGGINS" visible="true" aggregator="sum" />
+    <Measure name="gasto_VII_MAULE" column="gasto_VII_MAULE" visible="true" aggregator="sum" />
+    <Measure name="gasto_VIII_BIOBIO" column="gasto_VIII_BIOBIO" visible="true" aggregator="sum" />
+    <Measure name="gasto_IX_ARAUCANIA" column="gasto_IX_ARAUCANIA" visible="true" aggregator="sum" />
+    <Measure name="gasto_XIV_RIOS" column="gasto_XIV_RIOS" visible="true" aggregator="sum" />
+    <Measure name="gasto_X_LAGOS" column="gasto_X_LAGOS" visible="true" aggregator="sum" />
+    <Measure name="gasto_XI_AYSEN" column="gasto_XI_AYSEN" visible="true" aggregator="sum" />
+    <Measure name="gasto_XII_MAGALLANES" column="gasto_XII_MAGALLANES" visible="true" aggregator="sum" />
+    <Measure name="gasto_XIII_METROPOLITANA" column="gasto_XIII_METROPOLITANA" visible="true" aggregator="sum" />
 
   </Cube>
 
