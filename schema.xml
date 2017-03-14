@@ -311,6 +311,7 @@
 
     <Measure name="sales" column="ventas" visible="true" aggregator="sum" />
     <Measure name="exports" column="exportaciones" visible="true" aggregator="sum" />
+    <Measure name="Total Spending" column="gasto_total" visible="true" aggregator="sum" />
 
     <!-- expenditure by region -->
     <Measure name="gasto_I_TARAPACA" column="gasto_I_TARAPACA" visible="true" aggregator="sum" />
