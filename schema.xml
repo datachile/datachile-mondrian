@@ -34,7 +34,12 @@
   <Dimension name="HS">
     <Hierarchy hasAll="true" primaryKey="level3">
       <Table name="hs_levels" schema="economy" />
-      <Level name="HS0" column="level0" nameColumn="level0_name" uniqueMembers="true" />
+      <Level name="HS0" column="level0" nameColumn="level0_name" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">HS0 ES</Annotation>
+        </Annotations>
+        <Property name="HS0 ES" column="es_level0_description" />
+      </Level>
       <Level name="HS2" column="level1" nameColumn="level1_name" uniqueMembers="false" />
       <Level name="HS4" column="level2" nameColumn="level2_name" uniqueMembers="false" />
       <Level name="HS6" column="level3" nameColumn="level3_name" uniqueMembers="false" />
@@ -315,8 +320,8 @@
 
     <!-- expenditure by region -->
     <Measure name="gasto_I_TARAPACA" column="gasto_I_TARAPACA" visible="true" aggregator="sum" />
-    <Measure name="gasto_II_ANTOFAGASTA" column="gasto_II_ANTOFAGASTA" visible="true" aggregator="sum" />      
-    <Measure name="gasto_III_ATACAMA" column="gasto_III_ATACAMA" visible="true" aggregator="sum" />           
+    <Measure name="gasto_II_ANTOFAGASTA" column="gasto_II_ANTOFAGASTA" visible="true" aggregator="sum" />
+    <Measure name="gasto_III_ATACAMA" column="gasto_III_ATACAMA" visible="true" aggregator="sum" />
     <Measure name="gasto_IV_COQUIMBO" column="gasto_IV_COQUIMBO" visible="true" aggregator="sum" />
     <Measure name="gasto_V_VALPARAISO" column="gasto_V_VALPARAISO" visible="true" aggregator="sum" />
     <Measure name="gasto_VI_OHIGGINS" column="gasto_VI_OHIGGINS" visible="true" aggregator="sum" />
@@ -329,6 +334,21 @@
     <Measure name="gasto_XII_MAGALLANES" column="gasto_XII_MAGALLANES" visible="true" aggregator="sum" />
     <Measure name="gasto_XIII_METROPOLITANA" column="gasto_XIII_METROPOLITANA" visible="true" aggregator="sum" />
 
+    <!-- staff by region -->
+    <Measure name="staff_I_TARAPACA" column="personal_73" visible="true" aggregator="sum" />
+    <Measure name="staff_II_ANTOFAGASTA" column="personal_74" visible="true" aggregator="sum" />
+    <Measure name="staff_III_ATACAMA" column="personal_75" visible="true" aggregator="sum" />
+    <Measure name="staff_IV_COQUIMBO" column="personal_76" visible="true" aggregator="sum" />
+    <Measure name="staff_V_VALPARAISO" column="personal_77" visible="true" aggregator="sum" />
+    <Measure name="staff_VI_OHIGGINS" column="personal_78" visible="true" aggregator="sum" />
+    <Measure name="staff_VII_MAULE" column="personal_79" visible="true" aggregator="sum" />
+    <Measure name="staff_VIII_BIOBIO" column="personal_80" visible="true" aggregator="sum" />
+    <Measure name="staff_IX_ARAUCANIA" column="personal_81" visible="true" aggregator="sum" />
+    <Measure name="staff_XIV_RIOS" column="personal_82" visible="true" aggregator="sum" />
+    <Measure name="staff_X_LAGOS" column="personal_82" visible="true" aggregator="sum" />
+    <Measure name="staff_XI_AYSEN" column="personal_84" visible="true" aggregator="sum" />
+    <Measure name="staff_XII_MAGALLANES" column="personal_85" visible="true" aggregator="sum" />
+    <Measure name="staff_XIII_METROPOLITANA" column="personal_86" visible="true" aggregator="sum" />
   </Cube>
 
   <Cube name="income_gini">
