@@ -15,15 +15,20 @@ require 'mondrian_rest'
 logger = Logger.new(STDERR)
 logger.level = Logger::DEBUG
 
-PARAMS = {
-  driver: 'postgresql',
-  host: 'hermes',
-  port: 5433,
-  database: 'datachile',
-  username: 'datachile',
-  password: 'yapoweon',
-  catalog: File.join(File.dirname(__FILE__), 'schema.xml')
-}
+PARAMS = if File.exists? ENV['MONDRIAN_REST_CONF']
+           YAML.load_file(ENV['MONDRIAN_REST_CONF'])
+         else
+           {
+             driver: 'postgresql',
+             host: 'hermes',
+             port: 5433,
+             database: 'datachile',
+             username: 'datachile',
+             password: 'yapoweon',
+             catalog: File.join(File.dirname(__FILE__), 'schema.xml')
+           }
+         end
+
 
 use Rack::Config do |env|
   env['mondrian-olap.params'] = PARAMS
@@ -37,5 +42,4 @@ use Rack::Cors do
 end
 
 use Rack::CommonLogger, $stdout
-
 run Mondrian::REST::Api
