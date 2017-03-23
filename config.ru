@@ -4,7 +4,6 @@ Bundler.setup
 require 'rack/cors'
 require 'rack/config'
 require 'rack/deflater'
-
 require 'jdbc/postgres'
 
 Jdbc::Postgres.load_driver
@@ -16,6 +15,7 @@ logger = Logger.new(STDERR)
 logger.level = Logger::DEBUG
 
 PARAMS = if File.exists? ENV['MONDRIAN_REST_CONF']
+           require 'yaml'
            YAML.load_file(ENV['MONDRIAN_REST_CONF'])
          else
            {
