@@ -76,6 +76,36 @@
     </Hierarchy>
   </Dimension>
 
+  <Dimension name="Sex">
+    <Hierarchy hasAll="true" primaryKey="sex_id">
+        <InlineTable alias="dim_sex">
+          <ColumnDefs>
+            <ColumnDef name="sex_id" type="Numeric"/>
+            <ColumnDef name="description" type="String"/>
+            <ColumnDef name="es_description" type="String"/>
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="sex_id">0</Value>
+              <Value column="description">Male</Value>
+              <Value column="es_description">Masculino</Value>
+            </Row>
+            <Row>
+              <Value column="sex_id">1</Value>
+              <Value column="description">Female</Value>
+              <Value column="es_description">Femenino</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="Sex" column="sex_id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+    </Hierarchy>
+  </Dimension>
+
   <Cube name="exports">
     <Table name="pg_exports_grouped" schema="economy" />
 
@@ -150,6 +180,167 @@
 
       </Formula>
     </CalculatedMember>
+  </Cube>
+
+  <Cube name="immigration">
+    <Table name="fact_immigration_records" schema="public" />
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
+    <DimensionUsage name="Origin Country" source="Country" foreignKey="country_code" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="gender_id" />
+
+    <Dimension name="Education" foreignKey="study_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="education">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric"/>
+            <ColumnDef name="description" type="String"/>
+            <ColumnDef name="es_description" type="String"/>
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Unknown</Value>
+              <Value column="es_description">No Informa</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Higher Education</Value>
+              <Value column="es_description">Educación Universitaria</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">High School</Value>
+              <Value column="es_description">Educación Media</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Primary School</Value>
+              <Value column="es_description">Educación Básica</Value>
+            </Row>
+            <Row>
+              <Value column="id">6</Value>
+              <Value column="description">Technical Education</Value>
+              <Value column="es_description">Educación Técnica</Value>
+            </Row>
+            <Row>
+              <Value column="id">7</Value>
+              <Value column="description">Some Primary School</Value>
+              <Value column="es_description">Educación Pre-Básica</Value>
+            </Row>
+            <Row>
+              <Value column="id">8</Value>
+              <Value column="description">None</Value>
+              <Value column="es_description">Ninguno</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="Education" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Activity" foreignKey="activity">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="activity">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric"/>
+            <ColumnDef name="description" type="String"/>
+            <ColumnDef name="es_description" type="String"/>
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Employee</Value>
+              <Value column="es_description">Empleado</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Student</Value>
+              <Value column="es_description">Estudiante</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Housewife</Value>
+              <Value column="es_description">Dueña de Casa</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">Unemployed</Value>
+              <Value column="es_description">Inactivo</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Maid</Value>
+              <Value column="es_description">Empleado Doméstico</Value>
+            </Row>
+            <Row>
+              <Value column="id">6</Value>
+              <Value column="description">No data</Value>
+              <Value column="es_description">No Informa</Value>
+            </Row>
+            <Row>
+              <Value column="id">7</Value>
+              <Value column="description">Other activities</Value>
+              <Value column="es_description">Otras Actividades</Value>
+            </Row>
+            <Row>
+              <Value column="id">8</Value>
+              <Value column="description">Religious</Value>
+              <Value column="es_description">Religioso</Value>
+            </Row>
+            <Row>
+              <Value column="id">9</Value>
+              <Value column="description">Self-Employed</Value>
+              <Value column="es_description">Trabajador por Cuenta Propia</Value>
+            </Row>
+            <Row>
+              <Value column="id">10</Value>
+              <Value column="description">No activity</Value>
+              <Value column="es_description">Sin Actividad</Value>
+            </Row>
+            <Row>
+              <Value column="id">11</Value>
+              <Value column="description">Labourer</Value>
+              <Value column="es_description">Obrero o Jornalero</Value>
+            </Row>
+            <Row>
+              <Value column="id">12</Value>
+              <Value column="description">Landlord</Value>
+              <Value column="es_description">Rentista</Value>
+            </Row>
+            <Row>
+              <Value column="id">13</Value>
+              <Value column="description">Pilot</Value>
+              <Value column="es_description">Tripulante</Value>
+            </Row>
+            <Row>
+              <Value column="id">14</Value>
+              <Value column="description">Businessperson</Value>
+              <Value column="es_description">Empresario o Patrón</Value>
+            </Row>
+            <Row>
+              <Value column="id">15</Value>
+              <Value column="description">Retired</Value>
+              <Value column="es_description">Jubilado o Pensionado</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="Activity" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure name="Number of visas" column="birth_date" aggregator="count" />
+    <Measure name="Average Age" column="age" aggregator="avg" />
   </Cube>
 
   <Cube name="tax_data">
