@@ -187,7 +187,7 @@
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
     <DimensionUsage name="Origin Country" source="Country" foreignKey="country_code" />
-    <DimensionUsage name="Sex" source="Sex" foreignKey="gender_id" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
 
     <Dimension name="Education" foreignKey="study_id">
       <Hierarchy hasAll="true">
@@ -244,7 +244,7 @@
       </Hierarchy>
     </Dimension>
 
-    <Dimension name="Activity" foreignKey="activity">
+    <Dimension name="Activity" foreignKey="activity_id">
       <Hierarchy hasAll="true">
         <InlineTable alias="activity">
           <ColumnDefs>
