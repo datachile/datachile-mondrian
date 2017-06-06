@@ -343,6 +343,22 @@
     <Measure name="Average Age" column="age" aggregator="avg" />
   </Cube>
 
+  <!-- NESI -->
+  <Cube name="nesi_income">
+    <Table name="fact_income_year_region_sex" schema="nesi" />
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" foreignKey="region_id" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
+    
+    <Measure name="P50" column="p50" aggregator="sum" />
+    <Measure name="P70" column="p70" aggregator="sum" />
+    <Measure name="CI P50" column="ci_p50" aggregator="sum" />
+    <Measure name="CI P70" column="ci_p70" aggregator="sum" />
+    <Measure name="CS P50" column="cs_p50" aggregator="sum" />
+    <Measure name="CS P70" column="cs_p70" aggregator="sum" />
+  </Cube>
+  <!-- / NESI -->
+
   <Cube name="tax_data">
     <Table name="tax_data" schema="economy" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
