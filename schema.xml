@@ -763,11 +763,241 @@
       </Hierarchy>
     </Dimension>
 
+    <Dimension name="isco" foreignKey="isco_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="isco">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Agricultores y trabajadores calificados agropecuarios y pesqueros</Value>
+              <Value column="es_description">Agricultores y trabajadores calificados agropecuarios y pesqueros</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Empleados de oficina</Value>
+              <Value column="es_description">Empleados de oficina</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Funcionarios públicos y personal directivo de la administración pública y empresas</Value>
+              <Value column="es_description">Funcionarios públicos y personal directivo de la administración pública y empresas</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">Oficiales, operarios y artesanos de artes mecánicas y de otros oficios</Value>
+              <Value column="es_description">Oficiales, operarios y artesanos de artes mecánicas y de otros oficios</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Operadores de instalaciones y máquinas y montadores</Value>
+              <Value column="es_description">Operadores de instalaciones y máquinas y montadores</Value>
+            </Row>
+            <Row>
+              <Value column="id">6</Value>
+              <Value column="description">Otros no identificados</Value>
+              <Value column="es_description">Otros no identificados</Value>
+            </Row>
+            <Row>
+              <Value column="id">7</Value>
+              <Value column="description">Profesionales científicos e intelectuales</Value>
+              <Value column="es_description">Profesionales científicos e intelectuales</Value>
+            </Row>
+            <Row>
+              <Value column="id">8</Value>
+              <Value column="description">Técnicos y profesionales de nivel medio</Value>
+              <Value column="es_description">Técnicos y profesionales de nivel medio</Value>
+            </Row>
+            <Row>
+              <Value column="id">9</Value>
+              <Value column="description">Trabajadores de los servicios y vendedores de comercios y mercados</Value>
+              <Value column="es_description">Trabajadores de los servicios y vendedores de comercios y mercados</Value>
+            </Row>
+            <Row>
+              <Value column="id">10</Value>
+              <Value column="description">Trabajadores no calificados</Value>
+              <Value column="es_description">Trabajadores no calificados</Value>
+            </Row>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">No sabe/No responde</Value>
+              <Value column="es_description">No sabe/No responde</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="ISCO" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Age Range" foreignKey="age_range_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="age_ranges">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">15 a 19</Value>
+              <Value column="es_description">15 a 19</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">20 a 24</Value>
+              <Value column="es_description">20 a 24</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">25 a 29</Value>
+              <Value column="es_description">25 a 29</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">30 a 65</Value>
+              <Value column="es_description">30 a 65</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
+              <Value column="description">65 a maxima edad de encuestados</Value>
+              <Value column="es_description">65 a maxima edad de encuestados</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="Age Range" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Occupational Situation" foreignKey="occupied_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="occupational_situation">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Ocupado</Value>
+              <Value column="es_description">Ocupado</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Desocupado</Value>
+              <Value column="es_description">Desocupado</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Inactivo</Value>
+              <Value column="es_description">Inactivo</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="Occupational Situation" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="General Economic Condition" foreignKey="general_economic_condition">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="general_economic_condition">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">Menor de 15 años</Value>
+              <Value column="es_description">Menor de 15 años</Value>
+            </Row>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Ocupado tradicional</Value>
+              <Value column="es_description">Ocupado tradicional</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Ocupado notradicional</Value>
+              <Value column="es_description">Ocupado notradicional</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Ocupado ausente</Value>
+              <Value column="es_description">Ocupado ausente</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">Cesante</Value>
+              <Value column="es_description">Cesante</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Busca trabajo por primera vez</Value>
+              <Value column="es_description">Busca trabajo por primera vez</Value>
+            </Row>
+            <Row>
+              <Value column="id">6</Value>
+              <Value column="description">Iniciador</Value>
+              <Value column="es_description">Iniciador</Value>
+            </Row>
+            <Row>
+              <Value column="id">7</Value>
+              <Value column="description">Inactivos que buscaron trabajo</Value>
+              <Value column="es_description">Inactivos que buscaron trabajo</Value>
+            </Row>
+            <Row>
+              <Value column="id">8</Value>
+              <Value column="description">Inactivos que estuvieron disponibles para trabajar</Value>
+              <Value column="es_description">Inactivos que estuvieron disponibles para trabajar</Value>
+            </Row>
+            <Row>
+              <Value column="id">9</Value>
+              <Value column="description">Inactivos que no buscaron trabajo ni estuvieron disponibles</Value>
+              <Value column="es_description">Inactivos que no buscaron trabajo ni estuvieron disponibles</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="General Economic Condition" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
     <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
     <Measure name="Expansion factor" column="fact" aggregator="sum" visible="true" />
-    <CalculatedMember name="Weighted Value" dimension="Measures" visible="true">
+    <Measure name="Weighted Value" dataType="Numeric" aggregator="None" visible="true" >
+      <MeasureExpression>
+        <SQL>(sum(count(*) * fact) / sum(fact))</SQL>
+      </MeasureExpression>
+    </Measure>
+    <!-- CalculatedMember name="Weighted Value" dimension="Measures" visible="true">
       <Formula>([Measures].[Number of records] * [Measures].[Expansion factor]) / [Measures].[Expansion factor]</Formula>
-    </CalculatedMember>
+    </CalculatedMember -->
   </Cube>
 
 
