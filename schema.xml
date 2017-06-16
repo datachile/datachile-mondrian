@@ -613,6 +613,147 @@
     </CalculatedMember>
   </Cube>
 
+  <Cube name="nene">
+    <Table name="fact_occupational_status_nene" schema="economy" />
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
+    <Dimension name="ISCED" foreignKey="isced_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="isced">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Doctorado</Value>
+              <Value column="es_description">Doctorado</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Educación Preescolar</Value>
+              <Value column="es_description">Educación Preescolar</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Educación Primaria (nivel 1)</Value>
+              <Value column="es_description">Educación Primaria (nivel 1)</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">Educación Primaria (nivel 2)</Value>
+              <Value column="es_description">Educación Primaria (nivel 2)</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Educación Secundaria</Value>
+              <Value column="es_description">Educación Secundaria</Value>
+            </Row>
+            <Row>
+              <Value column="id">6</Value>
+              <Value column="description">Educación Técnica (Educación Superior no Universitaria)</Value>
+              <Value column="es_description">Educación Técnica (Educación Superior no Universitaria)</Value>
+            </Row>
+            <Row>
+              <Value column="id">7</Value>
+              <Value column="description">Educación Universitaria</Value>
+              <Value column="es_description">Educación Universitaria</Value>
+            </Row>
+            <Row>
+              <Value column="id">8</Value>
+              <Value column="description">Nivel ignorado</Value>
+              <Value column="es_description">Nivel ignorado</Value>
+            </Row>
+            <Row>
+              <Value column="id">9</Value>
+              <Value column="description">Nunca estudió</Value>
+              <Value column="es_description">Nunca estudió</Value>
+            </Row>
+            <Row>
+              <Value column="id">10</Value>
+              <Value column="description">Postítulo y Maestría</Value>
+              <Value column="es_description">Postítulo y Maestría</Value>
+            </Row>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">No sabe/No responde</Value>
+              <Value column="es_description">No sabe/No responde</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="ISCED" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="icse" foreignKey="icse_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="icse">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Asalariado Sector Privado</Value>
+              <Value column="es_description">Asalariado Sector Privado</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Asalariado Sector Público</Value>
+              <Value column="es_description">Asalariado Sector Público</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Cuenta Propia</Value>
+              <Value column="es_description">Cuenta Propia</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">Empleador</Value>
+              <Value column="es_description">Empleador</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Personal de Servicio Doméstico Puertas Adentro</Value>
+              <Value column="es_description">Personal de Servicio Doméstico Puertas Adentro</Value>
+            </Row>
+            <Row>
+              <Value column="id">6</Value>
+              <Value column="description">Personal de Servicio Doméstico Puertas Afuera</Value>
+              <Value column="es_description">Personal de Servicio Doméstico Puertas Afuera</Value>
+            </Row>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">No sabe/No responde</Value>
+              <Value column="es_description">No sabe/No responde</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="ICSE" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
+    <Measure name="Expansion factor" column="fact" aggregator="sum" visible="true" />
+    <CalculatedMember name="Weighted Value" dimension="Measures" visible="true">
+      <Formula>([Measures].[Number of records] * [Measures].[Expansion factor]) / [Measures].[Expansion factor]</Formula>
+    </CalculatedMember>
+  </Cube>
+
 
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
@@ -633,5 +774,4 @@
       <Formula>([Measures].[FOB US] - [Measures].[CIF US])</Formula>
     </CalculatedMember>
   </VirtualCube>
-
 </Schema>
