@@ -632,6 +632,15 @@
   <Cube name="nene">
     <Table name="fact_occupational_status_nene" schema="economy" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <Dimension name="Geography" foreignKey="region_id">
+      <Hierarchy hasAll="true" primaryKey="region_id">
+        <View alias="dim_regions">
+          <SQL>(SELECT distinct(region_id), region_name from dim_comunas)</SQL>
+        </View>
+        <Level name="Region" column="region_id" nameColumn="region_name" uniqueMembers="true" />
+      </Hierarchy>
+    </Dimension>
+
     <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
     <Dimension name="ISCED" foreignKey="isced_id">
       <Hierarchy hasAll="true">
@@ -708,7 +717,7 @@
       </Hierarchy>
     </Dimension>
 
-    <Dimension name="icse" foreignKey="icse_id">
+    <Dimension name="ICSE" foreignKey="icse_id">
       <Hierarchy hasAll="true">
         <InlineTable alias="icse">
           <ColumnDefs>
@@ -763,7 +772,7 @@
       </Hierarchy>
     </Dimension>
 
-    <Dimension name="isco" foreignKey="isco_id">
+    <Dimension name="ISCO" foreignKey="isco_id">
       <Hierarchy hasAll="true">
         <InlineTable alias="isco">
           <ColumnDefs>
