@@ -313,6 +313,41 @@
     </Hierarchy>
   </Dimension>
 
+  <Dimension name="Binary Survey Response">
+    <Hierarchy hasAll="true">
+      <InlineTable alias="survey_response">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">N/A</Value>
+            <Value column="es_description">N/A</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">No</Value>
+            <Value column="es_description">No</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Yes</Value>
+            <Value column="es_description">Sí</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level name="Survey Response" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
   <!-- END: Shared Dimensions -->
 
   <Cube name="exports">
@@ -591,21 +626,7 @@
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Headquarters Country" source="Country" foreignKey="headquarters_country_id" />
-
-    <Dimension name="ISICrev4" foreignKey="CIIU_level1">
-      <!-- dim_isic that only contains the first level -->
-      <Hierarchy hasAll="true" primaryKey="level1">
-        <View alias="isicrev4_level1">
-          <SQL>SELECT distinct(level1), level1_description, es_level1_description from dim_isic</SQL>
-        </View>
-        <Level name="Level 1" column="level1" nameColumn="level1_description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Level 1 ES</Annotation>
-          </Annotations>
-          <Property name="Level 1 ES" column="es_level1_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
+    <DimensionUsage name="ISICrev4" source="ISICrev4" level="Level 1" foreignKey="CIIU_level1" />
 
     <Dimension name="Business Type" foreignKey="org_juridica">
       <Hierarchy hasAll="true">
@@ -867,11 +888,64 @@
     </Dimension>
 
     <Measure name="Income" column="income" visible="true" aggregator="sum" />
-    <Measure name="Expansion Factor" column="fact" visible="true" aggregator="sum" />
+    <Measure name="Expansion Factor" column="weight" visible="true" aggregator="sum" />
+    <Measure name="Weighted Income" column="weighed_income" visible="true" aggregator="sum" />
   </Cube>
   <!-- / NESI -->
 
+  <Cube name="internet_access">
+    <Table name="fact_internet_access_survey" schema="environment" />
+    <DimensionUsage name="Geography" source="Geography" level="Region" foreignKey="region_id" />
+    <Dimension name="Zone" foreignKey="zone_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="zone">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">NA</Value>
+              <Value column="es_description">NA</Value>
+            </Row>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Urban</Value>
+              <Value column="es_description">Urbano</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Rural</Value>
+              <Value column="es_description">Rural</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level name="Zone" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
 
+    <DimensionUsage name="Internet Plan" source="Binary Survey Response" foreignKey="internet_plan_id" />
+    <DimensionUsage name="Home Access" source="Binary Survey Response" foreignKey="home_access_id" />
+    <DimensionUsage name="Desktop Access" source="Binary Survey Response" foreignKey="desktop_access_id" />
+    <DimensionUsage name="Laptop Access" source="Binary Survey Response" foreignKey="laptop_access_id" />
+    <DimensionUsage name="Tablet Access" source="Binary Survey Response" foreignKey="tablet_access_id" />
+    <DimensionUsage name="Cellphone Access" source="Binary Survey Response" foreignKey="cellphone_access_id" />
+    <DimensionUsage name="Games or Consoles Access" source="Binary Survey Response" foreignKey="games_consoles_access_id" />
+    <DimensionUsage name="TV Access" source="Binary Survey Response" foreignKey="tv_access_id" />
+
+    <Measure name="Number of records" column="region_id" aggregator="count" visible="true" />
+    <Measure name="Expansion factor" column="weights" aggregator="sum" visible="true" />
+  </Cube>
+
+
+  <!-- NENE -->
   <Cube name="nene">
     <Table name="fact_occupational_status_nene" schema="economy" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
@@ -1040,8 +1114,13 @@
     </Dimension>
 
     <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
-    <Measure name="Expansion factor" column="fact" aggregator="sum" visible="true" />
+    <Measure name="Expansion factor" column="weights" aggregator="sum" visible="true" />
   </Cube>
+  <!-- / NENE -->
+
+  <!-- Acceso a Internet -->
+
+  <!-- / Acceso a Internet -->
 
 
   <VirtualCube name="exports_and_imports">
