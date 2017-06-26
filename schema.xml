@@ -419,9 +419,7 @@
             Rank([Geography].CurrentMember,
                  Order([Geography].CurrentMember.Siblings,
                        Aggregate({[Date].CurrentMember}*{[Origin Country].[All Origin Countrys]}*{[Import HS].[All Import HSs]},
-  
-
-                               [Measures].[CIF US]),
+                                 [Measures].[CIF US]),
                        BDESC)))
 
       </Formula>
@@ -889,7 +887,7 @@
 
     <Measure name="Income" column="income" visible="true" aggregator="sum" />
     <Measure name="Expansion Factor" column="weight" visible="true" aggregator="sum" />
-    <Measure name="Weighted Income" column="weighed_income" visible="true" aggregator="sum" />
+    <Measure name="Weighted Income" column="weighted_income" visible="true" aggregator="sum" />
   </Cube>
   <!-- / NESI -->
 
@@ -949,15 +947,7 @@
   <Cube name="nene">
     <Table name="fact_occupational_status_nene" schema="economy" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
-    <Dimension name="Geography" foreignKey="region_id">
-      <Hierarchy hasAll="true" primaryKey="region_id">
-        <View alias="dim_regions">
-          <SQL>(SELECT distinct(region_id), region_name from dim_comunas)</SQL>
-        </View>
-        <Level name="Region" column="region_id" nameColumn="region_name" uniqueMembers="true" />
-      </Hierarchy>
-    </Dimension>
-
+    <DimensionUsage name="Geography" source="Geography" level="Region" foreignKey="region_id" />
     <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
     <DimensionUsage name="ISCED" source="ISCED" foreignKey="isced_id" />
     <DimensionUsage name="ICSE" source="ICSE" foreignKey="icse_id" />
