@@ -354,7 +354,7 @@
     <Table name="pg_exports_grouped" schema="economy" />
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
-    <DimensionUsage name="Destination Country" source="Country" foreignKey="country_dest_id" />
+    <DimensionUsage name="Destination Country" caption="Destination Country" source="Country" foreignKey="country_dest_id" />
     <DimensionUsage name="Geography" source="Geography" foreignKey="exporter_comuna_id" />
     <DimensionUsage name="Export HS" source="HS" foreignKey="hs_level3" />
 
@@ -403,7 +403,7 @@
     <Table name="pg_imports_grouped" schema="economy">
     </Table>
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
-    <DimensionUsage name="Origin Country" source="Country" foreignKey="country_origin_id" />
+    <DimensionUsage name="Origin Country" caption="Origin Country" source="Country" foreignKey="country_origin_id" />
     <DimensionUsage name="Geography" source="Geography" foreignKey="importer_comuna_id" />
     <DimensionUsage name="Import HS" source="HS" foreignKey="hs_6digits" />
 
@@ -430,7 +430,7 @@
     <Table name="fact_immigration_records" schema="public" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
-    <DimensionUsage name="Origin Country" source="Country" foreignKey="country_code" />
+    <DimensionUsage name="Origin Country" caption="Origin Country" source="Country" foreignKey="country_code" />
     <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
 
     <Dimension name="Education" foreignKey="study_id">
@@ -623,7 +623,7 @@
     <Table name="fact_rd_survey" schema="public" />
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
-    <DimensionUsage name="Headquarters Country" source="Country" foreignKey="headquarters_country_id" />
+    <DimensionUsage name="Headquarters Country" caption="Headquarters Country" source="Country" foreignKey="headquarters_country_id" />
     <DimensionUsage name="ISICrev4" source="ISICrev4" level="Level 1" foreignKey="CIIU_level1" />
 
     <Dimension name="Business Type" foreignKey="org_juridica">
@@ -929,14 +929,14 @@
       </Hierarchy>
     </Dimension>
 
-    <DimensionUsage name="Internet Plan" source="Binary Survey Response" foreignKey="internet_plan_id" />
-    <DimensionUsage name="Home Access" source="Binary Survey Response" foreignKey="home_access_id" />
-    <DimensionUsage name="Desktop Access" source="Binary Survey Response" foreignKey="desktop_access_id" />
-    <DimensionUsage name="Laptop Access" source="Binary Survey Response" foreignKey="laptop_access_id" />
-    <DimensionUsage name="Tablet Access" source="Binary Survey Response" foreignKey="tablet_access_id" />
-    <DimensionUsage name="Cellphone Access" source="Binary Survey Response" foreignKey="cellphone_access_id" />
-    <DimensionUsage name="Games or Consoles Access" source="Binary Survey Response" foreignKey="games_consoles_access_id" />
-    <DimensionUsage name="TV Access" source="Binary Survey Response" foreignKey="tv_access_id" />
+    <DimensionUsage name="Internet Plan" caption="Internet Plan" source="Binary Survey Response" foreignKey="internet_plan_id" />
+    <DimensionUsage name="Home Access" caption="Home Access" source="Binary Survey Response" foreignKey="home_access_id" />
+    <DimensionUsage name="Desktop Access" caption="Desktop Access" source="Binary Survey Response" foreignKey="desktop_access_id" />
+    <DimensionUsage name="Laptop Access" caption="Laptop Access" source="Binary Survey Response" foreignKey="laptop_access_id" />
+    <DimensionUsage name="Tablet Access" caption="Tablet Access" source="Binary Survey Response" foreignKey="tablet_access_id" />
+    <DimensionUsage name="Cellphone Access" caption="Cellphone Access" source="Binary Survey Response" foreignKey="cellphone_access_id" />
+    <DimensionUsage name="Games or Consoles Access" caption="Games or Consoles Access" source="Binary Survey Response" foreignKey="games_consoles_access_id" />
+    <DimensionUsage name="TV Access" caption="TV Access" source="Binary Survey Response" foreignKey="tv_access_id" />
 
     <Measure name="Number of records" column="region_id" aggregator="count" visible="true" />
     <Measure name="Expansion factor" column="weights" aggregator="sum" visible="true" />
@@ -1107,10 +1107,6 @@
     <Measure name="Expansion factor" column="weights" aggregator="sum" visible="true" />
   </Cube>
   <!-- / NENE -->
-
-  <!-- Acceso a Internet -->
-
-  <!-- / Acceso a Internet -->
 
 
   <VirtualCube name="exports_and_imports">
