@@ -1103,11 +1103,55 @@
       </Hierarchy>
     </Dimension>
 
-    <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
-    <Measure name="Expansion factor" column="weights" aggregator="sum" visible="true" />
+    <Measure name="Internal Number of records" column="date_id" aggregator="count" visible="false" />
+    <Measure name="Internal Expansion factor" column="weights" aggregator="sum" visible="false" />
+
+    <CalculatedMember name="LNE Number of records" dimension="Measures" visible="false">
+      <Formula>
+        (
+          [Measures].[Internal Number of records],
+          LastNonEmpty(Descendants([Date].CurrentMember),
+                       [Measures].[Internal Number of records])
+        )
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="LNE Expansion factor" dimension="Measures" visible="false">
+      <Formula>
+        (
+          [Measures].[Internal Expansion factor],
+          LastNonEmpty(Descendants([Date].CurrentMember),
+                       [Measures].[Internal Expansion Factor])
+        )
+      </Formula>
+    </CalculatedMember>
+
+
+    <CalculatedMember name="Number of records" dimension="Measures" visible="true">
+      <Formula>
+        IIF(Date.CurrentMember.Level.Name = 'Year',
+            (
+              [Measures].[Internal Number of records],
+              LastNonEmpty(Descendants([Date].CurrentMember),
+                           [Measures].[Internal Number of records])
+            ),
+            [Measures].[Internal Number of records])
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="Expansion factor" dimension="Measures" visible="true">
+      <Formula>
+        IIF(Date.CurrentMember.Level.Name = 'Year',
+            (
+              [Measures].[Internal Expansion factor],
+              LastNonEmpty(Descendants([Date].CurrentMember),
+                          [Measures].[Internal Expansion Factor])
+            ),
+            [Measures].[Internal Expansion factor])
+      </Formula>
+    </CalculatedMember>
   </Cube>
   <!-- / NENE -->
-
 
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
