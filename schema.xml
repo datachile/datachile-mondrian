@@ -89,6 +89,11 @@
           <Rows>
             <Row>
               <Value column="sex_id">0</Value>
+              <Value column="description">N/A</Value>
+              <Value column="es_description">N/A</Value>
+            </Row>
+            <Row>
+              <Value column="sex_id">2</Value>
               <Value column="description">Male</Value>
               <Value column="es_description">Masculino</Value>
             </Row>
@@ -348,6 +353,63 @@
     </Hierarchy>
   </Dimension>
 
+  <Dimension name="Age Range">
+    <Hierarchy hasAll="true">
+
+
+      <InlineTable alias="age_range">
+	<ColumnDefs>
+	  <ColumnDef name="id" type="Numeric" />
+	  <ColumnDef name="description" type="String" />
+	  <ColumnDef name="es_description" type="String" />
+	</ColumnDefs>
+	<Rows>
+	  <Row>
+	    <Value column="id">0</Value>
+	    <Value column="description">nan</Value>
+	    <Value column="es_description">nan</Value>
+	  </Row>
+	  <Row>
+	    <Value column="id">1</Value>
+	    <Value column="description">Menos de 15</Value>
+	    <Value column="es_description">Menos de 15</Value>
+	  </Row>
+	  <Row>
+	    <Value column="id">2</Value>
+	    <Value column="description">15 a 19</Value>
+	    <Value column="es_description">15 a 19</Value>
+	  </Row>
+	  <Row>
+	    <Value column="id">3</Value>
+	    <Value column="description">20 a 24</Value>
+	    <Value column="es_description">20 a 24</Value>
+	  </Row>
+	  <Row>
+	    <Value column="id">4</Value>
+	    <Value column="description">25 a 29</Value>
+	    <Value column="es_description">25 a 29</Value>
+	  </Row>
+	  <Row>
+	    <Value column="id">5</Value>
+	    <Value column="description">30 a 65</Value>
+	    <Value column="es_description">30 a 65</Value>
+	  </Row>
+	  <Row>
+	    <Value column="id">6</Value>
+	    <Value column="description">65 a edad max</Value>
+	    <Value column="es_description">65 a edad max</Value>
+	  </Row>
+	</Rows>
+      </InlineTable>
+      <Level name="Age Range" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
   <!-- END: Shared Dimensions -->
 
   <Cube name="exports">
@@ -575,6 +637,56 @@
           </Rows>
         </InlineTable>
         <Level name="Activity" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Visa Type" foreignKey="visa_type_id">
+      <Hierarchy hasAll="true">
+	<InlineTable alias="visa_type">
+	  <ColumnDefs>
+	    <ColumnDef name="id" type="Numeric" />
+	    <ColumnDef name="description" type="String" />
+	    <ColumnDef name="es_description" type="String" />
+	  </ColumnDefs>
+	  <Rows>
+	    <Row>
+	      <Value column="id">0</Value>
+	      <Value column="description">nan</Value>
+	      <Value column="es_description">nan</Value>
+	    </Row>
+	    <Row>
+	      <Value column="id">1</Value>
+	      <Value column="description">Student</Value>
+	      <Value column="es_description">Estudiante</Value>
+	    </Row>
+	    <Row>
+	      <Value column="id">2</Value>
+	      <Value column="description">Temporary</Value>
+	      <Value column="es_description">Temporaria</Value>
+	    </Row>
+	    <Row>
+	      <Value column="id">3</Value>
+	      <Value column="description">Subject to Contract</Value>
+	      <Value column="es_description">Sujeta A Contrato</Value>
+	    </Row>
+	    <Row>
+	      <Value column="id">4</Value>
+	      <Value column="description">No benefit</Value>
+	      <Value column="es_description">Sin Beneficio</Value>
+	    </Row>
+	    <Row>
+	      <Value column="id">5</Value>
+	      <Value column="description">Mercosur Temporary Stay Agreement</Value>
+	      <Value column="es_description">Temp. Acuerdo Residencia Mercosur</Value>
+	    </Row>
+	  </Rows>
+	</InlineTable>
+        <Level name="Visa Type" column="id" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
           </Annotations>
@@ -851,9 +963,45 @@
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
     <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
+    <DimensionUsage name="Age Range" source="Age Range" foreignKey="age_range_id" />
     <DimensionUsage name="ISCO" source="ISCO" foreignKey="isco_id" />
     <DimensionUsage name="ICSE" source="ICSE" foreignKey="icse_id" />
     <DimensionUsage name="ISCED" source="ISCED" foreignKey="isced_id" />
+
+    <Dimension name="Occupation Length" foreignKey="occupation_id">
+      <Hierarchy hasAll="true">
+    <InlineTable alias="occupation">
+      <ColumnDefs>
+	<ColumnDef name="id" type="Numeric" />
+	<ColumnDef name="description" type="String" />
+	<ColumnDef name="es_description" type="String" />
+      </ColumnDefs>
+      <Rows>
+	<!-- Row>
+	  <Value column="id">0</Value>
+	  <Value column="description">nan</Value>
+	  <Value column="es_description">nan</Value>
+	</Row -->
+	<Row>
+	  <Value column="id">0</Value>
+	  <Value column="description">Ocupados con menos de 1 mes en el empleo actual</Value>
+	  <Value column="es_description">Ocupados con menos de 1 mes en el empleo actual</Value>
+	</Row>
+	<Row>
+	  <Value column="id">1</Value>
+	  <Value column="description">Ocupados con más de 1 mes en el empleo actual</Value>
+	  <Value column="es_description">Ocupados con más de 1 mes en el empleo actual</Value>
+	</Row>
+      </Rows>
+    </InlineTable>
+            <Level name="Occupation Length" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
 
     <Dimension name="Workday" foreignKey="journey_id">
       <Hierarchy hasAll="true">
@@ -866,13 +1014,18 @@
           <Rows>
             <Row>
               <Value column="id">0</Value>
-              <Value column="description">Part-time</Value>
-              <Value column="es_description">Parcial</Value>
+              <Value column="description">N/A</Value>
+              <Value column="es_description">N/A</Value>
             </Row>
             <Row>
               <Value column="id">1</Value>
               <Value column="description">Full-time</Value>
               <Value column="es_description">Completa</Value>
+            </Row>
+	    <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Part-time</Value>
+              <Value column="es_description">Parcial</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -947,56 +1100,20 @@
   <Cube name="nene">
     <Table name="fact_occupational_status_nene" schema="economy" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
-    <DimensionUsage name="Geography" source="Geography" level="Region" foreignKey="region_id" />
+    <Dimension name="Geography" foreignKey="region_id">
+      <Hierarchy hasAll="true" primaryKey="region_id">
+	<View alias="dim_regions">
+	  <SQL>(SELECT distinct(region_id), region_name from dim_comunas)</SQL>
+	</View>
+	<Level name="Region" column="region_id" nameColumn="region_name" uniqueMembers="true" />
+      </Hierarchy>
+    </Dimension>
     <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
+    <DimensionUsage name="Age Range" source="Age Range" foreignKey="age_range_id" />
     <DimensionUsage name="ISCED" source="ISCED" foreignKey="isced_id" />
     <DimensionUsage name="ICSE" source="ICSE" foreignKey="icse_id" />
     <DimensionUsage name="ISCO" source="ISCO" foreignKey="isco_id" />
 
-    <Dimension name="Age Range" foreignKey="age_range_id">
-      <Hierarchy hasAll="true">
-        <InlineTable alias="age_ranges">
-          <ColumnDefs>
-            <ColumnDef name="id" type="Numeric" />
-            <ColumnDef name="description" type="String" />
-            <ColumnDef name="es_description" type="String" />
-          </ColumnDefs>
-          <Rows>
-            <Row>
-              <Value column="id">1</Value>
-              <Value column="description">15 a 19</Value>
-              <Value column="es_description">15 a 19</Value>
-            </Row>
-            <Row>
-              <Value column="id">2</Value>
-              <Value column="description">20 a 24</Value>
-              <Value column="es_description">20 a 24</Value>
-            </Row>
-            <Row>
-              <Value column="id">3</Value>
-              <Value column="description">25 a 29</Value>
-              <Value column="es_description">25 a 29</Value>
-            </Row>
-            <Row>
-              <Value column="id">4</Value>
-              <Value column="description">30 a 65</Value>
-              <Value column="es_description">30 a 65</Value>
-            </Row>
-            <Row>
-              <Value column="id">5</Value>
-              <Value column="description">65 a maxima edad de encuestados</Value>
-              <Value column="es_description">65 a maxima edad de encuestados</Value>
-            </Row>
-          </Rows>
-        </InlineTable>
-        <Level name="Age Range" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
 
     <Dimension name="Occupational Situation" foreignKey="occupied_id">
       <Hierarchy hasAll="true">
@@ -1007,6 +1124,11 @@
             <ColumnDef name="es_description" type="String" />
           </ColumnDefs>
           <Rows>
+	    <Row>
+              <Value column="id">0</Value>
+              <Value column="description">N/A</Value>
+              <Value column="es_description">N/A</Value>
+            </Row>
             <Row>
               <Value column="id">1</Value>
               <Value column="description">Ocupado</Value>
@@ -1131,6 +1253,26 @@
     </CalculatedMember>
   </Cube>
   <!-- / NENE -->
+
+  <Cube name="psu">
+    <Table name="fact_psu" schema="education" />
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
+
+    <Measure name="Number of records" column="year" aggregator="count" visible="true" />
+    <Measure name="PSU AVG individual" visible="false" aggregator="sum">
+      <MeasureExpression>
+        <SQL>((language_test + math_test) / 2)</SQL>
+      </MeasureExpression>
+    </Measure>
+
+    <CalculatedMember name="PSU Average" dimension="Measures" visible="true">
+      <Formula>
+        [Measures].[PSU AVG Individual] / [Measures].[Number of records]
+      </Formula>
+    </CalculatedMember>
+  </Cube>
 
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
