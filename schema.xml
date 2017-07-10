@@ -410,6 +410,107 @@
     </Hierarchy>
   </Dimension>
 
+  <Dimension name="Zone">
+    <Hierarchy hasAll="true">
+      <InlineTable alias="zone">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">NA</Value>
+            <Value column="es_description">NA</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Urban</Value>
+            <Value column="es_description">Urbano</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Rural</Value>
+            <Value column="es_description">Rural</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level name="Zone" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <Dimension name="Administration">
+    <Hierarchy hasAll="true">
+      
+      <InlineTable alias="administration">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">nan</Value>
+            <Value column="es_description">nan</Value>
+          </Row>
+        <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Corporación Municipal</Value>
+            <Value column="es_description">Corporación Municipal</Value>
+          </Row>
+        <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Municipal DAEM</Value>
+            <Value column="es_description">Municipal DAEM</Value>
+          </Row>
+        <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Particular Subvencionado</Value>
+            <Value column="es_description">Particular Subvencionado</Value>
+          </Row>
+        <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Particular Pagado</Value>
+            <Value column="es_description">Particular Pagado</Value>
+          </Row>
+        <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Corporación de Administración Delegada</Value>
+            <Value column="es_description">Corporación de Administración Delegada</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      
+      <Level name="Administration" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <Dimension name="Institution">
+    <Hierarchy hasAll="true" primaryKey="institution_id">
+      <Table name="dim_educational_institutions" schema="education" />
+      <Level name="Institution" column="institution_id" nameColumn="institution" uniqueMembers="true" />
+    </Hierarchy>
+  </Dimension>
+
+  <Dimension name="Teaching">
+    <Hierarchy hasAll="true" primaryKey="teaching_id">
+      <Table name="dim_teachings" schema="education" />
+      <Level name="Teaching" column="teaching_id" nameColumn="teaching" uniqueMembers="true" />
+    </Hierarchy>
+  </Dimension>
+
   <!-- END: Shared Dimensions -->
 
   <Cube name="exports">
@@ -1047,40 +1148,7 @@
   <Cube name="internet_access">
     <Table name="fact_internet_access_survey" schema="environment" />
     <DimensionUsage name="Geography" source="Geography" level="Region" foreignKey="region_id" />
-    <Dimension name="Zone" foreignKey="zone_id">
-      <Hierarchy hasAll="true">
-        <InlineTable alias="zone">
-          <ColumnDefs>
-            <ColumnDef name="id" type="Numeric" />
-            <ColumnDef name="description" type="String" />
-            <ColumnDef name="es_description" type="String" />
-          </ColumnDefs>
-          <Rows>
-            <Row>
-              <Value column="id">0</Value>
-              <Value column="description">NA</Value>
-              <Value column="es_description">NA</Value>
-            </Row>
-            <Row>
-              <Value column="id">1</Value>
-              <Value column="description">Urban</Value>
-              <Value column="es_description">Urbano</Value>
-            </Row>
-            <Row>
-              <Value column="id">2</Value>
-              <Value column="description">Rural</Value>
-              <Value column="es_description">Rural</Value>
-            </Row>
-          </Rows>
-        </InlineTable>
-        <Level name="Zone" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
+    <DimensionUsage name="Zone" source="Zone" level="Zone" foreignKey="zone_id" />
 
     <DimensionUsage name="Internet Plan" caption="Internet Plan" source="Binary Survey Response" foreignKey="internet_plan_id" />
     <DimensionUsage name="Home Access" caption="Home Access" source="Binary Survey Response" foreignKey="home_access_id" />
@@ -1434,7 +1502,7 @@
         </Level>
       </Hierarchy>
     </Dimension>
-    
+
     <Dimension name="Candidates" foreignKey="candidate_id">
       <Hierarchy hasAll="true" primaryKey="candidate_id">
         <Table name="dim_candidates" schema="politics" />
@@ -1448,6 +1516,48 @@
   </Cube>
 
   <!-- / Electoral data cube -->
+
+  <!-- Education enrollment data cube -->
+
+  <Cube name="education_enrollment">
+    <Table name="fact_enrollment" schema="education" />
+    
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
+    <DimensionUsage name="Zone" source="Zone" level="Zone" foreignKey="rural_id" />
+    <DimensionUsage name="Administration" source="Administration" level="Administration" foreignKey="administration_id" />
+    <DimensionUsage name="Institutions" source="Institution" level="Institution" foreignKey="institution_id" />
+    <DimensionUsage name="Teachings" source="Teaching" level="Teaching" foreignKey="teaching_id" />
+
+    <Measure name="Number of records" column="year" aggregator="count" visible="true" />
+    <Measure name="Average Age" column="age" aggregator="avg" visible="true" />
+
+  </Cube>
+
+  <!-- / Education enrollment data cube -->
+
+
+
+  <!-- Education performance data cube -->
+
+  <Cube name="education_performance">
+    <Table name="fact_performance" schema="education" />
+    
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
+    <DimensionUsage name="Zone" source="Zone" level="Zone" foreignKey="rural_id" />
+    <DimensionUsage name="Administration" source="Administration" level="Administration" foreignKey="administration_id" />
+    <DimensionUsage name="Institutions" source="Institution" level="Institution" foreignKey="institution_id" />
+    <DimensionUsage name="Teachings" source="Teaching" level="Teaching" foreignKey="teaching_id" />
+
+    <Measure name="Number of records" column="year" aggregator="count" visible="true" />
+    <Measure name="Average Score Average (?)" column="scores_average" aggregator="avg" visible="true" />
+
+  </Cube>
+
+  <!-- / Education performance data cube -->
 
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
