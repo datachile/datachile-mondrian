@@ -1,17 +1,17 @@
 GIT
   remote: https://github.com/jazzido/mondrian-rest.git
-  revision: 65c35d841330d81feb5ee7b26f935381c0cf2281
+  revision: c984424414b0dd76646d2c20b4266b8f0ee4f8cd
   branch: public
   specs:
     mondrian-rest (0.5.0-java)
-      grape (~> 0.14.0)
-      mondrian-olap (~> 0.7.0)
+      grape (~> 0.19.0)
+      mondrian-olap (~> 0.8.0)
       writeexcel (~> 1.0, >= 1.0.5)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (5.0.0)
+    activesupport (5.1.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
@@ -20,42 +20,43 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    builder (3.2.2)
+    builder (3.2.3)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    concurrent-ruby (1.0.2-java)
+    concurrent-ruby (1.0.5-java)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     equalizer (0.0.11)
-    grape (0.14.0)
+    grape (0.19.2)
       activesupport
       builder
       hashie (>= 2.1.0)
       multi_json (>= 1.3.2)
       multi_xml (>= 0.5.2)
+      mustermann-grape (~> 1.0.0)
       rack (>= 1.3.0)
       rack-accept
-      rack-mount
       virtus (>= 1.0.0)
-    hashie (3.4.4)
-    i18n (0.7.0)
+    hashie (3.5.5)
+    i18n (0.8.6)
     ice_nine (0.11.2)
     jdbc-postgres (9.4.1206)
-    minitest (5.9.0)
-    mondrian-olap (0.7.0)
+    minitest (5.10.2)
+    mondrian-olap (0.8.0)
       nokogiri
     multi_json (1.12.1)
-    multi_xml (0.5.5)
-    nokogiri (1.6.8-java)
-    puma (3.6.0-java)
-    rack (2.0.1)
+    multi_xml (0.6.0)
+    mustermann (1.0.0)
+    mustermann-grape (1.0.0)
+      mustermann (~> 1.0.0)
+    nokogiri (1.8.0-java)
+    puma (3.9.1-java)
+    rack (2.0.3)
     rack-accept (0.4.5)
       rack (>= 0.4)
-    rack-cors (0.4.0)
-    rack-mount (0.8.3)
-      rack (>= 1.0.0)
-    thread_safe (0.3.5-java)
-    tzinfo (1.2.2)
+    rack-cors (0.4.1)
+    thread_safe (0.3.6-java)
+    tzinfo (1.2.3)
       thread_safe (~> 0.1)
     virtus (1.0.5)
       axiom-types (~> 0.1)
@@ -74,4 +75,4 @@ DEPENDENCIES
   rack-cors
 
 BUNDLED WITH
-   1.12.5
+   1.15.1

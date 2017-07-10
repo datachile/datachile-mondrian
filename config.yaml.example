@@ -1,0 +1,7 @@
+:driver: postgresql
+:host: host_name_or_ip
+:port: 5432
+:database: database
+:username: username
+:password: password
+:catalog: /absolute/path/to/schema.xml

@@ -885,7 +885,7 @@
     <Measure name="staff_XIII_METROPOLITANA" column="personal_86" visible="true" aggregator="sum" />
   </Cube>
 
-  <Cube name="income_gini">
+  <!--Cube name="income_gini">
     <Table name="fact_income_gini" schema="economy" />
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
@@ -909,11 +909,11 @@
     <Measure name="comuna_ci_median_income_lower" column="comuna_ci_median_income_lower" visible="false" aggregator="min" />
     <Measure name="comuna_ci_median_income_upper" column="comuna_ci_median_income_upper" visible="false" aggregator="min" />
     <Measure name="comuna_ci_gini_income_lower" column="comuna_ci_gini_income_lower" visible="false" aggregator="min" />
-    <Measure name="comuna_ci_gini_income_upper" column="comuna_ci_gini_income_upper" visible="false" aggregator="min" />
+    <Measure name="comuna_ci_gini_income_upper" column="comuna_ci_gini_income_upper" visible="false" aggregator="min" /-->
 
     <!-- This is a hackish way of implementing non-additive measures
          Taken from: http://forums.pentaho.com/showthread.php?65993-Support-for-non-additive-and-semi-additive-measures&p=202196#post202196 -->
-    <CalculatedMember name="Mean Income" dimension="Measures">
+    <!--CalculatedMember name="Mean Income" dimension="Measures">
       <Formula>
         CASE WHEN [Date].Level is [Date].Year
         THEN
@@ -954,7 +954,7 @@
         END
       </Formula>
     </CalculatedMember>
-  </Cube>
+  </Cube-->
 
   <!-- NESI -->
   <Cube name="nesi_income">
@@ -1102,10 +1102,10 @@
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <Dimension name="Geography" foreignKey="region_id">
       <Hierarchy hasAll="true" primaryKey="region_id">
-	<View alias="dim_regions">
-	  <SQL>(SELECT distinct(region_id), region_name from dim_comunas)</SQL>
-	</View>
-	<Level name="Region" column="region_id" nameColumn="region_name" uniqueMembers="true" />
+      	<View alias="dim_regions">
+      	  <SQL>(SELECT distinct(region_id), region_name from dim_comunas)</SQL>
+      	</View>
+      	<Level name="Region" column="region_id" nameColumn="region_name" uniqueMembers="true" />
       </Hierarchy>
     </Dimension>
     <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
@@ -1113,7 +1113,6 @@
     <DimensionUsage name="ISCED" source="ISCED" foreignKey="isced_id" />
     <DimensionUsage name="ICSE" source="ICSE" foreignKey="icse_id" />
     <DimensionUsage name="ISCO" source="ISCO" foreignKey="isco_id" />
-
 
     <Dimension name="Occupational Situation" foreignKey="occupied_id">
       <Hierarchy hasAll="true">
@@ -1254,6 +1253,8 @@
   </Cube>
   <!-- / NENE -->
 
+  <!-- PSU -->
+
   <Cube name="psu">
     <Table name="fact_psu" schema="education" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
@@ -1273,6 +1274,180 @@
       </Formula>
     </CalculatedMember>
   </Cube>
+
+  <!-- / PSU -->
+
+  <!-- Electoral data cube -->
+
+  <Cube name="election_results">
+    <Table name="fact_election_results" schema="politics" />
+    
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
+
+
+    <Dimension name="Election Type" foreignKey="election_id">
+      <Hierarchy hasAll="true">
+        
+        <InlineTable alias="election">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Presidente - Primera vuelta</Value>
+              <Value column="es_description">Presidente - Primera vuelta</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Presidente - Segunda vuelta</Value>
+              <Value column="es_description">Presidente - Segunda vuelta</Value>
+            </Row>
+          <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Senador</Value>
+              <Value column="es_description">Senador</Value>
+            </Row>
+          <Row>
+              <Value column="id">4</Value>
+              <Value column="description">Diputado</Value>
+              <Value column="es_description">Diputado</Value>
+            </Row>
+          <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Alcalde</Value>
+              <Value column="es_description">Alcalde</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level name="Election Type" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Party" foreignKey="party_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="party">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Partido Comunista de Chile (PCCh)</Value>
+              <Value column="es_description">Partido Comunista de Chile (PCCh)</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Partido Radical Socialdemocrata (PRSD)</Value>
+              <Value column="es_description">Partido Radical Socialdemocrata (PRSD)</Value>
+            </Row>
+          <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Partido Regionalista de los Independientes (PRI)</Value>
+              <Value column="es_description">Partido Regionalista de los Independientes (PRI)</Value>
+            </Row>
+          <Row>
+              <Value column="id">4</Value>
+              <Value column="description">Partido Humanista (PH)</Value>
+              <Value column="es_description">Partido Humanista (PH)</Value>
+            </Row>
+          <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Partido Progresista (PRO)</Value>
+              <Value column="es_description">Partido Progresista (PRO)</Value>
+            </Row>
+          <Row>
+              <Value column="id">6</Value>
+              <Value column="description">Unión Demócrata Independiente (UDI)</Value>
+              <Value column="es_description">Unión Demócrata Independiente (UDI)</Value>
+            </Row>
+          <Row>
+              <Value column="id">7</Value>
+              <Value column="description">Renovación Nacional (RN)</Value>
+              <Value column="es_description">Renovación Nacional (RN)</Value>
+            </Row>
+          <Row>
+              <Value column="id">8</Value>
+              <Value column="description">Independientes (IND)</Value>
+              <Value column="es_description">Independientes (IND)</Value>
+            </Row>
+          <Row>
+              <Value column="id">9</Value>
+              <Value column="description">Partido Demócrata Cristiano (PDC)</Value>
+              <Value column="es_description">Partido Demócrata Cristiano (PDC)</Value>
+            </Row>
+          <Row>
+              <Value column="id">10</Value>
+              <Value column="description">Partido Socialista de Chile (PS)</Value>
+              <Value column="es_description">Partido Socialista de Chile (PS)</Value>
+            </Row>
+          <Row>
+              <Value column="id">11</Value>
+              <Value column="description">Partido por la Democracia (PPD)</Value>
+              <Value column="es_description">Partido por la Democracia (PPD)</Value>
+            </Row>
+          <Row>
+              <Value column="id">12</Value>
+              <Value column="description">Partido Igualdad (PI)</Value>
+              <Value column="es_description">Partido Igualdad (PI)</Value>
+            </Row>
+          <Row>
+              <Value column="id">13</Value>
+              <Value column="description">Partido Ecologista Verde (PEV)</Value>
+              <Value column="es_description">Partido Ecologista Verde (PEV)</Value>
+            </Row>
+          <Row>
+              <Value column="id">14</Value>
+              <Value column="description">MAS Región (MAS Región)</Value>
+              <Value column="es_description">MAS Región (MAS Región)</Value>
+            </Row>
+          <Row>
+              <Value column="id">15</Value>
+              <Value column="description">Partido Liberal de Chile (PL)</Value>
+              <Value column="es_description">Partido Liberal de Chile (PL)</Value>
+            </Row>
+          <Row>
+              <Value column="id">0</Value>
+              <Value column="description">nan</Value>
+              <Value column="es_description">nan</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level name="Party" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    
+    <Dimension name="Candidates" foreignKey="candidate_id">
+      <Hierarchy hasAll="true" primaryKey="candidate_id">
+        <Table name="dim_candidates" schema="politics" />
+        <Level name="Candidate" column="candidate_id" nameColumn="candidate" uniqueMembers="true" />
+      </Hierarchy>
+    </Dimension>
+
+    <Measure name="Number of records" column="year" aggregator="count" visible="true" />
+    <Measure name="Votes" column="votes" aggregator="sum" visible="true" />
+
+  </Cube>
+
+  <!-- / Electoral data cube -->
 
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
