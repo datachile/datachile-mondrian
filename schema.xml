@@ -1559,6 +1559,276 @@
 
   <!-- / Education performance data cube -->
 
+  <!-- Education employability data cube -->
+
+  <Cube name="education_employability">
+    <Table name="fact_employability" schema="education" />
+    
+    <Dimension name="Careers" foreignKey="career_id">
+      <Hierarchy hasAll="true" primaryKey="career_id">
+        <Table name="dim_careers" schema="education" />
+        <Level name="Career" column="career_id" nameColumn="career" uniqueMembers="true" />
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Institution" foreignKey="higher_educational_institution_id">
+      <Hierarchy hasAll="true" primaryKey="higher_educational_institution_id">
+        <Table name="dim_higher_educational_institutions" schema="education" />
+        <Level name="Institution" column="higher_educational_institution_id" nameColumn="higher_educational_institution" uniqueMembers="true" />
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Accreditation" foreignKey="accreditation_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="accreditation">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">2 años</Value>
+              <Value column="es_description">2 años</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">3 años</Value>
+              <Value column="es_description">3 años</Value>
+            </Row>
+          <Row>
+              <Value column="id">3</Value>
+              <Value column="description">4 años</Value>
+              <Value column="es_description">4 años</Value>
+            </Row>
+          <Row>
+              <Value column="id">4</Value>
+              <Value column="description">5 años</Value>
+              <Value column="es_description">5 años</Value>
+            </Row>
+          <Row>
+              <Value column="id">5</Value>
+              <Value column="description">6 años</Value>
+              <Value column="es_description">6 años</Value>
+            </Row>
+          <Row>
+              <Value column="id">6</Value>
+              <Value column="description">7 años</Value>
+              <Value column="es_description">7 años</Value>
+            </Row>
+          <Row>
+              <Value column="id">7</Value>
+              <Value column="description">No</Value>
+              <Value column="es_description">No</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level name="Accreditation" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Institution Type" foreignKey="higher_educational_institution_type_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="higher_educational_institution_type">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Centro de FormaciĂłn TĂŠcnica</Value>
+              <Value column="es_description">Centro de FormaciĂłn TĂŠcnica</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Instituto Profesional</Value>
+              <Value column="es_description">Instituto Profesional</Value>
+            </Row>
+          <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Universidad</Value>
+              <Value column="es_description">Universidad</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level name="Institution Type" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Avg Income 4th year" foreignKey="avg_income_4th_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="avg_income_4th_id">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">De $1 millón 100 mil a $1 millón 200 mil</Value>
+              <Value column="es_description">De $1 millón 100 mil a $1 millón 200 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">De $1 millón 200 mil a $1 millón 300 mil</Value>
+              <Value column="es_description">De $1 millón 200 mil a $1 millón 300 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">3</Value>
+              <Value column="description">De $1 millón 300 mil a $1 millón 400 mil</Value>
+              <Value column="es_description">De $1 millón 300 mil a $1 millón 400 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">4</Value>
+              <Value column="description">De $1 millón 400 mil a $1 millón 500 mil</Value>
+              <Value column="es_description">De $1 millón 400 mil a $1 millón 500 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">5</Value>
+              <Value column="description">De $1 millón 500 mil a $1 millón 600 mil</Value>
+              <Value column="es_description">De $1 millón 500 mil a $1 millón 600 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">6</Value>
+              <Value column="description">De $1 millón 600 mil a $1 millón 700 mil</Value>
+              <Value column="es_description">De $1 millón 600 mil a $1 millón 700 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">7</Value>
+              <Value column="description">De $1 millón 700 mil a $1 millón 800 mil</Value>
+              <Value column="es_description">De $1 millón 700 mil a $1 millón 800 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">8</Value>
+              <Value column="description">De $1 millón 800 mil a $1 millón 900 mil</Value>
+              <Value column="es_description">De $1 millón 800 mil a $1 millón 900 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">9</Value>
+              <Value column="description">De $1 millón 900 mil a $2 millones</Value>
+              <Value column="es_description">De $1 millón 900 mil a $2 millones</Value>
+            </Row>
+          <Row>
+              <Value column="id">10</Value>
+              <Value column="description">De $1 millón a $1 millón 100 mil</Value>
+              <Value column="es_description">De $1 millón a $1 millón 100 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">11</Value>
+              <Value column="description">De $2 millones 100 mil a $2 millones 200 mil</Value>
+              <Value column="es_description">De $2 millones 100 mil a $2 millones 200 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">12</Value>
+              <Value column="description">De $2 millones 200 mil a $2 millones 300 mil</Value>
+              <Value column="es_description">De $2 millones 200 mil a $2 millones 300 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">13</Value>
+              <Value column="description">De $2 millones 300 mil a $2 millones 400 mil</Value>
+              <Value column="es_description">De $2 millones 300 mil a $2 millones 400 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">14</Value>
+              <Value column="description">De $2 millones 400 mil a $2 millones 500 mil</Value>
+              <Value column="es_description">De $2 millones 400 mil a $2 millones 500 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">15</Value>
+              <Value column="description">De $2 millones a $2 millones 100 mil</Value>
+              <Value column="es_description">De $2 millones a $2 millones 100 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">16</Value>
+              <Value column="description">De $300 mil a $400 mil</Value>
+              <Value column="es_description">De $300 mil a $400 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">17</Value>
+              <Value column="description">De $400 mil a $500 mil</Value>
+              <Value column="es_description">De $400 mil a $500 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">18</Value>
+              <Value column="description">De $500 mil a $600 mil</Value>
+              <Value column="es_description">De $500 mil a $600 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">19</Value>
+              <Value column="description">De $600 mil a $700 mil</Value>
+              <Value column="es_description">De $600 mil a $700 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">20</Value>
+              <Value column="description">De $700 mil a $800 mil</Value>
+              <Value column="es_description">De $700 mil a $800 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">21</Value>
+              <Value column="description">De $800 mil a $900 mil</Value>
+              <Value column="es_description">De $800 mil a $900 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">22</Value>
+              <Value column="description">De $900 mil a $1 millón</Value>
+              <Value column="es_description">De $900 mil a $1 millón</Value>
+            </Row>
+          <Row>
+              <Value column="id">23</Value>
+              <Value column="description">Sobre $2 millones 500 mil</Value>
+              <Value column="es_description">Sobre $2 millones 500 mil</Value>
+            </Row>
+          <Row>
+              <Value column="id">24</Value>
+              <Value column="description">nan</Value>
+              <Value column="es_description">nan</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level name="Avg Income 4th year" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure name="Number of records" column="higher_educational_institution_id" aggregator="count" visible="true" />
+    
+    <Measure name="Avg subsidized" column="pcent_subsidized" aggregator="avg" visible="true" />
+    
+    <Measure name="Avg Retention 1st year " column="1st_year_retention" aggregator="avg" visible="true" />
+    
+    <Measure name="Avg Duration in semesters" column="duration_in_semester" aggregator="avg" visible="true" />
+
+    <Measure name="Avg employability 1st year" column="1st_year_employability" aggregator="avg" visible="true" />
+
+    <Measure name="Avg anual payment 2016" column="annual_payment_2016" aggregator="avg" visible="true" />
+    
+    <Measure name="Sum anual payment 2016" column="annual_payment_2016" aggregator="sum" visible="true" />
+
+  </Cube>
+
+  <!-- / Education performance data cube -->
+
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
     <VirtualCubeDimension name="Geography" />
