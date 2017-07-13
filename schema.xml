@@ -15,7 +15,7 @@
     <Hierarchy hasAll="true" primaryKey="id">
       <Table name="dim_comunas" schema="public" />
       <Level name="Region" column="region_id" nameColumn="region_name" uniqueMembers="true" />
-      <Level name="Comuna" column="comuna_datachile_id" nameColumn="comuna_name" uniqueMembers="false" />
+      <Level name="Comuna" column="comuna_datachile_id" nameColumn="comuna_name" uniqueMembers="true" />
     </Hierarchy>
   </Dimension>
 
@@ -553,7 +553,7 @@
             Null,
         Rank([Geography].CurrentMember,
           Order([Geography].CurrentMember.Siblings,
-                Aggregate({[Date].CurrentMember}*{[Destination Country].[All Destination Countrys]}*{[Export HS].[All Export HSs]},
+                Aggregate({[Date].CurrentMember}*{[Destination Country].[All Countrys]}*{[Export HS].[All HSs]},
                           [Measures].[FOB US]),
                 BDESC)))
 
@@ -581,7 +581,7 @@
             Null,
             Rank([Geography].CurrentMember,
                  Order([Geography].CurrentMember.Siblings,
-                       Aggregate({[Date].CurrentMember}*{[Origin Country].[All Origin Countrys]}*{[Import HS].[All Import HSs]},
+                       Aggregate({[Date].CurrentMember}*{[Origin Country].[All Countrys]}*{[Import HS].[All HSs]},
                                  [Measures].[CIF US]),
                        BDESC)))
 
@@ -986,76 +986,168 @@
     <Measure name="staff_XIII_METROPOLITANA" column="personal_86" visible="true" aggregator="sum" />
   </Cube>
 
-  <!--Cube name="income_gini">
-    <Table name="fact_income_gini" schema="economy" />
+  <Cube name="income_gini">
+    
+    <View alias="fact_income_gini">
+      <SQL dialect="generic"><![CDATA[(SELECT
+        country.date_id as date_id,
+        comuna.geography_id as comuna_id,
+
+        country.weighted_mean_income as country_weighted_mean_income,country.weighted_median_income as country_weighted_median_income,country.weighted_gini_income as country_weighted_gini_income,country.lb_weighted_mean_income as country_lb_weighted_mean_income,country.ub_weighted_mean_income as country_ub_weighted_mean_income,country.lb_weighted_median_income as country_lb_weighted_median_income,country.ub_weighted_median_income as country_ub_weighted_median_income,country.lb_weighted_gini_income as country_lb_weighted_gini_income,country.ub_weighted_gini_income as country_ub_weighted_gini_income,
+        region.weighted_mean_income as region_weighted_mean_income,region.weighted_median_income as region_weighted_median_income,region.weighted_gini_income as region_weighted_gini_income,region.lb_weighted_mean_income as region_lb_weighted_mean_income,region.ub_weighted_mean_income as region_ub_weighted_mean_income,region.lb_weighted_median_income as region_lb_weighted_median_income,region.ub_weighted_median_income as region_ub_weighted_median_income,region.lb_weighted_gini_income as region_lb_weighted_gini_income,region.ub_weighted_gini_income as region_ub_weighted_gini_income,
+        comuna.weighted_mean_income as comuna_weighted_mean_income,comuna.weighted_median_income as comuna_weighted_median_income,comuna.weighted_gini_income as comuna_weighted_gini_income,comuna.lb_weighted_mean_income as comuna_lb_weighted_mean_income,comuna.ub_weighted_mean_income as comuna_ub_weighted_mean_income,comuna.lb_weighted_median_income as comuna_lb_weighted_median_income,comuna.ub_weighted_median_income as comuna_ub_weighted_median_income,comuna.lb_weighted_gini_income as comuna_lb_weighted_gini_income,comuna.ub_weighted_gini_income as comuna_ub_weighted_gini_income
+
+       FROM economy.fact_income_gini_country_casen country
+       INNER JOIN economy.fact_income_gini_region_casen region ON region.date_id = country.date_id
+       INNER JOIN dim_comunas dc ON dc.region_id = region.geography_id
+       INNER JOIN economy.fact_income_gini_comuna_casen comuna ON comuna.geography_id = dc.comuna_datachile_id AND region.date_id = comuna.date_id
+    )]]></SQL>
+    </View>
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
-    <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
+    <DimensionUsage name="Geography" source="Geography" level="Comuna" foreignKey="comuna_id" />
 
-    <Measure name="region_mean_income" column="region_mean_income" visible="false" aggregator="min" />
-    <Measure name="region_median_income" column="median_income" visible="false" aggregator="min" />
-    <Measure name="region_gini_income" column="region_gini_income" visible="false" aggregator="min" />
-    <Measure name="comuna_mean_income" column="comuna_mean_income" visible="false" aggregator="min" />
-    <Measure name="comuna_median_income" column="comuna_median_income" visible="false" aggregator="min" />
-    <Measure name="comuna_gini_income" column="comuna_gini_income" visible="false" aggregator="min" />
+    <Measure name="country_weighted_mean_income" column="country_weighted_mean_income"  visible="false" aggregator="min"/>
+    <Measure name="country_weighted_median_income" column="country_weighted_median_income"  visible="false" aggregator="min"/>
+    <Measure name="country_weighted_gini_income" column="country_weighted_gini_income"  visible="false" aggregator="min"/>
+    <Measure name="country_lb_weighted_mean_income" column="country_lb_weighted_mean_income"  visible="false" aggregator="min"/>
+    <Measure name="country_ub_weighted_mean_income" column="country_ub_weighted_mean_income"  visible="false" aggregator="min"/>
+    <Measure name="country_lb_weighted_median_income" column="country_lb_weighted_median_income"  visible="false" aggregator="min"/>
+    <Measure name="country_ub_weighted_median_income" column="country_ub_weighted_median_income"  visible="false" aggregator="min"/>
+    <Measure name="country_lb_weighted_gini_income" column="country_lb_weighted_gini_income"  visible="false" aggregator="min"/>
+    <Measure name="country_ub_weighted_gini_income" column="country_ub_weighted_gini_income"  visible="false" aggregator="min"/>
 
-    <Measure name="region_ci_mean_income_lower" column="region_ci_mean_income_lower" visible="false" aggregator="min" />
-    <Measure name="region_ci_mean_income_upper" column="region_ci_mean_income_upper" visible="false" aggregator="min" />
-    <Measure name="region_ci_median_income_lower" column="region_ci_median_income_lower" visible="false" aggregator="min" />
-    <Measure name="region_ci_median_income_upper" column="region_ci_median_income_upper" visible="false" aggregator="min" />
-    <Measure name="region_ci_gini_income_lower" column="region_ci_gini_income_lower" visible="false" aggregator="min" />
-    <Measure name="region_ci_gini_income_upper" column="region_ci_gini_income_upper" visible="false" aggregator="min" />
-    <Measure name="comuna_ci_mean_income_lower" column="comuna_ci_mean_income_lower" visible="false" aggregator="min" />
-    <Measure name="comuna_ci_mean_income_upper" column="comuna_ci_mean_income_upper" visible="false" aggregator="min" />
-    <Measure name="comuna_ci_median_income_lower" column="comuna_ci_median_income_lower" visible="false" aggregator="min" />
-    <Measure name="comuna_ci_median_income_upper" column="comuna_ci_median_income_upper" visible="false" aggregator="min" />
-    <Measure name="comuna_ci_gini_income_lower" column="comuna_ci_gini_income_lower" visible="false" aggregator="min" />
-    <Measure name="comuna_ci_gini_income_upper" column="comuna_ci_gini_income_upper" visible="false" aggregator="min" /-->
 
-    <!-- This is a hackish way of implementing non-additive measures
-         Taken from: http://forums.pentaho.com/showthread.php?65993-Support-for-non-additive-and-semi-additive-measures&p=202196#post202196 -->
-    <!--CalculatedMember name="Mean Income" dimension="Measures">
+    <Measure name="region_weighted_mean_income" column="region_weighted_mean_income"  visible="false" aggregator="min"/>
+    <Measure name="region_weighted_median_income" column="region_weighted_median_income"  visible="false" aggregator="min"/>
+    <Measure name="region_weighted_gini_income" column="region_weighted_gini_income"  visible="false" aggregator="min"/>
+    <Measure name="region_lb_weighted_mean_income" column="region_lb_weighted_mean_income"  visible="false" aggregator="min"/>
+    <Measure name="region_ub_weighted_mean_income" column="region_ub_weighted_mean_income"  visible="false" aggregator="min"/>
+    <Measure name="region_lb_weighted_median_income" column="region_lb_weighted_median_income"  visible="false" aggregator="min"/>
+    <Measure name="region_ub_weighted_median_income" column="region_ub_weighted_median_income"  visible="false" aggregator="min"/>
+    <Measure name="region_lb_weighted_gini_income" column="region_lb_weighted_gini_income"  visible="false" aggregator="min"/>
+    <Measure name="region_ub_weighted_gini_income" column="region_ub_weighted_gini_income"  visible="false" aggregator="min"/>
+
+
+    <Measure name="comuna_weighted_mean_income" column="comuna_weighted_mean_income"  visible="false" aggregator="min"/>
+    <Measure name="comuna_weighted_median_income" column="comuna_weighted_median_income"  visible="false" aggregator="min"/>
+    <Measure name="comuna_weighted_gini_income" column="comuna_weighted_gini_income"  visible="false" aggregator="min"/>
+    <Measure name="comuna_lb_weighted_mean_income" column="comuna_lb_weighted_mean_income"  visible="false" aggregator="min"/>
+    <Measure name="comuna_ub_weighted_mean_income" column="comuna_ub_weighted_mean_income"  visible="false" aggregator="min"/>
+    <Measure name="comuna_lb_weighted_median_income" column="comuna_lb_weighted_median_income"  visible="false" aggregator="min"/>
+    <Measure name="comuna_ub_weighted_median_income" column="comuna_ub_weighted_median_income"  visible="false" aggregator="min"/>
+    <Measure name="comuna_lb_weighted_gini_income" column="comuna_lb_weighted_gini_income"  visible="false" aggregator="min"/>
+    <Measure name="comuna_ub_weighted_gini_income" column="comuna_ub_weighted_gini_income"  visible="false" aggregator="min"/>
+
+    <CalculatedMember name="Gini" dimension="Measures" visible="true">
       <Formula>
-        CASE WHEN [Date].Level is [Date].Year
-        THEN
+
           CASE
-            WHEN [Geography].Level is [Geography].[Region] THEN [Measures].[region_mean_income]
-            WHEN [Geography].Level is [Geography].[Comuna] THEN [Measures].[comuna_mean_income]
-            ELSE Null
+            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_weighted_gini_income]
+            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_weighted_gini_income]
+            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_weighted_gini_income]
           END
-        ELSE Null
-        END
+
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember name="Median Income" dimension="Measures">
+    <CalculatedMember name="LB Gini" dimension="Measures" visible="true">
       <Formula>
-        CASE WHEN [Date].Level is [Date].Year
-        THEN
+
           CASE
-            WHEN [Geography].Level is [Geography].[Region] THEN [Measures].[region_median_income]
-            WHEN [Geography].Level is [Geography].[Comuna] THEN [Measures].[comuna_median_income]
-            ELSE Null
+            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_lb_weighted_gini_income]
+            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_lb_weighted_gini_income]
+            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_lb_weighted_gini_income]
           END
-        ELSE Null
-        END
+
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember name="Gini" dimension="Measures">
+    <CalculatedMember name="UB Gini" dimension="Measures" visible="true">
       <Formula>
-        CASE WHEN [Date].Level is [Date].Year
-        THEN
+
           CASE
-            WHEN [Geography].Level is [Geography].[Region] THEN [Measures].[region_gini_income]
-            WHEN [Geography].Level is [Geography].[Comuna] THEN [Measures].[comuna_gini_income]
-            ELSE Null
+            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_ub_weighted_gini_income]
+            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_ub_weighted_gini_income]
+            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_ub_weighted_gini_income]
           END
-        ELSE Null
-        END
+
       </Formula>
     </CalculatedMember>
-  </Cube-->
+
+    <CalculatedMember name="Mean Income" dimension="Measures" visible="true">
+      <Formula>
+
+          CASE
+            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_weighted_mean_income]
+            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_weighted_mean_income]
+            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_weighted_mean_income]
+          END
+
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="LB Mean Income" dimension="Measures" visible="true">
+      <Formula>
+
+          CASE
+            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_lb_weighted_mean_income]
+            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_lb_weighted_mean_income]
+            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_lb_weighted_mean_income]
+          END
+
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="UB Mean Income" dimension="Measures" visible="true">
+      <Formula>
+
+          CASE
+            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_ub_weighted_mean_income]
+            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_ub_weighted_mean_income]
+            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_ub_weighted_mean_income]
+          END
+
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="Median Income" dimension="Measures" visible="true">
+      <Formula>
+
+          CASE
+            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_weighted_median_income]
+            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_weighted_median_income]
+            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_weighted_median_income]
+          END
+
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="LB Median Income" dimension="Measures" visible="true">
+      <Formula>
+
+          CASE
+            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_lb_weighted_median_income]
+            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_lb_weighted_median_income]
+            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_lb_weighted_median_income]
+          END
+
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="UB Median Income" dimension="Measures" visible="true">
+      <Formula>
+
+          CASE
+            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_ub_weighted_median_income]
+            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_ub_weighted_median_income]
+            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_ub_weighted_median_income]
+          END
+
+      </Formula>
+    </CalculatedMember>
+
+  </Cube>
 
   <!-- NESI -->
   <Cube name="nesi_income">
