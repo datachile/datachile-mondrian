@@ -553,7 +553,7 @@
             Null,
         Rank([Geography].CurrentMember,
           Order([Geography].CurrentMember.Siblings,
-                Aggregate({[Date].CurrentMember}*{[Destination Country].[All Destination Countrys]}*{[Export HS].[All Export HSs]},
+                Aggregate({[Date].CurrentMember}*{[Destination Country].[All Countrys]}*{[Export HS].[All HSs]},
                           [Measures].[FOB US]),
                 BDESC)))
 
@@ -581,7 +581,7 @@
             Null,
             Rank([Geography].CurrentMember,
                  Order([Geography].CurrentMember.Siblings,
-                       Aggregate({[Date].CurrentMember}*{[Origin Country].[All Origin Countrys]}*{[Import HS].[All Import HSs]},
+                       Aggregate({[Date].CurrentMember}*{[Origin Country].[All Countrys]}*{[Import HS].[All HSs]},
                                  [Measures].[CIF US]),
                        BDESC)))
 
