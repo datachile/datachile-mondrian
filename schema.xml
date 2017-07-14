@@ -596,7 +596,7 @@
     <DimensionUsage name="Origin Country" caption="Origin Country" source="Country" foreignKey="country_code" />
     <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
 
-    <Dimension name="Education" foreignKey="study_id">
+    <Dimension name="Education" foreignKey="studies_id">
       <Hierarchy hasAll="true">
         <InlineTable alias="education">
           <ColumnDefs>
