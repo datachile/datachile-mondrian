@@ -3887,6 +3887,129 @@
 
   <!-- / CASEN household data cube -->
 
+  <!-- Population data cube -->
+
+  <Cube name="population_estimate">
+    <Table name="fact_population_estimate" schema="demographics" />
+    
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" level="Comuna" foreignKey="comuna_datachile_id" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
+
+    <Dimension name="Age Range" foreignKey="age_range_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="age_range">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">age_0_4</Value>
+              <Value column="es_description">age_0_4</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">age_5_9</Value>
+              <Value column="es_description">age_5_9</Value>
+            </Row>
+          <Row>
+              <Value column="id">3</Value>
+              <Value column="description">age_10_14</Value>
+              <Value column="es_description">age_10_14</Value>
+            </Row>
+          <Row>
+              <Value column="id">4</Value>
+              <Value column="description">age_15_19</Value>
+              <Value column="es_description">age_15_19</Value>
+            </Row>
+          <Row>
+              <Value column="id">5</Value>
+              <Value column="description">age_20_24</Value>
+              <Value column="es_description">age_20_24</Value>
+            </Row>
+          <Row>
+              <Value column="id">6</Value>
+              <Value column="description">age_25_29</Value>
+              <Value column="es_description">age_25_29</Value>
+            </Row>
+          <Row>
+              <Value column="id">7</Value>
+              <Value column="description">age_30_34</Value>
+              <Value column="es_description">age_30_34</Value>
+            </Row>
+          <Row>
+              <Value column="id">8</Value>
+              <Value column="description">age_35_39</Value>
+              <Value column="es_description">age_35_39</Value>
+            </Row>
+          <Row>
+              <Value column="id">9</Value>
+              <Value column="description">age_40_44</Value>
+              <Value column="es_description">age_40_44</Value>
+            </Row>
+          <Row>
+              <Value column="id">10</Value>
+              <Value column="description">age_45_49</Value>
+              <Value column="es_description">age_45_49</Value>
+            </Row>
+          <Row>
+              <Value column="id">11</Value>
+              <Value column="description">age_50_54</Value>
+              <Value column="es_description">age_50_54</Value>
+            </Row>
+          <Row>
+              <Value column="id">12</Value>
+              <Value column="description">age_55_59</Value>
+              <Value column="es_description">age_55_59</Value>
+            </Row>
+          <Row>
+              <Value column="id">13</Value>
+              <Value column="description">age_60_64</Value>
+              <Value column="es_description">age_60_64</Value>
+            </Row>
+          <Row>
+              <Value column="id">14</Value>
+              <Value column="description">age_65_69</Value>
+              <Value column="es_description">age_65_69</Value>
+            </Row>
+          <Row>
+              <Value column="id">15</Value>
+              <Value column="description">age_70_74</Value>
+              <Value column="es_description">age_70_74</Value>
+            </Row>
+          <Row>
+              <Value column="id">16</Value>
+              <Value column="description">age_75_79</Value>
+              <Value column="es_description">age_75_79</Value>
+            </Row>
+          <Row>
+              <Value column="id">17</Value>
+              <Value column="description">age_80_and_more</Value>
+              <Value column="es_description">age_80_and_more</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level name="Age Range" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
+    
+    <Measure name="Population" column="count" aggregator="sum" visible="true" />
+    
+  </Cube>
+
+  <!-- / Population data cube -->
+
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
     <VirtualCubeDimension name="Geography" />
