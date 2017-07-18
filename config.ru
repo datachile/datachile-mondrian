@@ -8,6 +8,7 @@ require 'logger'
 require 'mondrian_rest'
 
 require_relative './lib/none_rolap_aggregator.rb'
+require_relative './lib/named_queries.rb'
 
 logger = Logger.new(STDERR)
 logger.level = Logger::DEBUG
@@ -40,4 +41,9 @@ use Rack::Cors do
 end
 
 use Rack::CommonLogger, $stdout
+
+
+Mondrian::REST::Api.mount Datachile::NamedQueries
+
+
 run Mondrian::REST::Api
