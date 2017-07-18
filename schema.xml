@@ -507,7 +507,12 @@
   <Dimension name="Teaching">
     <Hierarchy hasAll="true" primaryKey="teaching_id">
       <Table name="dim_teachings" schema="education" />
-      <Level name="Teaching" column="teaching_id" nameColumn="teaching" uniqueMembers="true" />
+      <Level name="Teaching" column="teaching_id" nameColumn="teaching_en" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="teaching" />
+      </Level>
     </Hierarchy>
   </Dimension>
 
@@ -1659,13 +1664,24 @@
     <Dimension name="Careers" foreignKey="career_id">
       <Hierarchy hasAll="true" primaryKey="career_id">
         <Table name="dim_careers" schema="education" />
-        <Level name="Career" column="career_id" nameColumn="career" uniqueMembers="true" />
+        <Level name="Career" column="career_id" nameColumn="career_en" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="career" />
+        </Level>
       </Hierarchy>
     </Dimension>
 
     <Dimension name="Institution" foreignKey="higher_educational_institution_id">
       <Hierarchy hasAll="true" primaryKey="higher_educational_institution_id">
         <Table name="dim_higher_educational_institutions" schema="education" />
+        <Level name="Institution Type" column="higher_educational_institution_group_id" nameColumn="higher_educational_institution_group_name" uniqueMembers="false">
+          <Annotations>
+              <Annotation name="es_caption">Country ES</Annotation>
+          </Annotations>
+          <Property name="Country ES" column="higher_educational_institution_group_name_es" />
+        </Level>
         <Level name="Institution" column="higher_educational_institution_id" nameColumn="higher_educational_institution" uniqueMembers="true" />
       </Hierarchy>
     </Dimension>
@@ -4006,6 +4022,98 @@
     
     <Measure name="Population" column="count" aggregator="sum" visible="true" />
     
+  </Cube>
+
+  <!-- / Population data cube -->
+
+  <!-- Health CASEN data cube -->
+
+  <Cube name="casen_health_system">
+    <Table name="fact_health_system_casen" schema="health" />
+    
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" level="Comuna" foreignKey="comuna_datachile_id" />
+
+    <Dimension name="Health System" foreignKey="health_system_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="health_system">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">FONASA Grupo A</Value>
+              <Value column="es_description">FONASA Grupo A</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">FONASA Grupo B</Value>
+              <Value column="es_description">FONASA Grupo B</Value>
+            </Row>
+          <Row>
+              <Value column="id">3</Value>
+              <Value column="description">FONASA Grupo C</Value>
+              <Value column="es_description">FONASA Grupo C</Value>
+            </Row>
+          <Row>
+              <Value column="id">4</Value>
+              <Value column="description">FONASA Grupo D</Value>
+              <Value column="es_description">FONASA Grupo D</Value>
+            </Row>
+          <Row>
+              <Value column="id">5</Value>
+              <Value column="description">FONASA (No Sabe Grupo)</Value>
+              <Value column="es_description">FONASA (No Sabe Grupo)</Value>
+            </Row>
+          <Row>
+              <Value column="id">6</Value>
+              <Value column="description">Fuerzas Armadas, de Orden y Seguridad PÃºblica</Value>
+              <Value column="es_description">Fuerzas Armadas, de Orden y Seguridad PÃºblica</Value>
+            </Row>
+          <Row>
+              <Value column="id">7</Value>
+              <Value column="description">Isapre</Value>
+              <Value column="es_description">Isapre</Value>
+            </Row>
+          <Row>
+              <Value column="id">8</Value>
+              <Value column="description">Ninguno</Value>
+              <Value column="es_description">Ninguno</Value>
+            </Row>
+          <Row>
+              <Value column="id">9</Value>
+              <Value column="description">Otro Sistema</Value>
+              <Value column="es_description">Otro Sistema</Value>
+            </Row>
+          <Row>
+              <Value column="id">10</Value>
+              <Value column="description">No Sabe</Value>
+              <Value column="es_description">No Sabe</Value>
+            </Row>
+          <Row>
+              <Value column="id">0</Value>
+              <Value column="description">nan</Value>
+              <Value column="es_description">nan</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level name="Health System" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
+    <Measure name="Expansion Factor Region" column="expr" visible="true" aggregator="sum" />
+    <Measure name="Expansion Factor Comuna" column="expc" visible="true" aggregator="sum" />
+
   </Cube>
 
   <!-- / Population data cube -->
