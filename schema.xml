@@ -1634,8 +1634,6 @@
 
   <!-- / Education enrollment data cube -->
 
-
-
   <!-- Education performance data cube -->
 
   <Cube name="education_performance">
@@ -4116,7 +4114,29 @@
 
   </Cube>
 
-  <!-- / Population data cube -->
+  <!-- / Health CASEN data cube -->
+
+ <!-- Banking CASEN data cube tiene problemas de muchos N/A -->
+
+  <Cube name="casen_banking">
+    <Table name="fact_banking_casen" schema="environment" />
+    
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" level="Comuna" foreignKey="comuna_datachile_id" />
+
+    <DimensionUsage name="Debit Card" caption="Debit Card" source="Binary Survey Response" foreignKey="debit_card_id" />
+    <DimensionUsage name="Bank Credit Card" caption="Bank Credit Card" source="Binary Survey Response" foreignKey="credit_card_bank_id" />
+    <DimensionUsage name="Store Credit Card" caption="Store Credit Card" source="Binary Survey Response" foreignKey="credit_card_store_id" />
+    <DimensionUsage name="Checks" caption="Checks" source="Binary Survey Response" foreignKey="checks_id" />
+    <DimensionUsage name="Credit Line" caption="Credit Line" source="Binary Survey Response" foreignKey="credit_line_id" />
+    
+    <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
+    <Measure name="Expansion Factor Region" column="expr" visible="true" aggregator="sum" />
+    <Measure name="Expansion Factor Comuna" column="expc" visible="true" aggregator="sum" />
+
+  </Cube>
+
+  <!-- / Banking CASEN data cube -->
 
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
