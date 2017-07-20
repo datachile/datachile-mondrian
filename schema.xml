@@ -1662,6 +1662,12 @@
     <Dimension name="Careers" foreignKey="career_id">
       <Hierarchy hasAll="true" primaryKey="career_id">
         <Table name="dim_careers" schema="education" />
+        <Level name="Career Group" column="career_group_id" nameColumn="career_group_en" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="career_group" />
+        </Level>
         <Level name="Career" column="career_id" nameColumn="career_en" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>

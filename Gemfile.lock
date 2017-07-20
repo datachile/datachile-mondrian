@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/jazzido/mondrian-rest.git
-  revision: 13f83137072cc31a91fcb17cf336870bf7ca90dd
+  revision: 242d2a09d4e9fa5d713e058f1f0290eb9432e169
   branch: public
   specs:
     mondrian-rest (0.5.0-java)
@@ -54,7 +54,7 @@ GEM
     rack (2.0.3)
     rack-accept (0.4.5)
       rack (>= 0.4)
-    rack-cors (1.0.0)
+    rack-cors (1.0.1)
     thread_safe (0.3.6-java)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
