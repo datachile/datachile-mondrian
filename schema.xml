@@ -4169,6 +4169,30 @@
 
   <!-- / Banking CASEN data cube -->
 
+  <!-- Banking CASEN data cube tiene problemas de muchos N/A -->
+
+  <Cube name="health_access">
+    <Table name="fact_health_access" schema="health" />
+    
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" level="Region" foreignKey="region_id" />
+    
+    <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
+
+    <Measure name="Primary Healthcare SUM" column="primary_healthcare" visible="true" aggregator="sum" />
+    <Measure name="Specialized Healthcare SUM" column="specialized_healthcare" visible="true" aggregator="sum" />
+    <Measure name="Urgency Healthcare SUM" column="urgency_healthcare" visible="true" aggregator="sum" />
+
+    <Measure name="Primary Healthcare AVG" column="primary_healthcare" visible="true" aggregator="avg" />
+    <Measure name="Specialized Healthcare AVG" column="specialized_healthcare" visible="true" aggregator="avg" />
+    <Measure name="Urgency Healthcare AVG" column="urgency_healthcare" visible="true" aggregator="avg" />
+    
+    <Measure name="Dental Discharges Per 100 inhabitants AVG" column="dental_discharges_per_100_inhabitants" visible="true" aggregator="avg" />
+
+  </Cube>
+
+  <!-- / Banking CASEN data cube -->
+
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
     <VirtualCubeDimension name="Geography" />
