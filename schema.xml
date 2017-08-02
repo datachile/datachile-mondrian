@@ -595,7 +595,7 @@
   </Cube>
 
   <Cube name="immigration">
-    <Table name="fact_immigration_records" schema="public" />
+    <Table name="fact_immigration_records" schema="demographics" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
     <DimensionUsage name="Origin Country" caption="Origin Country" source="Country" foreignKey="country_code" />
@@ -610,6 +610,11 @@
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
           <Rows>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">NaN</Value>
+              <Value column="es_description">NaN</Value>
+            </Row>
             <Row>
               <Value column="id">1</Value>
               <Value column="description">Unknown</Value>
@@ -665,6 +670,11 @@
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
           <Rows>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">Nan</Value>
+              <Value column="es_description">Nan</Value>
+            </Row>
             <Row>
               <Value column="id">1</Value>
               <Value column="description">Employee</Value>
@@ -753,45 +763,60 @@
 
     <Dimension name="Visa Type" foreignKey="visa_type_id">
       <Hierarchy hasAll="true">
-	<InlineTable alias="visa_type">
-	  <ColumnDefs>
-	    <ColumnDef name="id" type="Numeric" />
-	    <ColumnDef name="description" type="String" />
-	    <ColumnDef name="es_description" type="String" />
-	  </ColumnDefs>
-	  <Rows>
-	    <Row>
-	      <Value column="id">0</Value>
-	      <Value column="description">nan</Value>
-	      <Value column="es_description">nan</Value>
-	    </Row>
-	    <Row>
-	      <Value column="id">1</Value>
-	      <Value column="description">Student</Value>
-	      <Value column="es_description">Estudiante</Value>
-	    </Row>
-	    <Row>
-	      <Value column="id">2</Value>
-	      <Value column="description">Temporary</Value>
-	      <Value column="es_description">Temporaria</Value>
-	    </Row>
-	    <Row>
-	      <Value column="id">3</Value>
-	      <Value column="description">Subject to Contract</Value>
-	      <Value column="es_description">Sujeta A Contrato</Value>
-	    </Row>
-	    <Row>
-	      <Value column="id">4</Value>
-	      <Value column="description">No benefit</Value>
-	      <Value column="es_description">Sin Beneficio</Value>
-	    </Row>
-	    <Row>
-	      <Value column="id">5</Value>
-	      <Value column="description">Mercosur Temporary Stay Agreement</Value>
-	      <Value column="es_description">Temp. Acuerdo Residencia Mercosur</Value>
-	    </Row>
-	  </Rows>
-	</InlineTable>
+      	<InlineTable alias="visa_type">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">nan</Value>
+              <Value column="es_description">nan</Value>
+            </Row>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Student</Value>
+              <Value column="es_description">Estudiante</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Temporary</Value>
+              <Value column="es_description">Temporaria</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Subject to Contract</Value>
+              <Value column="es_description">Sujeta A Contrato</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">No benefit</Value>
+              <Value column="es_description">Sin Beneficio</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Mercosur Temporary Stay Agreement</Value>
+              <Value column="es_description">Temp. Acuerdo Residencia Mercosur</Value>
+            </Row>
+          <Row>
+              <Value column="id">6</Value>
+              <Value column="description">Permanent Stay</Value>
+              <Value column="es_description">Permanencia Definitiva</Value>
+            </Row>
+          <Row>
+              <Value column="id">7</Value>
+              <Value column="description">Definitive Permanence By Grace</Value>
+              <Value column="es_description">Permanencia Definitiva Por Gracia</Value>
+            </Row>
+          <Row>
+              <Value column="id">0</Value>
+              <Value column="description">nan</Value>
+              <Value column="es_description">nan</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
         <Level name="Visa Type" column="id" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
