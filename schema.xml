@@ -4187,7 +4187,6 @@
     <Measure name="Specialized Healthcare AVG" column="specialized_healthcare" visible="true" aggregator="avg" />
     <Measure name="Urgency Healthcare AVG" column="urgency_healthcare" visible="true" aggregator="avg" />
     
-    <Measure name="Dental Discharges Per 100 inhabitants SUM" column="dental_discharges_per_100_inhabitants" visible="true" aggregator="sum" />
     <Measure name="Dental Discharges Per 100 inhabitants AVG" column="dental_discharges_per_100_inhabitants" visible="true" aggregator="avg" />
 
   </Cube>
@@ -4207,12 +4206,97 @@
 
     <Measure name="Life Expectancy AVG" column="life_expectancy" visible="true" aggregator="avg" />
     
-    <Measure name="Dental Discharges Per 100 inhabitants SUM" column="mortality_rate_per_100_inhabitants" visible="true" aggregator="sum" />
-    <Measure name="Dental Discharges Per 100 inhabitants AVG" column="mortality_rate_per_100_inhabitants" visible="true" aggregator="avg" />
+    <Measure name="Mortality rate per 100 inhabitants AVG" column="mortality_rate_per_100_inhabitants" visible="true" aggregator="avg" />
 
   </Cube>
 
   <!-- / life_expectancy data cube -->
+
+  <!-- death_causes data cube  -->
+
+  <Cube name="death_causes">
+    <Table name="fact_death_causes" schema="health" />
+    
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" level="Region" foreignKey="region_id" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
+    
+    <Dimension name="CIE 10" foreignKey="cie_10_id">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="cie_10">
+          <ColumnDefs>
+            <ColumnDef name="id" type="String" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">C00-D48</Value>
+              <Value column="description">Tumores (neoplasias)</Value>
+              <Value column="es_description">Tumores (neoplasias)</Value>
+            </Row>
+          <Row>
+              <Value column="id">E00-E90</Value>
+              <Value column="description">Enfermedades endocrinas, nutricionales y metabรณlicas</Value>
+              <Value column="es_description">Enfermedades endocrinas, nutricionales y metabรณlicas</Value>
+            </Row>
+          <Row>
+              <Value column="id">I00-I99</Value>
+              <Value column="description">Enfermedades del sistema circulatorio</Value>
+              <Value column="es_description">Enfermedades del sistema circulatorio</Value>
+            </Row>
+          <Row>
+              <Value column="id">J00-J99</Value>
+              <Value column="description">Enfermedades del sistema respiratorio</Value>
+              <Value column="es_description">Enfermedades del sistema respiratorio</Value>
+            </Row>
+          <Row>
+              <Value column="id">K00-K93</Value>
+              <Value column="description">Enfermedades del sistema digestivo</Value>
+              <Value column="es_description">Enfermedades del sistema digestivo</Value>
+            </Row>
+          <Row>
+              <Value column="id">V01-Y98</Value>
+              <Value column="description">Causa Externa de mortalidad</Value>
+              <Value column="es_description">Causa Externa de mortalidad</Value>
+            </Row>
+          <Row>
+              <Value column="id">B20-B24</Value>
+              <Value column="description">Infecciones por VIH y SIDA</Value>
+              <Value column="es_description">Infecciones por VIH y SIDA</Value>
+            </Row>
+          <Row>
+              <Value column="id">V01-V99</Value>
+              <Value column="description">Accidentes de tránsito</Value>
+              <Value column="es_description">Accidentes de tránsito</Value>
+            </Row>
+          <Row>
+              <Value column="id">X60-X84</Value>
+              <Value column="description">Lesiones autoinfligidas intencionalmente</Value>
+              <Value column="es_description">Lesiones autoinfligidas intencionalmente</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level name="CIE 10" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
+
+    <Measure name="Casualities Count AVG" column="casualities_count" visible="true" aggregator="avg" />
+    <Measure name="Casualities Count SUM" column="casualities_count" visible="true" aggregator="sum" />
+    
+    <Measure name="Casualities rate per 100 inhabitants" column="casualities_rate_per_100_inhabitants" visible="true" aggregator="avg" />
+
+  </Cube>
+
+  <!-- / death_causes data cube -->
 
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
