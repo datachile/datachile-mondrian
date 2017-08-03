@@ -4169,7 +4169,7 @@
 
   <!-- / Banking CASEN data cube -->
 
-  <!-- Banking CASEN data cube tiene problemas de muchos N/A -->
+  <!-- health_access data cube  -->
 
   <Cube name="health_access">
     <Table name="fact_health_access" schema="health" />
@@ -4187,11 +4187,32 @@
     <Measure name="Specialized Healthcare AVG" column="specialized_healthcare" visible="true" aggregator="avg" />
     <Measure name="Urgency Healthcare AVG" column="urgency_healthcare" visible="true" aggregator="avg" />
     
+    <Measure name="Dental Discharges Per 100 inhabitants SUM" column="dental_discharges_per_100_inhabitants" visible="true" aggregator="sum" />
     <Measure name="Dental Discharges Per 100 inhabitants AVG" column="dental_discharges_per_100_inhabitants" visible="true" aggregator="avg" />
 
   </Cube>
 
-  <!-- / Banking CASEN data cube -->
+  <!-- / health_access data cube -->
+
+  <!-- life_expectancy data cube  -->
+
+  <Cube name="life_expectancy">
+    <Table name="fact_life_expectancy" schema="health" />
+    
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" level="Region" foreignKey="region_id" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
+    
+    <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
+
+    <Measure name="Life Expectancy AVG" column="life_expectancy" visible="true" aggregator="avg" />
+    
+    <Measure name="Dental Discharges Per 100 inhabitants SUM" column="mortality_rate_per_100_inhabitants" visible="true" aggregator="sum" />
+    <Measure name="Dental Discharges Per 100 inhabitants AVG" column="mortality_rate_per_100_inhabitants" visible="true" aggregator="avg" />
+
+  </Cube>
+
+  <!-- / life_expectancy data cube -->
 
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
