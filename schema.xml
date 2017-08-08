@@ -1187,7 +1187,12 @@
 
   <!-- NESI -->
   <Cube name="nesi_income">
-    <Table name="fact_income_nesi" schema="economy" />
+    <!-- Table name="fact_income_nesi" schema="economy" / -->
+    <View alias="nesi_view">
+      <SQL>
+	SELECT *, (income * weight) AS weighted_income from economy.fact_income_nesi
+      </SQL>
+    </View>
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
@@ -1269,6 +1274,13 @@
 
     <Measure name="Income" column="income" visible="true" aggregator="sum" />
     <Measure name="Expansion Factor" column="weight" visible="true" aggregator="sum" />
+    <Measure name="Income weighted" column="weighted_income" visible="false" aggregator="sum" />
+    <CalculatedMember name="Weighted income" dimension="Measures" visible="true">
+      <Formula>
+	[Measures].[Income weighted] / [Measures].[Expansion Factor]
+      </Formula>
+    </CalculatedMember>
+
     <Measure name="Weighted Income" column="weighted_income" visible="true" aggregator="sum" />
   </Cube>
   <!-- / NESI -->
