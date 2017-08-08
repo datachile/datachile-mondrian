@@ -4298,6 +4298,59 @@
 
   <!-- / death_causes data cube -->
 
+<!-- disabilities data cube  -->
+
+  <Cube name="disabilities">
+    <Table name="fact_disability" schema="health" />
+    
+    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="Geography" source="Geography" level="Region" foreignKey="region" />
+    <DimensionUsage name="Sex" source="Sex" foreignKey="sex" />
+    
+    <Dimension name="Disability Grade" foreignKey="disability_grade">
+      <Hierarchy hasAll="true">
+
+        <InlineTable alias="disability_grade">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">sin discapacidad</Value>
+              <Value column="es_description">sin discapacidad</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">leve a moderada</Value>
+              <Value column="es_description">leve a moderada</Value>
+            </Row>
+          <Row>
+              <Value column="id">3</Value>
+              <Value column="description">severa</Value>
+              <Value column="es_description">severa</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level name="Disability Grade" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
+    <Measure name="Expansion Factor Region" column="weight" visible="true" aggregator="sum" />
+
+  </Cube>
+
+  <!-- / death_causes data cube -->
+
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date" />
     <VirtualCubeDimension name="Geography" />
