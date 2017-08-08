@@ -6,7 +6,13 @@
     <Hierarchy hasAll="true" primaryKey="id">
       <Table schema="public" name="dim_date" />
       <Level column="the_year" levelType="TimeYears" name="Year" type="Numeric" uniqueMembers="true"/>
-      <Level column="month_of_year" levelType="TimeMonths" name="Month" type="Numeric" uniqueMembers="false" />
+      <Level column="month_of_year" levelType="TimeMonths" name="Month" type="Numeric" uniqueMembers="false">
+	<CaptionExpression>
+	  <SQL>
+	    (the_year || '/' || month_of_year)
+	  </SQL>
+	</CaptionExpression>
+      </Level>
       <Level column="day_of_month" levelType="TimeDays" name="Day" type="Numeric" uniqueMembers="false" />
     </Hierarchy>
   </Dimension>
