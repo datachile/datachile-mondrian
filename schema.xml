@@ -6,7 +6,13 @@
     <Hierarchy hasAll="true" primaryKey="id">
       <Table schema="public" name="dim_date" />
       <Level column="the_year" levelType="TimeYears" name="Year" type="Numeric" uniqueMembers="true"/>
-      <Level column="month_of_year" levelType="TimeMonths" name="Month" type="Numeric" uniqueMembers="false" />
+      <Level column="month_of_year" levelType="TimeMonths" name="Month" type="Numeric" uniqueMembers="false">
+	<CaptionExpression>
+	  <SQL>
+	    (the_year || '/' || month_of_year)
+	  </SQL>
+	</CaptionExpression>
+      </Level>
       <Level column="day_of_month" levelType="TimeDays" name="Day" type="Numeric" uniqueMembers="false" />
     </Hierarchy>
   </Dimension>
@@ -1181,7 +1187,12 @@
 
   <!-- NESI -->
   <Cube name="nesi_income">
-    <Table name="fact_income_nesi" schema="economy" />
+    <!-- Table name="fact_income_nesi" schema="economy" / -->
+    <View alias="nesi_view">
+      <SQL>
+	SELECT *, (income * weight) AS weighted_income from economy.fact_income_nesi
+      </SQL>
+    </View>
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
@@ -1263,6 +1274,13 @@
 
     <Measure name="Income" column="income" visible="true" aggregator="sum" />
     <Measure name="Expansion Factor" column="weight" visible="true" aggregator="sum" />
+    <Measure name="Income weighted" column="weighted_income" visible="false" aggregator="sum" />
+    <CalculatedMember name="Weighted income" dimension="Measures" visible="true">
+      <Formula>
+	[Measures].[Income weighted] / [Measures].[Expansion Factor]
+      </Formula>
+    </CalculatedMember>
+
     <Measure name="Weighted Income" column="weighted_income" visible="true" aggregator="sum" />
   </Cube>
   <!-- / NESI -->
@@ -2136,8 +2154,8 @@
       <Rows>
         <Row>
           <Value column="id">1</Value>
-          <Value column="description">tejas o tejuela (arcilla, met?lica, cemento, madera, asfáltica)</Value>
-          <Value column="es_description">tejas o tejuela (arcilla, met?lica, cemento, madera, asfáltica)</Value>
+          <Value column="description">tejas o tejuela (arcilla, metálica, cemento, madera, asfáltica)</Value>
+          <Value column="es_description">tejas o tejuela (arcilla, metálica, cemento, madera, asfáltica)</Value>
         </Row>
       <Row>
           <Value column="id">2</Value>
@@ -2146,8 +2164,8 @@
         </Row>
       <Row>
           <Value column="id">3</Value>
-          <Value column="description">planchas met?licas (zinc, cobre, etc.)</Value>
-          <Value column="es_description">planchas met?licas (zinc, cobre, etc.)</Value>
+          <Value column="description">planchas metálicas (zinc, cobre, etc.)</Value>
+          <Value column="es_description">planchas metálicas (zinc, cobre, etc.)</Value>
         </Row>
       <Row>
           <Value column="id">4</Value>
@@ -2570,8 +2588,8 @@
         </Row>
       <Row>
           <Value column="id">4</Value>
-          <Value column="description">no, la recibi? de herencia o traspaso gratuito</Value>
-          <Value column="es_description">no, la recibi? de herencia o traspaso gratuito</Value>
+          <Value column="description">no, la recibí de herencia o traspaso gratuito</Value>
+          <Value column="es_description">no, la recibí de herencia o traspaso gratuito</Value>
         </Row>
       <Row>
           <Value column="id">5</Value>
@@ -2674,8 +2692,8 @@
         </Row>
       <Row>
           <Value column="id">4</Value>
-          <Value column="description">no está pagando, termin? de pagar</Value>
-          <Value column="es_description">no está pagando, termin? de pagar</Value>
+          <Value column="description">no está pagando, terminó de pagar</Value>
+          <Value column="es_description">no está pagando, terminó de pagar</Value>
         </Row>
       <Row>
           <Value column="id">5</Value>
@@ -2726,8 +2744,8 @@
         </Row>
       <Row>
           <Value column="id">5</Value>
-          <Value column="description">r?o, vertiente, lago o estero</Value>
-          <Value column="es_description">r?o, vertiente, lago o estero</Value>
+          <Value column="description">río, vertiente, lago o estero</Value>
+          <Value column="es_description">río, vertiente, lago o estero</Value>
         </Row>
       <Row>
           <Value column="id">6</Value>
@@ -2736,8 +2754,8 @@
         </Row>
       <Row>
           <Value column="id">7</Value>
-          <Value column="description">otra fuente. ?cu?l?</Value>
-          <Value column="es_description">otra fuente. ?cu?l?</Value>
+          <Value column="description">otra fuente.</Value>
+          <Value column="es_description">otra fuente.</Value>
         </Row>
       <Row>
           <Value column="id">8</Value>
@@ -2840,8 +2858,8 @@
         </Row>
       <Row>
           <Value column="id">7</Value>
-          <Value column="description">sí, con ba?o químico dentro del sitio</Value>
-          <Value column="es_description">sí, con ba?o químico dentro del sitio</Value>
+          <Value column="description">sí, con baño químico dentro del sitio</Value>
+          <Value column="es_description">sí, con baño químico dentro del sitio</Value>
         </Row>
       <Row>
           <Value column="id">8</Value>
