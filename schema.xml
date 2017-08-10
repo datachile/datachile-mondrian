@@ -1771,42 +1771,6 @@
       </Hierarchy>
     </Dimension>
 
-    <Dimension name="Institution Type" foreignKey="higher_educational_institution_type_id">
-      <Hierarchy hasAll="true">
-        <InlineTable alias="higher_educational_institution_type">
-          <ColumnDefs>
-            <ColumnDef name="id" type="Numeric" />
-            <ColumnDef name="description" type="String" />
-            <ColumnDef name="es_description" type="String" />
-          </ColumnDefs>
-          <Rows>
-            <Row>
-              <Value column="id">1</Value>
-              <Value column="description">Centro de FormaciĂłn TĂŠcnica</Value>
-              <Value column="es_description">Centro de FormaciĂłn TĂŠcnica</Value>
-            </Row>
-          <Row>
-              <Value column="id">2</Value>
-              <Value column="description">Instituto Profesional</Value>
-              <Value column="es_description">Instituto Profesional</Value>
-            </Row>
-          <Row>
-              <Value column="id">3</Value>
-              <Value column="description">Universidad</Value>
-              <Value column="es_description">Universidad</Value>
-            </Row>
-          </Rows>
-        </InlineTable>
-        
-        <Level name="Institution Type" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-
     <Dimension name="Avg Income 4th year" foreignKey="avg_income_4th_id">
       <Hierarchy hasAll="true">
         <InlineTable alias="avg_income_4th_id">
