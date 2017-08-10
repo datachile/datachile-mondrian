@@ -2190,8 +2190,8 @@
       <Rows>
         <Row>
           <Value column="id">1</Value>
-          <Value column="description">tejas o tejuela (arcilla, met?lica, cemento, madera, asfáltica)</Value>
-          <Value column="es_description">tejas o tejuela (arcilla, met?lica, cemento, madera, asfáltica)</Value>
+          <Value column="description">tejas o tejuela (arcilla, metálica, cemento, madera, asfáltica)</Value>
+          <Value column="es_description">tejas o tejuela (arcilla, metálica, cemento, madera, asfáltica)</Value>
         </Row>
       <Row>
           <Value column="id">2</Value>
@@ -2200,8 +2200,8 @@
         </Row>
       <Row>
           <Value column="id">3</Value>
-          <Value column="description">planchas met?licas (zinc, cobre, etc.)</Value>
-          <Value column="es_description">planchas met?licas (zinc, cobre, etc.)</Value>
+          <Value column="description">planchas metálicas (zinc, cobre, etc.)</Value>
+          <Value column="es_description">planchas metálicas (zinc, cobre, etc.)</Value>
         </Row>
       <Row>
           <Value column="id">4</Value>
@@ -2624,8 +2624,8 @@
         </Row>
       <Row>
           <Value column="id">4</Value>
-          <Value column="description">no, la recibi? de herencia o traspaso gratuito</Value>
-          <Value column="es_description">no, la recibi? de herencia o traspaso gratuito</Value>
+          <Value column="description">no, la recibí de herencia o traspaso gratuito</Value>
+          <Value column="es_description">no, la recibí de herencia o traspaso gratuito</Value>
         </Row>
       <Row>
           <Value column="id">5</Value>
@@ -2728,8 +2728,8 @@
         </Row>
       <Row>
           <Value column="id">4</Value>
-          <Value column="description">no está pagando, termin? de pagar</Value>
-          <Value column="es_description">no está pagando, termin? de pagar</Value>
+          <Value column="description">no está pagando, terminó de pagar</Value>
+          <Value column="es_description">no está pagando, terminó de pagar</Value>
         </Row>
       <Row>
           <Value column="id">5</Value>
@@ -2780,8 +2780,8 @@
         </Row>
       <Row>
           <Value column="id">5</Value>
-          <Value column="description">r?o, vertiente, lago o estero</Value>
-          <Value column="es_description">r?o, vertiente, lago o estero</Value>
+          <Value column="description">río, vertiente, lago o estero</Value>
+          <Value column="es_description">río, vertiente, lago o estero</Value>
         </Row>
       <Row>
           <Value column="id">6</Value>
@@ -2790,8 +2790,8 @@
         </Row>
       <Row>
           <Value column="id">7</Value>
-          <Value column="description">otra fuente. ?cu?l?</Value>
-          <Value column="es_description">otra fuente. ?cu?l?</Value>
+          <Value column="description">otra fuente.</Value>
+          <Value column="es_description">otra fuente.</Value>
         </Row>
       <Row>
           <Value column="id">8</Value>
@@ -2894,8 +2894,8 @@
         </Row>
       <Row>
           <Value column="id">7</Value>
-          <Value column="description">sí, con ba?o químico dentro del sitio</Value>
-          <Value column="es_description">sí, con ba?o químico dentro del sitio</Value>
+          <Value column="description">sí, con baño químico dentro del sitio</Value>
+          <Value column="es_description">sí, con baño químico dentro del sitio</Value>
         </Row>
       <Row>
           <Value column="id">8</Value>
