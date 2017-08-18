@@ -4081,8 +4081,8 @@
             </Row>
           <Row>
               <Value column="id">6</Value>
-              <Value column="description">Fuerzas Armadas, de Orden y Seguridad PÃºblica</Value>
-              <Value column="es_description">Fuerzas Armadas, de Orden y Seguridad PÃºblica</Value>
+              <Value column="description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
+              <Value column="es_description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
             </Row>
           <Row>
               <Value column="id">7</Value>
