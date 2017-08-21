@@ -1190,7 +1190,7 @@
     <!-- Table name="fact_income_nesi" schema="economy" / -->
     <View alias="nesi_view">
       <SQL>
-	SELECT *, (income * weight) AS weighted_income from economy.fact_income_nesi
+	      SELECT *, (income * weight) AS weighted_income from economy.fact_income_nesi
       </SQL>
     </View>
 
@@ -1256,7 +1256,7 @@
               <Value column="description">Full-time</Value>
               <Value column="es_description">Completa</Value>
             </Row>
-	    <Row>
+	          <Row>
               <Value column="id">2</Value>
               <Value column="description">Part-time</Value>
               <Value column="es_description">Parcial</Value>
@@ -1275,13 +1275,26 @@
     <Measure name="Income" column="income" visible="true" aggregator="sum" />
     <Measure name="Expansion Factor" column="weight" visible="true" aggregator="sum" />
     <Measure name="Income weighted" column="weighted_income" visible="false" aggregator="sum" />
-    <CalculatedMember name="Weighted income" dimension="Measures" visible="true">
+    <Measure name="Median Income" dataType="Numeric" aggregator="None" visible="true">
+      <MeasureExpression>
+        <SQL dialect="postgres">PERCENTILE_DISC(0.5) WITHIN GROUP (ORDER BY income ASC)</SQL>
+      </MeasureExpression>
+    </Measure>
+    <Measure name="Weighted Income" column="weighted_income" visible="true" aggregator="sum" />
+
+    <CalculatedMember name="Weighted Median Income Rank" dimension="Measures" visible="true">
       <Formula>
-	[Measures].[Income weighted] / [Measures].[Expansion Factor]
+        Rank([Geography].CurrentMember,
+             Order(Geography.CurrentMember.Level.Members,
+                   Measures.[Median Income], BASC))
       </Formula>
     </CalculatedMember>
 
-    <Measure name="Weighted Income" column="weighted_income" visible="true" aggregator="sum" />
+    <CalculatedMember name="Weighted Median Income Decile" dimension="Measures" visible="true">
+      <Formula>
+        (Measures.[Weighted Median Income Rank] * 10) / count(Geography.CurrentMember.Level.Members)
+      </Formula>
+    </CalculatedMember>
   </Cube>
   <!-- / NESI -->
 
