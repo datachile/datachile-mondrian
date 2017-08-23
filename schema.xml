@@ -1494,6 +1494,21 @@
         [Measures].[PSU AVG Individual] / [Measures].[Number of records]
       </Formula>
     </CalculatedMember>
+
+    <CalculatedMember name="PSU Rank" dimension="Measures">
+      <Formula>
+        Rank(Geography.CurrentMember,
+             Order(Geography.CurrentMember.Level.Members,
+             Measures.[PSU Average], BASC))
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="PSU Rank Decile" dimension="Measures" visible="true">
+      <Formula>
+        (Measures.[PSU Rank] * 10) / count(Geography.CurrentMember.Level.Members)
+      </Formula>
+    </CalculatedMember>
+
   </Cube>
 
   <!-- / PSU -->
@@ -4043,8 +4058,20 @@
     </Dimension>
 
     <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
-    
     <Measure name="Population" column="count" aggregator="sum" visible="true" />
+    <CalculatedMember name="Population Rank" dimension="Measures">
+      <Formula>
+        Rank(Geography.CurrentMember,
+             Order(Geography.CurrentMember.Level.Members,
+             Measures.Population, BASC))
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="Population Rank Decile" dimension="Measures" visible="true">
+      <Formula>
+        (Measures.[Population Rank] * 10) / count(Geography.CurrentMember.Level.Members)
+      </Formula>
+    </CalculatedMember>
     
   </Cube>
 
