@@ -1519,9 +1519,8 @@
     <Table name="fact_election_results" schema="politics" />
     
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
-    <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
-    <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
-
+    <DimensionUsage name="GeographyC" level="Comuna" source="Geography" foreignKey="comuna_datachile_id" />
+    <DimensionUsage name="GeographyR" level="Region" source="Geography" foreignKey="region_id" />
 
     <Dimension name="Election Type" foreignKey="election_id">
       <Hierarchy hasAll="true">
@@ -1572,6 +1571,7 @@
 
     <Dimension name="Party" foreignKey="party_id">
       <Hierarchy hasAll="true">
+
         <InlineTable alias="party">
           <ColumnDefs>
             <ColumnDef name="id" type="Numeric" />
@@ -1671,6 +1671,38 @@
       </Hierarchy>
     </Dimension>
 
+    <Dimension name="Elected" foreignKey="elected">
+      <Hierarchy hasAll="true">
+
+        <InlineTable alias="party">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Elected authority</Value>
+              <Value column="es_description">Autoridad electa</Value>
+            </Row>
+          <Row>
+              <Value column="id">0</Value>
+              <Value column="description">Non-elected candidate</Value>
+              <Value column="es_description">Candidato no electo</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level name="Elected" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
     <Dimension name="Candidates" foreignKey="candidate_id">
       <Hierarchy hasAll="true" primaryKey="candidate_id">
         <Table name="dim_candidates" schema="politics" />
@@ -1679,7 +1711,7 @@
     </Dimension>
 
     <Measure name="Number of records" column="year" aggregator="count" visible="true" />
-    <Measure name="Votes" column="votes" aggregator="sum" visible="true" />
+    <Measure name="Votes" column="votes" aggregator="max" visible="true" />
 
   </Cube>
 
