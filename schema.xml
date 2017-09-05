@@ -1780,16 +1780,22 @@
       </Hierarchy>
     </Dimension>
 
-    <Dimension name="Institution" foreignKey="higher_educational_institution_id">
-      <Hierarchy hasAll="true" primaryKey="higher_educational_institution_id">
+    <Dimension name="Higher Institution" foreignKey="higher_educational_institution_id">
+      <Hierarchy hasAll="true" primaryKey="institution_id">
         <Table name="dim_higher_educational_institutions" schema="education" />
-        <Level name="Institution Type" column="higher_educational_institution_group_id" nameColumn="higher_educational_institution_group_name" uniqueMembers="false">
+        <Level name="Higher Institution Group" column="institution_group_id" nameColumn="institution_group_name" uniqueMembers="false">
           <Annotations>
-              <Annotation name="es_caption">Country ES</Annotation>
+              <Annotation name="es_caption">Group ES</Annotation>
           </Annotations>
-          <Property name="Country ES" column="higher_educational_institution_group_name_es" />
+          <Property name="Group ES" column="institution_group_name_es" />
         </Level>
-        <Level name="Institution" column="higher_educational_institution_id" nameColumn="higher_educational_institution" uniqueMembers="true" />
+        <Level name="Higher Institution Subgroup" column="institution_subgroup_id" nameColumn="institution_subgroup_name" uniqueMembers="false">
+          <Annotations>
+              <Annotation name="es_caption">Subgroup ES</Annotation>
+          </Annotations>
+          <Property name="Subgroup ES" column="institution_subgroup_name_es" />
+        </Level>
+        <Level name="Higher Institution" column="institution_id" nameColumn="institution" uniqueMembers="true" />
       </Hierarchy>
     </Dimension>
 
