@@ -990,36 +990,39 @@
     <Measure name="Total Spending" column="gasto_total" visible="true" aggregator="sum" />
 
     <!-- expenditure by region -->
-    <Measure name="gasto_I_TARAPACA" column="gasto_I_TARAPACA" visible="true" aggregator="sum" />
-    <Measure name="gasto_II_ANTOFAGASTA" column="gasto_II_ANTOFAGASTA" visible="true" aggregator="sum" />
-    <Measure name="gasto_III_ATACAMA" column="gasto_III_ATACAMA" visible="true" aggregator="sum" />
-    <Measure name="gasto_IV_COQUIMBO" column="gasto_IV_COQUIMBO" visible="true" aggregator="sum" />
-    <Measure name="gasto_V_VALPARAISO" column="gasto_V_VALPARAISO" visible="true" aggregator="sum" />
-    <Measure name="gasto_VI_OHIGGINS" column="gasto_VI_OHIGGINS" visible="true" aggregator="sum" />
-    <Measure name="gasto_VII_MAULE" column="gasto_VII_MAULE" visible="true" aggregator="sum" />
-    <Measure name="gasto_VIII_BIOBIO" column="gasto_VIII_BIOBIO" visible="true" aggregator="sum" />
-    <Measure name="gasto_IX_ARAUCANIA" column="gasto_IX_ARAUCANIA" visible="true" aggregator="sum" />
-    <Measure name="gasto_XIV_RIOS" column="gasto_XIV_RIOS" visible="true" aggregator="sum" />
-    <Measure name="gasto_X_LAGOS" column="gasto_X_LAGOS" visible="true" aggregator="sum" />
-    <Measure name="gasto_XI_AYSEN" column="gasto_XI_AYSEN" visible="true" aggregator="sum" />
-    <Measure name="gasto_XII_MAGALLANES" column="gasto_XII_MAGALLANES" visible="true" aggregator="sum" />
-    <Measure name="gasto_XIII_METROPOLITANA" column="gasto_XIII_METROPOLITANA" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_15" column="gasto_XV_ARICA" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_1"  column="gasto_I_TARAPACA" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_2"  column="gasto_II_ANTOFAGASTA" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_3"  column="gasto_III_ATACAMA" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_4"  column="gasto_IV_COQUIMBO" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_5"  column="gasto_V_VALPARAISO" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_6"  column="gasto_VI_OHIGGINS" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_7"  column="gasto_VII_MAULE" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_8"  column="gasto_VIII_BIOBIO" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_9"  column="gasto_IX_ARAUCANIA" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_14" column="gasto_XIV_RIOS" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_10" column="gasto_X_LAGOS" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_11" column="gasto_XI_AYSEN" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_12" column="gasto_XII_MAGALLANES" visible="true" aggregator="sum" />
+    <Measure name="gasto_region_13" column="gasto_XIII_METROPOLITANA" visible="true" aggregator="sum" />
 
     <!-- staff by region -->
-    <Measure name="staff_I_TARAPACA" column="personal_73" visible="true" aggregator="sum" />
-    <Measure name="staff_II_ANTOFAGASTA" column="personal_74" visible="true" aggregator="sum" />
-    <Measure name="staff_III_ATACAMA" column="personal_75" visible="true" aggregator="sum" />
-    <Measure name="staff_IV_COQUIMBO" column="personal_76" visible="true" aggregator="sum" />
-    <Measure name="staff_V_VALPARAISO" column="personal_77" visible="true" aggregator="sum" />
-    <Measure name="staff_VI_OHIGGINS" column="personal_78" visible="true" aggregator="sum" />
-    <Measure name="staff_VII_MAULE" column="personal_79" visible="true" aggregator="sum" />
-    <Measure name="staff_VIII_BIOBIO" column="personal_80" visible="true" aggregator="sum" />
-    <Measure name="staff_IX_ARAUCANIA" column="personal_81" visible="true" aggregator="sum" />
-    <Measure name="staff_XIV_RIOS" column="personal_82" visible="true" aggregator="sum" />
-    <Measure name="staff_X_LAGOS" column="personal_82" visible="true" aggregator="sum" />
-    <Measure name="staff_XI_AYSEN" column="personal_84" visible="true" aggregator="sum" />
-    <Measure name="staff_XII_MAGALLANES" column="personal_85" visible="true" aggregator="sum" />
-    <Measure name="staff_XIII_METROPOLITANA" column="personal_86" visible="true" aggregator="sum" />
+    <Measure name="staff_region_15" column="personal_72" visible="true" aggregator="sum" />
+    <Measure name="staff_region_1" column="personal_73" visible="true" aggregator="sum" />
+    <Measure name="staff_region_2" column="personal_74" visible="true" aggregator="sum" />
+    <Measure name="staff_region_3" column="personal_75" visible="true" aggregator="sum" />
+    <Measure name="staff_region_4" column="personal_76" visible="true" aggregator="sum" />
+    <Measure name="staff_region_5" column="personal_77" visible="true" aggregator="sum" />
+    <Measure name="staff_region_6" column="personal_78" visible="true" aggregator="sum" />
+    <Measure name="staff_region_7" column="personal_79" visible="true" aggregator="sum" />
+    <Measure name="staff_region_8" column="personal_80" visible="true" aggregator="sum" />
+    <Measure name="staff_region_9" column="personal_81" visible="true" aggregator="sum" />
+    <Measure name="staff_region_14" column="personal_82" visible="true" aggregator="sum" />
+    <Measure name="staff_region_10" column="personal_83" visible="true" aggregator="sum" />
+    <Measure name="staff_region_11" column="personal_84" visible="true" aggregator="sum" />
+    <Measure name="staff_region_12" column="personal_85" visible="true" aggregator="sum" />
+    <Measure name="staff_region_13" column="personal_86" visible="true" aggregator="sum" />
+
   </Cube>
 
   <Cube name="income_gini">
