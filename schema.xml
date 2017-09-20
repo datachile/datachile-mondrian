@@ -832,6 +832,39 @@
       </Hierarchy>
     </Dimension>
 
+    <Dimension name="Calculated Age Range">
+      <Hierarchy hasAll="true">
+
+        <Level name="Age Range">
+          <KeyExpression>
+            <SQL>
+            (case 
+            when age BETWEEN 0 AND 14 then '0-14'
+            when age BETWEEN 15 AND 19 then '15-19'
+            when age BETWEEN 20 AND 24 then '20-24'
+            when age BETWEEN 25 AND 29 then '25-29'
+            when age BETWEEN 30 AND 64 then '30-64'
+            when age >= 65 then '65-110'
+            end)
+            </SQL>
+          </KeyExpression>
+          <NameExpression>
+            <SQL>
+            (case 
+            when age BETWEEN 0 AND 14 then '0-14'
+            when age BETWEEN 15 AND 19 then '15-19'
+            when age BETWEEN 20 AND 24 then '20-24'
+            when age BETWEEN 25 AND 29 then '25-29'
+            when age BETWEEN 30 AND 64 then '30-64'
+            when age >= 65 then '65-110'
+            end)
+            </SQL>
+          </NameExpression>
+        </Level>
+      
+      </Hierarchy>
+    </Dimension>
+
     <Measure name="Number of visas" column="birth_date" aggregator="count" />
     <Measure name="Average Age" column="age" aggregator="avg" />
   </Cube>
