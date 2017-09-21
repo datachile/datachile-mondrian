@@ -1335,7 +1335,7 @@
             when income BETWEEN 1446001 AND 1687000 then '1446001-1687000'
             when income BETWEEN 1687001 AND 1928000 then '1687001-1928000'
             when income BETWEEN 1928001 AND 2169000 then '1928001-2169000'
-            when income >= 2169001 then '2169001+'
+            when income >= 2169001 then '+2169001'
             end)
             </SQL>
           </NameExpression>
