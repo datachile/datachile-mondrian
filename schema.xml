@@ -48,9 +48,9 @@
         </Annotations>
         <Property name="HS0 ES" column="es_level0_description" />
       </Level>
-      <Level name="HS2" column="level1" nameColumn="level1_name" uniqueMembers="false" />
-      <Level name="HS4" column="level2" nameColumn="level2_name" uniqueMembers="false" />
-      <Level name="HS6" column="level3" nameColumn="level3_name" uniqueMembers="false" />
+      <Level name="HS2" column="level1" nameColumn="level1_name" uniqueMembers="true" />
+      <Level name="HS4" column="level2" nameColumn="level2_name" uniqueMembers="true" />
+      <Level name="HS6" column="level3" nameColumn="level3_name" uniqueMembers="true" />
     </Hierarchy>
   </Dimension>
 
