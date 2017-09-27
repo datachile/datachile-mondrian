@@ -35,6 +35,7 @@
               <Annotation name="es_caption">Country ES</Annotation>
           </Annotations>
           <Property name="Country ES" column="es_country_name" />
+          <Property name="iso3" column="iso3" />
       </Level>
     </Hierarchy>
   </Dimension>
@@ -568,6 +569,20 @@
                           [Measures].[FOB US]),
                 BDESC)))
 
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="HS Rank" dimension="Measures">
+      <Formula>
+        Rank([Export HS].CurrentMember,
+             Order([Export HS].CurrentMember.Level.Members,
+             Measures.[FOB US], BASC))
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="HS Rank Decile" dimension="Measures" visible="true">
+      <Formula>
+        (Measures.[HS Rank] * 10) / count([Export HS].CurrentMember.Level.Members)
       </Formula>
     </CalculatedMember>
 
