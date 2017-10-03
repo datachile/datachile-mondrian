@@ -576,13 +576,19 @@
       <Formula>
         Rank([Export HS].CurrentMember,
              Order([Export HS].CurrentMember.Level.Members,
-             Measures.[FOB US], BASC))
+             Measures.[FOB US], BDESC))
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="HS Rank Decile" dimension="Measures" visible="true">
       <Formula>
-        (Measures.[HS Rank] * 10) / count([Export HS].CurrentMember.Level.Members)
+        ((count([Export HS].CurrentMember.Level.Members)-Measures.[HS Rank]+1) * 10) / count([Export HS].CurrentMember.Level.Members)
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="HS Rank Total" dimension="Measures" visible="true">
+      <Formula>
+        count([Export HS].CurrentMember.Level.Members)
       </Formula>
     </CalculatedMember>
 
@@ -1373,15 +1379,22 @@
       <Formula>
         Rank([Geography].CurrentMember,
              Order(Geography.CurrentMember.Level.Members,
-                   Measures.[Median Income], BASC))
+                   Measures.[Median Income], BDESC))
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Weighted Median Income Decile" dimension="Measures" visible="true">
       <Formula>
-        (Measures.[Weighted Median Income Rank] * 10) / count(Geography.CurrentMember.Level.Members)
+        ((count(Geography.CurrentMember.Level.Members)-Measures.[Weighted Median Income Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)
       </Formula>
     </CalculatedMember>
+
+    <CalculatedMember name="Weighted Median Income Total" dimension="Measures" visible="true">
+      <Formula>
+        count(Geography.CurrentMember.Level.Members)
+      </Formula>
+    </CalculatedMember>
+
   </Cube>
   <!-- / NESI -->
 
@@ -1586,13 +1599,19 @@
       <Formula>
         Rank(Geography.CurrentMember,
              Order(Geography.CurrentMember.Level.Members,
-             Measures.[PSU Average], BASC))
+             Measures.[PSU Average], BDESC))
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="PSU Rank Decile" dimension="Measures" visible="true">
       <Formula>
-        (Measures.[PSU Rank] * 10) / count(Geography.CurrentMember.Level.Members)
+        ((count(Geography.CurrentMember.Level.Members)-Measures.[PSU Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="PSU Rank Total" dimension="Measures" visible="true">
+      <Formula>
+        count(Geography.CurrentMember.Level.Members)
       </Formula>
     </CalculatedMember>
 
@@ -4188,13 +4207,19 @@
       <Formula>
         Rank(Geography.CurrentMember,
              Order(Geography.CurrentMember.Level.Members,
-             Measures.Population, BASC))
+             Measures.Population, BDESC))
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Population Rank Decile" dimension="Measures" visible="true">
       <Formula>
-        (Measures.[Population Rank] * 10) / count(Geography.CurrentMember.Level.Members)
+        ((count(Geography.CurrentMember.Level.Members)-Measures.[Population Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember name="Population Rank Total" dimension="Measures" visible="true">
+      <Formula>
+        count(Geography.CurrentMember.Level.Members)
       </Formula>
     </CalculatedMember>
     
