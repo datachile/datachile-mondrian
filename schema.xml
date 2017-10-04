@@ -1577,17 +1577,26 @@
   <!-- PSU -->
 
   <Cube name="psu">
-    <Table name="fact_psu" schema="education" />
+
+    <View alias="fact_psu">
+      <SQL dialect="generic"><![CDATA[(SELECT
+        *, ((language_test + math_test) / 2) as avg_individual from education.fact_psu
+    )]]></SQL>
+    </View>
+
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
     <DimensionUsage name="Sex" source="Sex" foreignKey="sex_id" />
 
-    <Measure name="Number of records" column="year" aggregator="count" visible="true" />
-    <Measure name="PSU AVG individual" visible="false" aggregator="sum">
+    <Measure name="Number of records" aggregator="count" visible="true">
       <MeasureExpression>
         <SQL>((language_test + math_test) / 2)</SQL>
       </MeasureExpression>
     </Measure>
+
+    <Measure name="Avg language test" column="language_test" aggregator="avg" visible="true" />
+    <Measure name="Avg math test" column="math_test" aggregator="avg" visible="true" />    
+    <Measure name="PSU AVG individual" column="avg_individual" visible="true" aggregator="sum" />
 
     <CalculatedMember name="PSU Average" dimension="Measures" visible="true">
       <Formula>
