@@ -1421,6 +1421,8 @@
   <Cube name="nene">
     <Table name="fact_occupational_status_nene" schema="economy" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
+    <DimensionUsage name="ISICrev4" source="ISICrev4" level="Level 1" foreignKey="isic_rev4_id" />
+    
     <Dimension name="Geography" foreignKey="region_id">
       <Hierarchy hasAll="true" primaryKey="region_id">
       	<View alias="dim_regions">
