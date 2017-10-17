@@ -18,6 +18,9 @@
   </Dimension>
 
   <Dimension name="Geography">
+    <Annotations>
+      <Annotation name="index_as">geo</Annotation>
+    </Annotations>
     <Hierarchy hasAll="true" primaryKey="id">
       <Table name="dim_comunas" schema="public" />
       <Level name="Region" column="region_id" nameColumn="region_name" uniqueMembers="true" />
@@ -26,6 +29,9 @@
   </Dimension>
 
   <Dimension name="Country">
+    <Annotations>
+      <Annotation name="index_as">countries</Annotation>
+    </Annotations>
     <Hierarchy hasAll="true" primaryKey="country_code">
       <Table name="dim_countries_new" schema="public" />
       <Level name="Continent" column="region_code" nameColumn="region" uniqueMembers="true" />
@@ -41,6 +47,10 @@
   </Dimension>
 
   <Dimension name="HS">
+    <Annotations>
+      <Annotation name="index_as">products</Annotation>
+      <Annotation name="index_max_depth">2</Annotation>
+    </Annotations>
     <Hierarchy hasAll="true" primaryKey="level3">
       <Table name="hs_levels" schema="economy" />
       <Level name="HS0" column="level0" nameColumn="level0_name" uniqueMembers="true">
@@ -505,6 +515,9 @@
   </Dimension>
 
   <Dimension name="Institution">
+    <Annotations>
+      <Annotation name="index_as">institutions</Annotation>
+    </Annotations>
     <Hierarchy hasAll="true" primaryKey="institution_id">
       <Table name="dim_educational_institutions" schema="education" />
       <Level name="Institution" column="institution_id" nameColumn="institution" uniqueMembers="true" />
@@ -1880,6 +1893,9 @@
     <Table name="fact_employability" schema="education" />
     
     <Dimension name="Careers" foreignKey="career_id">
+      <Annotations>
+        <Annotation name="index_as">careers</Annotation>
+      </Annotations>
       <Hierarchy hasAll="true" primaryKey="career_id">
         <Table name="dim_careers" schema="education" />
         <Level name="Career Group" column="career_group_id" nameColumn="career_group_en" uniqueMembers="true">

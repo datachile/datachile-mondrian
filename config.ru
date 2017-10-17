@@ -1,3 +1,5 @@
+require 'yaml'
+
 require 'rack/cors'
 require 'rack/config'
 require 'jdbc/postgres'
@@ -9,25 +11,13 @@ require 'mondrian_rest'
 
 require_relative './lib/none_rolap_aggregator.rb'
 require_relative './lib/named_queries.rb'
+require_relative './lib/db_connection.rb'
+require_relative './lib/search.rb'
 
 logger = Logger.new(STDERR)
 logger.level = Logger::DEBUG
 
-PARAMS = if !ENV['MONDRIAN_REST_CONF'].nil? and File.exists? ENV['MONDRIAN_REST_CONF']
-           require 'yaml'
-           YAML.load_file(ENV['MONDRIAN_REST_CONF'])
-         else
-           {
-             driver: 'postgresql',
-             host: 'hermes',
-             port: 5433,
-             database: 'datachile',
-             username: 'datachile',
-             password: 'yapoweon',
-             catalog: File.join(File.dirname(__FILE__), 'schema.xml')
-           }
-         end
-
+PARAMS = db_connection(ENV['MONDRIAN_REST_CONF'])
 
 use Rack::Config do |env|
   env['mondrian-olap.params'] = PARAMS
@@ -42,8 +32,16 @@ end
 
 use Rack::CommonLogger, $stdout
 
-
 Mondrian::REST::Api.mount Datachile::NamedQueries
 
+app = Rack::Builder.new do
+  map '/' do
+    run Mondrian::REST::Api
+  end
 
-run Mondrian::REST::Api
+  map '/search' do
+    run Mondrian::REST::Search::SearchController
+  end
+end
+
+run app

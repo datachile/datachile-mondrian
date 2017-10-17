@@ -5,4 +5,8 @@ platform :jruby do
   gem 'rack-cors', :require => 'rack/cors'
   gem 'jdbc-postgres', '~> 9.4', '>= 9.4.1206'
   gem 'puma'
+  gem 'rest-client'
+  gem 'sinatra'
+  gem 'sequel'
+  gem 'slop'
 end
