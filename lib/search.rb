@@ -5,7 +5,14 @@ require 'logger'
 CREATE_SEARCH_TABLE_QUERY = <<-Q
 create schema if not exists search;
 
-CREATE EXTENSION if not exists unaccent;
+CREATE EXTENSION IF NOT EXISTS unaccent;
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+CREATE OR REPLACE FUNCTION f_unaccent(TEXT)
+  RETURNS TEXT AS
+$func$
+SELECT unaccent('unaccent', $1)
+$func$ LANGUAGE SQL IMMUTABLE SET search_path = public, pg_temp;
 
 DROP TEXT SEARCH CONFIGURATION IF EXISTS es CASCADE;
 CREATE TEXT SEARCH CONFIGURATION es ( COPY = spanish );
@@ -38,13 +45,23 @@ CREATE INDEX IF NOT EXISTS es_search_index_idx ON search.search_index
 USING gin(to_tsvector('es', content))
 WHERE language = 'es';
 
+CREATE INDEX IF NOT EXISTS trgm_search_index ON search.search_index
+USING gist (f_unaccent(content) gist_trgm_ops);
+
 Q
 
 module Mondrian::REST
   module Search
     class SearchController < Sinatra::Base
 
-      CPARAM = db_connection(ENV['MONDRIAN_REST_CONF'])
+      #CPARAM = db_connection(ENV['MONDRIAN_REST_CONF'])
+      CPARAM = {
+        host: 'localhost',
+        port: 5432,
+        database: 'datachile',
+        username: 'manuel',
+        password: ''
+      }
       SEARCH_INDEX_TABLE = Sequel[:search][:search_index]
 
       DB = Sequel.connect("jdbc:postgresql://#{CPARAM[:host]}:#{CPARAM[:port]}/#{CPARAM[:database]}?user=#{CPARAM[:username]}&password=#{CPARAM[:password]}")
@@ -53,31 +70,42 @@ module Mondrian::REST
 
       DB.run CREATE_SEARCH_TABLE_QUERY
 
+      DB.run "SELECT set_limit(0.1)"
+
       DEFAULT_LANGUAGE = 'en'
       DEFAULT_SEARCH_LIMIT = 20
 
       get '/' do
+        content_type :json, 'charset' => 'utf-8'
+
         q, limit, offset, lang = params.values_at('q', 'limit', 'offset', 'lang')
         limit ||= DEFAULT_SEARCH_LIMIT
         lang ||= DEFAULT_LANGUAGE
+        offset ||= 0
 
-        # SELECT "content", "index_as" FROM "search"."search_index" WHERE (to_tsvector(CAST('es' AS regconfig), (COALESCE("content", ''))) @@ plainto_tsquery(CAST('es' AS regconfig), 'animal')) ORDER BY ts_rank_cd(to_tsvector(CAST('es' AS regconfig), (COALESCE("content", ''))), plainto_tsquery(CAST('es' AS regconfig), 'animal')) DESC
+        # .full_text_search(
+        #   :content,
+        #   q,
+        #   :language => lang,
+        #   :plain => true,
+        #   :rank => true
+        # )
 
         DB[SEARCH_INDEX_TABLE]
-          .full_text_search(
-            :content,
-            q,
-            :language => lang,
-            :plain => true,
-            :rank => true
-          )
           .select(
             :content,
             :key,
             :index_as,
             Sequel.lit("(CASE WHEN DEPTH > 1 THEN member_data->'ancestors'->0->'key' ELSE NULL END) AS ancestor_key"),
-            Sequel.lit("(CASE WHEN DEPTH > 1 THEN member_data->'ancestors'->0->'name' ELSE NULL END) AS ancestor_name"))
+            Sequel.lit("(CASE WHEN DEPTH > 1 THEN member_data->'ancestors'->0->'name' ELSE NULL END) AS ancestor_name"),
+            Sequel.lit("similarity(f_unaccent(content), ?) AS sim", q)
+          )
+          .where(
+            Sequel.lit('f_unaccent(content) % ?', q)
+          )
+          .order(Sequel.desc(Sequel.lit("similarity(f_unaccent(content), ?)", q)))
           .limit(limit)
+          .offset(offset)
           .to_a
           .to_json
       end
