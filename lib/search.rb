@@ -71,7 +71,12 @@ module Mondrian::REST
             :plain => true,
             :rank => true
           )
-          .select(:content, :index_as)
+          .select(
+            :content,
+            :key,
+            :index_as,
+            Sequel.lit("(CASE WHEN DEPTH > 1 THEN member_data->'ancestors'->0->'key' ELSE NULL END) AS ancestor_key"),
+            Sequel.lit("(CASE WHEN DEPTH > 1 THEN member_data->'ancestors'->0->'name' ELSE NULL END) AS ancestor_name"))
           .limit(limit)
           .to_a
           .to_json
