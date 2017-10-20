@@ -1434,7 +1434,20 @@
   <Cube name="nene">
     <Table name="fact_occupational_status_nene" schema="economy" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
-    <DimensionUsage name="ISICrev4" source="ISICrev4" level="Level 1" foreignKey="isic_rev4_id" />
+
+    <Dimension name="ISICrev4" foreignKey="isic_rev4_id">
+      <Hierarchy hasAll="true" primaryKey="level1">
+      	<View alias="dim_isic">
+      	  <SQL>select distinct(level1) AS level1, level1_description, es_level1_description from dim_isic</SQL>
+      	</View>
+      	<Level name="Level 1" column="level1" nameColumn="level1_description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_level1_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
     
     <Dimension name="Geography" foreignKey="region_id">
       <Hierarchy hasAll="true" primaryKey="region_id">
@@ -1565,10 +1578,10 @@
 
     <CalculatedMember name="Number of records" dimension="Measures" visible="true">
       <Formula>
-        IIF(Date.CurrentMember.Level.Name = 'Year',
+        IIF(Date.CurrentMember.Level is Date.Date.Year,
             (
               [Measures].[Internal Number of records],
-              LastNonEmpty(Descendants([Date].CurrentMember),
+              LastNonEmpty(Descendants([Date].CurrentMember, Date.Date.Month),
                            [Measures].[Internal Number of records])
             ),
             [Measures].[Internal Number of records])
@@ -1577,10 +1590,10 @@
 
     <CalculatedMember name="Expansion factor" dimension="Measures" visible="true">
       <Formula>
-        IIF(Date.CurrentMember.Level.Name = 'Year',
+        IIF(Date.CurrentMember.Level is Date.Date.Year,
             (
               [Measures].[Internal Expansion factor],
-              LastNonEmpty(Descendants([Date].CurrentMember),
+              LastNonEmpty(Descendants([Date].CurrentMember, Date.Date.Month),
                           [Measures].[Internal Expansion Factor])
             ),
             [Measures].[Internal Expansion factor])
