@@ -1942,7 +1942,7 @@
       </Hierarchy>
     </Dimension>
 
-    <Dimension name="Higher Institution" foreignKey="higher_educational_institution_id">
+    <Dimension name="Higher Institutions" foreignKey="higher_educational_institution_id">
       <Hierarchy hasAll="true" primaryKey="institution_id">
         <Table name="dim_higher_educational_institutions" schema="education" />
         <Level name="Higher Institution Group" column="institution_group_id" nameColumn="institution_group_name" uniqueMembers="true">
@@ -1961,7 +1961,7 @@
       </Hierarchy>
     </Dimension>
 
-    <Dimension name="Accreditation" foreignKey="accreditation_id">
+    <Dimension name="Accreditations" foreignKey="accreditation_id">
       <Hierarchy hasAll="true">
         <InlineTable alias="accreditation">
           <ColumnDefs>
