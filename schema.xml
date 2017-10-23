@@ -1945,13 +1945,13 @@
     <Dimension name="Higher Institution" foreignKey="higher_educational_institution_id">
       <Hierarchy hasAll="true" primaryKey="institution_id">
         <Table name="dim_higher_educational_institutions" schema="education" />
-        <Level name="Higher Institution Group" column="institution_group_id" nameColumn="institution_group_name" uniqueMembers="false">
+        <Level name="Higher Institution Group" column="institution_group_id" nameColumn="institution_group_name" uniqueMembers="true">
           <Annotations>
               <Annotation name="es_caption">Group ES</Annotation>
           </Annotations>
           <Property name="Group ES" column="institution_group_name_es" />
         </Level>
-        <Level name="Higher Institution Subgroup" column="institution_subgroup_id" nameColumn="institution_subgroup_name" uniqueMembers="false">
+        <Level name="Higher Institution Subgroup" column="institution_subgroup_id" nameColumn="institution_subgroup_name" uniqueMembers="true">
           <Annotations>
               <Annotation name="es_caption">Subgroup ES</Annotation>
           </Annotations>

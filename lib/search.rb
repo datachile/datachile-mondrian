@@ -54,14 +54,8 @@ module Mondrian::REST
   module Search
     class SearchController < Sinatra::Base
 
-      #CPARAM = db_connection(ENV['MONDRIAN_REST_CONF'])
-      CPARAM = {
-        host: 'localhost',
-        port: 5432,
-        database: 'datachile',
-        username: 'manuel',
-        password: ''
-      }
+      CPARAM = db_connection(ENV['MONDRIAN_REST_CONF'])
+      
       SEARCH_INDEX_TABLE = Sequel[:search][:search_index]
 
       DB = Sequel.connect("jdbc:postgresql://#{CPARAM[:host]}:#{CPARAM[:port]}/#{CPARAM[:database]}?user=#{CPARAM[:username]}&password=#{CPARAM[:password]}")
