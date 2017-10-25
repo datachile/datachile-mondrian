@@ -55,12 +55,11 @@ module Mondrian::REST
     class SearchController < Sinatra::Base
 
       CPARAM = db_connection(ENV['MONDRIAN_REST_CONF'])
-      
       SEARCH_INDEX_TABLE = Sequel[:search][:search_index]
 
       DB = Sequel.connect("jdbc:postgresql://#{CPARAM[:host]}:#{CPARAM[:port]}/#{CPARAM[:database]}?user=#{CPARAM[:username]}&password=#{CPARAM[:password]}")
       DB.extension :pg_json
-      DB.loggers << Logger.new(STDERR)
+      DB.loggers << Logger.new(STDOUT)
 
       DB.run CREATE_SEARCH_TABLE_QUERY
 
