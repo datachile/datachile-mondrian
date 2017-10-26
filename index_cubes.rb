@@ -9,19 +9,22 @@ require "rest-client"
 LOG = Logger.new(STDERR)
 
 opts = Slop.parse do |o|
-  o.string '-m', '--mondrian-endpoint', 'URL for mondrian-rest server'
+  o.string '-m', '--mondrian-endpoint', 'URL for mondrian-rest server', required: true
   o.string '-f', '--fts-endpoint', 'URL for FTS server'
-  o.string '-l', '--default-language', 'Default language'
+  o.string '-l', '--default-language', 'Default language', required: true
+  o.bool '-d', '--dry-run', 'Print indexable objects to STDERR instead of indexing them', default: false
+  o.array '-i', '--include', 'Only index the specified index_as declarations', default: []
 end
 
 OPTS = opts.to_hash
-if OPTS[:mondrian_endpoint].nil?
-  STDERR.puts "need -m option"
+
+if OPTS[:dry_run] && OPTS[:fts_endpoint]
+  STDERR.puts "-d and -f are mutually exclusive"
   STDERR.puts opts
   exit 1
 end
 
-if OPTS[:fts_endpoint].nil?
+if !OPTS[:dry_run] && OPTS[:fts_endpoint].nil?
   STDERR.puts "need -f option"
   STDERR.puts opts
   exit 1
@@ -38,7 +41,7 @@ end
 def indexable_dimensions(cubes)
   cubes \
     .flat_map { |c| c['dimensions'].each { |d| d[:cube_name] = c['name'] }; c['dimensions'] } \
-    .find_all { |d| d['annotations'].has_key?('index_as') } \
+    .find_all { |d| d['annotations'].has_key?('index_as') && (OPTS[:include].empty? ? true : OPTS[:include].include?(d['annotations']['index_as'])) } \
     .reduce({}) { |memo, d| memo[d['annotations']['index_as']] = d; memo }
 end
 
@@ -47,6 +50,13 @@ def indexable_objects(idx_dimension)
     idx_dimension['hierarchies'].each do |h|
       h['levels'].shift if h['has_all'] # skip indexing of "All" member
       h['levels'].each_with_index do |level, level_depth|
+
+        min_depth = idx_dimension.dig('annotations', 'index_min_depth')
+        min_depth = min_depth.nil? ? 0 : min_depth.to_i
+        if min_depth > level_depth + 1
+          LOG.info "Skipping level #{level_depth}"
+          next
+        end
 
         max_depth = idx_dimension.dig('annotations', 'index_max_depth')
         max_depth = max_depth.nil? ? 100 : max_depth.to_i
@@ -85,7 +95,7 @@ def indexable_objects(idx_dimension)
               hierarchy: h['name'],
               level: level['name'],
               key: member['key'],
-              depth: level['depth']
+              depth: level['depth'] - (min_depth - 1)
             }
           }
         }
@@ -102,7 +112,7 @@ def indexable_objects(idx_dimension)
             hierarchy: h['name'],
             level: level['name'],
             key: member['key'],
-            depth: level['depth']
+            depth: level['depth'] - (min_depth - 1)
           }
         }
       end
@@ -122,23 +132,27 @@ def index_cube_objects(mondrian_endpoint, default_language)
 
   Enumerator.new do |enum|
     idx_dims.each do |index_as, dim|
-      enum.yield indexable_objects(dim).to_a.flatten
+      enum.yield dim, indexable_objects(dim).to_a.flatten
     end
   end
 end
 
 index_cube_objects(OPTS[:mondrian_endpoint],
-                   OPTS[:default_language]).each { |members|
+                   OPTS[:default_language]).each { |dim, members|
 
   next if members.empty?
 
   LOG.info "Indexing #{members.size} elements"
-  LOG.info URI.join(OPTS[:fts_endpoint], "index_objects").to_s
-  RestClient.post(URI.join(OPTS[:fts_endpoint], "index_objects").to_s,
-                  members.to_json,
-                  :content_type => :json,
-                  :accept => :json)
+  if OPTS[:fts_endpoint]
+    LOG.info URI.join(OPTS[:fts_endpoint], "index_objects").to_s
+    RestClient.post(URI.join(OPTS[:fts_endpoint], "index_objects").to_s,
+                    members.to_json,
+                    :content_type => :json,
+                    :accept => :json)
 
+  elsif OPTS[:dry_run]
+    puts members.to_json
+  end
   #puts
 }
 

@@ -47,7 +47,6 @@ WHERE language = 'es';
 
 CREATE INDEX IF NOT EXISTS trgm_search_index ON search.search_index
 USING gist (f_unaccent(content) gist_trgm_ops);
-
 Q
 
 module Mondrian::REST
@@ -76,19 +75,12 @@ module Mondrian::REST
         lang ||= DEFAULT_LANGUAGE
         offset ||= 0
 
-        # .full_text_search(
-        #   :content,
-        #   q,
-        #   :language => lang,
-        #   :plain => true,
-        #   :rank => true
-        # )
-
         DB[SEARCH_INDEX_TABLE]
           .select(
             :content,
             :key,
             :index_as,
+            Sequel.lit("member_data->'name' AS \"name\""),
             Sequel.lit("(CASE WHEN DEPTH > 1 THEN member_data->'ancestors'->0->'key' ELSE NULL END) AS ancestor_key"),
             Sequel.lit("(CASE WHEN DEPTH > 1 THEN member_data->'ancestors'->0->'name' ELSE NULL END) AS ancestor_name"),
             Sequel.lit("similarity(f_unaccent(content), ?) AS sim", q)
