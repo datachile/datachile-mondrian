@@ -6,6 +6,7 @@ WORKDIR $APP_HOME
 
 ADD . $APP_HOME
 RUN bundle install
+RUN jruby -G -S jbundle install
 
 ENV JRUBY_OPTS -G
 

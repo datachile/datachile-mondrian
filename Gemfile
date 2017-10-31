@@ -9,4 +9,8 @@ platform :jruby do
   gem 'sinatra'
   gem 'sequel'
   gem 'slop'
+
+  group :development do
+    gem 'jbundler'
+  end
 end
