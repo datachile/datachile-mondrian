@@ -1,0 +1,22 @@
+<settings>
+  <profiles>
+    <profile>
+      <id>mondrian-olap</id>
+      <repositories>
+        <repository>
+          <id>pentaho-public</id>
+          <url>http://nexus.pentaho.org/content/groups/omni/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>mondrian-olap</activeProfile>
+  </activeProfiles>
+</settings>
