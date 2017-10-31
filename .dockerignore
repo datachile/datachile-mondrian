@@ -1,0 +1,6 @@
+.git
+.jbundler
+.mvn
+Jarfile.lock
+Gemfile.lock
+Jars.lock

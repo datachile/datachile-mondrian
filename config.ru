@@ -1,5 +1,7 @@
 require 'yaml'
 
+require 'jbundler'
+
 require 'rack/cors'
 require 'rack/config'
 require 'jdbc/postgres'
