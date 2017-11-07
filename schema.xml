@@ -538,6 +538,11 @@
   <!-- END: Shared Dimensions -->
 
   <Cube name="exports">
+    <Annotations>
+      <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
+      <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
+    </Annotations>
+
     <Table name="pg_exports_grouped" schema="economy" />
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
@@ -603,12 +608,16 @@
         count([Export HS].CurrentMember.Level.Members)
       </Formula>
     </CalculatedMember>
-
   </Cube>
 
   <Cube name="imports">
+    <Annotations>
+      <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
+      <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
+    </Annotations>
     <Table name="pg_imports_grouped" schema="economy">
     </Table>
+
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Origin Country" caption="Origin Country" source="Country" foreignKey="country_origin_id" />
     <DimensionUsage name="Geography" source="Geography" foreignKey="importer_comuna_id" />
@@ -634,7 +643,12 @@
   </Cube>
 
   <Cube name="immigration">
+    <Annotations>
+      <Annotation name="source_name">Estadísticas de Migración — Departamento de Extranjería y Migración</Annotation>
+      <Annotation name="source_link">http://www.extranjeria.gob.cl/estadisticas-migratorias/</Annotation>
+    </Annotations>
     <Table name="fact_immigration_records" schema="demographics" />
+
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Geography" source="Geography" foreignKey="comuna_datachile_id" />
     <DimensionUsage name="Origin Country" caption="Origin Country" source="Country" foreignKey="country_code" />
@@ -904,7 +918,13 @@
 
 
   <Cube name="tax_data">
+    <Annotations>
+      <Annotation name="source_name">Servicio de Impuestos Internos</Annotation>
+      <Annotation name="source_link">http://homer.sii.cl/</Annotation>
+    </Annotations>
+
     <Table name="tax_data" schema="economy" />
+
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Tax Geography" source="Geography" foreignKey="comuna_id" />
     <DimensionUsage name="ISICrev4" source="ISICrev4" foreignKey="ciiu4_ori" />
@@ -935,6 +955,10 @@
   </Cube>
 
   <Cube name="rd_survey">
+    <Annotations>
+      <Annotation name="source_name">Ministerio de Economía, Fomento y Turismo</Annotation>
+      <Annotation name="source_link">http://www.economia.gob.cl/estudios-y-encuestas/encuestas/encuestas-de-innovacion-e-id/encuestas-de-innovacion</Annotation>
+    </Annotations>
     <Table name="fact_rd_survey" schema="public" />
 
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
@@ -1088,174 +1112,14 @@
     <Measure name="staff_region_11" column="personal_84" visible="true" aggregator="sum" />
     <Measure name="staff_region_12" column="personal_85" visible="true" aggregator="sum" />
     <Measure name="staff_region_13" column="personal_86" visible="true" aggregator="sum" />
-
-  </Cube>
-
-  <Cube name="income_gini">
-    
-    <View alias="fact_income_gini">
-      <SQL dialect="generic"><![CDATA[(SELECT
-        country.date_id as date_id,
-        comuna.geography_id as comuna_id,
-
-        country.weighted_mean_income as country_weighted_mean_income,country.weighted_median_income as country_weighted_median_income,country.weighted_gini_income as country_weighted_gini_income,country.lb_weighted_mean_income as country_lb_weighted_mean_income,country.ub_weighted_mean_income as country_ub_weighted_mean_income,country.lb_weighted_median_income as country_lb_weighted_median_income,country.ub_weighted_median_income as country_ub_weighted_median_income,country.lb_weighted_gini_income as country_lb_weighted_gini_income,country.ub_weighted_gini_income as country_ub_weighted_gini_income,
-        region.weighted_mean_income as region_weighted_mean_income,region.weighted_median_income as region_weighted_median_income,region.weighted_gini_income as region_weighted_gini_income,region.lb_weighted_mean_income as region_lb_weighted_mean_income,region.ub_weighted_mean_income as region_ub_weighted_mean_income,region.lb_weighted_median_income as region_lb_weighted_median_income,region.ub_weighted_median_income as region_ub_weighted_median_income,region.lb_weighted_gini_income as region_lb_weighted_gini_income,region.ub_weighted_gini_income as region_ub_weighted_gini_income,
-        comuna.weighted_mean_income as comuna_weighted_mean_income,comuna.weighted_median_income as comuna_weighted_median_income,comuna.weighted_gini_income as comuna_weighted_gini_income,comuna.lb_weighted_mean_income as comuna_lb_weighted_mean_income,comuna.ub_weighted_mean_income as comuna_ub_weighted_mean_income,comuna.lb_weighted_median_income as comuna_lb_weighted_median_income,comuna.ub_weighted_median_income as comuna_ub_weighted_median_income,comuna.lb_weighted_gini_income as comuna_lb_weighted_gini_income,comuna.ub_weighted_gini_income as comuna_ub_weighted_gini_income
-
-       FROM economy.fact_income_gini_country_casen country
-       INNER JOIN economy.fact_income_gini_region_casen region ON region.date_id = country.date_id
-       INNER JOIN dim_comunas dc ON dc.region_id = region.geography_id
-       INNER JOIN economy.fact_income_gini_comuna_casen comuna ON comuna.geography_id = dc.comuna_datachile_id AND region.date_id = comuna.date_id
-    )]]></SQL>
-    </View>
-
-    <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
-    <DimensionUsage name="Geography" source="Geography" level="Comuna" foreignKey="comuna_id" />
-
-    <Measure name="country_weighted_mean_income" column="country_weighted_mean_income"  visible="false" aggregator="min"/>
-    <Measure name="country_weighted_median_income" column="country_weighted_median_income"  visible="false" aggregator="min"/>
-    <Measure name="country_weighted_gini_income" column="country_weighted_gini_income"  visible="false" aggregator="min"/>
-    <Measure name="country_lb_weighted_mean_income" column="country_lb_weighted_mean_income"  visible="false" aggregator="min"/>
-    <Measure name="country_ub_weighted_mean_income" column="country_ub_weighted_mean_income"  visible="false" aggregator="min"/>
-    <Measure name="country_lb_weighted_median_income" column="country_lb_weighted_median_income"  visible="false" aggregator="min"/>
-    <Measure name="country_ub_weighted_median_income" column="country_ub_weighted_median_income"  visible="false" aggregator="min"/>
-    <Measure name="country_lb_weighted_gini_income" column="country_lb_weighted_gini_income"  visible="false" aggregator="min"/>
-    <Measure name="country_ub_weighted_gini_income" column="country_ub_weighted_gini_income"  visible="false" aggregator="min"/>
-
-
-    <Measure name="region_weighted_mean_income" column="region_weighted_mean_income"  visible="false" aggregator="min"/>
-    <Measure name="region_weighted_median_income" column="region_weighted_median_income"  visible="false" aggregator="min"/>
-    <Measure name="region_weighted_gini_income" column="region_weighted_gini_income"  visible="false" aggregator="min"/>
-    <Measure name="region_lb_weighted_mean_income" column="region_lb_weighted_mean_income"  visible="false" aggregator="min"/>
-    <Measure name="region_ub_weighted_mean_income" column="region_ub_weighted_mean_income"  visible="false" aggregator="min"/>
-    <Measure name="region_lb_weighted_median_income" column="region_lb_weighted_median_income"  visible="false" aggregator="min"/>
-    <Measure name="region_ub_weighted_median_income" column="region_ub_weighted_median_income"  visible="false" aggregator="min"/>
-    <Measure name="region_lb_weighted_gini_income" column="region_lb_weighted_gini_income"  visible="false" aggregator="min"/>
-    <Measure name="region_ub_weighted_gini_income" column="region_ub_weighted_gini_income"  visible="false" aggregator="min"/>
-
-
-    <Measure name="comuna_weighted_mean_income" column="comuna_weighted_mean_income"  visible="false" aggregator="min"/>
-    <Measure name="comuna_weighted_median_income" column="comuna_weighted_median_income"  visible="false" aggregator="min"/>
-    <Measure name="comuna_weighted_gini_income" column="comuna_weighted_gini_income"  visible="false" aggregator="min"/>
-    <Measure name="comuna_lb_weighted_mean_income" column="comuna_lb_weighted_mean_income"  visible="false" aggregator="min"/>
-    <Measure name="comuna_ub_weighted_mean_income" column="comuna_ub_weighted_mean_income"  visible="false" aggregator="min"/>
-    <Measure name="comuna_lb_weighted_median_income" column="comuna_lb_weighted_median_income"  visible="false" aggregator="min"/>
-    <Measure name="comuna_ub_weighted_median_income" column="comuna_ub_weighted_median_income"  visible="false" aggregator="min"/>
-    <Measure name="comuna_lb_weighted_gini_income" column="comuna_lb_weighted_gini_income"  visible="false" aggregator="min"/>
-    <Measure name="comuna_ub_weighted_gini_income" column="comuna_ub_weighted_gini_income"  visible="false" aggregator="min"/>
-
-    <CalculatedMember name="Gini" dimension="Measures" visible="true">
-      <Formula>
-
-          CASE
-            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_weighted_gini_income]
-            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_weighted_gini_income]
-            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_weighted_gini_income]
-          END
-
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember name="LB Gini" dimension="Measures" visible="true">
-      <Formula>
-
-          CASE
-            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_lb_weighted_gini_income]
-            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_lb_weighted_gini_income]
-            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_lb_weighted_gini_income]
-          END
-
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember name="UB Gini" dimension="Measures" visible="true">
-      <Formula>
-
-          CASE
-            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_ub_weighted_gini_income]
-            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_ub_weighted_gini_income]
-            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_ub_weighted_gini_income]
-          END
-
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember name="Mean Income" dimension="Measures" visible="true">
-      <Formula>
-
-          CASE
-            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_weighted_mean_income]
-            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_weighted_mean_income]
-            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_weighted_mean_income]
-          END
-
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember name="LB Mean Income" dimension="Measures" visible="true">
-      <Formula>
-
-          CASE
-            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_lb_weighted_mean_income]
-            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_lb_weighted_mean_income]
-            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_lb_weighted_mean_income]
-          END
-
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember name="UB Mean Income" dimension="Measures" visible="true">
-      <Formula>
-
-          CASE
-            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_ub_weighted_mean_income]
-            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_ub_weighted_mean_income]
-            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_ub_weighted_mean_income]
-          END
-
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember name="Median Income" dimension="Measures" visible="true">
-      <Formula>
-
-          CASE
-            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_weighted_median_income]
-            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_weighted_median_income]
-            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_weighted_median_income]
-          END
-
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember name="LB Median Income" dimension="Measures" visible="true">
-      <Formula>
-
-          CASE
-            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_lb_weighted_median_income]
-            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_lb_weighted_median_income]
-            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_lb_weighted_median_income]
-          END
-
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember name="UB Median Income" dimension="Measures" visible="true">
-      <Formula>
-
-          CASE
-            WHEN [Geography].Level.Name = "Region" THEN [Measures].[region_ub_weighted_median_income]
-            WHEN [Geography].Level.Name = "Comuna" THEN [Measures].[comuna_ub_weighted_median_income]
-            WHEN [Geography].Level.Name = "(All)"  THEN [Measures].[country_ub_weighted_median_income]
-          END
-
-      </Formula>
-    </CalculatedMember>
-
   </Cube>
 
   <!-- NESI -->
   <Cube name="nesi_income">
+    <Annotations>
+      <Annotation name="source_name">Encuesta Suplementaria de Ingresos — INE</Annotation>
+      <Annotation name="source_link">http://www.ine.cl/estadisticas/ingresos-y-gastos/esi</Annotation>
+    </Annotations>
     <!-- Table name="fact_income_nesi" schema="economy" / -->
     <View alias="nesi_view">
       <SQL>
@@ -1406,11 +1270,14 @@
         count(Geography.CurrentMember.Level.Members)
       </Formula>
     </CalculatedMember>
-
   </Cube>
   <!-- / NESI -->
 
   <Cube name="internet_access">
+    <Annotations>
+      <Annotation name="source_name">Encuesta de Acceso, Usos y Usuarios de Internet — INE</Annotation>
+      <Annotation name="source_link">http://anda.ine.cl/index.php/catalog/9222</Annotation>
+    </Annotations>
     <Table name="fact_internet_access_survey" schema="environment" />
     <DimensionUsage name="Geography" source="Geography" level="Region" foreignKey="region_id" />
     <DimensionUsage name="Zone" source="Zone" level="Zone" foreignKey="zone_id" />
@@ -1431,6 +1298,10 @@
 
   <!-- NENE -->
   <Cube name="nene">
+    <Annotations>
+      <Annotation name="source_name">Encuesta Nacional de Empleo — INE</Annotation>
+      <Annotation name="source_link">http://www.ine.cl/estadisticas/laborales/ene</Annotation>
+    </Annotations>
     <Table name="fact_occupational_status_nene" schema="economy" />
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
 
@@ -1613,14 +1484,13 @@
         ((count(ISICrev4.CurrentMember.Level.Members)-Measures.[Expansion Factor Rank]+1) * 10) / count(ISICrev4.CurrentMember.Level.Members)
       </Formula>
     </CalculatedMember>
-
   </Cube>
   <!-- / NENE -->
 
   <!-- PSU -->
 
   <Cube name="psu">
-
+    
     <View alias="fact_psu">
       <SQL dialect="generic"><![CDATA[(SELECT
         *, ((language_test + math_test) / 2) as avg_individual from education.fact_psu
@@ -2182,6 +2052,10 @@
   <!-- CASEN household data cube -->
 
   <Cube name="casen_household">
+    <Annotations>
+      <Annotation name="source_name">Encuesta CASEN</Annotation>
+      <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
+    </Annotations>
     <Table name="fact_household_casen" schema="environment" />
     
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
@@ -4289,6 +4163,10 @@
   <!-- Health CASEN data cube -->
 
   <Cube name="casen_health_system">
+    <Annotations>
+      <Annotation name="source_name">Encuesta CASEN</Annotation>
+      <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
+    </Annotations>
     <Table name="fact_health_system_casen" schema="health" />
     
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
@@ -4380,7 +4258,11 @@
 
  <!-- Banking CASEN data cube tiene problemas de muchos N/A -->
 
-  <Cube name="casen_banking">
+ <Cube name="casen_banking">
+   <Annotations>
+      <Annotation name="source_name">Encuesta CASEN</Annotation>
+      <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
+   </Annotations>
     <Table name="fact_banking_casen" schema="environment" />
     
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
