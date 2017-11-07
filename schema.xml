@@ -2061,6 +2061,39 @@
     <DimensionUsage name="Date" source="Date" foreignKey="date_id" />
     <DimensionUsage name="Geography" source="Geography" level="Comuna" foreignKey="comuna_datachile_id" />
 
+    <Dimension name="Zone Id" foreignKey="zone_id">
+      <Hierarchy hasAll="true">
+                
+      <InlineTable alias="zone_id">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">urbano</Value>
+            <Value column="es_description">urbano</Value>
+          </Row>
+        <Row>
+            <Value column="id">2</Value>
+            <Value column="description">rural</Value>
+            <Value column="es_description">rural</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+        
+        <Level name="Zone Id" column="id" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="es_description" />
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+
     <Dimension name="Household Type" foreignKey="household_type">
       <Hierarchy hasAll="true">
                 
