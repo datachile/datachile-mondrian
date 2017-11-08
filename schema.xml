@@ -1761,6 +1761,16 @@
     <Measure name="Number of records" column="year" aggregator="count" visible="true" />
     <Measure name="Average Age" column="age" aggregator="avg" visible="true" />
 
+    <NamedSet name="Special Education Teachings" description="Set of school types (Teachings) that indicate special education">
+      <Formula>
+        <![CDATA[
+                 {[Teachings].[Teaching].[Teaching].&[211],[Teachings].[Teaching].[Teaching].&[212],[Teachings].[Teaching].[Teaching].&[213],[Teachings].[Teaching].[Teaching].&[214],[Teachings].[Teaching].[Teaching].&[215],[Teachings].[Teaching].[Teaching].&[216],[Teachings].[Teaching].[Teaching].&[217]}
+                 ]]>
+      </Formula>
+    </NamedSet>
+
+
+
   </Cube>
 
   <!-- / Education enrollment data cube -->
