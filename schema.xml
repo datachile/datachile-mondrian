@@ -4219,69 +4219,110 @@
       <Hierarchy hasAll="true">
         <InlineTable alias="health_system">
           <ColumnDefs>
+            <ColumnDef name="group_id" type="Numeric" />
+            <ColumnDef name="group_description" type="String" />
+            <ColumnDef name="group_es_description" type="String" />
             <ColumnDef name="id" type="Numeric" />
             <ColumnDef name="description" type="String" />
             <ColumnDef name="es_description" type="String" />
           </ColumnDefs>
           <Rows>
             <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">FONASA</Value>
+              <Value column="group_es_description">FONASA</Value>
               <Value column="id">1</Value>
               <Value column="description">FONASA Grupo A</Value>
               <Value column="es_description">FONASA Grupo A</Value>
             </Row>
           <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">FONASA</Value>
+              <Value column="group_es_description">FONASA</Value>
               <Value column="id">2</Value>
               <Value column="description">FONASA Grupo B</Value>
               <Value column="es_description">FONASA Grupo B</Value>
             </Row>
           <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">FONASA</Value>
+              <Value column="group_es_description">FONASA</Value>
               <Value column="id">3</Value>
               <Value column="description">FONASA Grupo C</Value>
               <Value column="es_description">FONASA Grupo C</Value>
             </Row>
           <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">FONASA</Value>
+              <Value column="group_es_description">FONASA</Value>
               <Value column="id">4</Value>
               <Value column="description">FONASA Grupo D</Value>
               <Value column="es_description">FONASA Grupo D</Value>
             </Row>
           <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">FONASA</Value>
+              <Value column="group_es_description">FONASA</Value>
               <Value column="id">5</Value>
               <Value column="description">FONASA (No Sabe Grupo)</Value>
               <Value column="es_description">FONASA (No Sabe Grupo)</Value>
             </Row>
           <Row>
+              <Value column="group_id">2</Value>
+              <Value column="group_description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
+              <Value column="group_es_description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
               <Value column="id">6</Value>
               <Value column="description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
               <Value column="es_description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
             </Row>
           <Row>
+              <Value column="group_id">3</Value>
+              <Value column="group_description">Isapre</Value>
+              <Value column="group_es_description">Isapre</Value>
               <Value column="id">7</Value>
               <Value column="description">Isapre</Value>
               <Value column="es_description">Isapre</Value>
             </Row>
           <Row>
+              <Value column="group_id">4</Value>
+              <Value column="group_description">Otro</Value>
+              <Value column="group_es_description">Otro</Value>
               <Value column="id">8</Value>
               <Value column="description">Ninguno</Value>
               <Value column="es_description">Ninguno</Value>
             </Row>
           <Row>
+              <Value column="group_id">4</Value>
+              <Value column="group_description">Otro</Value>
+              <Value column="group_es_description">Otro</Value>
               <Value column="id">9</Value>
               <Value column="description">Otro Sistema</Value>
               <Value column="es_description">Otro Sistema</Value>
             </Row>
           <Row>
+              <Value column="group_id">4</Value>
+              <Value column="group_description">Otro</Value>
+              <Value column="group_es_description">Otro</Value>
               <Value column="id">10</Value>
               <Value column="description">No Sabe</Value>
               <Value column="es_description">No Sabe</Value>
             </Row>
           <Row>
+              <Value column="group_id">4</Value>
+              <Value column="group_description">Otro</Value>
+              <Value column="group_es_description">Otro</Value>
               <Value column="id">0</Value>
               <Value column="description">nan</Value>
               <Value column="es_description">nan</Value>
             </Row>
           </Rows>
         </InlineTable>
-        
+        <Level name="Health System Group" column="group_id" nameColumn="group_description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property name="Description ES" column="group_es_description" />
+        </Level>
         <Level name="Health System" column="id" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
