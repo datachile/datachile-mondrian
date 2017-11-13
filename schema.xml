@@ -9,7 +9,7 @@
       <Level column="month_of_year" levelType="TimeMonths" name="Month" type="Numeric" uniqueMembers="false">
 	<CaptionExpression>
 	  <SQL>
-	    (the_year || '/' || month_of_year)
+	    <![CDATA[(the_year || '/' || month_of_year)]]>
 	  </SQL>
 	</CaptionExpression>
       </Level>
@@ -556,20 +556,20 @@
 
     <CalculatedMember name="RCA" dimension="Measures">
       <Formula>
-        CASE
+        <![CDATA[CASE
           WHEN [Geography].Level is [Geography].[Region] AND [Export HS].Level is [Export HS].[HS4] THEN [Measures].[rca_internal]
           ELSE Null
-        END
+        END]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Geo Rank" dimension="Measures">
       <Formula>
-        IIf(IsEmpty([Measures].[FOB US]),
+        <![CDATA[IIf(IsEmpty([Measures].[FOB US]),
             Null,
             Rank([Geography].CurrentMember,
                  Order([Geography].CurrentMember.Siblings,
-                 Measures.[FOB US], BDESC)))
+                 Measures.[FOB US], BDESC)))]]>
       </Formula>
     </CalculatedMember>
 
@@ -578,34 +578,34 @@
         <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
       </Annotations>
       <Formula>
-        Iif(IsEmpty([Measures].[FOB US]),
+        <![CDATA[Iif(IsEmpty([Measures].[FOB US]),
             Null,
         Rank([Geography].CurrentMember,
           Order([Geography].CurrentMember.Siblings,
                 Aggregate({[Date].CurrentMember}*{[Destination Country].[All Countrys]}*{[Export HS].[All HSs]},
                           [Measures].[FOB US]),
-                BDESC)))
+                BDESC)))]]>
 
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="HS Rank" dimension="Measures">
       <Formula>
-        Rank([Export HS].CurrentMember,
+        <![CDATA[Rank([Export HS].CurrentMember,
              Order([Export HS].CurrentMember.Level.Members,
-             Measures.[FOB US], BDESC))
+             Measures.[FOB US], BDESC))]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="HS Rank Decile" dimension="Measures" visible="true">
       <Formula>
-        ((count([Export HS].CurrentMember.Level.Members)-Measures.[HS Rank]+1) * 10) / count([Export HS].CurrentMember.Level.Members)
+        <![CDATA[((count([Export HS].CurrentMember.Level.Members)-Measures.[HS Rank]+1) * 10) / count([Export HS].CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="HS Rank Total" dimension="Measures" visible="true">
       <Formula>
-        count([Export HS].CurrentMember.Level.Members)
+        <![CDATA[count([Export HS].CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
   </Cube>
@@ -630,14 +630,13 @@
         <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
       </Annotations>
       <Formula>
-        Iif(IsEmpty([Measures].[CIF US]),
+        <![CDATA[Iif(IsEmpty([Measures].[CIF US]),
             Null,
             Rank([Geography].CurrentMember,
                  Order([Geography].CurrentMember.Siblings,
                        Aggregate({[Date].CurrentMember}*{[Origin Country].[All Countrys]}*{[Import HS].[All HSs]},
                                  [Measures].[CIF US]),
-                       BDESC)))
-
+                       BDESC)))]]>
       </Formula>
     </CalculatedMember>
   </Cube>
@@ -885,7 +884,7 @@
         <Level name="Age Range">
           <KeyExpression>
             <SQL>
-            (case 
+              <![CDATA[            (case 
             when age BETWEEN 0 AND 14 then '0-14'
             when age BETWEEN 15 AND 19 then '15-19'
             when age BETWEEN 20 AND 24 then '20-24'
@@ -893,18 +892,19 @@
             when age BETWEEN 30 AND 64 then '30-64'
             when age >= 65 then '65-110'
             end)
+              ]]>
             </SQL>
           </KeyExpression>
           <NameExpression>
             <SQL>
-            (case 
+            <![CDATA[(case 
             when age BETWEEN 0 AND 14 then '0-14'
             when age BETWEEN 15 AND 19 then '15-19'
             when age BETWEEN 20 AND 24 then '20-24'
             when age BETWEEN 25 AND 29 then '25-29'
             when age BETWEEN 30 AND 64 then '30-64'
             when age >= 65 then '65-110'
-            end)
+            end)]]>
             </SQL>
           </NameExpression>
         </Level>
@@ -937,19 +937,19 @@
 
     <CalculatedMember name="Value Added" dimension="Measures">
       <Formula>
-        [Measures].[Output] - [Measures].[Intermediates]
+        <![CDATA[[Measures].[Output] - [Measures].[Intermediates]]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Labour Productivity Based on Sales" dimension="Measures">
       <Formula>
-        Iif([Measures].[Labour] > 0, [Measures].[Output]/[Measures].[Labour], Null)
+        <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Output]/[Measures].[Labour], Null)]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Labour Productivity Based on Value Added" dimension="Measures">
       <Formula>
-        Iif([Measures].[Labour] > 0, [Measures].[Value Added] / [Measures].[Labour], Null)
+        <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Value Added] / [Measures].[Labour], Null)]]>
       </Formula>
     </CalculatedMember>
   </Cube>
@@ -1123,7 +1123,7 @@
     <!-- Table name="fact_income_nesi" schema="economy" / -->
     <View alias="nesi_view">
       <SQL>
-	      SELECT *, (income * weight) AS weighted_income from economy.fact_income_nesi
+	      <![CDATA[(SELECT *, (income * weight) AS weighted_income from economy.fact_income_nesi)]]>
       </SQL>
     </View>
 
@@ -1206,7 +1206,7 @@
         <Level name="Income Range">
           <KeyExpression>
             <SQL>
-            (case 
+            <![CDATA[(case 
             when income BETWEEN 0 AND 241000 then '01'
             when income BETWEEN 241001 AND 482000 then '02'
             when income BETWEEN 482001 AND 723000 then '03'
@@ -1217,12 +1217,12 @@
             when income BETWEEN 1687001 AND 1928000 then '08'
             when income BETWEEN 1928001 AND 2169000 then '09'
             when income >= 2169001 then '10'
-            end)
+            end)]]>
             </SQL>
           </KeyExpression>
           <NameExpression>
             <SQL>
-            (case 
+            <![CDATA[(case 
             when income BETWEEN 0 AND 241000 then '0-241000'
             when income BETWEEN 241001 AND 482000 then '241001-482000'
             when income BETWEEN 482001 AND 723000 then '482001-723000'
@@ -1233,7 +1233,7 @@
             when income BETWEEN 1687001 AND 1928000 then '1687001-1928000'
             when income BETWEEN 1928001 AND 2169000 then '1928001-2169000'
             when income >= 2169001 then '+2169001'
-            end)
+            end)]]>
             </SQL>
           </NameExpression>
         </Level>
@@ -1253,21 +1253,22 @@
 
     <CalculatedMember name="Weighted Median Income Rank" dimension="Measures" visible="true">
       <Formula>
-        Rank([Geography].CurrentMember,
+        <![CDATA[Rank([Geography].CurrentMember,
              Order(Geography.CurrentMember.Level.Members,
-                   Measures.[Median Income], BDESC))
+             Measures.[Median Income], BDESC))
+        ]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Weighted Median Income Decile" dimension="Measures" visible="true">
       <Formula>
-        ((count(Geography.CurrentMember.Level.Members)-Measures.[Weighted Median Income Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)
+        <![CDATA[((count(Geography.CurrentMember.Level.Members)-Measures.[Weighted Median Income Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Weighted Median Income Total" dimension="Measures" visible="true">
       <Formula>
-        count(Geography.CurrentMember.Level.Members)
+        <![CDATA[count(Geography.CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
   </Cube>
@@ -1308,7 +1309,7 @@
     <Dimension name="ISICrev4" foreignKey="isic_rev4_id">
       <Hierarchy hasAll="true" primaryKey="level1">
       	<View alias="dim_isic">
-      	  <SQL>select distinct(level1) AS level1, level1_description, es_level1_description from dim_isic</SQL>
+      	  <SQL><![CDATA[(select distinct(level1) AS level1, level1_description, es_level1_description from dim_isic)]]></SQL>
       	</View>
       	<Level name="Level 1" column="level1" nameColumn="level1_description" uniqueMembers="true">
           <Annotations>
@@ -1448,40 +1449,40 @@
 
     <CalculatedMember name="Number of records" dimension="Measures" visible="true">
       <Formula>
-        IIF(Date.CurrentMember.Level is Date.Date.Year,
+        <![CDATA[IIF(Date.CurrentMember.Level is Date.Date.Year,
             (
               [Measures].[Internal Number of records],
               LastNonEmpty(Descendants([Date].CurrentMember, Date.Date.Month),
                            [Measures].[Internal Number of records])
             ),
-            [Measures].[Internal Number of records])
+            [Measures].[Internal Number of records])]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Expansion Factor Rank" dimension="Measures">
       <Formula>
-        Rank(ISICrev4.CurrentMember,
+        <![CDATA[Rank(ISICrev4.CurrentMember,
              Order(ISICrev4.CurrentMember.Level.Members,
-             Measures.[Expansion Factor], BDESC))
+             Measures.[Expansion Factor], BDESC))]]>
       </Formula>
     </CalculatedMember>
 
 
     <CalculatedMember name="Expansion factor" dimension="Measures" visible="true">
       <Formula>
-        IIF(Date.CurrentMember.Level is Date.Date.Year,
+        <![CDATA[IIF(Date.CurrentMember.Level is Date.Date.Year,
             (
               [Measures].[Internal Expansion factor],
               LastNonEmpty(Descendants([Date].CurrentMember, Date.Date.Month),
                           [Measures].[Internal Expansion Factor])
             ),
-            [Measures].[Internal Expansion factor])
+            [Measures].[Internal Expansion factor])]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Expansion Factor Decile" dimension="Measures" visible="true">
       <Formula>
-        ((count(ISICrev4.CurrentMember.Level.Members)-Measures.[Expansion Factor Rank]+1) * 10) / count(ISICrev4.CurrentMember.Level.Members)
+        <![CDATA[((count(ISICrev4.CurrentMember.Level.Members)-Measures.[Expansion Factor Rank]+1) * 10) / count(ISICrev4.CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
   </Cube>
@@ -1513,30 +1514,29 @@
 
     <CalculatedMember name="PSU Average" dimension="Measures" visible="true">
       <Formula>
-        [Measures].[PSU AVG Individual] / [Measures].[Number of records]
+        <![CDATA[[Measures].[PSU AVG Individual] / [Measures].[Number of records]]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="PSU Rank" dimension="Measures">
       <Formula>
-        Rank(Geography.CurrentMember,
+        <![CDATA[Rank(Geography.CurrentMember,
              Order(Geography.CurrentMember.Level.Members,
-             Measures.[PSU Average], BDESC))
+             Measures.[PSU Average], BDESC))]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="PSU Rank Decile" dimension="Measures" visible="true">
       <Formula>
-        ((count(Geography.CurrentMember.Level.Members)-Measures.[PSU Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)
+        <![CDATA[((count(Geography.CurrentMember.Level.Members)-Measures.[PSU Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="PSU Rank Total" dimension="Measures" visible="true">
       <Formula>
-        count(Geography.CurrentMember.Level.Members)
+        <![CDATA[count(Geography.CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
-
   </Cube>
 
   <!-- / PSU -->
@@ -4181,21 +4181,21 @@
     <Measure name="Population" column="count" aggregator="sum" visible="true" />
     <CalculatedMember name="Population Rank" dimension="Measures">
       <Formula>
-        Rank(Geography.CurrentMember,
+        <![CDATA[Rank(Geography.CurrentMember,
              Order(Geography.CurrentMember.Level.Members,
-             Measures.Population, BDESC))
+             Measures.Population, BDESC))]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Population Rank Decile" dimension="Measures" visible="true">
       <Formula>
-        ((count(Geography.CurrentMember.Level.Members)-Measures.[Population Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)
+        <![CDATA[((count(Geography.CurrentMember.Level.Members)-Measures.[Population Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Population Rank Total" dimension="Measures" visible="true">
       <Formula>
-        count(Geography.CurrentMember.Level.Members)
+        <![CDATA[count(Geography.CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
     
@@ -4556,15 +4556,15 @@
     <VirtualCubeMeasure cubeName="imports" name="[Measures].[CIF US]" visible="false" />
 
     <CalculatedMember name="FOB" dimension="Measures" visible="true">
-      <Formula>ValidMeasure([Measures].[FOB US])</Formula>
+      <Formula><![CDATA[ValidMeasure([Measures].[FOB US])]]></Formula>
     </CalculatedMember>
 
     <CalculatedMember name="CIF" dimension="Measures" visible="true">
-      <Formula>ValidMeasure([Measures].[CIF US])</Formula>
+      <Formula><![CDATA[ValidMeasure([Measures].[CIF US])]]></Formula>
     </CalculatedMember>
 
     <CalculatedMember name="Trade Balance" dimension="Measures" visible="true">
-      <Formula>([Measures].[FOB US] - [Measures].[CIF US])</Formula>
+      <Formula><![CDATA[([Measures].[FOB US] - [Measures].[CIF US])]]></Formula>
     </CalculatedMember>
   </VirtualCube>
 </Schema>
