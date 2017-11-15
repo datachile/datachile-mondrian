@@ -363,7 +363,107 @@
           </Row>
         </Rows>
       </InlineTable>
-      <Level name="Survey Response" column="id" nameColumn="description" uniqueMembers="true">
+      <Level name="Binary Survey Response" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <Dimension name="Frequency Survey Response">
+    <Hierarchy hasAll="true">
+      <InlineTable alias="frequency_response">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">nunca</Value>
+            <Value column="es_description">nunca</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">pocas veces</Value>
+            <Value column="es_description">pocas veces</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">muchas veces</Value>
+            <Value column="es_description">muchas veces</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">siempre</Value>
+            <Value column="es_description">siempre</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level name="Frequency Survey Response" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <Dimension name="Energy Source Survey Response">
+    <Hierarchy hasAll="true">
+      <InlineTable alias="energy_source_response">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">gas (licuado o de cañería)</Value>
+            <Value column="es_description">gas (licuado o de cañería)</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">parafina o petróleo</Value>
+            <Value column="es_description">parafina o petróleo</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">leña o derivados (pellets, astillas o briquetas)</Value>
+            <Value column="es_description">leña o derivados (pellets, astillas o briquetas)</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">carbón</Value>
+            <Value column="es_description">carbón</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">electricidad</Value>
+            <Value column="es_description">electricidad</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">energía solar</Value>
+            <Value column="es_description">energía solar</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">no usa combustible o fuente de energía</Value>
+            <Value column="es_description">no usa combustible o fuente de energía</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">no tiene sistema</Value>
+            <Value column="es_description">no tiene sistema</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level name="Energy Source Survey Response" column="id" nameColumn="description" uniqueMembers="true">
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
         </Annotations>
@@ -3241,819 +3341,32 @@
       </Hierarchy>
     </Dimension>
         
-    <Dimension name="Cooking Energy Source" foreignKey="cooking_energy_source">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="cooking_energy_source">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">gas (licuado o de cañería)</Value>
-          <Value column="es_description">gas (licuado o de cañería)</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">parafina o petróleo</Value>
-          <Value column="es_description">parafina o petróleo</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">leña o derivados (pellets, astillas o briquetas)</Value>
-          <Value column="es_description">leña o derivados (pellets, astillas o briquetas)</Value>
-        </Row>
-      <Row>
-          <Value column="id">4</Value>
-          <Value column="description">carbón</Value>
-          <Value column="es_description">carbón</Value>
-        </Row>
-      <Row>
-          <Value column="id">5</Value>
-          <Value column="description">electricidad</Value>
-          <Value column="es_description">electricidad</Value>
-        </Row>
-      <Row>
-          <Value column="id">6</Value>
-          <Value column="description">energía solar</Value>
-          <Value column="es_description">energía solar</Value>
-        </Row>
-      <Row>
-          <Value column="id">7</Value>
-          <Value column="description">no usa combustible o fuente de energía</Value>
-          <Value column="es_description">no usa combustible o fuente de energía</Value>
-        </Row>
-      <Row>
-          <Value column="id">8</Value>
-          <Value column="description">no tiene sistema</Value>
-          <Value column="es_description">no tiene sistema</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Cooking Energy Source" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Heating Energy Source" foreignKey="heating_energy_source">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="heating_energy_source">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">gas (licuado o de cañería)</Value>
-          <Value column="es_description">gas (licuado o de cañería)</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">parafina o petróleo</Value>
-          <Value column="es_description">parafina o petróleo</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">leña o derivados (pellets, astillas o briquetas)</Value>
-          <Value column="es_description">leña o derivados (pellets, astillas o briquetas)</Value>
-        </Row>
-      <Row>
-          <Value column="id">4</Value>
-          <Value column="description">carbón</Value>
-          <Value column="es_description">carbón</Value>
-        </Row>
-      <Row>
-          <Value column="id">5</Value>
-          <Value column="description">electricidad</Value>
-          <Value column="es_description">electricidad</Value>
-        </Row>
-      <Row>
-          <Value column="id">6</Value>
-          <Value column="description">energía solar</Value>
-          <Value column="es_description">energía solar</Value>
-        </Row>
-      <Row>
-          <Value column="id">7</Value>
-          <Value column="description">no usa combustible o fuente de energía</Value>
-          <Value column="es_description">no usa combustible o fuente de energía</Value>
-        </Row>
-      <Row>
-          <Value column="id">8</Value>
-          <Value column="description">no tiene sistema</Value>
-          <Value column="es_description">no tiene sistema</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Heating Energy Source" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Hot Water Energy Source" foreignKey="hot_water_energy_source">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="hot_water_energy_source">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">gas (licuado o de cañería)</Value>
-          <Value column="es_description">gas (licuado o de cañería)</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">parafina o petróleo</Value>
-          <Value column="es_description">parafina o petróleo</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">leña o derivados (pellets, astillas o briquetas)</Value>
-          <Value column="es_description">leña o derivados (pellets, astillas o briquetas)</Value>
-        </Row>
-      <Row>
-          <Value column="id">4</Value>
-          <Value column="description">carbón</Value>
-          <Value column="es_description">carbón</Value>
-        </Row>
-      <Row>
-          <Value column="id">5</Value>
-          <Value column="description">electricidad</Value>
-          <Value column="es_description">electricidad</Value>
-        </Row>
-      <Row>
-          <Value column="id">6</Value>
-          <Value column="description">energía solar</Value>
-          <Value column="es_description">energía solar</Value>
-        </Row>
-      <Row>
-          <Value column="id">7</Value>
-          <Value column="description">no usa combustible o fuente de energía</Value>
-          <Value column="es_description">no usa combustible o fuente de energía</Value>
-        </Row>
-      <Row>
-          <Value column="id">8</Value>
-          <Value column="description">no tiene sistema</Value>
-          <Value column="es_description">no tiene sistema</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Hot Water Energy Source" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Less Than 8 Blocks Public Transport" foreignKey="less_than_8_blocks_public_transport">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="less_than_8_blocks_public_transport">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">sĂ­</Value>
-          <Value column="es_description">sĂ­</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">no</Value>
-          <Value column="es_description">no</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">no sabe</Value>
-          <Value column="es_description">no sabe</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Less Than 8 Blocks Public Transport" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Less Than 20 Blocks Educational Center" foreignKey="less_than_20_blocks_educational_center">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="less_than_20_blocks_educational_center">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">sĂ­</Value>
-          <Value column="es_description">sĂ­</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">no</Value>
-          <Value column="es_description">no</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">no sabe</Value>
-          <Value column="es_description">no sabe</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Less Than 20 Blocks Educational Center" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Less Than 20 Blocks Health Center" foreignKey="less_than_20_blocks_health_center">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="less_than_20_blocks_health_center">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">sĂ­</Value>
-          <Value column="es_description">sĂ­</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">no</Value>
-          <Value column="es_description">no</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">no sabe</Value>
-          <Value column="es_description">no sabe</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Less Than 20 Blocks Health Center" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Less Than 20 Blocks Market" foreignKey="less_than_20_blocks_market">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="less_than_20_blocks_market">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">sĂ­</Value>
-          <Value column="es_description">sĂ­</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">no</Value>
-          <Value column="es_description">no</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">no sabe</Value>
-          <Value column="es_description">no sabe</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Less Than 20 Blocks Market" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Less Than 20 Blocks Atm" foreignKey="less_than_20_blocks_atm">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="less_than_20_blocks_atm">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">sĂ­</Value>
-          <Value column="es_description">sĂ­</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">no</Value>
-          <Value column="es_description">no</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">no sabe</Value>
-          <Value column="es_description">no sabe</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Less Than 20 Blocks Atm" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Less Than 20 Blocks Sports Center" foreignKey="less_than_20_blocks_sports_center">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="less_than_20_blocks_sports_center">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">sĂ­</Value>
-          <Value column="es_description">sĂ­</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">no</Value>
-          <Value column="es_description">no</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">no sabe</Value>
-          <Value column="es_description">no sabe</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Less Than 20 Blocks Sports Center" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Less Than 20 Blocks Green Areas" foreignKey="less_than_20_blocks_green_areas">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="less_than_20_blocks_green_areas">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">sĂ­</Value>
-          <Value column="es_description">sĂ­</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">no</Value>
-          <Value column="es_description">no</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">no sabe</Value>
-          <Value column="es_description">no sabe</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Less Than 20 Blocks Green Areas" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Less Than 20 Blocks Community Equipment" foreignKey="less_than_20_blocks_community_equipment">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="less_than_20_blocks_community_equipment">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">sĂ­</Value>
-          <Value column="es_description">sĂ­</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">no</Value>
-          <Value column="es_description">no</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">no sabe</Value>
-          <Value column="es_description">no sabe</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Less Than 20 Blocks Community Equipment" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Less Than 20 Blocks Pharmacy" foreignKey="less_than_20_blocks_pharmacy">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="less_than_20_blocks_pharmacy">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">sĂ­</Value>
-          <Value column="es_description">sĂ­</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">no</Value>
-          <Value column="es_description">no</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">no sabe</Value>
-          <Value column="es_description">no sabe</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Less Than 20 Blocks Pharmacy" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Affected By Acoustic Contamination" foreignKey="affected_by_acoustic_contamination">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="affected_by_acoustic_contamination">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">nunca</Value>
-          <Value column="es_description">nunca</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">pocas veces</Value>
-          <Value column="es_description">pocas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">muchas veces</Value>
-          <Value column="es_description">muchas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">4</Value>
-          <Value column="description">siempre</Value>
-          <Value column="es_description">siempre</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Affected By Acoustic Contamination" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Affected By Air Contamination" foreignKey="affected_by_air_contamination">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="affected_by_air_contamination">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">nunca</Value>
-          <Value column="es_description">nunca</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">pocas veces</Value>
-          <Value column="es_description">pocas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">muchas veces</Value>
-          <Value column="es_description">muchas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">4</Value>
-          <Value column="description">siempre</Value>
-          <Value column="es_description">siempre</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Affected By Air Contamination" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Affected By River Or Lake Contamination" foreignKey="affected_by_river_or_lake_contamination">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="affected_by_river_or_lake_contamination">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">nunca</Value>
-          <Value column="es_description">nunca</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">pocas veces</Value>
-          <Value column="es_description">pocas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">muchas veces</Value>
-          <Value column="es_description">muchas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">4</Value>
-          <Value column="description">siempre</Value>
-          <Value column="es_description">siempre</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Affected By River Or Lake Contamination" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Affected By Public Water Source Contamination" foreignKey="affected_by_public_water_source_contamination">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="affected_by_public_water_source_contamination">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">nunca</Value>
-          <Value column="es_description">nunca</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">pocas veces</Value>
-          <Value column="es_description">pocas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">muchas veces</Value>
-          <Value column="es_description">muchas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">4</Value>
-          <Value column="description">siempre</Value>
-          <Value column="es_description">siempre</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Affected By Public Water Source Contamination" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Affected By Graffitis Or Advertising" foreignKey="affected_by_graffitis_or_advertising">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="affected_by_graffitis_or_advertising">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">nunca</Value>
-          <Value column="es_description">nunca</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">pocas veces</Value>
-          <Value column="es_description">pocas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">muchas veces</Value>
-          <Value column="es_description">muchas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">4</Value>
-          <Value column="description">siempre</Value>
-          <Value column="es_description">siempre</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Affected By Graffitis Or Advertising" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Affected By Accumulation Of Trash Public Areas" foreignKey="affected_by_accumulation_of_trash_public_areas">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="affected_by_accumulation_of_trash_public_areas">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">nunca</Value>
-          <Value column="es_description">nunca</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">pocas veces</Value>
-          <Value column="es_description">pocas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">muchas veces</Value>
-          <Value column="es_description">muchas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">4</Value>
-          <Value column="description">siempre</Value>
-          <Value column="es_description">siempre</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Affected By Accumulation Of Trash Public Areas" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
-        
-    <Dimension name="Affected By Animal Or Insect Plague" foreignKey="affected_by_animal_or_insect_plague">
-      <Hierarchy hasAll="true">
-                
-    <InlineTable alias="affected_by_animal_or_insect_plague">
-      <ColumnDefs>
-        <ColumnDef name="id" type="Numeric" />
-        <ColumnDef name="description" type="String" />
-        <ColumnDef name="es_description" type="String" />
-      </ColumnDefs>
-      <Rows>
-        <Row>
-          <Value column="id">1</Value>
-          <Value column="description">nunca</Value>
-          <Value column="es_description">nunca</Value>
-        </Row>
-      <Row>
-          <Value column="id">2</Value>
-          <Value column="description">pocas veces</Value>
-          <Value column="es_description">pocas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">3</Value>
-          <Value column="description">muchas veces</Value>
-          <Value column="es_description">muchas veces</Value>
-        </Row>
-      <Row>
-          <Value column="id">4</Value>
-          <Value column="description">siempre</Value>
-          <Value column="es_description">siempre</Value>
-        </Row>
-      </Rows>
-    </InlineTable>
-        
-        <Level name="Affected By Animal Or Insect Plague" column="id" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property name="Description ES" column="es_description" />
-        </Level>
-      </Hierarchy>
-    </Dimension>
+    <!-- Energy Source Survey Response -->
+    <DimensionUsage name="Cooking Energy Source" caption="Cooking Energy Source" source="Energy Source Survey Response"  foreignKey="cooking_energy_source" />
+    <DimensionUsage name="Heating Energy Source" caption="Heating Energy Source" source="Energy Source Survey Response"  foreignKey="heating_energy_source" />
+    <DimensionUsage name="Hot Water Energy Source" caption="Hot Water Energy Source" source="Energy Source Survey Response"  foreignKey="hot_water_energy_source" />
 
+    <!-- Binary Survey Response -->
+    <DimensionUsage name="Less Than 8 Blocks Public Transport" caption="Less Than 8 Blocks Public Transport" source="Binary Survey Response"  foreignKey="less_than_8_blocks_public_transport" />
+    <DimensionUsage name="Less Than 20 Blocks Educational Center" caption="Less Than 20 Blocks Educational Center" source="Binary Survey Response"  foreignKey="less_than_20_blocks_educational_center" />
+    <DimensionUsage name="Less Than 20 Blocks Health Center" caption="Less Than 20 Blocks Health Center" source="Binary Survey Response"  foreignKey="less_than_20_blocks_health_center" />
+    <DimensionUsage name="Less Than 20 Blocks Market" caption="Less Than 20 Blocks Market" source="Binary Survey Response"  foreignKey="less_than_20_blocks_market" />
+    <DimensionUsage name="Less Than 20 Blocks Atm" caption="Less Than 20 Blocks Atm" source="Binary Survey Response"  foreignKey="less_than_20_blocks_atm" />
+    <DimensionUsage name="Less Than 20 Blocks Sports Center" caption="Less Than 20 Blocks Sports Center" source="Binary Survey Response"  foreignKey="less_than_20_blocks_sports_center" />
+    <DimensionUsage name="Less Than 20 Blocks Green Areas" caption="Less Than 20 Blocks Green Areas" source="Binary Survey Response"  foreignKey="less_than_20_blocks_green_areas" />
+    <DimensionUsage name="Less Than 20 Blocks Community Equipment" caption="Less Than 20 Blocks Community Equipment" source="Binary Survey Response"  foreignKey="less_than_20_blocks_community_equipment" />
+    <DimensionUsage name="Less Than 20 Blocks Pharmacy" caption="Less Than 20 Blocks Pharmacy" source="Binary Survey Response"  foreignKey="less_than_20_blocks_pharmacy" />
+
+    <!-- Frequency Survey Response -->
+    <DimensionUsage name="Affected By Acoustic Contamination" caption="Affected By Acoustic Contamination" source="Frequency Survey Response" foreignKey="affected_by_acoustic_contamination" />
+    <DimensionUsage name="Affected By Air Contamination" caption="Affected By Air Contamination" source="Frequency Survey Response" foreignKey="affected_by_air_contamination" />
+    <DimensionUsage name="Affected By River Or Lake Contamination" caption="Affected By River Or Lake Contamination" source="Frequency Survey Response" foreignKey="affected_by_river_or_lake_contamination" />
+    <DimensionUsage name="Affected By Public Water Source Contamination" caption="Affected By Public Water Source Contamination" source="Frequency Survey Response" foreignKey="affected_by_public_water_source_contamination" />
+    <DimensionUsage name="Affected By Graffitis Or Advertising" caption="Affected By Graffitis Or Advertising" source="Frequency Survey Response" foreignKey="affected_by_graffitis_or_advertising" />
+    <DimensionUsage name="Affected By Accumulation Of Trash Public Areas" caption="Affected By Accumulation Of Trash Public Areas" source="Frequency Survey Response" foreignKey="affected_by_accumulation_of_trash_public_areas" />
+    <DimensionUsage name="Affected By Animal Or Insect Plague" caption="Affected By Animal Or Insect Plague" source="Frequency Survey Response" foreignKey="affected_by_animal_or_insect_plague" />
+
+    <!-- Mesaures -->
     <Measure name="Number of records" column="date_id" aggregator="count" visible="true" />
     <Measure name="Expansion Factor Region" column="expr" visible="true" aggregator="sum" />
     <Measure name="Expansion Factor Comuna" column="expc" visible="true" aggregator="sum" />

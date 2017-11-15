@@ -28,7 +28,7 @@ GEM
       virtus (>= 1.0.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (0.9.0)
+    i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     jar-dependencies (0.3.11)
@@ -46,7 +46,7 @@ GEM
     minitest (5.10.3)
     mondrian-olap (0.8.0)
       nokogiri
-    mondrian-rest (0.7.6-java)
+    mondrian-rest (0.7.7-java)
       grape (~> 1.0, >= 1.0.0)
       mondrian-olap (~> 0.8.0)
       writeexcel (~> 1.0, >= 1.0.5)
@@ -78,7 +78,7 @@ GEM
     slop (4.6.0)
     thread_safe (0.3.6-java)
     tilt (2.0.8)
-    tzinfo (1.2.3)
+    tzinfo (1.2.4)
       thread_safe (~> 0.1)
     unf (0.1.4-java)
     virtus (1.0.5)
@@ -94,7 +94,7 @@ PLATFORMS
 DEPENDENCIES
   jbundler
   jdbc-postgres (~> 9.4, >= 9.4.1206)
-  mondrian-rest (>= 0.7.6)
+  mondrian-rest (>= 0.7.7)
   puma
   rack-cors
   rest-client
