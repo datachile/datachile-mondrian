@@ -2145,7 +2145,7 @@
     
     <Measure aggregator="avg" column="subsidized_percent" name="Avg subsidized" visible="true"/>
     
-    <Measure aggregator="avg" column="first_year_retention" name="Avg Retention 1st year " visible="true"/>
+    <Measure aggregator="avg" column="first_year_retention" name="Avg Retention 1st year" visible="true"/>
     
     <Measure aggregator="avg" column="real_duration_in_terms" name="Avg Duration in semesters" visible="true"/>
 
