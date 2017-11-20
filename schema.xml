@@ -3378,6 +3378,12 @@
   <!-- Population data cube -->
 
   <Cube name="population_estimate">
+    <Annotations>
+      <Annotation name="source_name">INE - Demográficas y Vitales</Annotation>
+      <Annotation name="source_link">http://www.ine.cl/estadisticas/demograficas-y-vitales</Annotation>
+    </Annotations>
+
+    <!-- http://www.ine.cl/estadisticas/demograficas-y-vitales -->
     <Table name="fact_population_estimate" schema="demographics"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
