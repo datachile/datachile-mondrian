@@ -272,52 +272,52 @@
         </ColumnDefs>
         <Rows>
           <Row>
-            <Value column="id">1</Value>
+            <Value column="id">6</Value>
             <Value column="description">Skilled agricultural and fishery workers</Value>
             <Value column="es_description">Agricultores y trabajadores calificados agropecuarios y pesqueros</Value>
           </Row>
           <Row>
-            <Value column="id">2</Value>
+            <Value column="id">4</Value>
             <Value column="description">Clerks</Value>
             <Value column="es_description">Empleados de oficina</Value>
           </Row>
           <Row>
-            <Value column="id">3</Value>
+            <Value column="id">1</Value>
             <Value column="description">Legislators, senior officials and managers</Value>
             <Value column="es_description">Funcionarios públicos y personal directivo de la administración pública y empresas</Value>
           </Row>
           <Row>
-            <Value column="id">4</Value>
+            <Value column="id">7</Value>
             <Value column="description">Craft and related trade workers</Value>
             <Value column="es_description">Oficiales, operarios y artesanos de artes mecánicas y de otros oficios</Value>
           </Row>
           <Row>
-            <Value column="id">5</Value>
+            <Value column="id">8</Value>
             <Value column="description">Plant and machine operators, and assemblers</Value>
             <Value column="es_description">Operadores de instalaciones y máquinas y montadores</Value>
           </Row>
           <Row>
-            <Value column="id">6</Value>
+            <Value column="id">10</Value>
             <Value column="description">Others not identified</Value>
             <Value column="es_description">Otros no identificados</Value>
           </Row>
           <Row>
-            <Value column="id">7</Value>
+            <Value column="id">2/Value>
             <Value column="description">Professionals</Value>
             <Value column="es_description">Profesionales científicos e intelectuales</Value>
           </Row>
           <Row>
-            <Value column="id">8</Value>
+            <Value column="id">3</Value>
             <Value column="description">Technicians and associated professionals</Value>
             <Value column="es_description">Técnicos y profesionales de nivel medio</Value>
           </Row>
           <Row>
-            <Value column="id">9</Value>
+            <Value column="id">5</Value>
             <Value column="description">Service workers and shop and market sales workers</Value>
             <Value column="es_description">Trabajadores de los servicios y vendedores de comercios y mercados</Value>
           </Row>
           <Row>
-            <Value column="id">10</Value>
+            <Value column="id">9</Value>
             <Value column="description">Elementary occupations</Value>
             <Value column="es_description">Trabajadores no calificados</Value>
           </Row>
