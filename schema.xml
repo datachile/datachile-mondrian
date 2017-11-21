@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Schema name="datachile">
 
   <!-- BEGIN: Shared Dimensions -->
@@ -302,7 +302,7 @@
             <Value column="es_description">Otros no identificados</Value>
           </Row>
           <Row>
-            <Value column="id">2/Value>
+            <Value column="id">2</Value>
             <Value column="description">Professionals</Value>
             <Value column="es_description">Profesionales científicos e intelectuales</Value>
           </Row>
