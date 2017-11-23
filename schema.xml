@@ -650,6 +650,9 @@
     <DimensionUsage foreignKey="exporter_comuna_id" name="Geography" source="Geography"/>
     <DimensionUsage foreignKey="hs_level3" name="Export HS" source="HS"/>
 
+    <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
+    <DimensionUsage caption="Country" foreignKey="country_dest_id" name="Country" source="Country"/>
+
     <!-- Measure name="Q Traded" column="q_traded" aggregator="sum" / -->
     <Measure aggregator="sum" column="fob_us" name="FOB US"/>
     <Measure aggregator="min" column="region_rca" name="rca_internal" visible="false"/>
@@ -722,6 +725,9 @@
     <DimensionUsage caption="Origin Country" foreignKey="country_origin_id" name="Origin Country" source="Country"/>
     <DimensionUsage foreignKey="importer_comuna_id" name="Geography" source="Geography"/>
     <DimensionUsage foreignKey="hs_6digits" name="Import HS" source="HS"/>
+
+    <!-- duplicate of dimension `Origin Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
+    <DimensionUsage caption="Country" foreignKey="country_origin_id" name="Country" source="Country"/>
 
     <Measure aggregator="sum" column="cif_us" name="CIF US"/>
 
@@ -3870,6 +3876,7 @@
   <VirtualCube name="exports_and_imports">
     <VirtualCubeDimension name="Date"/>
     <VirtualCubeDimension name="Geography"/>
+    <VirtualCubeDimension name="Country" />
 
     <VirtualCubeMeasure cubeName="exports" name="[Measures].[FOB US]" visible="false"/>
     <VirtualCubeMeasure cubeName="imports" name="[Measures].[CIF US]" visible="false"/>
@@ -3885,5 +3892,10 @@
     <CalculatedMember dimension="Measures" name="Trade Balance" visible="true">
       <Formula><![CDATA[([Measures].[FOB US] - [Measures].[CIF US])]]></Formula>
     </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="Trade Exchange" visible="true">
+      <Formula><![CDATA[([Measures].[FOB] + [Measures].[CIF])]]></Formula>
+    </CalculatedMember>
+
   </VirtualCube>
 </Schema>
