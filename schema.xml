@@ -3774,7 +3774,7 @@
             </Row>
             <Row>
               <Value column="id">K00-K93</Value>
-              <Value column="description">Diseases of the respiratory system</Value>
+              <Value column="description">Diseases of the digestive system</Value>
               <Value column="es_description">Enfermedades del sistema digestivo</Value>
             </Row>
             <Row>
