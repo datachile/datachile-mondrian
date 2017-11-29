@@ -1591,6 +1591,19 @@
         <![CDATA[((count(ISICrev4.CurrentMember.Level.Members)-Measures.[Expansion Factor Rank]+1) * 10) / count(ISICrev4.CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
+
+    <NamedSet name="Quaterly Reporting" description="">
+      <Formula>
+        <![CDATA[
+          FILTER([Date].[Date].[Month].MEMBERS,
+                 CAST(Date.Date.Month.CurrentMember.Properties("MEMBER_KEY") AS INTEGER) = 3
+                  OR CAST(Date.Date.Month.CurrentMember.Properties("MEMBER_KEY") AS INTEGER) = 6
+                  OR CAST(Date.Date.Month.CurrentMember.Properties("MEMBER_KEY") AS INTEGER) = 9
+                  OR CAST(Date.Date.Month.CurrentMember.Properties("MEMBER_KEY") AS INTEGER) = 12)
+        ]]>
+      </Formula>
+    </NamedSet>
+
   </Cube>
   <!-- / NENE -->
 
