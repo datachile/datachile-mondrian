@@ -61,9 +61,16 @@
         </Annotations>
         <Property column="es_level0_description" name="HS0 ES"/>
       </Level>
-      <Level column="level1" name="HS2" nameColumn="level1_name" uniqueMembers="true"/>
+      <!-- Level column="level1" name="HS2" nameColumn="level1_name" uniqueMembers="true"/>
       <Level column="level2" name="HS4" nameColumn="level2_name" uniqueMembers="true"/>
-      <Level column="level3" name="HS6" nameColumn="level3_name" uniqueMembers="true"/>
+      <Level column="level3" name="HS6" nameColumn="level3_name" uniqueMembers="true"/ -->
+      <Level column="level2" name="HS2" nameColumn="level2_name" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">HS2 ES</Annotation>
+        </Annotations>
+        <Property column="es_level2_description" name="HS2 ES"/>
+      </Level>
+      <Level column="level3" name="HS4" nameColumn="level3_name" uniqueMembers="true"/>
     </Hierarchy>
   </Dimension>
 
@@ -657,14 +664,14 @@
     <Measure aggregator="sum" column="fob_us" name="FOB US"/>
     <Measure aggregator="min" column="region_rca" name="rca_internal" visible="false"/>
 
-    <CalculatedMember dimension="Measures" name="RCA">
+    <!-- CalculatedMember dimension="Measures" name="RCA">
       <Formula>
         <![CDATA[CASE
                  WHEN [Geography].Level is [Geography].[Region] AND [Export HS].Level is [Export HS].[HS4] THEN [Measures].[rca_internal]
                  ELSE Null
                  END]]>
       </Formula>
-    </CalculatedMember>
+    </CalculatedMember -->
 
     <CalculatedMember dimension="Measures" name="Geo Rank">
       <Formula>
