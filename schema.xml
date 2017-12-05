@@ -1393,7 +1393,16 @@
       <Annotation name="source_link">http://anda.ine.cl/index.php/catalog/9222</Annotation>
     </Annotations>
     <Table name="fact_internet_access_survey" schema="environment"/>
-    <DimensionUsage foreignKey="region_id" level="Region" name="Geography" source="Geography"/>
+
+    <Dimension foreignKey="region_id" name="Geography">
+      <Hierarchy hasAll="true" primaryKey="region_id">
+      	<View alias="dim_regions">
+      	  <SQL>(SELECT distinct(region_id), region_name from dim_comunas)</SQL>
+      	</View>
+      	<Level column="region_id" name="Region" nameColumn="region_name" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
     <DimensionUsage foreignKey="zone_id" level="Zone" name="Zone" source="Zone"/>
 
     <DimensionUsage caption="Internet Plan" foreignKey="internet_plan_id" name="Internet Plan" source="Binary Survey Response"/>
