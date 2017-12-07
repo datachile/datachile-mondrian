@@ -46,7 +46,7 @@ GEM
     minitest (5.10.3)
     mondrian-olap (0.8.0)
       nokogiri
-    mondrian-rest (0.7.7-java)
+    mondrian-rest (0.7.9-java)
       grape (~> 1.0, >= 1.0.0)
       mondrian-olap (~> 0.8.0)
       writeexcel (~> 1.0, >= 1.0.5)
@@ -94,7 +94,7 @@ PLATFORMS
 DEPENDENCIES
   jbundler
   jdbc-postgres (~> 9.4, >= 9.4.1206)
-  mondrian-rest (>= 0.7.7)
+  mondrian-rest (>= 0.7.9)
   puma
   rack-cors
   rest-client
