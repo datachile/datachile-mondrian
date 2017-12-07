@@ -89,6 +89,7 @@ module Mondrian::REST
           .where(
             Sequel.lit("CASE WHEN multilanguage THEN language = ? ELSE language = '' END", lang)
           )
+          .where(Sequel.lit("content IS NOT NULL"))
           .order(Sequel.desc(Sequel.lit("similarity(f_unaccent(content), ?)", q)))
           .limit(limit)
           .offset(offset)
