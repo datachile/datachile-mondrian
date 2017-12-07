@@ -32,8 +32,6 @@ use Rack::Cors do
   end
 end
 
-use Rack::CommonLogger, $stdout
-
 Mondrian::REST::Api.mount Datachile::NamedQueries
 
 app = Rack::Builder.new do
