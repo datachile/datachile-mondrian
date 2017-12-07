@@ -95,15 +95,22 @@ def indexable_objects(idx_dimension)
               hierarchy: h['name'],
               level: level['name'],
               key: member['key'],
-              depth: level['depth'] - (min_depth - 1)
+              depth: level['depth'] - (min_depth - 1),
+              multilanguage: true
             }
           }
         }
 
+        if lprops.size == 0
+          LOG.info "#{idx_dimension['annotations']['index_as']} - #{level['name']} has no languages"
+        end
+
+        LOG.info "Indexing #{level['name']}"
+
         # always index members in the default language
         enum.yield r['members'].map { |member|
           {
-            language: OPTS[:default_language],
+            language: lprops.size > 0 ? OPTS[:default_language] : '',
             content: member['caption'],
             member_data: member,
             index_as: idx_dimension['annotations']['index_as'],
@@ -112,7 +119,8 @@ def indexable_objects(idx_dimension)
             hierarchy: h['name'],
             level: level['name'],
             key: member['key'],
-            depth: level['depth'] - (min_depth - 1)
+            depth: level['depth'] - (min_depth - 1),
+            multilanguage: lprops.size > 0
           }
         }
       end

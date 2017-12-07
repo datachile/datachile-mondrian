@@ -28,7 +28,7 @@ create table if not exists search.search_index
 (
 	id serial not null,
 	content text,
-  index_as text,
+	index_as text,
 	member_data jsonb not null,
 	language text not null,
 	cube text not null,
@@ -37,6 +37,7 @@ create table if not exists search.search_index
 	level text not null,
 	key text not null,
 	depth integer not null,
+        multilanguage boolean not null,
 	constraint search_index_language_cube_dimension_hierarchy_level_key_depth
 		primary key (language, cube, dimension, hierarchy, level, key, depth)
 );
@@ -86,7 +87,7 @@ module Mondrian::REST
             Sequel.lit("similarity(f_unaccent(content), ?) AS sim", q)
           )
           .where(
-            Sequel.lit('f_unaccent(content) % ?', q)
+            Sequel.lit("CASE WHEN multilanguage THEN language = ? ELSE language = '' END", lang)
           )
           .order(Sequel.desc(Sequel.lit("similarity(f_unaccent(content), ?)", q)))
           .limit(limit)
@@ -122,7 +123,8 @@ module Mondrian::REST
                   hierarchy: member['hierarchy'],
                   level: member['level'],
                   key: member['key'],
-                  depth: member['depth']
+                  depth: member['depth'],
+                  multilanguage: member['multilanguage']
                 }
               }
             )
