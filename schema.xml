@@ -29,6 +29,15 @@
     </Hierarchy>
   </Dimension>
 
+  <Dimension name="Geography Region">
+    <Hierarchy hasAll="true" primaryKey="region_id">
+    	<View alias="dim_regions">
+    	  <SQL>(SELECT distinct(region_id), region_name from dim_comunas)</SQL>
+    	</View>
+    	<Level column="region_id" name="Region" nameColumn="region_name" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+
   <Dimension name="Country">
     <Annotations>
       <Annotation name="index_as">countries</Annotation>
@@ -1394,16 +1403,8 @@
     </Annotations>
     <Table name="fact_internet_access_survey" schema="environment"/>
 
-    <Dimension foreignKey="region_id" name="Geography">
-      <Hierarchy hasAll="true" primaryKey="region_id">
-      	<View alias="dim_regions">
-      	  <SQL>(SELECT distinct(region_id), region_name from dim_comunas)</SQL>
-      	</View>
-      	<Level column="region_id" name="Region" nameColumn="region_name" uniqueMembers="true"/>
-      </Hierarchy>
-    </Dimension>
-
-    <DimensionUsage foreignKey="zone_id" level="Zone" name="Zone" source="Zone"/>
+    <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography" />
+    <DimensionUsage foreignKey="zone_id" name="Zone" source="Zone"/>
 
     <DimensionUsage caption="Internet Plan" foreignKey="internet_plan_id" name="Internet Plan" source="Binary Survey Response"/>
     <DimensionUsage caption="Home Access" foreignKey="home_access_id" name="Home Access" source="Binary Survey Response"/>
@@ -1441,15 +1442,8 @@
         </Level>
       </Hierarchy>
     </Dimension>
-    
-    <Dimension foreignKey="region_id" name="Geography">
-      <Hierarchy hasAll="true" primaryKey="region_id">
-      	<View alias="dim_regions">
-      	  <SQL>(SELECT distinct(region_id), region_name from dim_comunas)</SQL>
-      	</View>
-      	<Level column="region_id" name="Region" nameColumn="region_name" uniqueMembers="true"/>
-      </Hierarchy>
-    </Dimension>
+
+    <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography" />
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
     <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range"/>
     <DimensionUsage foreignKey="isced_id" name="ISCED" source="ISCED"/>
@@ -1682,8 +1676,9 @@
     <Table name="fact_election_results" schema="politics"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-    <DimensionUsage foreignKey="comuna_datachile_id" level="Comuna" name="GeographyC" source="Geography"/>
-    <DimensionUsage foreignKey="region_id" level="Region" name="GeographyR" source="Geography"/>
+    <DimensionUsage foreignKey="comuna_datachile_id" name="GeographyC" source="Geography"/>
+
+    <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography" />
 
     <Dimension foreignKey="election_id" name="Election Type">
       <Hierarchy hasAll="true">
@@ -2204,7 +2199,7 @@
     <Table name="fact_household_casen" schema="environment"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-    <DimensionUsage foreignKey="comuna_datachile_id" level="Comuna" name="Geography" source="Geography"/>
+    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
 
     <Dimension foreignKey="zone_id" name="Zone Id">
       <Hierarchy hasAll="true">
@@ -3422,7 +3417,7 @@
     <Table name="fact_population_estimate" schema="demographics"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-    <DimensionUsage foreignKey="comuna_datachile_id" level="Comuna" name="Geography" source="Geography"/>
+    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
     <Dimension foreignKey="age_range_id" name="Age Range">
@@ -3567,7 +3562,7 @@
     <Table name="fact_health_system_casen" schema="health"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-    <DimensionUsage foreignKey="comuna_datachile_id" level="Comuna" name="Geography" source="Geography"/>
+    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
 
     <Dimension foreignKey="health_system_id" name="Health System">
       <Hierarchy hasAll="true">
@@ -3704,7 +3699,7 @@
     <Table name="fact_banking_casen" schema="environment"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-    <DimensionUsage foreignKey="comuna_datachile_id" level="Comuna" name="Geography" source="Geography"/>
+    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
 
     <DimensionUsage caption="Debit Card" foreignKey="debit_card_id" name="Debit Card" source="Binary Survey Response"/>
     <DimensionUsage caption="Bank Credit Card" foreignKey="credit_card_bank_id" name="Bank Credit Card" source="Binary Survey Response"/>
@@ -3724,9 +3719,9 @@
 
   <Cube name="health_access">
     <Table name="fact_health_access" schema="health"/>
-    
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-    <DimensionUsage foreignKey="region_id" level="Region" name="Geography" source="Geography"/>
+
+    <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography" />
     
     <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
 
@@ -3750,7 +3745,8 @@
     <Table name="fact_life_expectancy" schema="health"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-    <DimensionUsage foreignKey="region_id" level="Region" name="Geography" source="Geography"/>
+
+    <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography" />
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
     
     <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
@@ -3855,7 +3851,8 @@
     <Table name="fact_disability" schema="health"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-    <DimensionUsage foreignKey="region" level="Region" name="Geography" source="Geography"/>
+
+    <DimensionUsage foreignKey="region" source="Geography Region" name="Geography" />
     <DimensionUsage foreignKey="sex" name="Sex" source="Sex"/>
     
     <Dimension foreignKey="disability_grade" name="Disability Grade">
