@@ -1681,7 +1681,7 @@
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
     <DimensionUsage foreignKey="comuna_datachile_id" name="GeographyC" source="Geography"/>
 
-    <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography" />
+    <DimensionUsage foreignKey="region_id" source="Geography Region" name="GeographyR" />
 
     <Dimension foreignKey="election_id" name="Election Type">
       <Hierarchy hasAll="true">
