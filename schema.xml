@@ -113,6 +113,21 @@
     </Hierarchy>
   </Dimension>
 
+  <Dimension name="ISICrev4 Level 1">
+    <Hierarchy hasAll="true" primaryKey="level1">
+    	<View alias="dim_isic">
+    	  <SQL><![CDATA[(select distinct(level1) AS level1, level1_description, es_level1_description from dim_isic)]]></SQL>
+    	</View>
+    	<Level column="level1" name="Level 1" nameColumn="level1_description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_level1_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+
   <Dimension name="Sex">
     <Hierarchy hasAll="true" primaryKey="sex_id">
       <InlineTable alias="dim_sex">
@@ -1085,7 +1100,7 @@
 
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
     <DimensionUsage caption="Headquarters Country" foreignKey="headquarters_country_id" name="Headquarters Country" source="Country"/>
-    <DimensionUsage foreignKey="CIIU_level1" level="Level 1" name="ISICrev4" source="ISICrev4"/>
+    <DimensionUsage foreignKey="CIIU_level1" name="ISICrev4" source="ISICrev4 Level 1"/>
 
     <Dimension foreignKey="org_juridica" name="Business Type">
       <Hierarchy hasAll="true">
@@ -1429,19 +1444,7 @@
     <Table name="fact_occupational_status_nene" schema="economy"/>
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
 
-    <Dimension foreignKey="isic_rev4_id" name="ISICrev4">
-      <Hierarchy hasAll="true" primaryKey="level1">
-      	<View alias="dim_isic">
-      	  <SQL><![CDATA[(select distinct(level1) AS level1, level1_description, es_level1_description from dim_isic)]]></SQL>
-      	</View>
-      	<Level column="level1" name="Level 1" nameColumn="level1_description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property column="es_level1_description" name="Description ES"/>
-        </Level>
-      </Hierarchy>
-    </Dimension>
+    <DimensionUsage foreignKey="isic_rev4_id" name="ISICrev4" source="ISICrev4 Level 1" />
 
     <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography" />
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
