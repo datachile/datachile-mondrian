@@ -30,7 +30,7 @@
   </Dimension>
 
   <Dimension name="Geography Region">
-    <Hierarchy hasAll="true" primaryKey="region_id">
+    <Hierarchy hasAll="true" primaryKey="region_id" name="Geography">
     	<View alias="dim_regions">
     	  <SQL>(SELECT distinct(region_id), region_name from dim_comunas)</SQL>
     	</View>
@@ -114,7 +114,7 @@
   </Dimension>
 
   <Dimension name="ISICrev4 Level 1">
-    <Hierarchy hasAll="true" primaryKey="level1">
+    <Hierarchy hasAll="true" primaryKey="level1" name="ISICrev4">
     	<View alias="dim_isic">
     	  <SQL><![CDATA[(select distinct(level1) AS level1, level1_description, es_level1_description from dim_isic)]]></SQL>
     	</View>
