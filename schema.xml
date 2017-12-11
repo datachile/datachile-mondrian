@@ -749,13 +749,18 @@
       <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
     </Annotations>
-    <Table name="pg_imports_grouped" schema="economy">
-    </Table>
+    <!-- Table name="pg_imports_grouped" schema="economy"></Table -->
+
+    <View alias="pg_imports_grouped">
+      <SQL>
+	      <![CDATA[(SELECT * FROM economy.pg_imports_grouped INNER JOIN dim_date d ON d.id = economy.pg_imports_grouped.date_id WHERE d.the_year >= 2002)]]>
+      </SQL>
+    </View>
 
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
     <DimensionUsage caption="Origin Country" foreignKey="country_origin_id" name="Origin Country" source="Country"/>
     <DimensionUsage foreignKey="importer_comuna_id" name="Geography" source="Geography"/>
-    <DimensionUsage foreignKey="hs_6digits" name="Import HS" source="HS"/>
+    <DimensionUsage foreignKey="hs_6digits" name="Import HS" source="HS" />
 
     <!-- duplicate of dimension `Origin Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
     <DimensionUsage caption="Country" foreignKey="country_origin_id" name="Country" source="Country"/>
