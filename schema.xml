@@ -3584,8 +3584,8 @@
               <Value column="group_description">FONASA</Value>
               <Value column="group_es_description">FONASA</Value>
               <Value column="id">1</Value>
-              <Value column="description">FONASA (No Sabe Grupo)</Value>
-              <Value column="es_description">FONASA (No Sabe Grupo)</Value>
+              <Value column="description">FONASA Grupo A</Value>
+              <Value column="es_description">FONASA Grupo A</Value>
             </Row>
             <Row>
               <Value column="group_id">1</Value>
