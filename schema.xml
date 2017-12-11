@@ -1886,10 +1886,10 @@
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
-    <DimensionUsage foreignKey="rural_id" level="Zone" name="Zone" source="Zone"/>
-    <DimensionUsage foreignKey="administration_id" level="Administration" name="Administration" source="Administration"/>
-    <DimensionUsage foreignKey="institution_id" level="Institution" name="Institutions" source="Institution"/>
-    <DimensionUsage foreignKey="teaching_id" level="Teaching" name="Teachings" source="Teaching"/>
+    <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
+    <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration"/>
+    <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+    <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
 
     <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
     <Measure aggregator="avg" column="age" name="Average Age" visible="true"/>
@@ -1916,10 +1916,10 @@
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
-    <DimensionUsage foreignKey="rural_id" level="Zone" name="Zone" source="Zone"/>
-    <DimensionUsage foreignKey="administration_id" level="Administration" name="Administration" source="Administration"/>
-    <DimensionUsage foreignKey="institution_id" level="Institution" name="Institutions" source="Institution"/>
-    <DimensionUsage foreignKey="teaching_id" level="Teaching" name="Teachings" source="Teaching"/>
+    <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
+    <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration"/>
+    <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+    <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
 
     <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
     <Measure aggregator="avg" column="scores_average" name="Average Score Average (?)" visible="true"/>
@@ -3768,7 +3768,7 @@
     <Table name="fact_death_causes" schema="health"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-    <DimensionUsage foreignKey="region_id" level="Region" name="Geography" source="Geography"/>
+    <DimensionUsage foreignKey="region_id" name="Geography" source="Geography Region"/>
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
     
     <Dimension foreignKey="cie_10_id" name="CIE 10">
