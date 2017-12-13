@@ -654,6 +654,26 @@
     </Hierarchy>
   </Dimension>
 
+  <!-- Institutions from official directory: http://pacha.datawheel.us/datachile/education/establishments/analysis/2_performance/directorio_oficial_2016.csv
+       XXX TODO this should become the only list of schools in chilecube. `Institution` (the dimension above this one) should be removed -->
+  <Dimension name="Institution New">
+    <Hierarchy hasAll="true" primaryKey="rbd">
+      <Table name="dim_educational_institutions_new" schema="education"/>
+      <Level column="cod_depe2" name="Administration" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <NameExpression>
+          <SQL><![CDATA[(CASE WHEN cod_depe2=1 THEN 'Municipal' WHEN cod_depe2=2 THEN 'Private Subsidized' WHEN cod_depe2=3 THEN 'Private' WHEN cod_depe2=4 THEN 'Delegated Administration' END)]]></SQL>
+        </NameExpression>
+        <PropertyExpression name="Description ES">
+          <SQL><![CDATA[(CASE WHEN cod_depe2=1 THEN 'Municipal' WHEN cod_depe2=2 THEN 'Particular Subvencionado' WHEN cod_depe2=3 THEN 'Particular Pagado' WHEN cod_depe2=4 THEN 'Corporación de Administración Delegada' END)]]></SQL>
+        </PropertyExpression>
+      </Level>
+      <Level column="rbd" name="Institution" nameColumn="nom_rbd" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+
   <Dimension name="Teaching">
     <Hierarchy hasAll="true" primaryKey="teaching_id">
       <Table name="dim_teachings" schema="education"/>
@@ -1928,10 +1948,32 @@
 
     <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
     <Measure aggregator="avg" column="scores_average" name="Average Score Average (?)" visible="true"/>
-
   </Cube>
 
   <!-- / Education performance data cube -->
+
+
+  <Cube name="education_performance_new">
+    <View alias="dim_regions">
+    	<SQL><![CDATA[(SELECT * FROM education.fact_registered WHERE promlm_actual IS NOT NULL OR puntaje_nem IS NOT NULL)]]></SQL>
+    </View>
+
+    <Dimension name="Year">
+      <Hierarchy hasAll="true">
+        <Level column="anio_proceso" nameColumn="anio_proceso" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <DimensionUsage foreignKey="rbd" name="Institution" source="Institution New" />
+    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+    <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+    <DimensionUsage foreignKey="grupo_dependencia_id" name="Administration" source="Administration" />
+
+    <Measure aggregator="count" column="anio_proceso" name="Number of records" visible="true" />
+    <Measure aggregator="avg" column="promlm_actual" name="Average PSU" visible="true" />
+    <Measure aggregator="avg" column="puntaje_nem" name="Average NEM" visible="true" />
+  </Cube>
+
 
   <!-- Education employability data cube -->
 
