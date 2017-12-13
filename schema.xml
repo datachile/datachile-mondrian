@@ -657,7 +657,7 @@
   <!-- Institutions from official directory: http://pacha.datawheel.us/datachile/education/establishments/analysis/2_performance/directorio_oficial_2016.csv
        XXX TODO this should become the only list of schools in chilecube. `Institution` (the dimension above this one) should be removed -->
   <Dimension name="Institution New">
-    <Hierarchy hasAll="true" primaryKey="rbd">
+    <Hierarchy hasAll="true" primaryKey="rbd" name="Institution">
       <Table name="dim_educational_institutions_new" schema="education"/>
       <Level column="cod_depe2" name="Administration" uniqueMembers="true">
         <Annotations>
