@@ -3450,7 +3450,15 @@
     <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
     <Measure aggregator="sum" column="expr" name="Expansion Factor Region" visible="true"/>
     <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
-    
+
+    <CalculatedMember dimension="Measures" name="Expansion Factor">
+      <Formula>
+        <![CDATA[IIF(Geography.CurrentMember.Level.Name = "Comuna",
+                    [Measures].[Expansion Factor Comuna],
+                    [Measures].[Expansion Factor Region])]]>
+      </Formula>
+
+    </CalculatedMember>
   </Cube>
 
   <!-- / CASEN household data cube -->
@@ -3735,6 +3743,13 @@
     <Measure aggregator="sum" column="expr" name="Expansion Factor Region" visible="true"/>
     <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
 
+    <CalculatedMember dimension="Measures" name="Expansion Factor">
+      <Formula>
+        <![CDATA[IIF(Geography.CurrentMember.Level.Name = "Comuna",
+                    [Measures].[Expansion Factor Comuna],
+                    [Measures].[Expansion Factor Region])]]>
+      </Formula>
+    </CalculatedMember>
   </Cube>
 
   <!-- / Health CASEN data cube -->
@@ -3761,6 +3776,13 @@
     <Measure aggregator="sum" column="expr" name="Expansion Factor Region" visible="true"/>
     <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
 
+    <CalculatedMember dimension="Measures" name="Expansion Factor">
+      <Formula>
+        <![CDATA[IIF(Geography.CurrentMember.Level.Name = "Comuna",
+                    [Measures].[Expansion Factor Comuna],
+                    [Measures].[Expansion Factor Region])]]>
+      </Formula>
+    </CalculatedMember>
   </Cube>
 
   <!-- / Banking CASEN data cube -->
