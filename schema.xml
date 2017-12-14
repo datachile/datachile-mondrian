@@ -1955,7 +1955,7 @@
 
   <Cube name="education_performance_new">
     <View alias="dim_regions">
-    	<SQL><![CDATA[(SELECT * FROM education.fact_registered WHERE promlm_actual IS NOT NULL OR puntaje_nem IS NOT NULL)]]></SQL>
+    	<SQL><![CDATA[(SELECT *, (mate_actual + lyc_actual)/2 AS prom_psu FROM education.fact_registered WHERE mate_actual IS NOT NULL OR lyc_actual IS NOT NULL OR puntaje_nem IS NOT NULL)]]></SQL>
     </View>
 
     <Dimension name="Year">
@@ -1970,7 +1970,8 @@
     <DimensionUsage foreignKey="grupo_dependencia_id" name="Administration" source="Administration" />
 
     <Measure aggregator="count" column="anio_proceso" name="Number of records" visible="true" />
-    <Measure aggregator="avg" column="promlm_actual" name="Average PSU" visible="true" />
+    <!-- Measure aggregator="avg" column="promlm_actual" name="Average PSU" visible="true" / -->
+    <Measure aggregator="avg" column="prom_psu" name="Average PSU" visible="true" />
     <Measure aggregator="avg" column="puntaje_nem" name="Average NEM" visible="true" />
   </Cube>
 
