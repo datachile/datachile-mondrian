@@ -92,7 +92,7 @@
         </Annotations>
         <Property column="es_level1_description" name="Level 1 ES"/>
       </Level>
-      <Level column="level2" name="Level 2" nameColumn="level2_description" uniqueMembers="false">
+      <Level column="level2" name="Level 2" nameColumn="level2_description" uniqueMembers="true">
         <Annotations>
           <Annotation name="es_caption">Level 2 ES</Annotation>
         </Annotations>
