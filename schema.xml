@@ -762,6 +762,23 @@
         <![CDATA[count([Export HS].CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="Exports Share" visible="true">
+      <Formula>
+        <![CDATA[([Measures].[FOB US]) / ([Measures].[FOB US], [Geography].[Geography].[All Geographys])]]>
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="Exports Share Overall" visible="true">
+      <Formula>
+        <![CDATA[Cache(SUM( [Geography].[Geography].CurrentMember.Siblings * { [Export HS].[HS].CurrentMember }, [Measures].[FOB US] ) / SUM( [Export HS].[HS].CurrentMember.Siblings * [Geography].[Geography].CurrentMember.Siblings, [Measures].[FOB US]))]]>
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="Exports RCA">
+      <Formula><![CDATA[[Measures].[Exports Share] / [Measures].[Exports Share Overall] ]]></Formula>
+    </CalculatedMember>
+
   </Cube>
 
   <Cube name="imports">
@@ -1614,11 +1631,11 @@
 
     <CalculatedMember dimension="Measures" name="Expansion factor" visible="true">
       <Formula>
-        <![CDATA[IIF(Date.CurrentMember.Level is Date.Date.Year,
+        <![CDATA[IIF(Date.CurrentMember.Level.Name = 'Year',
                  (
-                 [Measures].[Internal Expansion factor],
-                 LastNonEmpty(Descendants([Date].CurrentMember, Date.Date.Month),
-                 [Measures].[Internal Expansion Factor])
+                   [Measures].[Internal Expansion factor],
+                   LastNonEmpty(Descendants([Date].CurrentMember, Date.Date.Month),
+                               [Measures].[Internal Expansion Factor])
                  ),
                  [Measures].[Internal Expansion factor])]]>
       </Formula>
@@ -1629,6 +1646,15 @@
         <![CDATA[((count(ISICrev4.CurrentMember.Level.Members)-Measures.[Expansion Factor Rank]+1) * 10) / count(ISICrev4.CurrentMember.Level.Members)]]>
       </Formula>
     </CalculatedMember>
+
+    <NamedSet name="March Reporting" description="">
+      <Formula>
+        <![CDATA[
+          FILTER([Date].[Date].[Month].MEMBERS,
+                 CAST(Date.Date.Month.CurrentMember.Properties("MEMBER_KEY") AS INTEGER) = 3)
+        ]]>
+      </Formula>
+    </NamedSet>
 
     <NamedSet name="Quaterly Reporting" description="">
       <Formula>
