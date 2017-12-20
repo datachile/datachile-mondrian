@@ -708,15 +708,6 @@
     <Measure aggregator="sum" column="fob_us" name="FOB US"/>
     <Measure aggregator="min" column="region_rca" name="rca_internal" visible="false"/>
 
-    <!-- CalculatedMember dimension="Measures" name="RCA">
-      <Formula>
-        <![CDATA[CASE
-                 WHEN [Geography].Level is [Geography].[Region] AND [Export HS].Level is [Export HS].[HS4] THEN [Measures].[rca_internal]
-                 ELSE Null
-                 END]]>
-      </Formula>
-    </CalculatedMember -->
-
     <CalculatedMember dimension="Measures" name="Geo Rank">
       <Formula>
         <![CDATA[IIf(IsEmpty([Measures].[FOB US]),
@@ -1131,6 +1122,25 @@
         <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Value Added] / [Measures].[Labour], Null)]]>
       </Formula>
     </CalculatedMember>
+
+
+    <CalculatedMember dimension="Measures" name="Output Share" visible="true">
+      <Formula>
+        <![CDATA[([Measures].[Output]) / ([Measures].[Output], [Tax Geography].[Geography].[All Geographys])]]>
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="Output Share Overall" visible="true">
+      <Formula>
+        <![CDATA[Cache(SUM( [Tax Geography].[Geography].CurrentMember.Siblings * { [ISICrev4].[ISICrev4].CurrentMember }, [Measures].[Output] ) / SUM( [ISICrev4].[ISICrev4].CurrentMember.Siblings * [Tax Geography].[Geography].CurrentMember.Siblings, [Measures].[Output]))]]>
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="Output RCA">
+      <Formula><![CDATA[[Measures].[Output Share] / [Measures].[Output Share Overall] ]]></Formula>
+    </CalculatedMember>
+
+
   </Cube>
 
   <Cube name="rd_survey">
