@@ -84,6 +84,10 @@
   </Dimension>
 
   <Dimension name="ISICrev4">
+    <Annotations>
+      <Annotation name="index_as">industries</Annotation>
+      <Annotation name="index_max_depth">2</Annotation>
+    </Annotations>
     <Hierarchy hasAll="true" primaryKey="level4">
       <Table name="dim_isic" schema="public"/>
       <Level column="level1" name="Level 1" nameColumn="level1_description" uniqueMembers="true">
