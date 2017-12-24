@@ -57,7 +57,7 @@
     </Hierarchy>
   </Dimension>
 
-  <Dimension name="HS">
+  <Dimension name="HS_old">
     <Annotations>
       <Annotation name="index_as">products</Annotation>
       <Annotation name="index_max_depth">2</Annotation>
@@ -82,6 +82,35 @@
       <Level column="level3" name="HS4" nameColumn="level3_name" uniqueMembers="true"/>
     </Hierarchy>
   </Dimension>
+
+  <Dimension name="HS">
+    <Annotations>
+      <Annotation name="index_as">products</Annotation>
+      <Annotation name="index_max_depth">2</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true" primaryKey="level5">
+      <Table name="dim_hs2012" schema="economy"/>
+      <Level column="level2" name="HS0" nameColumn="level2_en" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">HS0 ES</Annotation>
+        </Annotations>
+        <Property column="level2_es" name="HS0 ES"/>
+      </Level>
+      <Level column="level3" name="HS2" nameColumn="level3_en" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">HS2 ES</Annotation>
+        </Annotations>
+        <Property column="level3_es" name="HS2 ES"/>
+      </Level>
+      <Level column="level5" name="HS4" nameColumn="level5_en" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">HS2 ES</Annotation>
+        </Annotations>
+        <Property column="level5_es" name="HS4 ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
 
   <Dimension name="ISICrev4">
     <Annotations>
@@ -698,6 +727,94 @@
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
     </Annotations>
 
+    <Table name="fact_exports" schema="economy"/>
+
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <DimensionUsage caption="Destination Country" foreignKey="country_code" name="Destination Country" source="Country"/>
+    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+    <DimensionUsage foreignKey="hs12" name="Export HS" source="HS"/>
+
+    <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
+    <DimensionUsage caption="Country" foreignKey="country_code" name="Country" source="Country"/>
+
+    <Measure aggregator="sum" column="fob_value_usd" name="FOB US"/>
+
+    <CalculatedMember dimension="Measures" name="Geo Rank">
+      <Formula>
+        <![CDATA[IIf(IsEmpty([Measures].[FOB US]),
+                 Null,
+                 Rank([Geography].CurrentMember,
+                 Order([Geography].CurrentMember.Siblings,
+                 Measures.[FOB US], BDESC)))]]>
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="Geo Rank Across Time">
+      <Annotations>
+        <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
+      </Annotations>
+      <Formula>
+        <![CDATA[Iif(IsEmpty([Measures].[FOB US]),
+                 Null,
+                 Rank([Geography].CurrentMember,
+                 Order([Geography].CurrentMember.Siblings,
+                 Aggregate({[Date].CurrentMember}*{[Destination Country].[All Countrys]}*{[Export HS].[All HSs]},
+                 [Measures].[FOB US]),
+                 BDESC)))]]>
+
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="HS Rank">
+      <Formula>
+        <![CDATA[Rank([Export HS].CurrentMember,
+                 Order([Export HS].CurrentMember.Level.Members,
+                 Measures.[FOB US], BDESC))]]>
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="HS Rank Decile" visible="true">
+      <Formula>
+        <![CDATA[((count([Export HS].CurrentMember.Level.Members)-Measures.[HS Rank]+1) * 10) / count([Export HS].CurrentMember.Level.Members)]]>
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="HS Rank Total" visible="true">
+      <Formula>
+        <![CDATA[count([Export HS].CurrentMember.Level.Members)]]>
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="Exports Share" visible="true">
+      <Formula>
+        <![CDATA[([Measures].[FOB US]) / ([Measures].[FOB US], [Geography].[Geography].[All Geographys])]]>
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="Exports Share Overall" visible="true">
+      <Formula>
+        <![CDATA[Cache(SUM( [Geography].[Geography].CurrentMember.Siblings * { [Export HS].[HS].CurrentMember }, [Measures].[FOB US] ) / SUM( [Export HS].[HS].CurrentMember.Siblings * [Geography].[Geography].CurrentMember.Siblings, [Measures].[FOB US]))]]>
+      </Formula>
+    </CalculatedMember>
+
+    <CalculatedMember dimension="Measures" name="Exports RCA">
+      <Formula><![CDATA[[Measures].[Exports Share] / [Measures].[Exports Share Overall] ]]></Formula>
+    </CalculatedMember>
+
+  </Cube>
+
+
+  <Cube name="exports_old">
+    <Annotations>
+      <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
+      <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
+    </Annotations>
+
     <Table name="pg_exports_grouped" schema="economy"/>
 
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
@@ -777,6 +894,46 @@
   </Cube>
 
   <Cube name="imports">
+    <Annotations>
+      <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
+      <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
+    </Annotations>
+
+    <Table name="fact_imports" schema="economy" />
+
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <DimensionUsage caption="Origin Country" foreignKey="country_code" name="Origin Country" source="Country"/>
+    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+    <DimensionUsage foreignKey="hs12" name="Import HS" source="HS"/>
+
+    <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
+    <DimensionUsage caption="Country" foreignKey="country_code" name="Country" source="Country"/>
+
+
+    <Measure aggregator="sum" column="cif_value_usd" name="CIF US"/>
+
+    <CalculatedMember dimension="Measures" name="Geo Rank Across Time">
+      <Annotations>
+        <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
+      </Annotations>
+      <Formula>
+        <![CDATA[Iif(IsEmpty([Measures].[CIF US]),
+                 Null,
+                 Rank([Geography].CurrentMember,
+                 Order([Geography].CurrentMember.Siblings,
+                 Aggregate({[Date].CurrentMember}*{[Origin Country].[All Countrys]}*{[Import HS].[All HSs]},
+                 [Measures].[CIF US]),
+                 BDESC)))]]>
+      </Formula>
+    </CalculatedMember>
+  </Cube>
+
+  <Cube name="imports_old">
     <Annotations>
       <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
