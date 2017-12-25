@@ -90,11 +90,11 @@
     </Annotations>
     <Hierarchy hasAll="true" primaryKey="level5">
       <Table name="dim_hs2012" schema="economy"/>
-      <Level column="level2" name="HS0" nameColumn="level2_en" uniqueMembers="true">
+      <Level column="level0" name="HS0" nameColumn="level0_en" uniqueMembers="true">
         <Annotations>
           <Annotation name="es_caption">HS0 ES</Annotation>
         </Annotations>
-        <Property column="level2_es" name="HS0 ES"/>
+        <Property column="level0_es" name="HS0 ES"/>
       </Level>
       <Level column="level3" name="HS2" nameColumn="level3_en" uniqueMembers="true">
         <Annotations>
