@@ -792,13 +792,13 @@
 
     <CalculatedMember dimension="Measures" name="Exports Share" visible="true">
       <Formula>
-        <![CDATA[([Measures].[FOB US]) / ([Measures].[FOB US], [Geography].[Geography].[All Geographys])]]>
+        <![CDATA[(Measures.[FOB US]) / (Measures.[FOB US], [Export HS].[HS].[All HSs])]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember dimension="Measures" name="Exports Share Overall" visible="true">
       <Formula>
-        <![CDATA[Cache(SUM( [Geography].[Geography].CurrentMember.Siblings * { [Export HS].[HS].CurrentMember }, [Measures].[FOB US] ) / SUM( [Export HS].[HS].CurrentMember.Siblings * [Geography].[Geography].CurrentMember.Siblings, [Measures].[FOB US]))]]>
+        <![CDATA[(Measures.[FOB US],Geography.Geography.[All Geographys]) / (Measures.[FOB US], [Export HS].HS.[All HSs], [Geography].[Geography].[All Geographys])]]>
       </Formula>
     </CalculatedMember>
 
