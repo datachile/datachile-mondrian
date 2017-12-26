@@ -727,7 +727,13 @@
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
     </Annotations>
 
-    <Table name="fact_exports" schema="economy"/>
+    <!-- Table name="fact_exports" schema="economy"/ -->
+    <View alias="fact_exports">
+      <SQL>
+	<![CDATA[(SELECT * FROM economy.fact_exports WHERE "year" >= 2011)]]>
+      </SQL>
+    </View>
+
 
     <Dimension name="Date">
       <Hierarchy hasAll="true">
@@ -899,7 +905,13 @@
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
     </Annotations>
 
-    <Table name="fact_imports" schema="economy" />
+    <!-- Table name="fact_imports" schema="economy" / -->
+    <View alias="fact_imports">
+      <SQL>
+	<![CDATA[(SELECT * FROM economy.fact_imports WHERE "year" >= 2011)]]>
+      </SQL>
+    </View>
+
 
     <Dimension name="Date">
       <Hierarchy hasAll="true">
