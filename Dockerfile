@@ -8,7 +8,7 @@ ADD . $APP_HOME
 RUN bundle install
 RUN jruby -G -S jbundle install
 
-ENV JRUBY_OPTS -G
+ENV JRUBY_OPTS="-G --server"
 ENV JAVA_OPTS="-Dmondrian-rest.sparseDefault=true"
 
 CMD ["rackup", "-o", "0.0.0.0"]
