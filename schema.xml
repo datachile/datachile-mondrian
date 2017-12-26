@@ -1004,37 +1004,42 @@
               <Value column="es_description">NaN</Value>
             </Row>
             <Row>
-              <Value column="id">1</Value>
-              <Value column="description">Unknown</Value>
+              <Value column="id">8</Value>
+              <Value column="description">No Answer</Value>
               <Value column="es_description">No Informa</Value>
             </Row>
             <Row>
-              <Value column="id">2</Value>
+              <Value column="id">7</Value>
+              <Value column="description">No Answer</Value>
+              <Value column="es_description">No Indica</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
               <Value column="description">Higher Education</Value>
               <Value column="es_description">Educación Universitaria</Value>
             </Row>
             <Row>
-              <Value column="id">4</Value>
+              <Value column="id">2</Value>
               <Value column="description">High School</Value>
               <Value column="es_description">Educación Media</Value>
             </Row>
             <Row>
-              <Value column="id">5</Value>
+              <Value column="id">1</Value>
               <Value column="description">Primary School</Value>
               <Value column="es_description">Educación Básica</Value>
             </Row>
             <Row>
-              <Value column="id">6</Value>
+              <Value column="id">4</Value>
               <Value column="description">Technical Education</Value>
               <Value column="es_description">Educación Técnica</Value>
             </Row>
             <Row>
-              <Value column="id">7</Value>
+              <Value column="id">3</Value>
               <Value column="description">Some Primary School</Value>
               <Value column="es_description">Educación Pre-Básica</Value>
             </Row>
             <Row>
-              <Value column="id">8</Value>
+              <Value column="id">6</Value>
               <Value column="description">None</Value>
               <Value column="es_description">Ninguno</Value>
             </Row>
