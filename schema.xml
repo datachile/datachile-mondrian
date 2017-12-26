@@ -3993,7 +3993,12 @@
 
   <Cube name="health_access">
     <Table name="fact_health_access" schema="health"/>
-    <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
 
     <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography" />
     
