@@ -77,6 +77,7 @@ module Mondrian::REST
             Sequel.lit("CASE WHEN multilanguage THEN language = ? ELSE language = '' END", lang)
           )
           .where(Sequel.lit("content IS NOT NULL"))
+          .where(Sequel.lit("index_as NOT IN ('institutions', 'careers')")) # TODO temporary until we enable institutions and career profiles
           .order(Sequel.desc(Sequel.lit("similarity(f_unaccent(content), ?)", q)))
           .limit(limit)
           .offset(offset)
