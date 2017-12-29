@@ -57,11 +57,7 @@
     </Hierarchy>
   </Dimension>
 
-  <Dimension name="HS_old">
-    <Annotations>
-      <Annotation name="index_as">products</Annotation>
-      <Annotation name="index_max_depth">2</Annotation>
-    </Annotations>
+  <Dimension name="HS1992">
     <Hierarchy hasAll="true" primaryKey="level3">
       <Table name="hs_levels" schema="economy"/>
       <Level column="level0" name="HS0" nameColumn="level0_name" uniqueMembers="true">
@@ -811,92 +807,43 @@
     <CalculatedMember dimension="Measures" name="Exports RCA">
       <Formula><![CDATA[[Measures].[Exports Share] / [Measures].[Exports Share Overall] ]]></Formula>
     </CalculatedMember>
-
   </Cube>
 
-
-  <Cube name="exports_old">
+  <Cube name="exports_hs1992">
     <Annotations>
       <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
     </Annotations>
 
-    <Table name="pg_exports_grouped" schema="economy"/>
+    <Table name="fact_exports_92" schema="economy"/>
 
-    <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-    <DimensionUsage caption="Destination Country" foreignKey="country_dest_id" name="Destination Country" source="Country"/>
-    <DimensionUsage foreignKey="exporter_comuna_id" name="Geography" source="Geography"/>
-    <DimensionUsage foreignKey="hs_level3" name="Export HS" source="HS"/>
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
 
-    <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
-    <DimensionUsage caption="Country" foreignKey="country_dest_id" name="Country" source="Country"/>
+    <DimensionUsage caption="Destination Country" foreignKey="country_code" name="Destination Country" source="Country"/>
+    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+    <DimensionUsage foreignKey="hs92" name="Export HS" source="HS1992"/>
 
-    <!-- Measure name="Q Traded" column="q_traded" aggregator="sum" / -->
-    <Measure aggregator="sum" column="fob_us" name="FOB US"/>
-    <Measure aggregator="min" column="region_rca" name="rca_internal" visible="false"/>
-
-    <CalculatedMember dimension="Measures" name="Geo Rank">
-      <Formula>
-        <![CDATA[IIf(IsEmpty([Measures].[FOB US]),
-                 Null,
-                 Rank([Geography].CurrentMember,
-                 Order([Geography].CurrentMember.Siblings,
-                 Measures.[FOB US], BDESC)))]]>
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember dimension="Measures" name="Geo Rank Across Time">
-      <Annotations>
-        <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
-      </Annotations>
-      <Formula>
-        <![CDATA[Iif(IsEmpty([Measures].[FOB US]),
-                 Null,
-                 Rank([Geography].CurrentMember,
-                 Order([Geography].CurrentMember.Siblings,
-                 Aggregate({[Date].CurrentMember}*{[Destination Country].[All Countrys]}*{[Export HS].[All HSs]},
-                 [Measures].[FOB US]),
-                 BDESC)))]]>
-
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember dimension="Measures" name="HS Rank">
-      <Formula>
-        <![CDATA[Rank([Export HS].CurrentMember,
-                 Order([Export HS].CurrentMember.Level.Members,
-                 Measures.[FOB US], BDESC))]]>
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember dimension="Measures" name="HS Rank Decile" visible="true">
-      <Formula>
-        <![CDATA[((count([Export HS].CurrentMember.Level.Members)-Measures.[HS Rank]+1) * 10) / count([Export HS].CurrentMember.Level.Members)]]>
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember dimension="Measures" name="HS Rank Total" visible="true">
-      <Formula>
-        <![CDATA[count([Export HS].CurrentMember.Level.Members)]]>
-      </Formula>
-    </CalculatedMember>
+    <Measure aggregator="sum" column="fob_value_usd" name="FOB US"/>
 
     <CalculatedMember dimension="Measures" name="Exports Share" visible="true">
       <Formula>
-        <![CDATA[([Measures].[FOB US]) / ([Measures].[FOB US], [Geography].[Geography].[All Geographys])]]>
+        <![CDATA[(Measures.[FOB US]) / (Measures.[FOB US], [Export HS].[HS1992].[All HS1992s])]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember dimension="Measures" name="Exports Share Overall" visible="true">
       <Formula>
-        <![CDATA[Cache(SUM( [Geography].[Geography].CurrentMember.Siblings * { [Export HS].[HS].CurrentMember }, [Measures].[FOB US] ) / SUM( [Export HS].[HS].CurrentMember.Siblings * [Geography].[Geography].CurrentMember.Siblings, [Measures].[FOB US]))]]>
+        <![CDATA[(Measures.[FOB US],Geography.Geography.[All Geographys]) / (Measures.[FOB US], [Export HS].[HS1992].[All HS1992s], [Geography].[Geography].[All Geographys])]]>
       </Formula>
     </CalculatedMember>
 
     <CalculatedMember dimension="Measures" name="Exports RCA">
       <Formula><![CDATA[[Measures].[Exports Share] / [Measures].[Exports Share Overall] ]]></Formula>
     </CalculatedMember>
-
   </Cube>
 
   <Cube name="imports">
