@@ -1676,7 +1676,11 @@
       <Annotation name="source_name">Encuesta Nacional de Empleo — INE</Annotation>
       <Annotation name="source_link">http://www.ine.cl/estadisticas/laborales/ene</Annotation>
     </Annotations>
-    <Table name="fact_occupational_status_nene" schema="economy"/>
+    <View alias="fact_occupational_status_nene">
+      <SQL dialect="generic"><![CDATA[(SELECT
+      * from economy.fact_occupational_status_nene WHERE "year" < 2017
+      )]]></SQL>
+    </View>
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
 
     <DimensionUsage foreignKey="isic_rev4_id" name="ISICrev4" source="ISICrev4 Level 1" />
