@@ -41,7 +41,7 @@
   <Dimension name="Country">
     <Annotations>
       <Annotation name="index_as">countries</Annotation>
-      <Annotation name="index_min_depth">2</Annotation>
+      <!-- Annotation name="index_min_depth">2</Annotation -->
     </Annotations>
     <Hierarchy hasAll="true" primaryKey="country_code">
       <Table name="dim_countries_new" schema="public"/>
@@ -792,20 +792,26 @@
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Exports Share" visible="true">
+    <CalculatedMember dimension="Measures" name="Exports for year (sum_c_p_xcp)" visible="true"> <!-- all geos, all products, current year -->
       <Formula>
-        <![CDATA[(Measures.[FOB US]) / (Measures.[FOB US], [Export HS].[HS].[All HSs])]]>
+        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].[All HSs], [Geography].[Geography].[All Geographys])]]>
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Exports Share Overall" visible="true">
+    <CalculatedMember dimension="Measures" name="Exports for Geography and year (sum_p_xcp)"> <!-- all products, current geo, current year -->
       <Formula>
-        <![CDATA[(Measures.[FOB US],Geography.Geography.[All Geographys]) / (Measures.[FOB US], [Export HS].HS.[All HSs], [Geography].[Geography].[All Geographys])]]>
+        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].[All HSs], [Geography].[Geography].CurrentMember)]]>
       </Formula>
     </CalculatedMember>
 
+    <CalculatedMember dimension="Measures" name="Exports for Product and year (sum_c_xcp)"> <!-- all geos, current product, current year -->
+      <Formula>
+        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].CurrentMember, [Geography].[Geography].[All Geographys])]]>
+      </Formula>
+    </CalculatedMember>
+    
     <CalculatedMember dimension="Measures" name="Exports RCA">
-      <Formula><![CDATA[[Measures].[Exports Share] / [Measures].[Exports Share Overall] ]]></Formula>
+      <Formula><![CDATA[(Measures.[FOB US] / Measures.[Exports for Product and year (sum_c_xcp)]) / (Measures.[Exports for Geography and year (sum_p_xcp)] / Measures.[Exports for year (sum_c_p_xcp)]) ]]></Formula>
     </CalculatedMember>
   </Cube>
 
@@ -827,22 +833,28 @@
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
     <DimensionUsage foreignKey="hs92" name="Export HS" source="HS1992"/>
 
-    <Measure aggregator="sum" column="fob_value_usd" name="FOB US"/>
+    <Measure aggregator="sum" column="fob_value_usd" name="FOB US" />
 
-    <CalculatedMember dimension="Measures" name="Exports Share" visible="true">
+    <CalculatedMember dimension="Measures" name="Exports for year (sum_c_p_xcp)" visible="true"> <!-- all geos, all products, current year -->
       <Formula>
-        <![CDATA[(Measures.[FOB US]) / (Measures.[FOB US], [Export HS].[HS1992].[All HS1992s])]]>
+        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS1992].[All HS1992s], [Geography].[Geography].[All Geographys])]]>
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Exports Share Overall" visible="true">
+    <CalculatedMember dimension="Measures" name="Exports for Geography and year (sum_p_xcp)"> <!-- all products, current geo, current year -->
       <Formula>
-        <![CDATA[(Measures.[FOB US],Geography.Geography.[All Geographys]) / (Measures.[FOB US], [Export HS].[HS1992].[All HS1992s], [Geography].[Geography].[All Geographys])]]>
+        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS1992].[All HS1992s], [Geography].[Geography].CurrentMember)]]>
       </Formula>
     </CalculatedMember>
 
+    <CalculatedMember dimension="Measures" name="Exports for Product and year (sum_c_xcp)"> <!-- all geos, current product, current year -->
+      <Formula>
+        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS1992].CurrentMember, [Geography].[Geography].[All Geographys])]]>
+      </Formula>
+    </CalculatedMember>
+    
     <CalculatedMember dimension="Measures" name="Exports RCA">
-      <Formula><![CDATA[[Measures].[Exports Share] / [Measures].[Exports Share Overall] ]]></Formula>
+      <Formula><![CDATA[(Measures.[FOB US] / Measures.[Exports for Product and year (sum_c_xcp)]) / (Measures.[Exports for Geography and year (sum_p_xcp)] / Measures.[Exports for year (sum_c_p_xcp)]) ]]></Formula>
     </CalculatedMember>
   </Cube>
 
@@ -1223,9 +1235,19 @@
       <Annotation name="source_link">http://homer.sii.cl/</Annotation>
     </Annotations>
 
-    <Table name="tax_data" schema="economy"/>
+    <View alias="tax_data">
+      <SQL>
+	      <![CDATA[(SELECT * from economy.tax_data WHERE ciiu4_ori is not NULL and the_year <> 0 and the_year is not NULL and output > 0)]]>
+      </SQL>
+    </View>
 
-    <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+    <!-- <DimensionUsage foreignKey="date_id" name="Date" source="Date"/> -->
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="the_year" nameColumn="the_year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
     <DimensionUsage foreignKey="comuna_id" name="Tax Geography" source="Geography"/>
     <DimensionUsage foreignKey="ciiu4_ori" name="ISICrev4" source="ISICrev4"/>
 
@@ -1253,24 +1275,27 @@
       </Formula>
     </CalculatedMember>
 
-
-    <CalculatedMember dimension="Measures" name="Output Share" visible="true">
+    <CalculatedMember dimension="Measures" name="Output for year (sum_c_p_xcp)" visible="true"> <!-- all geos, all industries, current year -->
       <Formula>
-        <![CDATA[([Measures].[Output]) / ([Measures].[Output], [Tax Geography].[Geography].[All Geographys])]]>
+        <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].[All Geographys])]]>
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Output Share Overall" visible="true">
+    <CalculatedMember dimension="Measures" name="Output for Geography and year (sum_p_xcp)"> <!-- all industries, current geo, current year -->
       <Formula>
-        <![CDATA[Cache(SUM( [Tax Geography].[Geography].CurrentMember.Siblings * { [ISICrev4].[ISICrev4].CurrentMember }, [Measures].[Output] ) / SUM( [ISICrev4].[ISICrev4].CurrentMember.Siblings * [Tax Geography].[Geography].CurrentMember.Siblings, [Measures].[Output]))]]>
+        <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].CurrentMember)]]>
       </Formula>
     </CalculatedMember>
 
+    <CalculatedMember dimension="Measures" name="Output for Industry and year (sum_c_xcp)"> <!-- all geos, current industry, current year -->
+      <Formula>
+        <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].CurrentMember, [Tax Geography].[Geography].[All Geographys])]]>
+      </Formula>
+    </CalculatedMember>
+    
     <CalculatedMember dimension="Measures" name="Output RCA">
-      <Formula><![CDATA[[Measures].[Output Share] / [Measures].[Output Share Overall] ]]></Formula>
+      <Formula><![CDATA[(Measures.[Output] / Measures.[Output for Industry and year (sum_c_xcp)]) / (Measures.[Output for Geography and year (sum_p_xcp)] / Measures.[Output for year (sum_c_p_xcp)]) ]]></Formula>
     </CalculatedMember>
-
-
   </Cube>
 
   <Cube name="rd_survey">
