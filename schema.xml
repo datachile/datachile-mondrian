@@ -46,7 +46,7 @@
     <Hierarchy hasAll="true" primaryKey="country_code">
       <Table name="dim_countries_new" schema="public"/>
       <Level column="region_code" name="Continent" nameColumn="region" uniqueMembers="true"/>
-      <Level column="sub_region_code" name="Subregion" nameColumn="sub_region" uniqueMembers="true"/>
+      <!-- Level column="sub_region_code" name="Subregion" nameColumn="sub_region" uniqueMembers="true"/ -->
       <Level column="country_code" name="Country" nameColumn="country_name" uniqueMembers="true">
         <Annotations>
           <Annotation name="es_caption">Country ES</Annotation>
