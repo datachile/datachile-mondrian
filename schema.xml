@@ -728,7 +728,6 @@
       </SQL>
     </View>
 
-
     <Dimension name="Date">
       <Hierarchy hasAll="true">
         <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
@@ -1896,7 +1895,12 @@
   <Cube name="election_results">
     <Table name="fact_election_results" schema="politics"/>
     
-    <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
     <DimensionUsage foreignKey="comuna_datachile_id" name="GeographyC" source="Geography"/>
 
     <DimensionUsage foreignKey="region_id" source="Geography Region" name="GeographyR" />
