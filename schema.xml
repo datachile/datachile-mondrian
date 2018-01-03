@@ -1838,6 +1838,147 @@
   </Cube>
   <!-- / NENE -->
 
+  <!-- NENE QUARTER  PALA-->
+  <Cube name="nene_quarter">
+    <Annotations>
+      <Annotation name="source_name">Encuesta Nacional de Empleo — INE</Annotation>
+      <Annotation name="source_link">http://www.ine.cl/estadisticas/laborales/ene</Annotation>
+    </Annotations>
+    <Table name="fact_occupational_status_nene_mobile_quarters" schema="economy"/>
+
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+        <Level column="mobile_quarter" nameColumn="mobile_quarter" name="Moving Quarter" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <DimensionUsage foreignKey="isic_rev4_id" name="ISICrev4" source="ISICrev4 Level 1" />
+
+    <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography" />
+    <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+    <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range"/>
+    <DimensionUsage foreignKey="isced_id" name="ISCED" source="ISCED"/>
+    <DimensionUsage foreignKey="icse_id" name="ICSE" source="ICSE"/>
+    <DimensionUsage foreignKey="isco_id" name="ISCO" source="ISCO"/>
+
+    <Dimension foreignKey="occupied_id" name="Occupational Situation">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="occupational_situation">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric"/>
+            <ColumnDef name="description" type="String"/>
+            <ColumnDef name="es_description" type="String"/>
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">N/A</Value>
+              <Value column="es_description">N/A</Value>
+            </Row>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Employed</Value>
+              <Value column="es_description">Ocupado</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Unemployed</Value>
+              <Value column="es_description">Desocupado</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Inactive</Value>
+              <Value column="es_description">Inactivo</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level column="id" name="Occupational Situation" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="es_description" name="Description ES"/>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension foreignKey="general_economic_condition" name="General Economic Condition">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="general_economic_condition">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric"/>
+            <ColumnDef name="description" type="String"/>
+            <ColumnDef name="es_description" type="String"/>
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">Under 15 years old</Value>
+              <Value column="es_description">Menor de 15 años</Value>
+            </Row>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Traditional employee</Value>
+              <Value column="es_description">Ocupado tradicional</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Non-traditional employee</Value>
+              <Value column="es_description">Ocupado notradicional</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Absent employee</Value>
+              <Value column="es_description">Ocupado ausente</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">Unemployed</Value>
+              <Value column="es_description">Cesante</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Looking for his/her first job</Value>
+              <Value column="es_description">Busca trabajo por primera vez</Value>
+            </Row>
+            <Row>
+              <Value column="id">6</Value>
+              <Value column="description">Starting to work</Value>
+              <Value column="es_description">Iniciador</Value>
+            </Row>
+            <Row>
+              <Value column="id">7</Value>
+              <Value column="description">Inactives that did search for a job</Value>
+              <Value column="es_description">Inactivos que buscaron trabajo</Value>
+            </Row>
+            <Row>
+              <Value column="id">8</Value>
+              <Value column="description">Inactives that were available to work</Value>
+              <Value column="es_description">Inactivos que estuvieron disponibles para trabajar</Value>
+            </Row>
+            <Row>
+              <Value column="id">9</Value>
+              <Value column="description">Inactives that did not search or were not available to work</Value>
+              <Value column="es_description">Inactivos que no buscaron trabajo ni estuvieron disponibles</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        <Level column="id" name="General Economic Condition" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="es_description" name="Description ES"/>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
+    <Measure aggregator="sum" column="weights" name="Expansion factor" visible="true"/>
+
+  </Cube>
+  <!-- / NENE -->
+
+
   <!-- PSU -->
 
   <Cube name="psu">
