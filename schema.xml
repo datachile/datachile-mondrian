@@ -695,9 +695,7 @@
         <NameExpression>
           <SQL><![CDATA[(CASE WHEN cod_depe2=1 THEN 'Municipal' WHEN cod_depe2=2 THEN 'Private Subsidized' WHEN cod_depe2=3 THEN 'Private' WHEN cod_depe2=4 THEN 'Delegated Administration' END)]]></SQL>
         </NameExpression>
-        <PropertyExpression name="Description ES">
-          <SQL><![CDATA[(CASE WHEN cod_depe2=1 THEN 'Municipal' WHEN cod_depe2=2 THEN 'Particular Subvencionado' WHEN cod_depe2=3 THEN 'Particular Pagado' WHEN cod_depe2=4 THEN 'Corporación de Administración Delegada' END)]]></SQL>
-        </PropertyExpression>
+	<Property column="cod_depe2_es" name="Description ES"/>
       </Level>
       <Level column="rbd" name="Institution" nameColumn="nom_rbd" uniqueMembers="true"/>
     </Hierarchy>
