@@ -1843,7 +1843,11 @@
       <Annotation name="source_name">Encuesta Nacional de Empleo — INE</Annotation>
       <Annotation name="source_link">http://www.ine.cl/estadisticas/laborales/ene</Annotation>
     </Annotations>
-    <Table name="fact_occupational_status_nene_mobile_quarters" schema="economy"/>
+    <View alias="fact_occupational_status_nene_mobile_quarters">
+      <SQL dialect="generic"><![CDATA[(SELECT
+      * from economy.fact_occupational_status_nene_mobile_quarters WHERE "year" < 2017
+      )]]></SQL>
+    </View>
 
     <Dimension name="Date">
       <Hierarchy hasAll="true">
