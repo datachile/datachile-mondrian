@@ -281,22 +281,22 @@
         </ColumnDefs>
         <Rows>
           <Row>
-            <Value column="id">1</Value>
+            <Value column="id">3</Value>
             <Value column="description">Wage earner in the Private Sector</Value>
             <Value column="es_description">Asalariado Sector Privado</Value>
           </Row>
           <Row>
-            <Value column="id">2</Value>
+            <Value column="id">4</Value>
             <Value column="description">Wage earner in the Public Sector</Value>
             <Value column="es_description">Asalariado Sector Público</Value>
           </Row>
           <Row>
-            <Value column="id">3</Value>
+            <Value column="id">2</Value>
             <Value column="description">Own-account worker</Value>
             <Value column="es_description">Cuenta Propia</Value>
           </Row>
           <Row>
-            <Value column="id">4</Value>
+            <Value column="id">1</Value>
             <Value column="description">Employer</Value>
             <Value column="es_description">Empleador</Value>
           </Row>
@@ -314,6 +314,11 @@
             <Value column="id">0</Value>
             <Value column="description">Don't know/No Answer</Value>
             <Value column="es_description">No sabe/No responde</Value>
+          </Row>
+	  <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Relative or unpaid worker</Value>
+            <Value column="es_description">Familiar o personal no remunerado</Value>
           </Row>
         </Rows>
       </InlineTable>
