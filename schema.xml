@@ -488,42 +488,42 @@
           <Row>
             <Value column="id">1</Value>
             <Value column="description">Gas</Value>
-            <Value column="es_description">gas (licuado o de cañería)</Value>
+            <Value column="es_description">Gas (licuado o de cañería)</Value>
           </Row>
           <Row>
             <Value column="id">2</Value>
             <Value column="description">Oil</Value>
-            <Value column="es_description">parafina o petróleo</Value>
+            <Value column="es_description">Parafina o petróleo</Value>
           </Row>
           <Row>
             <Value column="id">3</Value>
             <Value column="description">Firewood</Value>
-            <Value column="es_description">leña o derivados (pellets, astillas o briquetas)</Value>
+            <Value column="es_description">Leña o derivados (pellets, astillas o briquetas)</Value>
           </Row>
           <Row>
             <Value column="id">4</Value>
             <Value column="description">Coal</Value>
-            <Value column="es_description">carbón</Value>
+            <Value column="es_description">Carbón</Value>
           </Row>
           <Row>
             <Value column="id">5</Value>
             <Value column="description">Electricity</Value>
-            <Value column="es_description">electricidad</Value>
+            <Value column="es_description">Electricidad</Value>
           </Row>
           <Row>
             <Value column="id">6</Value>
             <Value column="description">Solar</Value>
-            <Value column="es_description">energía solar</Value>
+            <Value column="es_description">Energía solar</Value>
           </Row>
           <Row>
             <Value column="id">7</Value>
             <Value column="description">Doesn't use fuel</Value>
-            <Value column="es_description">no usa combustible o fuente de energía</Value>
+            <Value column="es_description">No usa combustible o fuente de energía</Value>
           </Row>
           <Row>
             <Value column="id">8</Value>
             <Value column="description">Doesn't have system</Value>
-            <Value column="es_description">no tiene sistema</Value>
+            <Value column="es_description">No tiene sistema</Value>
           </Row>
         </Rows>
       </InlineTable>
@@ -2682,52 +2682,52 @@
             <Row>
               <Value column="id">1</Value>
               <Value column="description">Detached</Value>
-              <Value column="es_description">casa aislada (no pareada)</Value>
+              <Value column="es_description">Casa aislada (no pareada)</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
               <Value column="description">Semi detached</Value>
-              <Value column="es_description">casa pareada por un lado</Value>
+              <Value column="es_description">Casa pareada por un lado</Value>
             </Row>
             <Row>
               <Value column="id">3</Value>
               <Value column="description">Undetached</Value>
-              <Value column="es_description">casa pareada por ambos lados</Value>
+              <Value column="es_description">Casa pareada por ambos lados</Value>
             </Row>
             <Row>
               <Value column="id">4</Value>
               <Value column="description">Apartment in builiding with elevator</Value>
-              <Value column="es_description">departamento en edificio con ascensor</Value>
+              <Value column="es_description">Departamento en edificio con ascensor</Value>
             </Row>
             <Row>
               <Value column="id">5</Value>
               <Value column="description">Apartment in builiding without elevator</Value>
-              <Value column="es_description">departamento en edificio sin ascensor</Value>
+              <Value column="es_description">Departamento en edificio sin ascensor</Value>
             </Row>
             <Row>
               <Value column="id">6</Value>
               <Value column="description">Room in old house or conventillo</Value>
-              <Value column="es_description">pieza en casa antigua o conventillo</Value>
+              <Value column="es_description">Pieza en casa antigua o conventillo</Value>
             </Row>
             <Row>
               <Value column="id">7</Value>
               <Value column="description">mediagua, mejora o vivienda de emergencia</Value>
-              <Value column="es_description">mediagua, mejora o vivienda de emergencia</Value>
+              <Value column="es_description">Mediagua, mejora o vivienda de emergencia</Value>
             </Row>
             <Row>
               <Value column="id">8</Value>
               <Value column="description">Indigenous native house</Value>
-              <Value column="es_description">vivienda tradicional indígena</Value>
+              <Value column="es_description">Vivienda tradicional indígena</Value>
             </Row>
             <Row>
               <Value column="id">9</Value>
               <Value column="description">Ranch or shack</Value>
-              <Value column="es_description">rancho o choza</Value>
+              <Value column="es_description">Rancho o choza</Value>
             </Row>
             <Row>
               <Value column="id">10</Value>
               <Value column="description">Precarious house made out of recycling materials (cans, plastics, cardboard, etc.)</Value>
-              <Value column="es_description">vivienda precaria de materiales reutilizados (latas, plásticos, cartones, etc.)</Value>
+              <Value column="es_description">Vivienda precaria de materiales reutilizados (latas, plásticos, cartones, etc.)</Value>
             </Row>
           </Rows>
         </InlineTable>
