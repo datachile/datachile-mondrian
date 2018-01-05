@@ -37,6 +37,40 @@ CREATE INDEX IF NOT EXISTS trgm_search_index ON search.search_index
 USING gist (f_unaccent(content) gist_trgm_ops);
 Q
 
+SEARCH_QUERY = <<-SQL
+ WITH search_query AS
+ (SELECT
+    si.content,
+    si.member_data -> 'key'                          AS key,
+    si."index_as",
+    si.member_data -> 'name'                         AS "name",
+    si.depth,
+    si.language,
+    (CASE WHEN si.DEPTH > 2
+      THEN (si.member_data -> 'ancestors' -> 0 -> 'key')
+     ELSE NULL END)                                  AS ancestor_key,
+    si.multilanguage                                 AS multilanguage,
+    similarity(f_unaccent(si.content), :q) AS sim
+  FROM "search"."search_index" si
+  WHERE ((CASE WHEN si.multilanguage
+    THEN si.language = :lang
+          ELSE si.language = '' END) AND (si.content IS NOT NULL) AND
+         (si.index_as NOT IN ('institutions', 'careers')))
+  ORDER BY similarity(f_unaccent(si.content), :q) DESC
+  LIMIT :limit
+  OFFSET :offset)
+
+ SELECT
+   sq.*,
+   xi.content as ancestor_name
+ FROM search_query sq
+   LEFT OUTER JOIN search.search_index xi
+     ON
+       xi.depth = sq.depth - 1 AND sq.ancestor_key = (xi.member_data -> 'key') AND
+       xi.index_as = sq.index_as AND sq.language = xi.language
+ ORDER BY similarity(f_unaccent(sq.content), :q) DESC
+SQL
+
 module Mondrian::REST
   module Search
     class SearchController < Sinatra::Base
@@ -63,24 +97,8 @@ module Mondrian::REST
         lang ||= DEFAULT_LANGUAGE
         offset ||= 0
 
-        DB[SEARCH_INDEX_TABLE]
-          .select(
-            :content,
-            :key,
-            :index_as,
-            Sequel.lit("member_data->'name' AS \"name\""),
-            Sequel.lit("(CASE WHEN DEPTH > 1 THEN member_data->'ancestors'->0->'key' ELSE NULL END) AS ancestor_key"),
-            Sequel.lit("(CASE WHEN DEPTH > 1 THEN member_data->'ancestors'->0->'name' ELSE NULL END) AS ancestor_name"),
-            Sequel.lit("similarity(f_unaccent(content), ?) AS sim", q)
-          )
-          .where(
-            Sequel.lit("CASE WHEN multilanguage THEN language = ? ELSE language = '' END", lang)
-          )
-          .where(Sequel.lit("content IS NOT NULL"))
-          .where(Sequel.lit("index_as NOT IN ('institutions', 'careers')")) # TODO temporary until we enable institutions and career profiles
-          .order(Sequel.desc(Sequel.lit("similarity(f_unaccent(content), ?)", q)))
-          .limit(limit)
-          .offset(offset)
+        DB.fetch(SEARCH_QUERY,
+                 q: q, limit: limit, offset: offset, lang: lang)
           .to_a
           .to_json
       end
