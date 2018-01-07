@@ -206,7 +206,7 @@
         </ColumnDefs>
         <Rows>
           <Row>
-            <Value column="id">1</Value>
+            <Value column="id">9</Value>
             <Value column="description">Doctorate</Value>
             <Value column="es_description">Doctorado</Value>
           </Row>
@@ -241,17 +241,17 @@
             <Value column="es_description">Educación Universitaria</Value>
           </Row>
           <Row>
-            <Value column="id">8</Value>
+            <Value column="id">999</Value>
             <Value column="description">N/A</Value>
             <Value column="es_description">Nivel ignorado</Value>
           </Row>
           <Row>
-            <Value column="id">9</Value>
+            <Value column="id">1</Value>
             <Value column="description">No studies</Value>
             <Value column="es_description">Nunca estudió</Value>
           </Row>
           <Row>
-            <Value column="id">10</Value>
+            <Value column="id">8</Value>
             <Value column="description">Master’s or equivalent level</Value>
             <Value column="es_description">Postítulo y Maestría</Value>
           </Row>
@@ -978,17 +978,12 @@
             <Row>
               <Value column="id">0</Value>
               <Value column="description">N/A</Value>
-              <Value column="es_description">NaN</Value>
-            </Row>
-            <Row>
-              <Value column="id">8</Value>
-              <Value column="description">No Answer</Value>
-              <Value column="es_description">No Informa</Value>
+              <Value column="es_description">N/A</Value>
             </Row>
             <Row>
               <Value column="id">7</Value>
-              <Value column="description">No Answer</Value>
-              <Value column="es_description">No Indica</Value>
+              <Value column="description">None</Value>
+              <Value column="es_description">Ninguno</Value>
             </Row>
             <Row>
               <Value column="id">5</Value>
@@ -1043,61 +1038,61 @@
             <Row>
               <Value column="id">0</Value>
               <Value column="description">N/A</Value>
-              <Value column="es_description">Nan</Value>
+              <Value column="es_description">N/A</Value>
             </Row>
             <Row>
-              <Value column="id">1</Value>
+              <Value column="id">2</Value>
               <Value column="description">Employee</Value>
               <Value column="es_description">Empleado</Value>
             </Row>
             <Row>
-              <Value column="id">2</Value>
+              <Value column="id">5</Value>
               <Value column="description">Student</Value>
               <Value column="es_description">Estudiante</Value>
             </Row>
             <Row>
-              <Value column="id">3</Value>
+              <Value column="id">1</Value>
               <Value column="description">Housewife</Value>
               <Value column="es_description">Dueña de Casa</Value>
             </Row>
             <Row>
-              <Value column="id">4</Value>
+              <Value column="id">6</Value>
               <Value column="description">Unemployed</Value>
               <Value column="es_description">Inactivo</Value>
             </Row>
             <Row>
-              <Value column="id">5</Value>
+              <Value column="id">3</Value>
               <Value column="description">Maid</Value>
               <Value column="es_description">Empleado Doméstico</Value>
             </Row>
             <Row>
-              <Value column="id">6</Value>
+              <Value column="id">8</Value>
               <Value column="description">No data</Value>
               <Value column="es_description">No Informa</Value>
             </Row>
             <Row>
-              <Value column="id">7</Value>
+              <Value column="id">10</Value>
               <Value column="description">Other activities</Value>
               <Value column="es_description">Otras Actividades</Value>
             </Row>
             <Row>
-              <Value column="id">8</Value>
+              <Value column="id">11</Value>
               <Value column="description">Religious</Value>
               <Value column="es_description">Religioso</Value>
             </Row>
             <Row>
-              <Value column="id">9</Value>
+              <Value column="id">14</Value>
               <Value column="description">Self-Employed</Value>
               <Value column="es_description">Trabajador por Cuenta Propia</Value>
             </Row>
             <Row>
-              <Value column="id">10</Value>
+              <Value column="id">13</Value>
               <Value column="description">No activity</Value>
               <Value column="es_description">Sin Actividad</Value>
             </Row>
             <Row>
-              <Value column="id">11</Value>
-              <Value column="description">Labourer</Value>
+              <Value column="id">9</Value>
+              <Value column="description">Laborer</Value>
               <Value column="es_description">Obrero o Jornalero</Value>
             </Row>
             <Row>
@@ -1106,7 +1101,7 @@
               <Value column="es_description">Rentista</Value>
             </Row>
             <Row>
-              <Value column="id">13</Value>
+              <Value column="id">15</Value>
               <Value column="description">Pilot</Value>
               <Value column="es_description">Tripulante</Value>
             </Row>
@@ -1116,7 +1111,7 @@
               <Value column="es_description">Empresario o Patrón</Value>
             </Row>
             <Row>
-              <Value column="id">15</Value>
+              <Value column="id">7</Value>
               <Value column="description">Retired</Value>
               <Value column="es_description">Jubilado o Pensionado</Value>
             </Row>
@@ -1269,31 +1264,31 @@
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Labour Productivity Based on Sales">
+    <CalculatedMember dimension="Measures" name="Production per worker">
       <Formula>
         <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Output]/[Measures].[Labour], Null)]]>
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Labour Productivity Based on Value Added">
+    <CalculatedMember dimension="Measures" name="Value added per worker">
       <Formula>
         <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Value Added] / [Measures].[Labour], Null)]]>
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Output for year (sum_c_p_xcp)" visible="true"> <!-- all geos, all industries, current year -->
+    <CalculatedMember dimension="Measures" name="Output for year (sum_c_p_xcp)" visible="false"> <!-- all geos, all industries, current year -->
       <Formula>
         <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].[All Geographys])]]>
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Output for Geography and year (sum_p_xcp)"> <!-- all industries, current geo, current year -->
+    <CalculatedMember dimension="Measures" name="Output for Geography and year (sum_p_xcp)" visible="false"> <!-- all industries, current geo, current year -->
       <Formula>
         <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].CurrentMember)]]>
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Output for Industry and year (sum_c_xcp)"> <!-- all geos, current industry, current year -->
+    <CalculatedMember dimension="Measures" name="Output for Industry and year (sum_c_xcp)" visible="false"> <!-- all geos, current industry, current year -->
       <Formula>
         <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].CurrentMember, [Tax Geography].[Geography].[All Geographys])]]>
       </Formula>
@@ -1936,7 +1931,7 @@
             <Row>
               <Value column="id">2</Value>
               <Value column="description">Non-traditional employee</Value>
-              <Value column="es_description">Ocupado notradicional</Value>
+              <Value column="es_description">Ocupado no tradicional</Value>
             </Row>
             <Row>
               <Value column="id">3</Value>
@@ -1985,7 +1980,20 @@
     </Dimension>
 
     <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
-    <Measure aggregator="sum" column="weights" name="Expansion factor" visible="true"/>
+    <Measure aggregator="sum" column="weights" name="Internal Expansion factor" visible="false"/>
+
+    <CalculatedMember dimension="Measures" name="Expansion factor" visible="true">
+      <Formula>
+        <![CDATA[IIF(Date.CurrentMember.Level.Name = 'Year',
+                 (
+                   [Measures].[Internal Expansion factor],
+                   LastNonEmpty(Descendants([Date].CurrentMember, Date.Date.[Moving Quarter]),
+                               [Measures].[Internal Expansion Factor])
+                 ),
+                 [Measures].[Internal Expansion factor])]]>
+      </Formula>
+    </CalculatedMember>
+
 
     <CalculatedMember dimension="Measures" name="Number of records Decile" visible="true">
       <Formula>
