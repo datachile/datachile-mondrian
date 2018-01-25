@@ -3929,7 +3929,11 @@
     </Annotations>
     <Table name="fact_health_system_casen" schema="health"/>
     
-    <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
 
     <Dimension foreignKey="health_system_id" name="Health System">
