@@ -172,8 +172,8 @@
         <Rows>
           <Row>
             <Value column="sex_id">0</Value>
-            <Value column="description">N/A</Value>
-            <Value column="es_description">N/A</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
           </Row>
           <Row>
             <Value column="sex_id">2</Value>
@@ -242,7 +242,7 @@
           </Row>
           <Row>
             <Value column="id">999</Value>
-            <Value column="description">N/A</Value>
+            <Value column="description">No data</Value>
             <Value column="es_description">Nivel ignorado</Value>
           </Row>
           <Row>
@@ -417,8 +417,8 @@
         <Rows>
           <Row>
             <Value column="id">0</Value>
-            <Value column="description">N/A</Value>
-            <Value column="es_description">N/A</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
           </Row>
           <Row>
             <Value column="id">1</Value>
@@ -554,8 +554,8 @@
 	      <Rows>
 	        <Row>
 	          <Value column="id">0</Value>
-	          <Value column="description">N/A</Value>
-	          <Value column="es_description">nan</Value>
+	          <Value column="description">No data</Value>
+	          <Value column="es_description">No informa</Value>
 	        </Row>
 	        <Row>
 	          <Value column="id">1</Value>
@@ -609,8 +609,8 @@
         <Rows>
           <Row>
             <Value column="id">0</Value>
-            <Value column="description">N/A</Value>
-            <Value column="es_description">N/A</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
           </Row>
           <Row>
             <Value column="id">1</Value>
@@ -645,8 +645,8 @@
         <Rows>
           <Row>
             <Value column="id">0</Value>
-            <Value column="description">N/A</Value>
-            <Value column="es_description">N/A</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
           </Row>
           <Row>
             <Value column="id">1</Value>
@@ -977,8 +977,8 @@
           <Rows>
             <Row>
               <Value column="id">0</Value>
-              <Value column="description">N/A</Value>
-              <Value column="es_description">N/A</Value>
+              <Value column="description">No data</Value>
+              <Value column="es_description">No informa</Value>
             </Row>
             <Row>
               <Value column="id">7</Value>
@@ -1037,8 +1037,8 @@
           <Rows>
             <Row>
               <Value column="id">0</Value>
-              <Value column="description">N/A</Value>
-              <Value column="es_description">N/A</Value>
+              <Value column="description">No data</Value>
+              <Value column="es_description">No informa</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
@@ -1137,8 +1137,8 @@
           <Rows>
             <Row>
               <Value column="id">0</Value>
-              <Value column="description">N/A</Value>
-              <Value column="es_description">nan</Value>
+              <Value column="description">No data</Value>
+              <Value column="es_description">No informa</Value>
             </Row>
             <Row>
               <Value column="id">1</Value>
@@ -1177,8 +1177,8 @@
             </Row>
             <Row>
               <Value column="id">0</Value>
-              <Value column="description">nan</Value>
-              <Value column="es_description">nan</Value>
+              <Value column="description">No data</Value>
+              <Value column="es_description">No informa</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -1521,8 +1521,8 @@
           <Rows>
             <Row>
               <Value column="id">0</Value>
-              <Value column="description">N/A</Value>
-              <Value column="es_description">N/A</Value>
+              <Value column="description">No data</Value>
+              <Value column="es_description">No informa</Value>
             </Row>
             <Row>
               <Value column="id">1</Value>
@@ -1669,8 +1669,8 @@
           <Rows>
             <Row>
               <Value column="id">0</Value>
-              <Value column="description">nan</Value>
-              <Value column="es_description">nan</Value>
+              <Value column="description">No data</Value>
+              <Value column="es_description">No informa</Value>
             </Row>
             <Row>
               <Value column="id">1</Value>
@@ -1799,8 +1799,8 @@
           <Rows>
             <Row>
               <Value column="id">0</Value>
-              <Value column="description">N/A</Value>
-              <Value column="es_description">N/A</Value>
+              <Value column="description">No data</Value>
+              <Value column="es_description">No informa</Value>
             </Row>
             <Row>
               <Value column="id">1</Value>
@@ -2401,8 +2401,8 @@
           <Rows>
             <Row>
               <Value column="id">0</Value>
-              <Value column="description">nan</Value>
-              <Value column="es_description">nan</Value>
+              <Value column="description">No data</Value>
+              <Value column="es_description">No informa</Value>
             </Row>
             <Row>
               <Value column="id">1</Value>
@@ -4005,8 +4005,8 @@
               <Value column="group_description">Otro</Value>
               <Value column="group_es_description">Otro</Value>
               <Value column="id">8</Value>
-              <Value column="description">N/A</Value>
-              <Value column="es_description">nan</Value>
+              <Value column="description">No data</Value>
+              <Value column="es_description">No informa</Value>
             </Row>
             <Row>
               <Value column="group_id">4</Value>
@@ -4029,8 +4029,8 @@
               <Value column="group_description">Otro</Value>
               <Value column="group_es_description">Otro</Value>
               <Value column="id">0</Value>
-              <Value column="description">nan</Value>
-              <Value column="es_description">nan</Value>
+              <Value column="description">No data</Value>
+              <Value column="es_description">No informa</Value>
             </Row>
           </Rows>
         </InlineTable>
