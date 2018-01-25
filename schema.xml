@@ -4304,84 +4304,134 @@
 
         <InlineTable alias="felony_es">
           <ColumnDefs>
+            <ColumnDef name="group_id" type="Numeric"/>
+            <ColumnDef name="group_description" type="String"/>
+            <ColumnDef name="group_es_description" type="String"/>
             <ColumnDef name="id" type="Numeric" />
             <ColumnDef name="description" type="String" />
             <ColumnDef name="es_description" type="String" />
           </ColumnDefs>
           <Rows>
             <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">Theft</Value>
+              <Value column="group_es_description">Robo</Value>
               <Value column="id">1</Value>
               <Value column="description">Theft with violence or intimidation</Value>
               <Value column="es_description">Robo con violencia o intimidación</Value>
             </Row>
           <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">Theft</Value>
+              <Value column="group_es_description">Robo</Value>
               <Value column="id">2</Value>
               <Value column="description">Surprise theft</Value>
               <Value column="es_description">Robo por sorpresa</Value>
             </Row>
           <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">Theft</Value>
+              <Value column="group_es_description">Robo</Value>
               <Value column="id">3</Value>
               <Value column="description">Theft with force</Value>
               <Value column="es_description">Robo con fuerza</Value>
             </Row>
           <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">Theft</Value>
+              <Value column="group_es_description">Robo</Value>
               <Value column="id">4</Value>
               <Value column="description">Vehicle theft</Value>
               <Value column="es_description">Robo de vehículo</Value>
             </Row>
           <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">Theft</Value>
+              <Value column="group_es_description">Robo</Value>
               <Value column="id">5</Value>
               <Value column="description">Vehicle accessories theft</Value>
               <Value column="es_description">Robo accesorios de vehículo</Value>
             </Row>
           <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">Theft</Value>
+              <Value column="group_es_description">Robo</Value>
               <Value column="id">6</Value>
               <Value column="description">Theft in an inhabited place</Value>
               <Value column="es_description">Robo en lugar habitado</Value>
             </Row>
           <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">Theft</Value>
+              <Value column="group_es_description">Robo</Value>
               <Value column="id">7</Value>
               <Value column="description">Theft in an uninhabited place</Value>
               <Value column="es_description">Robo en lugar no habitado</Value>
             </Row>
           <Row>
+              <Value column="group_id">1</Value>
+              <Value column="group_description">Theft</Value>
+              <Value column="group_es_description">Robo</Value>
               <Value column="id">8</Value>
               <Value column="description">Other thefts with force</Value>
               <Value column="es_description">Otros robos con fuerza</Value>
             </Row>
           <Row>
+              <Value column="group_id">2</Value>
+              <Value column="group_description">Larcenies</Value>
+              <Value column="group_es_description">Hurtos</Value>
               <Value column="id">9</Value>
               <Value column="description">Larcenies</Value>
               <Value column="es_description">Hurtos</Value>
             </Row>
           <Row>
+              <Value column="group_id">3</Value>
+              <Value column="group_description">Injuries</Value>
+              <Value column="group_es_description">Lesiones</Value>
               <Value column="id">10</Value>
               <Value column="description">Injuries</Value>
               <Value column="es_description">Lesiones</Value>
             </Row>
           <Row>
+              <Value column="group_id">3</Value>
+              <Value column="group_description">Injuries</Value>
+              <Value column="group_es_description">Lesiones</Value>
               <Value column="id">11</Value>
               <Value column="description">Serious injuries</Value>
               <Value column="es_description">Lesiones graves</Value>
             </Row>
           <Row>
+              <Value column="group_id">3</Value>
+              <Value column="group_description">Injuries</Value>
+              <Value column="group_es_description">Lesiones</Value>
               <Value column="id">12</Value>
               <Value column="description">Minor injuries</Value>
               <Value column="es_description">Lesiones leves</Value>
             </Row>
           <Row>
+              <Value column="group_id">4</Value>
+              <Value column="group_description">Homicides</Value>
+              <Value column="group_es_description">Homicidios</Value>
               <Value column="id">13</Value>
               <Value column="description">Homicides</Value>
               <Value column="es_description">Homicidios</Value>
             </Row>
           <Row>
+              <Value column="group_id">5</Value>
+              <Value column="group_description">Violation</Value>
+              <Value column="group_es_description">Violación</Value>
               <Value column="id">14</Value>
               <Value column="description">Violation</Value>
               <Value column="es_description">Violación</Value>
             </Row>
           </Rows>
         </InlineTable>
-        
+        <Level column="group_id" name="Crime Group" nameColumn="group_description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="group_es_description" name="Description ES"/>
+        </Level>
         <Level column="id" name="Crime" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
