@@ -722,6 +722,52 @@
     </Hierarchy>
   </Dimension>
 
+  <Dimension name="Election Type">
+      <Hierarchy hasAll="true">
+        <InlineTable alias="election">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric"/>
+            <ColumnDef name="description" type="String"/>
+            <ColumnDef name="es_description" type="String"/>
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Presidente - 1st round</Value>
+              <Value column="es_description">Presidente - 1ra vuelta</Value>
+            </Row>
+            <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Presidente - 2nd round</Value>
+              <Value column="es_description">Presidente - 2da vuelta</Value>
+            </Row>
+            <Row>
+              <Value column="id">3</Value>
+              <Value column="description">Senator</Value>
+              <Value column="es_description">Senador</Value>
+            </Row>
+            <Row>
+              <Value column="id">4</Value>
+              <Value column="description">Congressperson</Value>
+              <Value column="es_description">Diputado</Value>
+            </Row>
+            <Row>
+              <Value column="id">5</Value>
+              <Value column="description">Mayor</Value>
+              <Value column="es_description">Alcalde</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level column="id" name="Election Type" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="es_description" name="Description ES"/>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
   <!-- END: Shared Dimensions -->
 
   <Cube name="exports">
@@ -2018,52 +2064,7 @@
 
     <DimensionUsage foreignKey="region_id" source="Geography Region" name="GeographyR" />
 
-    <Dimension foreignKey="election_id" name="Election Type">
-      <Hierarchy hasAll="true">
-        
-        <InlineTable alias="election">
-          <ColumnDefs>
-            <ColumnDef name="id" type="Numeric"/>
-            <ColumnDef name="description" type="String"/>
-            <ColumnDef name="es_description" type="String"/>
-          </ColumnDefs>
-          <Rows>
-            <Row>
-              <Value column="id">1</Value>
-              <Value column="description">Presidente - 1st round</Value>
-              <Value column="es_description">Presidente - 1ra vuelta</Value>
-            </Row>
-            <Row>
-              <Value column="id">2</Value>
-              <Value column="description">Presidente - 2nd round</Value>
-              <Value column="es_description">Presidente - 2da vuelta</Value>
-            </Row>
-            <Row>
-              <Value column="id">3</Value>
-              <Value column="description">Senator</Value>
-              <Value column="es_description">Senador</Value>
-            </Row>
-            <Row>
-              <Value column="id">4</Value>
-              <Value column="description">Congressperson</Value>
-              <Value column="es_description">Diputado</Value>
-            </Row>
-            <Row>
-              <Value column="id">5</Value>
-              <Value column="description">Mayor</Value>
-              <Value column="es_description">Alcalde</Value>
-            </Row>
-          </Rows>
-        </InlineTable>
-        
-        <Level column="id" name="Election Type" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property column="es_description" name="Description ES"/>
-        </Level>
-      </Hierarchy>
-    </Dimension>
+    <DimensionUsage foreignKey="election_id" name="Election Type" source="Election Type"/>
 
     <Dimension foreignKey="party_id" name="Party">
       <Hierarchy hasAll="true">
@@ -2212,6 +2213,35 @@
   </Cube>
 
   <!-- / Electoral data cube -->
+
+  <!-- Electoral Participation data cube -->
+
+  <Cube name="election_participation">
+    <Table name="fact_election_participation" schema="politics"/>
+    
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+
+    <DimensionUsage foreignKey="election_id" name="Election Type" source="Election Type"/>
+
+    <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
+    <Measure aggregator="sum" column="total_electores" name="Electors" visible="true"/>
+    <Measure aggregator="sum" column="total_votacion" name="Votes" visible="true"/>
+
+    <CalculatedMember dimension="Measures" name="Participation" visible="true">
+      <Formula>
+        <![CDATA[([Measures].[Votes] / [Measures].[Electors])]]>
+      </Formula>
+    </CalculatedMember>
+
+  </Cube>
+
+  <!-- / Electoral Participation cube -->
 
   <!-- Education enrollment data cube -->
 
