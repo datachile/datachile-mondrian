@@ -2010,6 +2010,57 @@
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
+    <Dimension name="Calculated PSU Bucket">
+      <Hierarchy hasAll="true">
+
+        <Level name="Bucket">
+          <KeyExpression>
+            <SQL>
+              <![CDATA[(case 
+                       when avg_individual BETWEEN 150 AND 199 then '150-199'
+                       when avg_individual BETWEEN 200 AND 249 then '200-249'
+                       when avg_individual BETWEEN 250 AND 299 then '250-299'
+                       when avg_individual BETWEEN 300 AND 349 then '300-349'
+                       when avg_individual BETWEEN 350 AND 399 then '350-399'
+                       when avg_individual BETWEEN 400 AND 449 then '400-449'
+                       when avg_individual BETWEEN 450 AND 499 then '450-499'
+                       when avg_individual BETWEEN 500 AND 549 then '500-549'
+                       when avg_individual BETWEEN 550 AND 599 then '550-599'
+                       when avg_individual BETWEEN 600 AND 649 then '600-649'
+                       when avg_individual BETWEEN 650 AND 699 then '650-699'
+                       when avg_individual BETWEEN 700 AND 749 then '700-749'
+                       when avg_individual BETWEEN 750 AND 799 then '750-799'
+                       when avg_individual BETWEEN 800 AND 849 then '800-849'
+                       when avg_individual BETWEEN 850 AND 900 then '850'                     end)
+              ]]>
+            </SQL>
+          </KeyExpression>
+          <NameExpression>
+            <SQL>
+              <![CDATA[(case 
+                       when avg_individual BETWEEN 150 AND 199 then '150-199 pts'
+                       when avg_individual BETWEEN 200 AND 249 then '200-249 pts'
+                       when avg_individual BETWEEN 250 AND 299 then '250-299 pts'
+                       when avg_individual BETWEEN 300 AND 349 then '300-349 pts'
+                       when avg_individual BETWEEN 350 AND 399 then '350-399 pts'
+                       when avg_individual BETWEEN 400 AND 449 then '400-449 pts'
+                       when avg_individual BETWEEN 450 AND 499 then '450-499 pts'
+                       when avg_individual BETWEEN 500 AND 549 then '500-549 pts'
+                       when avg_individual BETWEEN 550 AND 599 then '550-599 pts'
+                       when avg_individual BETWEEN 600 AND 649 then '600-649 pts'
+                       when avg_individual BETWEEN 650 AND 699 then '650-699 pts'
+                       when avg_individual BETWEEN 700 AND 749 then '700-749 pts'
+                       when avg_individual BETWEEN 750 AND 799 then '750-799 pts'
+                       when avg_individual BETWEEN 800 AND 849 then '800-849 pts'
+                       when avg_individual BETWEEN 850 AND 900 then '850 pts'                     end)
+              ]]>
+            </SQL>
+          </NameExpression>
+        </Level>
+        
+      </Hierarchy>
+    </Dimension>
+
     <Measure aggregator="count" name="Number of records" visible="true">
       <MeasureExpression>
         <SQL>((language_test + math_test) / 2)</SQL>
