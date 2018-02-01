@@ -2030,8 +2030,8 @@
                        when avg_individual BETWEEN 650 AND 699 then '650-699'
                        when avg_individual BETWEEN 700 AND 749 then '700-749'
                        when avg_individual BETWEEN 750 AND 799 then '750-799'
-                       when avg_individual BETWEEN 800 AND 849 then '800-849'
-                       when avg_individual BETWEEN 850 AND 900 then '850'                     end)
+                       when avg_individual > 800 then '+800'
+                      end)
               ]]>
             </SQL>
           </KeyExpression>
@@ -2051,8 +2051,8 @@
                        when avg_individual BETWEEN 650 AND 699 then '650-699 pts'
                        when avg_individual BETWEEN 700 AND 749 then '700-749 pts'
                        when avg_individual BETWEEN 750 AND 799 then '750-799 pts'
-                       when avg_individual BETWEEN 800 AND 849 then '800-849 pts'
-                       when avg_individual BETWEEN 850 AND 900 then '850 pts'                     end)
+                       when avg_individual > 800 then '+800'pts'
+                      end)
               ]]>
             </SQL>
           </NameExpression>
