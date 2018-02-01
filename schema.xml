@@ -2030,7 +2030,7 @@
                        when avg_individual BETWEEN 650 AND 699 then '650-699'
                        when avg_individual BETWEEN 700 AND 749 then '700-749'
                        when avg_individual BETWEEN 750 AND 799 then '750-799'
-                       when avg_individual > 800 then '+800'
+                       when avg_individual => 800 then '+800'
                       end)
               ]]>
             </SQL>
