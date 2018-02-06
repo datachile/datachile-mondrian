@@ -2265,6 +2265,74 @@
 
   <!-- / Electoral data cube -->
 
+  <!-- Electoral data update cube -->
+
+  <Cube name="election_results_update">
+    <Table name="fact_election_results_update" schema="politics"/>
+    
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>>
+
+    <DimensionUsage foreignKey="election_id" name="Election Type" source="Election Type"/>
+
+    <Dimension foreignKey="party_id" name="Party">
+      <Hierarchy hasAll="true" primaryKey="partido_id">
+        <Table name="dim_parties" schema="politics"/>
+        <Level column="partido_id" name="Partido" nameColumn="partido" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension foreignKey="candidate_id" name="Candidates">
+      <Hierarchy hasAll="true" primaryKey="candidate_id">
+        <Table name="dim_candidates" schema="politics"/>
+        <Level column="candidate_id" name="Candidate" nameColumn="candidate" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension foreignKey="elected" name="Elected">
+      <Hierarchy hasAll="true">
+
+        <InlineTable alias="party">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric"/>
+            <ColumnDef name="description" type="String"/>
+            <ColumnDef name="es_description" type="String"/>
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Elected authority</Value>
+              <Value column="es_description">Autoridad electa</Value>
+            </Row>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">Non-elected candidate</Value>
+              <Value column="es_description">Candidato no electo</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level column="id" name="Elected" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="es_description" name="Description ES"/>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
+    <Measure aggregator="sum" column="votes" name="Votes" visible="true"/>
+
+  </Cube>
+
+  <!-- / Electoral data update cube -->
+
   <!-- Electoral Participation data cube -->
 
   <Cube name="election_participation">
