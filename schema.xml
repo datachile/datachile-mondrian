@@ -61,28 +61,6 @@
     </Hierarchy>
   </Dimension>
 
-  <Dimension name="HS1992">
-    <Hierarchy hasAll="true" primaryKey="level3">
-      <Table name="hs_levels" schema="economy"/>
-      <Level column="level0" name="HS0" nameColumn="level0_name" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">HS0 ES</Annotation>
-        </Annotations>
-        <Property column="es_level0_description" name="HS0 ES"/>
-      </Level>
-      <!-- Level column="level1" name="HS2" nameColumn="level1_name" uniqueMembers="true"/>
-      <Level column="level2" name="HS4" nameColumn="level2_name" uniqueMembers="true"/>
-      <Level column="level3" name="HS6" nameColumn="level3_name" uniqueMembers="true"/ -->
-      <Level column="level2" name="HS2" nameColumn="level2_name" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">HS2 ES</Annotation>
-        </Annotations>
-        <Property column="es_level2_description" name="HS2 ES"/>
-      </Level>
-      <Level column="level3" name="HS4" nameColumn="level3_name" uniqueMembers="true"/>
-    </Hierarchy>
-  </Dimension>
-
   <Dimension name="HS">
     <Annotations>
       <Annotation name="index_as">products</Annotation>
@@ -867,48 +845,6 @@
     </CalculatedMember>
   </Cube>
 
-  <Cube name="exports_hs1992">
-    <Annotations>
-      <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
-      <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
-    </Annotations>
-
-    <Table name="fact_exports_92" schema="economy"/>
-
-    <Dimension name="Date">
-      <Hierarchy hasAll="true">
-        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
-      </Hierarchy>
-    </Dimension>
-
-    <DimensionUsage caption="Destination Country" foreignKey="country_code" name="Destination Country" source="Country"/>
-    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
-    <DimensionUsage foreignKey="hs92" name="Export HS" source="HS1992"/>
-
-    <Measure aggregator="sum" column="fob_value_usd" name="FOB US" />
-
-    <CalculatedMember dimension="Measures" name="Exports for year (sum_c_p_xcp)" visible="true"> <!-- all geos, all products, current year -->
-      <Formula>
-        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS1992].[All HS1992s], [Geography].[Geography].[All Geographys])]]>
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember dimension="Measures" name="Exports for Geography and year (sum_p_xcp)"> <!-- all products, current geo, current year -->
-      <Formula>
-        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS1992].[All HS1992s], [Geography].[Geography].CurrentMember)]]>
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember dimension="Measures" name="Exports for Product and year (sum_c_xcp)"> <!-- all geos, current product, current year -->
-      <Formula>
-        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS1992].CurrentMember, [Geography].[Geography].[All Geographys])]]>
-      </Formula>
-    </CalculatedMember>
-    
-    <CalculatedMember dimension="Measures" name="Exports RCA">
-      <Formula><![CDATA[(Measures.[FOB US] / Measures.[Exports for Product and year (sum_c_xcp)]) / (Measures.[Exports for Geography and year (sum_p_xcp)] / Measures.[Exports for year (sum_c_p_xcp)]) ]]></Formula>
-    </CalculatedMember>
-  </Cube>
 
   <Cube name="imports">
     <Annotations>
