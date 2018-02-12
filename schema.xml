@@ -835,13 +835,13 @@
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Exports for Geography and year (sum_p_xcp)"> <!-- all products, current geo, current year -->
+    <CalculatedMember dimension="Measures" name="Exports for Geography and year (sum_p_xcp)" visible="false"> <!-- all products, current geo, current year -->
       <Formula>
         <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].[All HSs], [Geography].[Geography].CurrentMember)]]>
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Exports for Product and year (sum_c_xcp)"> <!-- all geos, current product, current year -->
+    <CalculatedMember dimension="Measures" name="Exports for Product and year (sum_c_xcp)" visible="false"> <!-- all geos, current product, current year -->
       <Formula>
         <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].CurrentMember, [Geography].[Geography].[All Geographys])]]>
       </Formula>
