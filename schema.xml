@@ -165,9 +165,10 @@
           </Row>
         </Rows>
       </InlineTable>
-      <Level column="sex_id" name="Sex" nameColumn="description" uniqueMembers="true">
+      <Level column="sex_id" name="Sex" nameColumn="description" uniqueMembers="true" caption="Sex">
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Sexo</Annotation>
         </Annotations>
         <Property column="es_description" name="Description ES"/>
       </Level>
@@ -752,6 +753,7 @@
     <Annotations>
       <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
+      <Annotation name="topic">Economy</Annotation>
     </Annotations>
 
     <!-- Table name="fact_exports" schema="economy"/ -->
@@ -774,7 +776,12 @@
     <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
     <DimensionUsage caption="Country" foreignKey="country_code" name="Country" source="Country"/>
 
-    <Measure aggregator="sum" column="fob_value_usd" name="FOB US"/>
+    <Measure aggregator="sum" column="fob_value_usd" name="FOB US" caption="Exports (USD FOB)">
+      <Annotations>
+        <Annotation name="es_element_caption">Exportaciones (FOB USD)</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
 
     <CalculatedMember dimension="Measures" name="Geo Rank">
       <Formula>
@@ -935,6 +942,7 @@
     <Annotations>
       <Annotation name="source_name">Estadísticas de Migración — Departamento de Extranjería y Migración</Annotation>
       <Annotation name="source_link">http://www.extranjeria.gob.cl/estadisticas-migratorias/</Annotation>
+      <Annotation name="topic">demography</Annotation>
     </Annotations>
     <Table name="fact_immigration_records" schema="demographics"/>
 
@@ -1002,6 +1010,7 @@
         <Level column="id" name="Education" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
+            <Annotation name="es_element_caption">Nivel Educativo</Annotation>
           </Annotations>
           <Property column="es_description" name="Description ES"/>
         </Level>
@@ -1102,6 +1111,7 @@
         <Level column="id" name="Activity" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
+            <Annotation name="es_element_caption">Actividad</Annotation>
           </Annotations>
           <Property column="es_description" name="Description ES"/>
         </Level>
@@ -1207,8 +1217,19 @@
       </Hierarchy>
     </Dimension>
 
-    <Measure aggregator="count" column="birth_date" name="Number of visas"/>
-    <Measure aggregator="avg" column="age" name="Average Age"/>
+    <Measure aggregator="count" column="birth_date" name="Number of visas">
+      <Annotations>
+        <Annotation name="es_element_caption">Cantidad de visas</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
+
+    <Measure aggregator="avg" column="age" name="Average Age">
+      <Annotations>
+        <Annotation name="es_element_caption">Edad promedio</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
   </Cube>
 
 
