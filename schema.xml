@@ -61,28 +61,6 @@
     </Hierarchy>
   </Dimension>
 
-  <Dimension name="HS1992">
-    <Hierarchy hasAll="true" primaryKey="level3">
-      <Table name="hs_levels" schema="economy"/>
-      <Level column="level0" name="HS0" nameColumn="level0_name" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">HS0 ES</Annotation>
-        </Annotations>
-        <Property column="es_level0_description" name="HS0 ES"/>
-      </Level>
-      <!-- Level column="level1" name="HS2" nameColumn="level1_name" uniqueMembers="true"/>
-      <Level column="level2" name="HS4" nameColumn="level2_name" uniqueMembers="true"/>
-      <Level column="level3" name="HS6" nameColumn="level3_name" uniqueMembers="true"/ -->
-      <Level column="level2" name="HS2" nameColumn="level2_name" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">HS2 ES</Annotation>
-        </Annotations>
-        <Property column="es_level2_description" name="HS2 ES"/>
-      </Level>
-      <Level column="level3" name="HS4" nameColumn="level3_name" uniqueMembers="true"/>
-    </Hierarchy>
-  </Dimension>
-
   <Dimension name="HS">
     <Annotations>
       <Annotation name="index_as">products</Annotation>
@@ -187,9 +165,10 @@
           </Row>
         </Rows>
       </InlineTable>
-      <Level column="sex_id" name="Sex" nameColumn="description" uniqueMembers="true">
+      <Level column="sex_id" name="Sex" nameColumn="description" uniqueMembers="true" caption="Sex">
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Sexo</Annotation>
         </Annotations>
         <Property column="es_description" name="Description ES"/>
       </Level>
@@ -774,6 +753,7 @@
     <Annotations>
       <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
+      <Annotation name="topic">Economy</Annotation>
     </Annotations>
 
     <!-- Table name="fact_exports" schema="economy"/ -->
@@ -796,7 +776,12 @@
     <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
     <DimensionUsage caption="Country" foreignKey="country_code" name="Country" source="Country"/>
 
-    <Measure aggregator="sum" column="fob_value_usd" name="FOB US"/>
+    <Measure aggregator="sum" column="fob_value_usd" name="FOB US" caption="Exports (USD FOB)">
+      <Annotations>
+        <Annotation name="es_element_caption">Exportaciones (FOB USD)</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
 
     <CalculatedMember dimension="Measures" name="Geo Rank">
       <Formula>
@@ -850,13 +835,13 @@
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Exports for Geography and year (sum_p_xcp)"> <!-- all products, current geo, current year -->
+    <CalculatedMember dimension="Measures" name="Exports for Geography and year (sum_p_xcp)" visible="false"> <!-- all products, current geo, current year -->
       <Formula>
         <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].[All HSs], [Geography].[Geography].CurrentMember)]]>
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Exports for Product and year (sum_c_xcp)"> <!-- all geos, current product, current year -->
+    <CalculatedMember dimension="Measures" name="Exports for Product and year (sum_c_xcp)" visible="false"> <!-- all geos, current product, current year -->
       <Formula>
         <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].CurrentMember, [Geography].[Geography].[All Geographys])]]>
       </Formula>
@@ -867,48 +852,6 @@
     </CalculatedMember>
   </Cube>
 
-  <Cube name="exports_hs1992">
-    <Annotations>
-      <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
-      <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
-    </Annotations>
-
-    <Table name="fact_exports_92" schema="economy"/>
-
-    <Dimension name="Date">
-      <Hierarchy hasAll="true">
-        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
-      </Hierarchy>
-    </Dimension>
-
-    <DimensionUsage caption="Destination Country" foreignKey="country_code" name="Destination Country" source="Country"/>
-    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
-    <DimensionUsage foreignKey="hs92" name="Export HS" source="HS1992"/>
-
-    <Measure aggregator="sum" column="fob_value_usd" name="FOB US" />
-
-    <CalculatedMember dimension="Measures" name="Exports for year (sum_c_p_xcp)" visible="true"> <!-- all geos, all products, current year -->
-      <Formula>
-        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS1992].[All HS1992s], [Geography].[Geography].[All Geographys])]]>
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember dimension="Measures" name="Exports for Geography and year (sum_p_xcp)"> <!-- all products, current geo, current year -->
-      <Formula>
-        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS1992].[All HS1992s], [Geography].[Geography].CurrentMember)]]>
-      </Formula>
-    </CalculatedMember>
-
-    <CalculatedMember dimension="Measures" name="Exports for Product and year (sum_c_xcp)"> <!-- all geos, current product, current year -->
-      <Formula>
-        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS1992].CurrentMember, [Geography].[Geography].[All Geographys])]]>
-      </Formula>
-    </CalculatedMember>
-    
-    <CalculatedMember dimension="Measures" name="Exports RCA">
-      <Formula><![CDATA[(Measures.[FOB US] / Measures.[Exports for Product and year (sum_c_xcp)]) / (Measures.[Exports for Geography and year (sum_p_xcp)] / Measures.[Exports for year (sum_c_p_xcp)]) ]]></Formula>
-    </CalculatedMember>
-  </Cube>
 
   <Cube name="imports">
     <Annotations>
@@ -999,6 +942,7 @@
     <Annotations>
       <Annotation name="source_name">Estadísticas de Migración — Departamento de Extranjería y Migración</Annotation>
       <Annotation name="source_link">http://www.extranjeria.gob.cl/estadisticas-migratorias/</Annotation>
+      <Annotation name="topic">demography</Annotation>
     </Annotations>
     <Table name="fact_immigration_records" schema="demographics"/>
 
@@ -1066,6 +1010,7 @@
         <Level column="id" name="Education" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
+            <Annotation name="es_element_caption">Nivel Educativo</Annotation>
           </Annotations>
           <Property column="es_description" name="Description ES"/>
         </Level>
@@ -1166,6 +1111,7 @@
         <Level column="id" name="Activity" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
+            <Annotation name="es_element_caption">Actividad</Annotation>
           </Annotations>
           <Property column="es_description" name="Description ES"/>
         </Level>
@@ -1271,8 +1217,19 @@
       </Hierarchy>
     </Dimension>
 
-    <Measure aggregator="count" column="birth_date" name="Number of visas"/>
-    <Measure aggregator="avg" column="age" name="Average Age"/>
+    <Measure aggregator="count" column="birth_date" name="Number of visas">
+      <Annotations>
+        <Annotation name="es_element_caption">Cantidad de visas</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
+
+    <Measure aggregator="avg" column="age" name="Average Age">
+      <Annotations>
+        <Annotation name="es_element_caption">Edad promedio</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
   </Cube>
 
 
@@ -2196,6 +2153,133 @@
       <Hierarchy hasAll="true" primaryKey="candidate_id">
         <Table name="dim_candidates" schema="politics"/>
         <Level column="candidate_id" name="Candidate" nameColumn="candidate" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension foreignKey="coalition_id" name="Coalition">
+      <Hierarchy hasAll="true">
+
+        <InlineTable alias="coalition_id">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">1</Value>
+              <Value column="description">ALIANZA</Value>
+              <Value column="es_description">ALIANZA</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">CANDIDATURA INDEPENDIENTE</Value>
+              <Value column="es_description">CANDIDATURA INDEPENDIENTE</Value>
+            </Row>
+          <Row>
+              <Value column="id">3</Value>
+              <Value column="description">CHILE LIMPIO, VOTE FELIZ</Value>
+              <Value column="es_description">CHILE LIMPIO, VOTE FELIZ</Value>
+            </Row>
+          <Row>
+              <Value column="id">4</Value>
+              <Value column="description">CHILE VAMOS</Value>
+              <Value column="es_description">CHILE VAMOS</Value>
+            </Row>
+          <Row>
+              <Value column="id">5</Value>
+              <Value column="description">COALICION POR EL CAMBIO</Value>
+              <Value column="es_description">COALICION POR EL CAMBIO</Value>
+            </Row>
+          <Row>
+              <Value column="id">6</Value>
+              <Value column="description">COALICION REGIONALISTA VERDE</Value>
+              <Value column="es_description">COALICION REGIONALISTA VERDE</Value>
+            </Row>
+          <Row>
+              <Value column="id">7</Value>
+              <Value column="description">CONCERTACION Y JUNTOS PODEMOS MAS</Value>
+              <Value column="es_description">CONCERTACION Y JUNTOS PODEMOS MAS</Value>
+            </Row>
+          <Row>
+              <Value column="id">8</Value>
+              <Value column="description">CONVERGENCIA DEMOCRATICA</Value>
+              <Value column="es_description">CONVERGENCIA DEMOCRATICA</Value>
+            </Row>
+          <Row>
+              <Value column="id">9</Value>
+              <Value column="description">FRENTE AMPLIO</Value>
+              <Value column="es_description">FRENTE AMPLIO</Value>
+            </Row>
+          <Row>
+              <Value column="id">10</Value>
+              <Value column="description">LA FUERZA DE LA MAYORIA</Value>
+              <Value column="es_description">LA FUERZA DE LA MAYORIA</Value>
+            </Row>
+          <Row>
+              <Value column="id">12</Value>
+              <Value column="description">NUEVA CONSTITUCION PARA CHILE</Value>
+              <Value column="es_description">NUEVA CONSTITUCION PARA CHILE</Value>
+            </Row>
+          <Row>
+              <Value column="id">13</Value>
+              <Value column="description">NUEVA MAYORIA</Value>
+              <Value column="es_description">NUEVA MAYORIA</Value>
+            </Row>
+          <Row>
+              <Value column="id">14</Value>
+              <Value column="description">NUEVA MAYORIA PARA CHILE</Value>
+              <Value column="es_description">NUEVA MAYORIA PARA CHILE</Value>
+            </Row>
+          <Row>
+              <Value column="id">15</Value>
+              <Value column="description">PARTIDO DE TRABAJADORES REVOLUCIONARIOS</Value>
+              <Value column="es_description">PARTIDO DE TRABAJADORES REVOLUCIONARIOS</Value>
+            </Row>
+          <Row>
+              <Value column="id">16</Value>
+              <Value column="description">PARTIDO HUMANISTA</Value>
+              <Value column="es_description">PARTIDO HUMANISTA</Value>
+            </Row>
+          <Row>
+              <Value column="id">17</Value>
+              <Value column="description">PARTIDO REGIONALISTA DE LOS INDEPENDIENTES</Value>
+              <Value column="es_description">PARTIDO REGIONALISTA DE LOS INDEPENDIENTES</Value>
+            </Row>
+          <Row>
+              <Value column="id">18</Value>
+              <Value column="description">POR TODO CHILE</Value>
+              <Value column="es_description">POR TODO CHILE</Value>
+            </Row>
+          <Row>
+              <Value column="id">19</Value>
+              <Value column="description">SI TU QUIERES, CHILE CAMBIA</Value>
+              <Value column="es_description">SI TU QUIERES, CHILE CAMBIA</Value>
+            </Row>
+          <Row>
+              <Value column="id">20</Value>
+              <Value column="description">SUMEMOS</Value>
+              <Value column="es_description">SUMEMOS</Value>
+            </Row>
+          <Row>
+              <Value column="id">21</Value>
+              <Value column="description">UNION PATRIOTICA</Value>
+              <Value column="es_description">UNION PATRIOTICA</Value>
+            </Row>
+          <Row>
+              <Value column="id">0</Value>
+              <Value column="description">NAN</Value>
+              <Value column="es_description">NAN</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level column="id" name="Coalition" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="es_description" name="Description ES"/>
+        </Level>
       </Hierarchy>
     </Dimension>
 
