@@ -753,7 +753,7 @@
     <Annotations>
       <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
-      <Annotation name="topic">Economy</Annotation>
+      <Annotation name="topic">economy</Annotation>
     </Annotations>
 
     <!-- Table name="fact_exports" schema="economy"/ -->
@@ -857,6 +857,7 @@
     <Annotations>
       <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
+      <Annotation name="topic">economy</Annotation>
     </Annotations>
 
     <!-- Table name="fact_imports" schema="economy" / -->
@@ -1237,6 +1238,7 @@
     <Annotations>
       <Annotation name="source_name">Servicio de Impuestos Internos</Annotation>
       <Annotation name="source_link">http://homer.sii.cl/</Annotation>
+      <Annotation name="topic">economy</Annotation>
     </Annotations>
 
     <View alias="tax_data">
@@ -1306,6 +1308,7 @@
     <Annotations>
       <Annotation name="source_name">Ministerio de Economía, Fomento y Turismo</Annotation>
       <Annotation name="source_link">http://www.economia.gob.cl/estudios-y-encuestas/encuestas/encuestas-de-innovacion-e-id/encuestas-de-innovacion</Annotation>
+      <Annotation name="topic">economy</Annotation>
     </Annotations>
     <Table name="fact_rd_survey" schema="public"/>
 
@@ -1467,6 +1470,7 @@
     <Annotations>
       <Annotation name="source_name">Encuesta Suplementaria de Ingresos — INE</Annotation>
       <Annotation name="source_link">http://www.ine.cl/estadisticas/ingresos-y-gastos/esi</Annotation>
+      <Annotation name="topic">economy</Annotation>
     </Annotations>
     <!-- Table name="fact_income_nesi" schema="economy" / -->
     <View alias="nesi_view">
@@ -1626,6 +1630,7 @@
     <Annotations>
       <Annotation name="source_name">Encuesta de Acceso, Usos y Usuarios de Internet — INE</Annotation>
       <Annotation name="source_link">http://anda.ine.cl/index.php/catalog/9222</Annotation>
+      <Annotation name="topic">environment</Annotation>
     </Annotations>
     <Table name="fact_internet_access_survey" schema="environment"/>
 
@@ -1650,6 +1655,7 @@
     <Annotations>
       <Annotation name="source_name">Encuesta Nacional de Empleo — INE</Annotation>
       <Annotation name="source_link">http://www.ine.cl/estadisticas/laborales/ene</Annotation>
+      <Annotation name="topic">economy</Annotation>
     </Annotations>
 
     <Table name="fact_occupational_status_nene_mobile_quarters_new" schema="economy" />
@@ -1956,6 +1962,11 @@
   <!-- PSU -->
 
   <Cube name="psu">
+    <Annotations>
+      <Annotation name="source_name">Prueba de Selección Universitaria (PSU) - DEMRE</Annotation>
+      <Annotation name="source_link">http://demre.cl/</Annotation>
+      <Annotation name="topic">education</Annotation>
+    </Annotations>
     
     <View alias="fact_psu">
       <SQL dialect="generic"><![CDATA[(SELECT
@@ -2060,6 +2071,12 @@
   <!-- Electoral data cube -->
 
   <Cube name="election_results">
+    <Annotations>
+      <Annotation name="source_name">Resultados Electorales - SERVEL</Annotation>
+      <Annotation name="source_link">https://www.servel.cl/</Annotation>
+      <Annotation name="topic">civics</Annotation>
+    </Annotations>
+
     <Table name="fact_election_results" schema="politics"/>
     
     <Dimension name="Date">
@@ -2130,6 +2147,12 @@
   <!-- Electoral data update cube -->
 
   <Cube name="election_results_update">
+    <Annotations>
+      <Annotation name="source_name">Resultados Electorales - SERVEL</Annotation>
+      <Annotation name="source_link">https://www.servel.cl/</Annotation>
+      <Annotation name="topic">civics</Annotation>
+    </Annotations>
+
     <Table name="fact_election_results_update" schema="politics"/>
     
     <Dimension name="Date">
@@ -2325,6 +2348,12 @@
   <!-- Electoral Participation data cube -->
 
   <Cube name="election_participation">
+    <Annotations>
+      <Annotation name="source_name">Participación Electoral - SERVEL</Annotation>
+      <Annotation name="source_link">https://www.servel.cl/</Annotation>
+      <Annotation name="topic">civics</Annotation>
+    </Annotations>
+
     <Table name="fact_election_participation" schema="politics"/>
     
     <Dimension name="Date">
@@ -2354,6 +2383,12 @@
   <!-- Education enrollment data cube -->
 
   <Cube name="education_enrollment">
+    <Annotations>
+      <Annotation name="source_name">Matricula escolar - MINEDUC</Annotation>
+      <Annotation name="source_link">http://datosabiertos.mineduc.cl/informacion-investigadores-establecimientos/</Annotation>
+      <Annotation name="topic">education</Annotation>
+    </Annotations>
+
     <Table name="fact_enrollment" schema="education"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
@@ -2384,6 +2419,12 @@
   <!-- Education performance data cube -->
 
   <Cube name="education_performance">
+    <Annotations>
+      <Annotation name="source_name">Rendimiento escolar y PSU - DEMRE</Annotation>
+      <Annotation name="source_link">http://psu.demre.cl/</Annotation>
+      <Annotation name="topic">education</Annotation>
+    </Annotations>
+
     <Table name="fact_performance" schema="education"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
@@ -2402,6 +2443,12 @@
 
 
   <Cube name="education_performance_new">
+    <Annotations>
+      <Annotation name="source_name">Rendimiento escolar y PSU - DEMRE</Annotation>
+      <Annotation name="source_link">http://psu.demre.cl/</Annotation>
+      <Annotation name="topic">education</Annotation>
+    </Annotations>
+
     <View alias="dim_regions">
     	<SQL><![CDATA[(SELECT *, promlm_actual AS prom_psu FROM education.fact_registered WHERE promlm_actual IS NOT NULL OR nem IS NOT NULL)]]></SQL>
     </View>
@@ -2693,7 +2740,9 @@
     <Annotations>
       <Annotation name="source_name">Encuesta CASEN</Annotation>
       <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
+      <Annotation name="topic">environment</Annotation>
     </Annotations>
+
     <Table name="fact_household_casen" schema="environment"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
@@ -3917,6 +3966,7 @@
     <Annotations>
       <Annotation name="source_name">INE - Demográficas y Vitales</Annotation>
       <Annotation name="source_link">http://www.ine.cl/estadisticas/demograficas-y-vitales</Annotation>
+      <Annotation name="topic">demography</Annotation>
     </Annotations>
 
     <!-- http://www.ine.cl/estadisticas/demograficas-y-vitales -->
@@ -4064,7 +4114,9 @@
     <Annotations>
       <Annotation name="source_name">Encuesta CASEN</Annotation>
       <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
+      <Annotation name="topic">environment</Annotation>
     </Annotations>
+
     <Table name="fact_health_system_casen" schema="health"/>
     
     <Dimension name="Date">
@@ -4212,7 +4264,9 @@
     <Annotations>
       <Annotation name="source_name">Encuesta CASEN</Annotation>
       <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
+      <Annotation name="topic">environment</Annotation>
     </Annotations>
+    
     <Table name="fact_banking_casen" schema="environment"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
@@ -4242,6 +4296,12 @@
   <!-- health_access data cube  -->
 
   <Cube name="health_access">
+    <Annotations>
+      <Annotation name="source_name">Indicadores de Acceso a la Salud - DEIS Ministerio de Salud</Annotation>
+      <Annotation name="source_link">http://www.deis.cl/</Annotation>
+      <Annotation name="topic">health</Annotation>
+    </Annotations>
+
     <Table name="fact_health_access" schema="health"/>
 
     <Dimension name="Date">
@@ -4291,6 +4351,12 @@
   <!-- death_causes data cube  -->
 
   <Cube name="death_causes">
+    <Annotations>
+      <Annotation name="source_name">Causas de Muerte - DEIS Ministerio de Salud</Annotation>
+      <Annotation name="source_link">http://www.deis.cl/</Annotation>
+      <Annotation name="topic">health</Annotation>
+    </Annotations>
+
     <Table name="fact_death_causes" schema="health"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
@@ -4377,6 +4443,12 @@
   <!-- disabilities data cube  -->
 
   <Cube name="disabilities">
+    <Annotations>
+      <Annotation name="source_name">Encuesta Nacional de Discapacidad (ENDISC) - SENADIS</Annotation>
+      <Annotation name="source_link">http://www.senadis.cl/pag/355/1197/ii_estudio_nacional_de_discapacidad</Annotation>
+      <Annotation name="topic">health</Annotation>
+    </Annotations>
+
     <Table name="fact_disability" schema="health"/>
     
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
@@ -4431,6 +4503,12 @@
   <!-- crimes data cube  -->
 
   <Cube name="crimes">
+    <Annotations>
+      <Annotation name="source_name">Carabineros de Chile</Annotation>
+      <Annotation name="source_link">http://www.seguridadpublica.gov.cl/media/2017/08/frec_casos_dmcs_mensual_2001_2017w.xlsx</Annotation>
+      <Annotation name="topic">environment</Annotation>
+    </Annotations>
+
     <Table name="fact_crimes" schema="safety"/>
     
     <Dimension name="Date">
