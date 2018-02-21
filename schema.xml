@@ -2817,7 +2817,7 @@
           </Rows>
         </InlineTable>
         
-        <Level column="id" name="Administration" nameColumn="description" uniqueMembers="true">
+        <Level column="id" name="Cluster" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
           </Annotations>
