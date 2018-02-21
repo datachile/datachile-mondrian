@@ -2747,82 +2747,190 @@
     
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
     <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
-    <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
 
     <Dimension foreignKey="cluster_id" name="Cluster">
       <Hierarchy hasAll="true">
         
         <InlineTable alias="cluster">
           <ColumnDefs>
-            <ColumnDef name="id" type="Numeric" />
-            <ColumnDef name="description" type="String" />
-            <ColumnDef name="es_description" type="String" />
+            <ColumnDef name="e1a_id" type="Numeric" />
+            <ColumnDef name="e1a_description" type="String" />
+            <ColumnDef name="e1a_es_description" type="String" />
+
+            <ColumnDef name="e1b_id" type="Numeric" />
+            <ColumnDef name="e1b_description" type="String" />
+            <ColumnDef name="e1b_es_description" type="String" />
+
+            <ColumnDef name="e2_id" type="Numeric" />
+            <ColumnDef name="e2_description" type="String" />
+            <ColumnDef name="e2_es_description" type="String" />
           </ColumnDefs>
           <Rows>
             <Row>
-              <Value column="id">11</Value>
-              <Value column="description">Urban primary group 1</Value>
-              <Value column="es_description">Básica urbana grupo 1</Value>
+              <Value column="e1a_id">1</Value>
+              <Value column="e1a_description">Urban</Value>
+              <Value column="e1a_es_description">Urbana</Value>
+
+              <Value column="e1b_id">1</Value>
+              <Value column="e1b_description">Urban primary</Value>
+              <Value column="e1b_es_description">Básica urbana</Value>
+
+              <Value column="e2_id">11</Value>
+              <Value column="e2_description">Urban primary group 1</Value>
+              <Value column="e2_es_description">Básica urbana grupo 1</Value>
             </Row>
           <Row>
-              <Value column="id">12</Value>
-              <Value column="description">Urban primary group 2</Value>
-              <Value column="es_description">Básica urbana grupo 2</Value>
+              <Value column="e1a_id">1</Value>
+              <Value column="e1a_description">Urban</Value>
+              <Value column="e1a_es_description">Urbana</Value>
+
+              <Value column="e1b_id">1</Value>
+              <Value column="e1b_description">Urban primary</Value>
+              <Value column="e1b_es_description">Básica urbana</Value>
+
+              <Value column="e2_id">12</Value>
+              <Value column="e2_description">Urban primary group 2</Value>
+              <Value column="e2_es_description">Básica urbana grupo 2</Value>
             </Row>
           <Row>
-              <Value column="id">13</Value>
-              <Value column="description">Urban primary group 3</Value>
-              <Value column="es_description">Básica urbana grupo 3</Value>
+              <Value column="e1a_id">1</Value>
+              <Value column="e1a_description">Urban</Value>
+              <Value column="e1a_es_description">Urbana</Value>
+
+              <Value column="e1b_id">1</Value>
+              <Value column="e1b_description">Urban primary</Value>
+              <Value column="e1b_es_description">Básica urbana</Value>
+
+              <Value column="e2_id">13</Value>
+              <Value column="e2_description">Urban primary group 3</Value>
+              <Value column="e2_es_description">Básica urbana grupo 3</Value>
             </Row>
           <Row>
-              <Value column="id">21</Value>
-              <Value column="description">Urban secondary (with or without primary) group 1</Value>
-              <Value column="es_description">Media urbana (con o sin básica) grupo 1</Value>
+              <Value column="e1a_id">1</Value>
+              <Value column="e1a_description">Urban</Value>
+              <Value column="e1a_es_description">Urbana</Value>
+
+              <Value column="e1b_id">2</Value>
+              <Value column="e1b_description">Urban secondary (with or without primary)</Value>
+              <Value column="e1b_es_description">Media urbana (con o sin básica)</Value>
+
+              <Value column="e2_id">21</Value>
+              <Value column="e2_description">Urban secondary (with or without primary) group 1</Value>
+              <Value column="e2_es_description">Media urbana (con o sin básica) grupo 1</Value>
             </Row>
           <Row>
-              <Value column="id">22</Value>
-              <Value column="description">Urban secondary (with or without primary) group 2</Value>
-              <Value column="es_description">Media urbana (con o sin básica) grupo 2</Value>
+              <Value column="e1a_id">1</Value>
+              <Value column="e1a_description">Urban</Value>
+              <Value column="e1a_es_description">Urbana</Value>
+
+              <Value column="e1b_id">2</Value>
+              <Value column="e1b_description">Urban secondary (with or without primary)</Value>
+              <Value column="e1b_es_description">Media urbana (con o sin básica)</Value>
+
+              <Value column="e2_id">22</Value>
+              <Value column="e2_description">Urban secondary (with or without primary) group 2</Value>
+              <Value column="e2_es_description">Media urbana (con o sin básica) grupo 2</Value>
             </Row>
           <Row>
-              <Value column="id">23</Value>
-              <Value column="description">Urban secondary (with or without primary) group 3</Value>
-              <Value column="es_description">Media urbana (con o sin básica) grupo 3</Value>
+              <Value column="e1a_id">1</Value>
+              <Value column="e1a_description">Urban</Value>
+              <Value column="e1a_es_description">Urbana</Value>
+
+              <Value column="e1b_id">2</Value>
+              <Value column="e1b_description">Urban secondary (with or without primary)</Value>
+              <Value column="e1b_es_description">Media urbana (con o sin básica)</Value>
+
+              <Value column="e2_id">23</Value>
+              <Value column="e2_description">Urban secondary (with or without primary) group 3</Value>
+              <Value column="e2_es_description">Media urbana (con o sin básica) grupo 3</Value>
             </Row>
           <Row>
-              <Value column="id">31</Value>
-              <Value column="description">Rural primary group 1</Value>
-              <Value column="es_description">Básica rural grupo 1</Value>
+              <Value column="e1a_id">2</Value>
+              <Value column="e1a_description">Rural</Value>
+              <Value column="e1a_es_description">Rural</Value>
+
+              <Value column="e1b_id">3</Value>
+              <Value column="e1b_description">Rural primary</Value>
+              <Value column="e1b_es_description">Básica rural</Value>
+
+              <Value column="e2_id">31</Value>
+              <Value column="e2_description">Rural primary group 1</Value>
+              <Value column="e2_es_description">Básica rural grupo 1</Value>
             </Row>
           <Row>
-              <Value column="id">32</Value>
-              <Value column="description">Rural primary group 2</Value>
-              <Value column="es_description">Básica rural grupo 2</Value>
+              <Value column="e1a_id">2</Value>
+              <Value column="e1a_description">Rural</Value>
+              <Value column="e1a_es_description">Rural</Value>
+
+              <Value column="e1b_id">3</Value>
+              <Value column="e1b_description">Rural primary</Value>
+              <Value column="e1b_es_description">Básica rural</Value>
+
+              <Value column="e2_id">32</Value>
+              <Value column="e2_description">Rural primary group 2</Value>
+              <Value column="e2_es_description">Básica rural grupo 2</Value>
             </Row>
           <Row>
-              <Value column="id">33</Value>
-              <Value column="description">Rural primary group 3</Value>
-              <Value column="es_description">Básica rural grupo 3</Value>
+              <Value column="e1a_id">2</Value>
+              <Value column="e1a_description">Rural</Value>
+              <Value column="e1a_es_description">Rural</Value>
+
+              <Value column="e1b_id">3</Value>
+              <Value column="e1b_description">Rural primary</Value>
+              <Value column="e1b_es_description">Básica rural</Value>
+
+              <Value column="e2_id">33</Value>
+              <Value column="e2_description">Rural primary group 3</Value>
+              <Value column="e2_es_description">Básica rural grupo 3</Value>
             </Row>
           <Row>
-              <Value column="id">41</Value>
-              <Value column="description">Rural secondary (with or without primary) group 1</Value>
-              <Value column="es_description">Media rural (con o sin básica) grupo 1</Value>
+              <Value column="e1a_id">2</Value>
+              <Value column="e1a_description">Rural</Value>
+              <Value column="e1a_es_description">Rural</Value>
+
+              <Value column="e1b_id">4</Value>
+              <Value column="e1b_description">Rural secondary (with or without primary)</Value>
+              <Value column="e1b_es_description">Media rural (con o sin básica)</Value>
+
+              <Value column="e2_id">41</Value>
+              <Value column="e2_description">Rural secondary (with or without primary) group 1</Value>
+              <Value column="e2_es_description">Media rural (con o sin básica) grupo 1</Value>
             </Row>
           <Row>
-              <Value column="id">51</Value>
-              <Value column="description">Special education group 1</Value>
-              <Value column="es_description">Educación especial grupo 1</Value>
+              <Value column="e1a_id">3</Value>
+              <Value column="e1a_description">Special education</Value>
+              <Value column="e1a_es_description">Educación especial</Value>
+
+              <Value column="e1b_id">5</Value>
+              <Value column="e1b_description">Special education</Value>
+              <Value column="e1b_es_description">Educación especial</Value>
+
+              <Value column="e2_id">51</Value>
+              <Value column="e2_description">Special education group 1</Value>
+              <Value column="e2_es_description">Educación especial grupo 1</Value>
             </Row>
           </Rows>
         </InlineTable>
         
-        <Level column="id" name="Cluster" nameColumn="description" uniqueMembers="true">
+        <Level column="e1a_id" name="Stage 1a" nameColumn="e1a_description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
           </Annotations>
-          <Property column="es_description" name="Description ES"/>
+          <Property column="e1a_es_description" name="Description ES"/>
         </Level>
+        <Level column="e1b_id" name="Stage 1b" nameColumn="e1b_description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="e1b_es_description" name="Description ES"/>
+        </Level>
+        <Level column="e2_id" name="Stage 2" nameColumn="e2_description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="e2_es_description" name="Description ES"/>
+        </Level>
+
       </Hierarchy>
     </Dimension>
 
