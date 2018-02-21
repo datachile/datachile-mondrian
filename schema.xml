@@ -2749,6 +2749,83 @@
     <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
     <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
 
+    <Dimension foreignKey="cluster_id" name="Cluster">
+      <Hierarchy hasAll="true">
+        
+        <InlineTable alias="cluster">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">11</Value>
+              <Value column="description">Urban primary group 1</Value>
+              <Value column="es_description">Básica urbana grupo 1</Value>
+            </Row>
+          <Row>
+              <Value column="id">12</Value>
+              <Value column="description">Urban primary group 2</Value>
+              <Value column="es_description">Básica urbana grupo 2</Value>
+            </Row>
+          <Row>
+              <Value column="id">13</Value>
+              <Value column="description">Urban primary group 3</Value>
+              <Value column="es_description">Básica urbana grupo 3</Value>
+            </Row>
+          <Row>
+              <Value column="id">21</Value>
+              <Value column="description">Urban secondary (with or without primary) group 1</Value>
+              <Value column="es_description">Media urbana (con o sin básica) grupo 1</Value>
+            </Row>
+          <Row>
+              <Value column="id">22</Value>
+              <Value column="description">Urban secondary (with or without primary) group 2</Value>
+              <Value column="es_description">Media urbana (con o sin básica) grupo 2</Value>
+            </Row>
+          <Row>
+              <Value column="id">23</Value>
+              <Value column="description">Urban secondary (with or without primary) group 3</Value>
+              <Value column="es_description">Media urbana (con o sin básica) grupo 3</Value>
+            </Row>
+          <Row>
+              <Value column="id">31</Value>
+              <Value column="description">Rural primary group 1</Value>
+              <Value column="es_description">Básica rural grupo 1</Value>
+            </Row>
+          <Row>
+              <Value column="id">32</Value>
+              <Value column="description">Rural primary group 2</Value>
+              <Value column="es_description">Básica rural grupo 2</Value>
+            </Row>
+          <Row>
+              <Value column="id">33</Value>
+              <Value column="description">Rural primary group 3</Value>
+              <Value column="es_description">Básica rural grupo 3</Value>
+            </Row>
+          <Row>
+              <Value column="id">41</Value>
+              <Value column="description">Rural secondary (with or without primary) group 1</Value>
+              <Value column="es_description">Media rural (con o sin básica) grupo 1</Value>
+            </Row>
+          <Row>
+              <Value column="id">51</Value>
+              <Value column="description">Special education group 1</Value>
+              <Value column="es_description">Educación especial grupo 1</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level column="id" name="Administration" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="es_description" name="Description ES"/>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
     <Dimension foreignKey="administration_id" name="Administration">
       <Hierarchy hasAll="true">
         
