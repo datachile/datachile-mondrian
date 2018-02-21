@@ -2782,6 +2782,150 @@
 
   <!-- / Education employability data cube -->
 
+  <!-- Education performance indicators sned data cube -->
+
+  <Cube name="education_sned">
+    <Table name="fact_sned" schema="education"/>
+
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    
+    <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+    <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+    <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
+
+    <Dimension foreignKey="administration_id" name="Administration">
+      <Hierarchy hasAll="true">
+        
+        <InlineTable alias="administration">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">nan</Value>
+              <Value column="es_description">nan</Value>
+            </Row>
+          <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Municipal</Value>
+              <Value column="es_description">Municipal</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Particular Subvencionado</Value>
+              <Value column="es_description">Particular Subvencionado</Value>
+            </Row>
+          <Row>
+              <Value column="id">4</Value>
+              <Value column="description">Corporación de Administración Delegada</Value>
+              <Value column="es_description">Corporación de Administración Delegada</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level column="id" name="Administration" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="es_description" name="Description ES"/>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension foreignKey="subsidized_100pc_id" name="Subsidized 100%">
+      <Hierarchy hasAll="true">
+        
+        <InlineTable alias="subsidized_100pc">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">nan</Value>
+              <Value column="es_description">nan</Value>
+            </Row>
+          <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Obtains 100% subsidy</Value>
+              <Value column="es_description">Obtiene 100% subvención</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Does not obtain 100% subsidy</Value>
+              <Value column="es_description">No obtiene 100% subvención</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level column="id" name="Subsidized 100%" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="es_description" name="Description ES"/>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension foreignKey="subsidized_60pc_id" name="Subsidized 60%">
+      <Hierarchy hasAll="true">
+        
+        <InlineTable alias="subsidized_60pc">
+          <ColumnDefs>
+            <ColumnDef name="id" type="Numeric" />
+            <ColumnDef name="description" type="String" />
+            <ColumnDef name="es_description" type="String" />
+          </ColumnDefs>
+          <Rows>
+            <Row>
+              <Value column="id">0</Value>
+              <Value column="description">nan</Value>
+              <Value column="es_description">nan</Value>
+            </Row>
+          <Row>
+              <Value column="id">1</Value>
+              <Value column="description">Obtains 60% subsidy</Value>
+              <Value column="es_description">Obtiene 60% subvención</Value>
+            </Row>
+          <Row>
+              <Value column="id">2</Value>
+              <Value column="description">Does not obtain 60% subsidy</Value>
+              <Value column="es_description">No obtiene 60% subvención</Value>
+            </Row>
+          </Rows>
+        </InlineTable>
+        
+        <Level column="id" name="Subsidized 60%" nameColumn="description" uniqueMembers="true">
+          <Annotations>
+            <Annotation name="es_caption">Description ES</Annotation>
+          </Annotations>
+          <Property column="es_description" name="Description ES"/>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
+    <Measure aggregator="avg" column="efectiveness" name="Avg efectiveness" visible="true"/>
+    <Measure aggregator="avg" column="overcoming" name="Avg overcoming" visible="true"/>
+    <Measure aggregator="avg" column="initiative" name="Avg initiative" visible="true"/>
+    <Measure aggregator="avg" column="integration" name="Avg integration" visible="true"/>
+    <Measure aggregator="avg" column="improvement" name="Avg improvement" visible="true"/>
+    <Measure aggregator="avg" column="fairness" name="Avg fairness" visible="true"/>
+    <Measure aggregator="avg" column="sned_score" name="Avg sned_score" visible="true"/>
+
+  </Cube>
+
+  <!-- / Education performance data cube -->
+
   <!-- CASEN household data cube -->
 
   <Cube name="casen_household">
