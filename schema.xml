@@ -2814,7 +2814,7 @@
               <Value column="e1b_description">Urban secondary (with or without primary)</Value>
               <Value column="e1b_es_description">Media urbana (con o sin básica)</Value>
 
-              <Value column="e2_id">21</Value>
+              <Value column="e2_id">31</Value>
               <Value column="e2_description">Urban secondary (with or without primary) group 1</Value>
               <Value column="e2_es_description">Media urbana (con o sin básica) grupo 1</Value>
             </Row>
@@ -2827,7 +2827,7 @@
               <Value column="e1b_description">Urban secondary (with or without primary)</Value>
               <Value column="e1b_es_description">Media urbana (con o sin básica)</Value>
 
-              <Value column="e2_id">22</Value>
+              <Value column="e2_id">32</Value>
               <Value column="e2_description">Urban secondary (with or without primary) group 2</Value>
               <Value column="e2_es_description">Media urbana (con o sin básica) grupo 2</Value>
             </Row>
@@ -2840,7 +2840,7 @@
               <Value column="e1b_description">Urban secondary (with or without primary)</Value>
               <Value column="e1b_es_description">Media urbana (con o sin básica)</Value>
 
-              <Value column="e2_id">23</Value>
+              <Value column="e2_id">33</Value>
               <Value column="e2_description">Urban secondary (with or without primary) group 3</Value>
               <Value column="e2_es_description">Media urbana (con o sin básica) grupo 3</Value>
             </Row>
@@ -2853,7 +2853,7 @@
               <Value column="e1b_description">Rural primary</Value>
               <Value column="e1b_es_description">Básica rural</Value>
 
-              <Value column="e2_id">31</Value>
+              <Value column="e2_id">21</Value>
               <Value column="e2_description">Rural primary group 1</Value>
               <Value column="e2_es_description">Básica rural grupo 1</Value>
             </Row>
@@ -2866,7 +2866,7 @@
               <Value column="e1b_description">Rural primary</Value>
               <Value column="e1b_es_description">Básica rural</Value>
 
-              <Value column="e2_id">32</Value>
+              <Value column="e2_id">22</Value>
               <Value column="e2_description">Rural primary group 2</Value>
               <Value column="e2_es_description">Básica rural grupo 2</Value>
             </Row>
@@ -2879,7 +2879,7 @@
               <Value column="e1b_description">Rural primary</Value>
               <Value column="e1b_es_description">Básica rural</Value>
 
-              <Value column="e2_id">33</Value>
+              <Value column="e2_id">23</Value>
               <Value column="e2_description">Rural primary group 3</Value>
               <Value column="e2_es_description">Básica rural grupo 3</Value>
             </Row>
