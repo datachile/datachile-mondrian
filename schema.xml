@@ -109,13 +109,13 @@
         </Annotations>
         <Property column="es_level2_description" name="Level 2 ES"/>
       </Level>
-      <Level column="level3" name="Level 3" nameColumn="level3_description" uniqueMembers="false">
+      <Level column="level3" name="Level 3" nameColumn="level3_description" uniqueMembers="true">
         <Annotations>
           <Annotation name="es_caption">Level 3 ES</Annotation>
         </Annotations>
         <Property column="es_level3_description" name="Level 3 ES"/>
       </Level>
-      <Level column="level4" name="Level 4" nameColumn="level4_description" uniqueMembers="false">
+      <Level column="level4" name="Level 4" nameColumn="level4_description" uniqueMembers="true">
         <Annotations>
           <Annotation name="es_caption">Level 4 ES</Annotation>
         </Annotations>
