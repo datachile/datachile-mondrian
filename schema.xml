@@ -882,7 +882,12 @@
     <DimensionUsage caption="Country" foreignKey="country_code" name="Country" source="Country"/>
 
 
-    <Measure aggregator="sum" column="cif_value_usd" name="CIF US"/>
+    <Measure aggregator="sum" column="cif_value_usd" name="CIF US">
+      <Annotations>
+        <Annotation name="es_element_caption">IMPORTACIONES (CIF US)</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
 
     <CalculatedMember dimension="Measures" name="Geo Rank Across Time">
       <Annotations>
@@ -1220,14 +1225,14 @@
 
     <Measure aggregator="count" column="birth_date" name="Number of visas">
       <Annotations>
-        <Annotation name="es_element_caption">Cantidad de visas</Annotation>
+        <Annotation name="es_element_caption">Cantidad de visas entregadas</Annotation>
         <Annotation name="es_format">XXX</Annotation>
       </Annotations>
     </Measure>
 
     <Measure aggregator="avg" column="age" name="Average Age">
       <Annotations>
-        <Annotation name="es_element_caption">Edad promedio</Annotation>
+        <Annotation name="es_element_caption">Edad promedio según visas entregadas</Annotation>
         <Annotation name="es_format">XXX</Annotation>
       </Annotations>
     </Measure>
@@ -2339,7 +2344,12 @@
     </Dimension>
 
     <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
-    <Measure aggregator="sum" column="votes" name="Votes" visible="true"/>
+    <Measure aggregator="sum" column="votes" name="Votes" visible="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Resultado electoral en votos</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
 
   </Cube>
 
@@ -2367,10 +2377,24 @@
     <DimensionUsage foreignKey="election_id" name="Election Type" source="Election Type"/>
 
     <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
-    <Measure aggregator="sum" column="total_electores" name="Electors" visible="true"/>
-    <Measure aggregator="sum" column="total_votacion" name="Votes" visible="true"/>
+    <Measure aggregator="sum" column="total_electores" name="Electors" visible="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Electores habilitados</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="sum" column="total_votacion" name="Votes" visible="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Electores que votaron</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
 
     <CalculatedMember dimension="Measures" name="Participation" visible="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Participación electoral (%)</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
       <Formula>
         <![CDATA[([Measures].[Votes] / [Measures].[Electors])]]>
       </Formula>
@@ -2399,8 +2423,18 @@
     <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
     <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
 
-    <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
-    <Measure aggregator="avg" column="age" name="Average Age" visible="true"/>
+    <Measure aggregator="count" column="year" name="Number of records" visible="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Estudiantes matriculados</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="avg" column="age" name="Average Age" visible="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Edad promedio de estudiantes matriculados</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
 
     <NamedSet description="Set of school types (Teachings) that indicate special education" name="Special Education Teachings">
       <Formula>
@@ -4278,12 +4312,15 @@
     <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
 
     <CalculatedMember dimension="Measures" name="Expansion Factor">
+      <Annotations>
+        <Annotation name="es_element_caption">Vivienda: Factor de expansión</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
       <Formula>
         <![CDATA[IIF(Geography.CurrentMember.Level.Name = "Comuna",
                     [Measures].[Expansion Factor Comuna],
                     [Measures].[Expansion Factor Region])]]>
       </Formula>
-
     </CalculatedMember>
   </Cube>
 
@@ -4301,7 +4338,12 @@
     <!-- http://www.ine.cl/estadisticas/demograficas-y-vitales -->
     <Table name="fact_population_estimate" schema="demographics"/>
     
-    <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
@@ -4412,7 +4454,12 @@
     </Dimension>
 
     <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
-    <Measure aggregator="sum" column="count" name="Population" visible="true"/>
+    <Measure aggregator="sum" column="count" name="Population" visible="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Proyecciones de Población (INE 2014 basado en Censo 2000)</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
     <CalculatedMember dimension="Measures" name="Population Rank">
       <Formula>
         <![CDATA[Rank(Geography.CurrentMember,
@@ -4443,7 +4490,7 @@
     <Annotations>
       <Annotation name="source_name">Encuesta CASEN</Annotation>
       <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
-      <Annotation name="topic">environment</Annotation>
+      <Annotation name="topic">health</Annotation>
     </Annotations>
 
     <Table name="fact_health_system_casen" schema="health"/>
@@ -4577,6 +4624,10 @@
     <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
 
     <CalculatedMember dimension="Measures" name="Expansion Factor">
+      <Annotations>
+        <Annotation name="es_element_caption">Cobertura de salud: Factor de expansión</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
       <Formula>
         <![CDATA[IIF(Geography.CurrentMember.Level.Name = "Comuna",
                     [Measures].[Expansion Factor Comuna],
@@ -4643,15 +4694,35 @@
     
     <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
 
-    <Measure aggregator="sum" column="primary_healthcare" name="Primary Healthcare SUM" visible="true"/>
-    <Measure aggregator="sum" column="specialized_healthcare" name="Specialized Healthcare SUM" visible="true"/>
-    <Measure aggregator="sum" column="urgency_healthcare" name="Urgency Healthcare SUM" visible="true"/>
+    <Measure aggregator="sum" column="primary_healthcare" name="Primary Healthcare SUM" visible="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Casos de atención primaria</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="sum" column="specialized_healthcare" name="Specialized Healthcare SUM" visible="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Casos de atención especializada</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="sum" column="urgency_healthcare" name="Urgency Healthcare SUM" visible="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Casos de urgencias médicas</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
 
     <Measure aggregator="avg" column="primary_healthcare" name="Primary Healthcare AVG" visible="true"/>
     <Measure aggregator="avg" column="specialized_healthcare" name="Specialized Healthcare AVG" visible="true"/>
     <Measure aggregator="avg" column="urgency_healthcare" name="Urgency Healthcare AVG" visible="true"/>
     
-    <Measure aggregator="avg" column="dental_discharges_per_100_inhabitants" name="Dental Discharges Per 100 inhabitants AVG" visible="true"/>
+    <Measure aggregator="avg" column="dental_discharges_per_100_inhabitants" name="Dental Discharges Per 100 inhabitants AVG" visible="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Altas dentales cada 100 habitantes</Annotation>
+        <Annotation name="es_format">XXX</Annotation>
+      </Annotations>
+    </Measure>
 
   </Cube>
 
