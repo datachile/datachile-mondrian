@@ -82,7 +82,7 @@
       </Level>
       <Level column="level5" name="HS4" nameColumn="level5_en" uniqueMembers="true">
         <Annotations>
-          <Annotation name="es_caption">HS2 ES</Annotation>
+          <Annotation name="es_caption">HS4 ES</Annotation>
         </Annotations>
         <Property column="level5_es" name="HS4 ES"/>
       </Level>
