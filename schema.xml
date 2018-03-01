@@ -20,7 +20,6 @@
   <Dimension name="Geography">
     <Annotations>
       <Annotation name="index_as">geo</Annotation>
-      <Annotation name="foo">bar</Annotation>
     </Annotations>
     <Hierarchy hasAll="true" primaryKey="id">
       <Table name="dim_comunas" schema="public"/>
@@ -884,7 +883,7 @@
 
     <Measure aggregator="sum" column="cif_value_usd" name="CIF US">
       <Annotations>
-        <Annotation name="es_element_caption">IMPORTACIONES (CIF US)</Annotation>
+        <Annotation name="es_element_caption">Importaciones (CIF USD)</Annotation>
         <Annotation name="es_format">XXX</Annotation>
       </Annotations>
     </Measure>
