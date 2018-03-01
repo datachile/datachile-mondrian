@@ -40,6 +40,7 @@
   <Dimension name="Country">
     <Annotations>
       <Annotation name="index_as">countries</Annotation>
+      <Annotation name="es_element_caption">País</Annotation>
     </Annotations>
     <Hierarchy hasAll="true" primaryKey="country_code">
       <Table name="dim_countries_new" schema="public"/>
@@ -64,6 +65,7 @@
     <Annotations>
       <Annotation name="index_as">products</Annotation>
       <Annotation name="index_max_depth">2</Annotation>
+      <Annotation name="es_element_caption">Sistema Harmonizado</Annotation>
     </Annotations>
     <Hierarchy hasAll="true" primaryKey="level5">
       <Table name="dim_hs2012" schema="economy"/>
@@ -139,6 +141,9 @@
 
 
   <Dimension name="Sex">
+    <Annotations>
+      <Annotation name="es_element_caption">Sexo</Annotation>
+    </Annotations>
     <Hierarchy hasAll="true" primaryKey="sex_id">
       <InlineTable alias="dim_sex">
         <ColumnDefs>
@@ -520,9 +525,11 @@
   </Dimension>
 
   <Dimension name="Age Range">
+    <Annotations>
+      <Annotation name="es_element_caption">Rango etario</Annotation>
+    </Annotations>
+
     <Hierarchy hasAll="true">
-
-
       <InlineTable alias="age_range">
 	      <ColumnDefs>
 	        <ColumnDef name="id" type="Numeric"/>
@@ -577,6 +584,10 @@
   </Dimension>
 
   <Dimension name="Zone">
+    <Annotations>
+      <Annotation name="es_element_caption">Zona</Annotation>
+    </Annotations>
+
     <Hierarchy hasAll="true">
       <InlineTable alias="zone">
         <ColumnDefs>
@@ -612,8 +623,11 @@
   </Dimension>
 
   <Dimension name="Administration">
-    <Hierarchy hasAll="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Tipo de administración</Annotation>
+    </Annotations>
       
+    <Hierarchy hasAll="true">
       <InlineTable alias="administration">
         <ColumnDefs>
           <ColumnDef name="id" type="Numeric"/>
@@ -664,6 +678,10 @@
   </Dimension>
 
   <Dimension name="Institution">
+    <Annotations>
+      <Annotation name="es_element_caption">Institución</Annotation>
+    </Annotations>
+
     <Hierarchy hasAll="true" primaryKey="institution_id">
       <Table name="dim_educational_institutions" schema="education"/>
       <Level column="institution_id" name="Institution" nameColumn="institution" uniqueMembers="true"/>
@@ -673,6 +691,10 @@
   <!-- Institutions from official directory: http://pacha.datawheel.us/datachile/education/establishments/analysis/2_performance/directorio_oficial_2016.csv
        XXX TODO this should become the only list of schools in chilecube. `Institution` (the dimension above this one) should be removed -->
   <Dimension name="Institution New">
+    <Annotations>
+      <Annotation name="es_element_caption">Institución</Annotation>
+    </Annotations>
+
     <Hierarchy hasAll="true" primaryKey="rbd" name="Institution">
       <Table name="dim_educational_institutions_new" schema="education"/>
       <Level column="cod_depe2" name="Administration" uniqueMembers="true">
@@ -689,6 +711,10 @@
   </Dimension>
 
   <Dimension name="Teaching">
+    <Annotations>
+      <Annotation name="es_element_caption">Tipo de Enseñanza</Annotation>
+    </Annotations>
+
     <Hierarchy hasAll="true" primaryKey="teaching_id">
       <Table name="dim_teachings" schema="education"/>
       <Level column="teaching_id" name="Teaching" nameColumn="teaching_en" uniqueMembers="true">
@@ -701,6 +727,10 @@
   </Dimension>
 
   <Dimension name="Election Type">
+    <Annotations>
+      <Annotation name="es_element_caption">Tipo de elección</Annotation>
+    </Annotations>
+
       <Hierarchy hasAll="true">
         <InlineTable alias="election">
           <ColumnDefs>
@@ -962,6 +992,10 @@
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
     <Dimension foreignKey="studies_id" name="Education">
+      <Annotations>
+        <Annotation name="es_element_caption">Educación</Annotation>
+      </Annotations>
+
       <Hierarchy hasAll="true">
         <InlineTable alias="education">
           <ColumnDefs>
@@ -1023,6 +1057,10 @@
     </Dimension>
 
     <Dimension foreignKey="activity_id" name="Activity">
+      <Annotations>
+        <Annotation name="es_element_caption">Actividad</Annotation>
+      </Annotations>
+
       <Hierarchy hasAll="true">
         <InlineTable alias="activity">
           <ColumnDefs>
@@ -1124,6 +1162,10 @@
     </Dimension>
 
     <Dimension foreignKey="visa_type_id" name="Visa Type">
+      <Annotations>
+        <Annotation name="es_element_caption">Tipo de Visa</Annotation>
+      </Annotations>
+
       <Hierarchy hasAll="true">
       	<InlineTable alias="visa_type">
           <ColumnDefs>
@@ -1189,6 +1231,10 @@
     </Dimension>
 
     <Dimension name="Calculated Age Range">
+      <Annotations>
+        <Annotation name="es_element_caption">Rango etario</Annotation>
+      </Annotations>
+
       <Hierarchy hasAll="true">
 
         <Level name="Age Range">
@@ -1321,6 +1367,10 @@
     <DimensionUsage foreignKey="CIIU_level1" name="ISICrev4" source="ISICrev4 Level 1"/>
 
     <Dimension foreignKey="org_juridica" name="Business Type">
+      <Annotations>
+        <Annotation name="es_element_caption">Tipo de negocio</Annotation>
+      </Annotations>
+
       <Hierarchy hasAll="true">
         <InlineTable alias="ownership_type">
           <ColumnDefs>
@@ -1391,6 +1441,10 @@
     </Dimension>
 
     <Dimension foreignKey="forma_propiedad" name="Ownership Type">
+      <Annotations>
+        <Annotation name="es_element_caption">Tipo de propiedad</Annotation>
+      </Annotations>
+
       <Hierarchy hasAll="true">
         <InlineTable alias="ownership_type">
           <ColumnDefs>
@@ -2096,6 +2150,10 @@
     <DimensionUsage foreignKey="election_id" name="Election Type" source="Election Type"/>
 
     <Dimension foreignKey="party_id" name="Party">
+      <Annotations>
+        <Annotation name="es_element_caption">Partido Político</Annotation>
+      </Annotations>
+
       <Hierarchy hasAll="true">
 	<Table name="dim_parties" schema="politics"/>
         <Level column="partido_id" name="Party" nameColumn="partido" uniqueMembers="true" />
@@ -2135,6 +2193,10 @@
     </Dimension>
 
     <Dimension foreignKey="candidate_id" name="Candidates">
+      <Annotations>
+        <Annotation name="es_element_caption">Candidatos</Annotation>
+      </Annotations>
+
       <Hierarchy hasAll="true" primaryKey="candidate_id">
         <Table name="dim_candidates" schema="politics"/>
         <Level column="candidate_id" name="Candidate" nameColumn="candidate" uniqueMembers="true"/>
@@ -2184,6 +2246,10 @@
     </Dimension>
 
     <Dimension foreignKey="coalition_id" name="Coalition">
+      <Annotations>
+        <Annotation name="es_element_caption">Coalición</Annotation>
+      </Annotations>
+
       <Hierarchy hasAll="true">
 
         <InlineTable alias="coalition_id">
@@ -2311,6 +2377,10 @@
     </Dimension>
 
     <Dimension foreignKey="elected" name="Elected">
+      <Annotations>
+        <Annotation name="es_element_caption">Electo</Annotation>
+      </Annotations>
+
       <Hierarchy hasAll="true">
 
         <InlineTable alias="party">
@@ -3111,8 +3181,11 @@
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
 
     <Dimension foreignKey="zone_id" name="Zone Id">
-      <Hierarchy hasAll="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Zona</Annotation>
+      </Annotations>
         
+      <Hierarchy hasAll="true">
         <InlineTable alias="zone_id">
           <ColumnDefs>
             <ColumnDef name="id" type="Numeric"/>
@@ -3144,8 +3217,11 @@
 
 
     <Dimension foreignKey="household_type" name="Household Type">
-      <Hierarchy hasAll="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Tipo de Casa</Annotation>
+      </Annotations>
         
+      <Hierarchy hasAll="true">
         <InlineTable alias="household_type">
           <ColumnDefs>
             <ColumnDef name="id" type="Numeric"/>
@@ -3216,6 +3292,10 @@
     </Dimension>
     
     <Dimension foreignKey="walls_material" name="Walls Material">
+      <Annotations>
+        <Annotation name="es_element_caption">Material de las paredes</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="walls_material">
@@ -3273,6 +3353,10 @@
     </Dimension>
     
     <Dimension foreignKey="floor_material" name="Floor Material">
+      <Annotations>
+        <Annotation name="es_element_caption">Material del piso</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="floor_material">
@@ -3330,6 +3414,10 @@
     </Dimension>
     
     <Dimension foreignKey="ceiling_material" name="Ceiling Material">
+      <Annotations>
+        <Annotation name="es_element_caption">Material del techo</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="ceiling_material">
@@ -3397,6 +3485,10 @@
     </Dimension>
     
     <Dimension foreignKey="households_in_land" name="Households In Land">
+      <Annotations>
+        <Annotation name="es_element_caption">Viviendas en el terreno</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="households_in_land">
@@ -3424,6 +3516,10 @@
     </Dimension>
     
     <Dimension foreignKey="land_using" name="Land Using">
+      <Annotations>
+        <Annotation name="es_element_caption">Condición del terreno</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="land_using">
@@ -3506,6 +3602,10 @@
     </Dimension>
     
     <Dimension foreignKey="household_sq_meters" name="Household Sq Meters">
+      <Annotations>
+        <Annotation name="es_element_caption">Área construída de la vivienda</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="household_sq_meters">
@@ -3563,6 +3663,10 @@
     </Dimension>
     
     <Dimension foreignKey="household_using" name="Household Using">
+      <Annotations>
+        <Annotation name="es_element_caption">Condición de la vivienda</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="household_using">
@@ -3645,6 +3749,10 @@
     </Dimension>
     
     <Dimension foreignKey="family_member_owner" name="Family Member Owner">
+      <Annotations>
+        <Annotation name="es_element_caption">Miembro familiar es dueño</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="family_member_owner">
@@ -3682,6 +3790,10 @@
     </Dimension>
     
     <Dimension foreignKey="family_member_owner_2" name="Family Member Owner 2">
+      <Annotations>
+        <Annotation name="es_element_caption">Miembro familiar dueño</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="family_member_owner_2">
@@ -3749,6 +3861,10 @@
     </Dimension>
     
     <Dimension foreignKey="subsidy_or_program" name="Subsidy Or Program">
+      <Annotations>
+        <Annotation name="es_element_caption">Subsidio o programa</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="subsidy_or_program">
@@ -3796,6 +3912,10 @@
     </Dimension>
     
     <Dimension foreignKey="credit" name="Credit">
+      <Annotations>
+        <Annotation name="es_element_caption">Financiamiento hipotecario</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="credit">
@@ -3853,6 +3973,10 @@
     </Dimension>
     
     <Dimension foreignKey="paying_credit" name="Paying Credit">
+      <Annotations>
+        <Annotation name="es_element_caption">Estado del pago hipotecario</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="paying_credit">
@@ -3900,6 +4024,10 @@
     </Dimension>
     
     <Dimension foreignKey="water_source" name="Water Source">
+      <Annotations>
+        <Annotation name="es_element_caption">Fuente del agua</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="water_source">
@@ -3962,6 +4090,10 @@
     </Dimension>
     
     <Dimension foreignKey="water_distribution" name="Water Distribution">
+      <Annotations>
+        <Annotation name="es_element_caption">Distribución del agua</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="water_distribution">
@@ -4004,6 +4136,10 @@
     </Dimension>
     
     <Dimension foreignKey="waste_disposal" name="Waste Disposal">
+      <Annotations>
+        <Annotation name="es_element_caption">Eliminación de desechos</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="waste_disposal">
@@ -4071,6 +4207,10 @@
     </Dimension>
     
     <Dimension foreignKey="electricity" name="Electricity">
+      <Annotations>
+        <Annotation name="es_element_caption">Fuente de electricidad</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="electricity">
@@ -4133,6 +4273,10 @@
     </Dimension>
     
     <Dimension foreignKey="rooms" name="Rooms">
+      <Annotations>
+        <Annotation name="es_element_caption">Habitaciones</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="rooms">
@@ -4160,6 +4304,10 @@
     </Dimension>
     
     <Dimension foreignKey="bathrooms" name="Bathrooms">
+      <Annotations>
+        <Annotation name="es_element_caption">Baños</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="bathrooms">
@@ -4187,6 +4335,10 @@
     </Dimension>
     
     <Dimension foreignKey="families_in_household" name="Families In Household">
+      <Annotations>
+        <Annotation name="es_element_caption">Familias en la vivienda</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="families_in_household">
@@ -4214,6 +4366,10 @@
     </Dimension>
     
     <Dimension foreignKey="reason_to_share" name="Reason To Share">
+      <Annotations>
+        <Annotation name="es_element_caption">Motivo del allegamiento</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         
         <InlineTable alias="reason_to_share">
@@ -4347,6 +4503,10 @@
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
     <Dimension foreignKey="age_range_id" name="Age Range">
+      <Annotations>
+        <Annotation name="es_element_caption">Rango etario</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         <InlineTable alias="age_range">
           <ColumnDefs>
@@ -4502,6 +4662,10 @@
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
 
     <Dimension foreignKey="health_system_id" name="Health System">
+      <Annotations>
+        <Annotation name="es_element_caption">Sistema de salud</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
         <InlineTable alias="health_system">
           <ColumnDefs>
@@ -4606,12 +4770,14 @@
         <Level column="group_id" name="Health System Group" nameColumn="group_description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
+            <Annotation name="es_element_caption">Grupo</Annotation>
           </Annotations>
           <Property column="group_es_description" name="Description ES"/>
         </Level>
         <Level column="id" name="Health System" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
+            <Annotation name="es_element_caption">Subgrupo</Annotation>
           </Annotations>
           <Property column="es_description" name="Description ES"/>
         </Level>
@@ -4856,8 +5022,11 @@
     <DimensionUsage foreignKey="sex" name="Sex" source="Sex"/>
     
     <Dimension foreignKey="disability_grade" name="Disability Grade">
-      <Hierarchy hasAll="true">
+      <Annotations>
+        <Annotation name="es_element_caption">Grado de discapacidad</Annotation>
+      </Annotations>
 
+      <Hierarchy hasAll="true">
         <InlineTable alias="disability_grade">
           <ColumnDefs>
             <ColumnDef name="id" type="Numeric"/>
@@ -4919,6 +5088,10 @@
     <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
     
     <Dimension foreignKey="felony_id" name="Crime">
+      <Annotations>
+        <Annotation name="es_element_caption">Crimen</Annotation>
+      </Annotations>
+        
       <Hierarchy hasAll="true">
 
         <InlineTable alias="felony_es">
