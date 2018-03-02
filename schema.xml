@@ -863,71 +863,95 @@
 
     <Dimension name="Date">
       <Hierarchy hasAll="true">
-
         <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
       </Hierarchy>
     </Dimension>
 
     <DimensionUsage caption="Destination Country" foreignKey="country_code" name="Destination Country" source="Country"/>
-
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
-
     <DimensionUsage foreignKey="hs12" name="Export HS" source="HS"/>
-    <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
 
+    <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
     <DimensionUsage caption="Country" foreignKey="country_code" name="Country" source="Country"/>
+
     <Measure aggregator="sum" column="fob_value_usd" name="FOB US" caption="Exports (USD FOB)">
       <Annotations>
         <Annotation name="es_element_caption">Exportaciones (FOB USD)</Annotation>
         <Annotation name="es_format">XXX</Annotation>
       </Annotations>
-
     </Measure>
+
     <CalculatedMember dimension="Measures" name="Geo Rank">
-      <Formula><![CDATA[IIf(IsEmpty([Measures].[FOB US]),
+      <Formula>
+        <![CDATA[IIf(IsEmpty([Measures].[FOB US]),
                  Null,
                  Rank([Geography].CurrentMember,
                  Order([Geography].CurrentMember.Siblings,
-                 Measures.[FOB US], BDESC)))]]></Formula>
+                 Measures.[FOB US], BDESC)))]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="Geo Rank Across Time">
       <Annotations>
         <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
       </Annotations>
 
-      <Formula><![CDATA[Iif(IsEmpty([Measures].[FOB US]),
+      <Formula>
+        <![CDATA[Iif(IsEmpty([Measures].[FOB US]),
                  Null,
                  Rank([Geography].CurrentMember,
                  Order([Geography].CurrentMember.Siblings,
                  Aggregate({[Date].CurrentMember}*{[Destination Country].[All Countrys]}*{[Export HS].[All HSs]},
                  [Measures].[FOB US]),
-                 BDESC)))]]></Formula>
+                 BDESC)))]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="HS Rank">
-      <Formula><![CDATA[Rank([Export HS].CurrentMember,
+      <Formula>
+        <![CDATA[Rank([Export HS].CurrentMember,
                  Order([Export HS].CurrentMember.Level.Members,
-                 Measures.[FOB US], BDESC))]]></Formula>
+                 Measures.[FOB US], BDESC))]]>
+      </Formula>
     </CalculatedMember>
+    
     <CalculatedMember dimension="Measures" name="HS Rank Decile" visible="true">
-      <Formula><![CDATA[((count([Export HS].CurrentMember.Level.Members)-Measures.[HS Rank]+1) * 10) / count([Export HS].CurrentMember.Level.Members)]]></Formula>
+      <Formula>
+        <![CDATA[((count([Export HS].CurrentMember.Level.Members)-Measures.[HS Rank]+1) * 10) / count([Export HS].CurrentMember.Level.Members)]]>
+      </Formula>
     </CalculatedMember>
+    
     <CalculatedMember dimension="Measures" name="HS Rank Total" visible="true">
-      <Formula><![CDATA[count([Export HS].CurrentMember.Level.Members)]]></Formula>
+      <Formula>
+        <![CDATA[count([Export HS].CurrentMember.Level.Members)]]>
+      </Formula>
     </CalculatedMember>
+    
     <CalculatedMember dimension="Measures" name="Exports for year (sum_c_p_xcp)" visible="true">
       <!-- all geos, all products, current year -->
-      <Formula><![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].[All HSs], [Geography].[Geography].[All Geographys])]]></Formula>
+      <Formula>
+        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].[All HSs], [Geography].[Geography].[All Geographys])]]>
+      </Formula>
     </CalculatedMember>
+    
     <CalculatedMember dimension="Measures" name="Exports for Geography and year (sum_p_xcp)" visible="false">
       <!-- all products, current geo, current year -->
-      <Formula><![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].[All HSs], [Geography].[Geography].CurrentMember)]]></Formula>
+      <Formula>
+        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].[All HSs], [Geography].[Geography].CurrentMember)]]>
+      </Formula>
     </CalculatedMember>
+    
     <CalculatedMember dimension="Measures" name="Exports for Product and year (sum_c_xcp)" visible="false">
       <!-- all geos, current product, current year -->
-      <Formula><![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].CurrentMember, [Geography].[Geography].[All Geographys])]]></Formula>
+      <Formula>
+        <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].CurrentMember, [Geography].[Geography].[All Geographys])]]>
+      </Formula>
     </CalculatedMember>
+    
     <CalculatedMember dimension="Measures" name="Exports RCA">
-      <Formula><![CDATA[(Measures.[FOB US] / Measures.[Exports for Product and year (sum_c_xcp)]) / (Measures.[Exports for Geography and year (sum_p_xcp)] / Measures.[Exports for year (sum_c_p_xcp)]) ]]></Formula>
+      <Formula>
+        <![CDATA[(Measures.[FOB US] / Measures.[Exports for Product and year (sum_c_xcp)]) / (Measures.[Exports for Geography and year (sum_p_xcp)] / Measures.[Exports for year (sum_c_p_xcp)]) ]]>
+      </Formula>
     </CalculatedMember>
   </Cube>
 
@@ -950,38 +974,38 @@
 
     <Dimension name="Date">
       <Hierarchy hasAll="true">
-
         <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
       </Hierarchy>
     </Dimension>
 
-    <DimensionUsage caption="Origin Country" foreignKey="country_code" name="Origin Country" source="Country"/>
-
+    <DimensionUsage foreignKey="country_code" name="Origin Country" caption="Origin Country" source="Country"/>
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
-
     <DimensionUsage foreignKey="hs12" name="Import HS" source="HS"/>
-    <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
 
+    <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
     <DimensionUsage caption="Country" foreignKey="country_code" name="Country" source="Country"/>
+
     <Measure aggregator="sum" column="cif_value_usd" name="CIF US">
       <Annotations>
         <Annotation name="es_element_caption">Importaciones (CIF USD)</Annotation>
         <Annotation name="es_format">XXX</Annotation>
       </Annotations>
-
     </Measure>
+
     <CalculatedMember dimension="Measures" name="Geo Rank Across Time">
       <Annotations>
         <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
       </Annotations>
 
-      <Formula><![CDATA[Iif(IsEmpty([Measures].[CIF US]),
+      <Formula>
+        <![CDATA[Iif(IsEmpty([Measures].[CIF US]),
                  Null,
                  Rank([Geography].CurrentMember,
                  Order([Geography].CurrentMember.Siblings,
                  Aggregate({[Date].CurrentMember}*{[Origin Country].[All Countrys]}*{[Import HS].[All HSs]},
                  [Measures].[CIF US]),
-                 BDESC)))]]></Formula>
+                 BDESC)))]]>
+      </Formula>
     </CalculatedMember>
   </Cube>
 
@@ -1001,28 +1025,29 @@
     </View>
 
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-
-    <DimensionUsage caption="Origin Country" foreignKey="country_origin_id" name="Origin Country" source="Country"/>
-
+    <DimensionUsage foreignKey="country_origin_id" name="Origin Country" caption="Origin Country" source="Country"/>
     <DimensionUsage foreignKey="importer_comuna_id" name="Geography" source="Geography"/>
-
     <DimensionUsage foreignKey="hs_6digits" name="Import HS" source="HS"/>
-    <!-- duplicate of dimension `Origin Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
 
+    <!-- duplicate of dimension `Origin Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
     <DimensionUsage caption="Country" foreignKey="country_origin_id" name="Country" source="Country"/>
+
     <Measure aggregator="sum" column="cif_us" name="CIF US"/>
+
     <CalculatedMember dimension="Measures" name="Geo Rank Across Time">
       <Annotations>
         <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
       </Annotations>
 
-      <Formula><![CDATA[Iif(IsEmpty([Measures].[CIF US]),
+      <Formula>
+        <![CDATA[Iif(IsEmpty([Measures].[CIF US]),
                  Null,
                  Rank([Geography].CurrentMember,
                  Order([Geography].CurrentMember.Siblings,
                  Aggregate({[Date].CurrentMember}*{[Origin Country].[All Countrys]}*{[Import HS].[All HSs]},
                  [Measures].[CIF US]),
-                 BDESC)))]]></Formula>
+                 BDESC)))]]>
+      </Formula>
     </CalculatedMember>
   </Cube>
 
@@ -1040,15 +1065,12 @@
 
     <Dimension name="Date">
       <Hierarchy hasAll="true">
-
         <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
       </Hierarchy>
     </Dimension>
 
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
-
     <DimensionUsage caption="Origin Country" foreignKey="country_code" name="Origin Country" source="Country"/>
-
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
     <Dimension foreignKey="studies_id" name="Education">
@@ -1328,24 +1350,24 @@
                        when age BETWEEN 30 AND 64 then '30-64'
                        when age >= 65 then '65-110'
                        end)]]>
-                      </SQL>
+            </SQL>
           </NameExpression>
         </Level>
       </Hierarchy>
     </Dimension>
+
     <Measure aggregator="count" column="birth_date" name="Number of visas">
       <Annotations>
         <Annotation name="es_element_caption">Cantidad de visas entregadas</Annotation>
         <Annotation name="es_format">XXX</Annotation>
       </Annotations>
-
     </Measure>
+
     <Measure aggregator="avg" column="age" name="Average Age">
       <Annotations>
         <Annotation name="es_element_caption">Edad promedio según visas entregadas</Annotation>
         <Annotation name="es_format">XXX</Annotation>
       </Annotations>
-
     </Measure>
   </Cube>
 
@@ -1368,42 +1390,62 @@
 
     <Dimension name="Date">
       <Hierarchy hasAll="true">
-
         <Level column="the_year" nameColumn="the_year" name="Year" uniqueMembers="true"/>
       </Hierarchy>
     </Dimension>
 
     <DimensionUsage foreignKey="comuna_id" name="Tax Geography" source="Geography"/>
-
     <DimensionUsage foreignKey="ciiu4_ori" name="ISICrev4" source="ISICrev4"/>
+
     <Measure aggregator="sum" column="output" name="Output"/>
     <Measure aggregator="sum" column="labour" name="Labour"/>
     <Measure aggregator="sum" column="labour_cost" name="Labour Cost"/>
     <Measure aggregator="sum" column="investment" name="Investment"/>
     <Measure aggregator="sum" column="intermediates" name="Intermediates"/>
+
     <CalculatedMember dimension="Measures" name="Value Added">
-      <Formula><![CDATA[[Measures].[Output] - [Measures].[Intermediates]]]></Formula>
+      <Formula>
+        <![CDATA[[Measures].[Output] - [Measures].[Intermediates]]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="Production per worker">
-      <Formula><![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Output]/[Measures].[Labour], Null)]]></Formula>
+      <Formula>
+        <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Output]/[Measures].[Labour], Null)]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="Value added per worker">
-      <Formula><![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Value Added] / [Measures].[Labour], Null)]]></Formula>
+      <Formula>
+        <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Value Added] / [Measures].[Labour], Null)]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="Output for year (sum_c_p_xcp)" visible="false">
       <!-- all geos, all industries, current year -->
-      <Formula><![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].[All Geographys])]]></Formula>
+      <Formula>
+        <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].[All Geographys])]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="Output for Geography and year (sum_p_xcp)" visible="false">
       <!-- all industries, current geo, current year -->
-      <Formula><![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].CurrentMember)]]></Formula>
+      <Formula>
+        <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].CurrentMember)]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="Output for Industry and year (sum_c_xcp)" visible="false">
       <!-- all geos, current industry, current year -->
-      <Formula><![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].CurrentMember, [Tax Geography].[Geography].[All Geographys])]]></Formula>
+      <Formula>
+        <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].CurrentMember, [Tax Geography].[Geography].[All Geographys])]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="Output RCA">
-      <Formula><![CDATA[(Measures.[Output] / Measures.[Output for Industry and year (sum_c_xcp)]) / (Measures.[Output for Geography and year (sum_p_xcp)] / Measures.[Output for year (sum_c_p_xcp)]) ]]></Formula>
+      <Formula>
+        <![CDATA[(Measures.[Output] / Measures.[Output for Industry and year (sum_c_xcp)]) / (Measures.[Output for Geography and year (sum_p_xcp)] / Measures.[Output for year (sum_c_p_xcp)]) ]]>
+      </Formula>
     </CalculatedMember>
   </Cube>
 
@@ -1419,9 +1461,7 @@
     <Table name="fact_rd_survey" schema="public"/>
 
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-
-    <DimensionUsage caption="Headquarters Country" foreignKey="headquarters_country_id" name="Headquarters Country" source="Country"/>
-
+    <DimensionUsage foreignKey="headquarters_country_id" name="Headquarters Country" caption="Headquarters Country" source="Country"/>
     <DimensionUsage foreignKey="CIIU_level1" name="ISICrev4" source="ISICrev4 Level 1"/>
 
     <Dimension foreignKey="org_juridica" name="Business Type">
@@ -1545,9 +1585,11 @@
         </Level>
       </Hierarchy>
     </Dimension>
+
     <Measure aggregator="sum" column="ventas" name="sales" visible="true"/>
     <Measure aggregator="sum" column="exportaciones" name="exports" visible="true"/>
     <Measure aggregator="sum" column="gasto_total" name="Total Spending" visible="true"/>
+    
     <!-- expenditure by region -->
     <Measure aggregator="sum" column="gasto_XV_ARICA" name="gasto_region_15" visible="true"/>
     <Measure aggregator="sum" column="gasto_I_TARAPACA" name="gasto_region_1" visible="true"/>
@@ -1564,6 +1606,7 @@
     <Measure aggregator="sum" column="gasto_XI_AYSEN" name="gasto_region_11" visible="true"/>
     <Measure aggregator="sum" column="gasto_XII_MAGALLANES" name="gasto_region_12" visible="true"/>
     <Measure aggregator="sum" column="gasto_XIII_METROPOLITANA" name="gasto_region_13" visible="true"/>
+
     <!-- staff by region -->
     <Measure aggregator="sum" column="personal_72" name="staff_region_15" visible="true"/>
     <Measure aggregator="sum" column="personal_73" name="staff_region_1" visible="true"/>
@@ -1600,17 +1643,11 @@
     </View>
 
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
-
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
-
     <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range"/>
-
     <DimensionUsage foreignKey="isco_id" name="ISCO" source="ISCO"/>
-
     <DimensionUsage foreignKey="icse_id" name="ICSE" source="ICSE"/>
-
     <DimensionUsage foreignKey="isced_id" name="ISCED" source="ISCED"/>
 
     <Dimension foreignKey="occupation_id" name="Occupation Length">
@@ -1684,7 +1721,6 @@
 
     <Dimension name="Income Range">
       <Hierarchy hasAll="true">
-
         <Level name="Income Range">
           <KeyExpression>
             <SQL>
@@ -1700,7 +1736,7 @@
                        when income BETWEEN 1928001 AND 2169000 then '09'
                        when income >= 2169001 then '10'
                        end)]]>
-                      </SQL>
+            </SQL>
           </KeyExpression>
           <NameExpression>
             <SQL>
@@ -1716,11 +1752,12 @@
                        when income BETWEEN 1928001 AND 2169000 then '1928001-2169000'
                        when income >= 2169001 then '+2169001'
                        end)]]>
-                      </SQL>
+            </SQL>
           </NameExpression>
         </Level>
       </Hierarchy>
     </Dimension>
+
     <Measure aggregator="sum" column="income" name="Income" visible="true"/>
     <Measure aggregator="sum" column="weight" name="Expansion Factor" visible="true"/>
     <Measure aggregator="sum" column="weighted_income" name="Income weighted" visible="false"/>
@@ -1731,16 +1768,24 @@
     </Measure>
     <Measure aggregator="sum" column="weighted_income" name="Weighted Income" visible="true"/>
     <CalculatedMember dimension="Measures" name="Weighted Median Income Rank" visible="true">
-      <Formula><![CDATA[Rank([Geography].CurrentMember,
+      <Formula>
+        <![CDATA[Rank([Geography].CurrentMember,
                  Order(Geography.CurrentMember.Level.Members,
                  Measures.[Median Income], BDESC))
-        ]]></Formula>
+        ]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="Weighted Median Income Decile" visible="true">
-      <Formula><![CDATA[((count(Geography.CurrentMember.Level.Members)-Measures.[Weighted Median Income Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)]]></Formula>
+      <Formula>
+        <![CDATA[((count(Geography.CurrentMember.Level.Members)-Measures.[Weighted Median Income Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="Weighted Median Income Total" visible="true">
-      <Formula><![CDATA[count(Geography.CurrentMember.Level.Members)]]></Formula>
+      <Formula>
+        <![CDATA[count(Geography.CurrentMember.Level.Members)]]>
+      </Formula>
     </CalculatedMember>
   </Cube>
   <!-- / NESI -->
@@ -1757,24 +1802,16 @@
     <Table name="fact_internet_access_survey" schema="environment"/>
 
     <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography"/>
-
     <DimensionUsage foreignKey="zone_id" name="Zone" source="Zone"/>
-
     <DimensionUsage caption="Internet Plan" foreignKey="internet_plan_id" name="Internet Plan" source="Binary Survey Response"/>
-
     <DimensionUsage caption="Home Access" foreignKey="home_access_id" name="Home Access" source="Binary Survey Response"/>
-
     <DimensionUsage caption="Desktop Access" foreignKey="desktop_access_id" name="Desktop Access" source="Binary Survey Response"/>
-
     <DimensionUsage caption="Laptop Access" foreignKey="laptop_access_id" name="Laptop Access" source="Binary Survey Response"/>
-
     <DimensionUsage caption="Tablet Access" foreignKey="tablet_access_id" name="Tablet Access" source="Binary Survey Response"/>
-
     <DimensionUsage caption="Cellphone Access" foreignKey="cellphone_access_id" name="Cellphone Access" source="Binary Survey Response"/>
-
     <DimensionUsage caption="Games or Consoles Access" foreignKey="games_consoles_access_id" name="Games or Consoles Access" source="Binary Survey Response"/>
-
     <DimensionUsage caption="TV Access" foreignKey="tv_access_id" name="TV Access" source="Binary Survey Response"/>
+
     <Measure aggregator="count" column="region_id" name="Number of records" visible="true"/>
     <Measure aggregator="sum" column="weights" name="Expansion factor" visible="true"/>
   </Cube>
@@ -1793,9 +1830,7 @@
 
     <Dimension name="Date">
       <Hierarchy hasAll="true">
-
         <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
-
         <Level column="moving_quarter" nameColumn="moving_quarter" name="Moving Quarter" uniqueMembers="true"/>
       </Hierarchy>
     </Dimension>
@@ -2047,44 +2082,49 @@
     </Dimension>
 
     <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography"/>
-
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
-
     <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range"/>
-
     <DimensionUsage foreignKey="isced_id" name="ISCED" source="ISCED"/>
-
     <DimensionUsage foreignKey="icse_id" name="ICSE" source="ICSE"/>
-
     <DimensionUsage foreignKey="isco_id" name="ISCO" source="ISCO"/>
+
     <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
     <Measure aggregator="sum" column="weights" name="Internal Expansion factor" visible="false"/>
+
     <CalculatedMember dimension="Measures" name="Expansion factor" visible="true">
-      <Formula><![CDATA[IIF(Date.CurrentMember.Level.Name = 'Year',
+      <Formula>
+        <![CDATA[IIF(Date.CurrentMember.Level.Name = 'Year',
                  (
                    [Measures].[Internal Expansion factor],
                    LastNonEmpty(Descendants([Date].CurrentMember, Date.Date.[Moving Quarter]),
                                [Measures].[Internal Expansion Factor])
                  ),
-                 [Measures].[Internal Expansion factor])]]></Formula>
+                 [Measures].[Internal Expansion factor])]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="Number of records Decile" visible="true">
-      <Formula><![CDATA[IIF(Date.CurrentMember.Level is Date.Date.Year,
+      <Formula>
+        <![CDATA[IIF(Date.CurrentMember.Level is Date.Date.Year,
                  (
                  [Measures].[Number of records],
                  LastNonEmpty(Descendants([Date].CurrentMember, Date.Date.[Moving Quarter]),
                  [Measures].[Number of records])
                  ),
-                 [Measures].[Number of records])]]></Formula>
+                 [Measures].[Number of records])]]>
+      </Formula>
     </CalculatedMember>
+
     <CalculatedMember dimension="Measures" name="Expansion Factor Decile" visible="true">
-      <Formula><![CDATA[IIF(Date.CurrentMember.Level.Name = 'Year',
+      <Formula>
+        <![CDATA[IIF(Date.CurrentMember.Level.Name = 'Year',
                  (
                    [Measures].[Expansion factor],
                    LastNonEmpty(Descendants([Date].CurrentMember, Date.Date.[Moving Quarter]),
                                [Measures].[Expansion Factor])
                  ),
-                 [Measures].[Expansion factor])]]></Formula>
+                 [Measures].[Expansion factor])]]>
+      </Formula>
     </CalculatedMember>
   </Cube>
   <!-- / NENE -->
@@ -2102,14 +2142,11 @@
     <View alias="fact_psu">
       <SQL dialect="generic"><![CDATA[(SELECT
       *, ((language_test + math_test) / 2) as avg_individual from education.fact_psu
-      )]]>
-    </SQL>
+      )]]></SQL>
     </View>
 
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
-
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
     <Dimension name="Calculated PSU Bucket">
@@ -2206,9 +2243,7 @@
     </Dimension>
 
     <DimensionUsage foreignKey="comuna_datachile_id" name="GeographyC" source="Geography"/>
-
     <DimensionUsage foreignKey="region_id" source="Geography Region" name="GeographyR"/>
-
     <DimensionUsage foreignKey="election_id" name="Election Type" source="Election Type"/>
 
     <Dimension foreignKey="party_id" name="Party">
@@ -2915,6 +2950,7 @@
         </Level>
       </Hierarchy>
     </Dimension>
+
     <Measure aggregator="count" column="higher_educational_institution_id" name="Number of records" visible="true"/>
     <Measure aggregator="avg" column="subsidized_percent" name="Avg subsidized" visible="true"/>
     <Measure aggregator="avg" column="first_year_retention" name="Avg Retention 1st year" visible="true"/>
@@ -2945,7 +2981,6 @@
     </Dimension>
 
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
-
     <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
 
     <Dimension foreignKey="cluster_id" name="Cluster">
@@ -4574,13 +4609,11 @@
 
     <Dimension name="Date">
       <Hierarchy hasAll="true">
-
         <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
       </Hierarchy>
     </Dimension>
 
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
-
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
     <Dimension foreignKey="age_range_id" name="Age Range">
@@ -4874,6 +4907,7 @@
     <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
     <Measure aggregator="sum" column="expr" name="Expansion Factor Region" visible="true"/>
     <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
+
     <CalculatedMember dimension="Measures" name="Expansion Factor">
       <Annotations>
         <Annotation name="es_element_caption">Cobertura de salud: Factor de expansión</Annotation>
@@ -4991,10 +5025,9 @@
     <Table name="fact_life_expectancy" schema="health"/>
 
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-
     <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography"/>
-
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+
     <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
     <Measure aggregator="avg" column="life_expectancy" name="Life Expectancy AVG" visible="true"/>
     <Measure aggregator="avg" column="mortality_rate_per_100_inhabitants" name="Mortality rate per 100 inhabitants AVG" visible="true"/>
@@ -5014,9 +5047,7 @@
     <Table name="fact_death_causes" schema="health"/>
 
     <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
-
     <DimensionUsage foreignKey="region_id" name="Geography" source="Geography Region"/>
-
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
     <Dimension foreignKey="cie_10_id" name="CIE 10">
