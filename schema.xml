@@ -783,6 +783,7 @@
       <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
       <Annotation name="topic">economy</Annotation>
+      <Annotation name="available_dimensions">Destination Country,Export HS</Annotation>
     </Annotations>
 
     <!-- Table name="fact_exports" schema="economy"/ -->
@@ -887,6 +888,7 @@
       <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
       <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
       <Annotation name="topic">economy</Annotation>
+      <Annotation name="available_dimensions">Origin Country,Import HS</Annotation>
     </Annotations>
 
     <!-- Table name="fact_imports" schema="economy" / -->
@@ -978,6 +980,7 @@
       <Annotation name="source_name">Estadísticas de Migración — Departamento de Extranjería y Migración</Annotation>
       <Annotation name="source_link">http://www.extranjeria.gob.cl/estadisticas-migratorias/</Annotation>
       <Annotation name="topic">demography</Annotation>
+      <Annotation name="available_dimensions">Origin Country,Sex,Education,Activity,Visa Type,Calculated Age Range,</Annotation>
     </Annotations>
     <Table name="fact_immigration_records" schema="demographics"/>
 
@@ -1708,7 +1711,7 @@
     <Measure aggregator="sum" column="weights" name="Expansion factor" visible="true"/>
   </Cube>
 
-  <!-- NENE QUARTER PALA-->
+  <!-- NENE QUARTER-->
   <Cube name="nene_quarter">
     <Annotations>
       <Annotation name="source_name">Encuesta Nacional de Empleo — INE</Annotation>
@@ -2126,89 +2129,6 @@
 
   <!-- / PSU -->
 
-  <!-- Electoral data cube -->
-
-  <Cube name="election_results">
-    <Annotations>
-      <Annotation name="source_name">Resultados Electorales - SERVEL</Annotation>
-      <Annotation name="source_link">https://www.servel.cl/</Annotation>
-      <Annotation name="topic">civics</Annotation>
-    </Annotations>
-
-    <Table name="fact_election_results" schema="politics"/>
-    
-    <Dimension name="Date">
-      <Hierarchy hasAll="true">
-        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
-      </Hierarchy>
-    </Dimension>
-
-    <DimensionUsage foreignKey="comuna_datachile_id" name="GeographyC" source="Geography"/>
-
-    <DimensionUsage foreignKey="region_id" source="Geography Region" name="GeographyR" />
-
-    <DimensionUsage foreignKey="election_id" name="Election Type" source="Election Type"/>
-
-    <Dimension foreignKey="party_id" name="Party">
-      <Annotations>
-        <Annotation name="es_element_caption">Partido Político</Annotation>
-      </Annotations>
-
-      <Hierarchy hasAll="true">
-	<Table name="dim_parties" schema="politics"/>
-        <Level column="partido_id" name="Party" nameColumn="partido" uniqueMembers="true" />
-      </Hierarchy>
-    </Dimension>
-
-    <Dimension foreignKey="elected" name="Elected">
-      <Hierarchy hasAll="true">
-
-        <InlineTable alias="party">
-          <ColumnDefs>
-            <ColumnDef name="id" type="Numeric"/>
-            <ColumnDef name="description" type="String"/>
-            <ColumnDef name="es_description" type="String"/>
-          </ColumnDefs>
-          <Rows>
-            <Row>
-              <Value column="id">1</Value>
-              <Value column="description">Elected authority</Value>
-              <Value column="es_description">Autoridad electa</Value>
-            </Row>
-            <Row>
-              <Value column="id">0</Value>
-              <Value column="description">Non-elected candidate</Value>
-              <Value column="es_description">Candidato no electo</Value>
-            </Row>
-          </Rows>
-        </InlineTable>
-        
-        <Level column="id" name="Elected" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-          <Property column="es_description" name="Description ES"/>
-        </Level>
-      </Hierarchy>
-    </Dimension>
-
-    <Dimension foreignKey="candidate_id" name="Candidates">
-      <Annotations>
-        <Annotation name="es_element_caption">Candidatos</Annotation>
-      </Annotations>
-
-      <Hierarchy hasAll="true" primaryKey="candidate_id">
-        <Table name="dim_candidates" schema="politics"/>
-        <Level column="candidate_id" name="Candidate" nameColumn="candidate" uniqueMembers="true"/>
-      </Hierarchy>
-    </Dimension>
-
-    <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
-    <Measure aggregator="max" column="votes" name="Votes" visible="true"/>
-
-  </Cube>
-
-  <!-- / Electoral data cube -->
 
   <!-- Electoral data update cube -->
 
@@ -2217,6 +2137,7 @@
       <Annotation name="source_name">Resultados Electorales - SERVEL</Annotation>
       <Annotation name="source_link">https://www.servel.cl/</Annotation>
       <Annotation name="topic">civics</Annotation>
+      <Annotation name="available_dimensions">Election Type,Party,Candidates,Coalition,Elected</Annotation>
     </Annotations>
 
     <Table name="fact_election_results_update" schema="politics"/>
@@ -2431,6 +2352,7 @@
       <Annotation name="source_name">Participación Electoral - SERVEL</Annotation>
       <Annotation name="source_link">https://www.servel.cl/</Annotation>
       <Annotation name="topic">civics</Annotation>
+      <Annotation name="available_dimensions">Election Type</Annotation>
     </Annotations>
 
     <Table name="fact_election_participation" schema="politics"/>
@@ -2480,6 +2402,7 @@
       <Annotation name="source_name">Matricula escolar - MINEDUC</Annotation>
       <Annotation name="source_link">http://datosabiertos.mineduc.cl/informacion-investigadores-establecimientos/</Annotation>
       <Annotation name="topic">education</Annotation>
+      <Annotation name="available_dimensions">Sex,Zone,Administration,Institutions,Teachings</Annotation>
     </Annotations>
 
     <Table name="fact_enrollment" schema="education"/>
@@ -3173,6 +3096,8 @@
       <Annotation name="source_name">Encuesta CASEN</Annotation>
       <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
       <Annotation name="topic">environment</Annotation>
+      PALA
+      <Annotation name="available_dimensions">Zone Id,Household Type,Walls Material,Floor Material,Ceiling Material,Land Using,Household Sq Meters,Household Using,Subsidy Or Program,Credit,Paying Credit,Water Source,Water Distribution,Waste Disposal,Electricity</Annotation>
     </Annotations>
 
     <Table name="fact_household_casen" schema="environment"/>
@@ -3927,8 +3852,8 @@
           <Rows>
             <Row>
               <Value column="id">1</Value>
-              <Value column="description">sí, serviu (sílo viviendas adquiridas desde 1977 hasta 2001)</Value>
-              <Value column="es_description">sí, serviu (sílo viviendas adquiridas desde 1977 hasta 2001)</Value>
+              <Value column="description">sí, serviu (sólo viviendas adquiridas desde 1977 hasta 2001)</Value>
+              <Value column="es_description">sí, serviu (sólo viviendas adquiridas desde 1977 hasta 2001)</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
@@ -4488,6 +4413,7 @@
       <Annotation name="source_name">INE - Demográficas y Vitales</Annotation>
       <Annotation name="source_link">http://www.ine.cl/estadisticas/demograficas-y-vitales</Annotation>
       <Annotation name="topic">demography</Annotation>
+      <Annotation name="available_dimensions">Sex,Age Range</Annotation>
     </Annotations>
 
     <!-- http://www.ine.cl/estadisticas/demograficas-y-vitales -->
@@ -4650,6 +4576,7 @@
       <Annotation name="source_name">Encuesta CASEN</Annotation>
       <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
       <Annotation name="topic">health</Annotation>
+      <Annotation name="available_dimensions">Health System</Annotation>
     </Annotations>
 
     <Table name="fact_health_system_casen" schema="health"/>
@@ -4845,6 +4772,7 @@
       <Annotation name="source_name">Indicadores de Acceso a la Salud - DEIS Ministerio de Salud</Annotation>
       <Annotation name="source_link">http://www.deis.cl/</Annotation>
       <Annotation name="topic">health</Annotation>
+      <Annotation name="available_dimensions"></Annotation>
     </Annotations>
 
     <Table name="fact_health_access" schema="health"/>
