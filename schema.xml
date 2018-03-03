@@ -1843,6 +1843,7 @@
             <ColumnDef name="description" type="String"/>
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
+          <!-- TODO: translate -->
           <Rows>
             <Row>
               <Value column="id">0</Value>
@@ -2817,6 +2818,7 @@
             <ColumnDef name="description" type="String"/>
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
+          <!-- TODO: rename nan -->
           <Rows>
             <Row>
               <Value column="id">0</Value>
@@ -3156,6 +3158,7 @@
             <ColumnDef name="description" type="String"/>
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
+          <!-- TODO: translate -->
           <Rows>
             <Row>
               <Value column="id">0</Value>
@@ -3198,6 +3201,7 @@
             <ColumnDef name="description" type="String"/>
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
+          <!-- TODO: rename nan -->
           <Rows>
             <Row>
               <Value column="id">0</Value>
@@ -3235,6 +3239,7 @@
             <ColumnDef name="description" type="String"/>
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
+          <!-- TODO: rename nan -->
           <Rows>
             <Row>
               <Value column="id">0</Value>
@@ -3415,6 +3420,7 @@
             <ColumnDef name="description" type="String"/>
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
+          <!-- TODO: translate -->
           <Rows>
             <Row>
               <Value column="id">1</Value>
@@ -3479,38 +3485,38 @@
           <Rows>
             <Row>
               <Value column="id">1</Value>
-              <Value column="description">parquet, madera, piso flotante o similar</Value>
-              <Value column="es_description">parquet, madera, piso flotante o similar</Value>
+              <Value column="description">Parquet tiles, wooden floor, floating floor or similar</Value>
+              <Value column="es_description">Parquet, madera, piso flotante o similar</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
-              <Value column="description">cerรกmico, porcelanato, flexit o similar</Value>
-              <Value column="es_description">cerรกmico, porcelanato, flexit o similar</Value>
+              <Value column="description">Ceramic, porcelain, flexit or similar</Value>
+              <Value column="es_description">Cerámico, porcelanato, flexit o similar</Value>
             </Row>
             <Row>
               <Value column="id">3</Value>
-              <Value column="description">alfombra o cubrepiso</Value>
-              <Value column="es_description">alfombra o cubrepiso</Value>
+              <Value column="description">Carpet o floor coverings</Value>
+              <Value column="es_description">Alfombra o cubrepiso</Value>
             </Row>
             <Row>
               <Value column="id">4</Value>
-              <Value column="description">baldosa de cemento</Value>
-              <Value column="es_description">baldosa de cemento</Value>
+              <Value column="description">Cement tiles</Value>
+              <Value column="es_description">Baldosa de cemento</Value>
             </Row>
             <Row>
               <Value column="id">5</Value>
-              <Value column="description">radier</Value>
-              <Value column="es_description">radier</Value>
+              <Value column="description">Cement</Value>
+              <Value column="es_description">Radier</Value>
             </Row>
             <Row>
               <Value column="id">6</Value>
-              <Value column="description">tierra</Value>
-              <Value column="es_description">tierra</Value>
+              <Value column="description">Ground floor</Value>
+              <Value column="es_description">Tierra</Value>
             </Row>
             <Row>
               <Value column="id">7</Value>
               <Value column="description">No Data</Value>
-              <Value column="es_description">sin dato</Value>
+              <Value column="es_description">Sin información</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -3537,6 +3543,7 @@
             <ColumnDef name="description" type="String"/>
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
+          <!-- TODO: translate -->
           <Rows>
             <Row>
               <Value column="id">1</Value>
@@ -3581,7 +3588,7 @@
             <Row>
               <Value column="id">9</Value>
               <Value column="description">No Data</Value>
-              <Value column="es_description">sin dato</Value>
+              <Value column="es_description">Sin información</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -3612,7 +3619,7 @@
             <Row>
               <Value column="id">1</Value>
               <Value column="description">No Data</Value>
-              <Value column="es_description">sin dato</Value>
+              <Value column="es_description">Sin información</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -3642,13 +3649,13 @@
           <Rows>
             <Row>
               <Value column="id">1</Value>
-              <Value column="description">propio pagado</Value>
-              <Value column="es_description">propio pagado</Value>
+              <Value column="description">Own, paid</Value>
+              <Value column="es_description">Propio pagado</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
-              <Value column="description">propio pagándose</Value>
-              <Value column="es_description">propio pagándose</Value>
+              <Value column="description">Own, in payment</Value>
+              <Value column="es_description">Propio pagándose</Value>
             </Row>
             <Row>
               <Value column="id">3</Value>
@@ -3662,43 +3669,43 @@
             </Row>
             <Row>
               <Value column="id">5</Value>
-              <Value column="description">arrendado con contrato</Value>
-              <Value column="es_description">arrendado con contrato</Value>
+              <Value column="description">Leased with contract</Value>
+              <Value column="es_description">Arrendado con contrato</Value>
             </Row>
             <Row>
               <Value column="id">6</Value>
-              <Value column="description">arrendado sin contrato</Value>
-              <Value column="es_description">arrendado sin contrato</Value>
+              <Value column="description">Leased without contract</Value>
+              <Value column="es_description">Arrendado sin contrato</Value>
             </Row>
             <Row>
               <Value column="id">7</Value>
-              <Value column="description">cedido por servicio o trabajo</Value>
-              <Value column="es_description">cedido por servicio o trabajo</Value>
+              <Value column="description">Ceded for service or work</Value>
+              <Value column="es_description">Cedido por servicio o trabajo</Value>
             </Row>
             <Row>
               <Value column="id">8</Value>
-              <Value column="description">cedido por familiar u otro</Value>
-              <Value column="es_description">cedido por familiar u otro</Value>
+              <Value column="description">Ceded by family or other</Value>
+              <Value column="es_description">Cedido por familiar u otro</Value>
             </Row>
             <Row>
               <Value column="id">9</Value>
-              <Value column="description">usufructo (sólo uso y goce)</Value>
-              <Value column="es_description">usufructo (sólo uso y goce)</Value>
+              <Value column="description">Usufruct (only use and enjoyment)</Value>
+              <Value column="es_description">Usufructo (sólo uso y goce)</Value>
             </Row>
             <Row>
               <Value column="id">10</Value>
-              <Value column="description">ocupación irregular (de hecho)</Value>
-              <Value column="es_description">ocupación irregular (de hecho)</Value>
+              <Value column="description">Irregular occupation (de facto)</Value>
+              <Value column="es_description">Ocupación irregular (de hecho)</Value>
             </Row>
             <Row>
               <Value column="id">11</Value>
-              <Value column="description">poseedor irregular</Value>
-              <Value column="es_description">poseedor irregular</Value>
+              <Value column="description">Irregular possessor</Value>
+              <Value column="es_description">Poseedor irregular</Value>
             </Row>
             <Row>
               <Value column="id">12</Value>
               <Value column="description">No Data</Value>
-              <Value column="es_description">sin dato</Value>
+              <Value column="es_description">Sin información</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -3789,63 +3796,63 @@
           <Rows>
             <Row>
               <Value column="id">1</Value>
-              <Value column="description">propia pagada</Value>
-              <Value column="es_description">propia pagada</Value>
+              <Value column="description">Own and paid</Value>
+              <Value column="es_description">Propia pagada</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
-              <Value column="description">propia pagándose</Value>
-              <Value column="es_description">propia pagándose</Value>
+              <Value column="description">Own, in payment</Value>
+              <Value column="es_description">Propia pagándose</Value>
             </Row>
             <Row>
               <Value column="id">3</Value>
-              <Value column="description">propia compartida (pagada) con otros hogares de la vivienda</Value>
-              <Value column="es_description">propia compartida (pagada) con otros hogares de la vivienda</Value>
+              <Value column="description">Own, shared, paid with the help of others</Value>
+              <Value column="es_description">Propia compartida (pagada) con otros hogares de la vivienda</Value>
             </Row>
             <Row>
               <Value column="id">4</Value>
-              <Value column="description">propia compartida (pagándose) con otros hogares de la vivienda</Value>
-              <Value column="es_description">propia compartida (pagándose) con otros hogares de la vivienda</Value>
+              <Value column="description">Own, shared, in payment with the help of others</Value>
+              <Value column="es_description">Propia compartida (pagándose) con otros hogares de la vivienda</Value>
             </Row>
             <Row>
               <Value column="id">5</Value>
-              <Value column="description">arrendada con contrato</Value>
-              <Value column="es_description">arrendada con contrato</Value>
+              <Value column="description">Leased with contract</Value>
+              <Value column="es_description">Arrendada con contrato</Value>
             </Row>
             <Row>
               <Value column="id">6</Value>
-              <Value column="description">arrendada sin contrato</Value>
-              <Value column="es_description">arrendada sin contrato</Value>
+              <Value column="description">Leased without contract</Value>
+              <Value column="es_description">Arrendada sin contrato</Value>
             </Row>
             <Row>
               <Value column="id">7</Value>
-              <Value column="description">cedida por servicio o trabajo</Value>
-              <Value column="es_description">cedida por servicio o trabajo</Value>
+              <Value column="description">Ceded for service or work</Value>
+              <Value column="es_description">Cedida por servicio o trabajo</Value>
             </Row>
             <Row>
               <Value column="id">8</Value>
-              <Value column="description">cedida por familiar u otro</Value>
-              <Value column="es_description">cedida por familiar u otro</Value>
+              <Value column="description">Ceded by family or other</Value>
+              <Value column="es_description">Cedida por familiar u otro</Value>
             </Row>
             <Row>
               <Value column="id">9</Value>
-              <Value column="description">usufructo (sólo uso y goce)</Value>
-              <Value column="es_description">usufructo (sólo uso y goce)</Value>
+              <Value column="description">Usufruct (only use and enjoyment)</Value>
+              <Value column="es_description">Usufructo (sólo uso y goce)</Value>
             </Row>
             <Row>
               <Value column="id">10</Value>
-              <Value column="description">ocupación irregular (de hecho)</Value>
-              <Value column="es_description">ocupación irregular (de hecho)</Value>
+              <Value column="description">Irregular occupation (de facto)</Value>
+              <Value column="es_description">Ocupación irregular (de hecho)</Value>
             </Row>
             <Row>
               <Value column="id">11</Value>
-              <Value column="description">poseedor irregular</Value>
-              <Value column="es_description">poseedor irregular</Value>
+              <Value column="description">Irregular possessor</Value>
+              <Value column="es_description">Poseedor irregular</Value>
             </Row>
             <Row>
               <Value column="id">12</Value>
               <Value column="description">No Data</Value>
-              <Value column="es_description">sin dato</Value>
+              <Value column="es_description">Sin información</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -3876,17 +3883,17 @@
             <Row>
               <Value column="id">1</Value>
               <Value column="description">Yes</Value>
-              <Value column="es_description">sí</Value>
+              <Value column="es_description">Sí</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
               <Value column="description">No</Value>
-              <Value column="es_description">no</Value>
+              <Value column="es_description">No</Value>
             </Row>
             <Row>
               <Value column="id">3</Value>
               <Value column="description">No Data</Value>
-              <Value column="es_description">sin dato</Value>
+              <Value column="es_description">Sin información</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -3917,7 +3924,7 @@
             <Row>
               <Value column="id">1</Value>
               <Value column="description">Head of household</Value>
-              <Value column="es_description">jefe(a) del hogar</Value>
+              <Value column="es_description">Jefe(a) del hogar</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
@@ -3927,37 +3934,37 @@
             <Row>
               <Value column="id">3</Value>
               <Value column="description">Partner</Value>
-              <Value column="es_description">conviviente o pareja</Value>
+              <Value column="es_description">Conviviente o pareja</Value>
             </Row>
             <Row>
               <Value column="id">4</Value>
               <Value column="description">Child or stepchild</Value>
-              <Value column="es_description">hijo(a)</Value>
+              <Value column="es_description">Hijo(a)</Value>
             </Row>
             <Row>
               <Value column="id">5</Value>
               <Value column="description">Other relative</Value>
-              <Value column="es_description">otro pariente</Value>
+              <Value column="es_description">Otro pariente</Value>
             </Row>
             <Row>
               <Value column="id">6</Value>
               <Value column="description">Non-relative</Value>
-              <Value column="es_description">otro no pariente</Value>
+              <Value column="es_description">Otro no pariente</Value>
             </Row>
             <Row>
               <Value column="id">7</Value>
               <Value column="description">Head of household and partner</Value>
-              <Value column="es_description">jefe(a) y cรณnyuge</Value>
+              <Value column="es_description">Jefe(a) y cónyuge</Value>
             </Row>
             <Row>
               <Value column="id">8</Value>
               <Value column="description">Head of household and other relative</Value>
-              <Value column="es_description">jefe(a) y otro pariente</Value>
+              <Value column="es_description">Jefe(a) y otro pariente</Value>
             </Row>
             <Row>
               <Value column="id">9</Value>
               <Value column="description">No Data</Value>
-              <Value column="es_description">sin dato</Value>
+              <Value column="es_description">Sin información</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -3987,33 +3994,33 @@
           <Rows>
             <Row>
               <Value column="id">1</Value>
-              <Value column="description">sí, con subsidio habitacional (sin crédito)</Value>
-              <Value column="es_description">sí, con subsidio habitacional (sin crédito)</Value>
+              <Value column="description">Yes, with housing subsidy (without mortgage)</Value>
+              <Value column="es_description">Sí, con subsidio habitacional (sin crédito)</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
-              <Value column="description">sí, con subsidio habitacional y crédito</Value>
-              <Value column="es_description">sí, con subsidio habitacional y crédito</Value>
+              <Value column="description">Yes, with housing subsidy and mortgage</Value>
+              <Value column="es_description">Sí, con subsidio habitacional y crédito</Value>
             </Row>
             <Row>
               <Value column="id">3</Value>
-              <Value column="description">no, sílo con recursos propios</Value>
-              <Value column="es_description">no, sílo con recursos propios</Value>
+              <Value column="description">No, only with own resources</Value>
+              <Value column="es_description">No, sólo con recursos propios</Value>
             </Row>
             <Row>
               <Value column="id">4</Value>
-              <Value column="description">no, la recibí de herencia o traspaso gratuito</Value>
-              <Value column="es_description">no, la recibí de herencia o traspaso gratuito</Value>
+              <Value column="description">No, received from inheritance or free transfer</Value>
+              <Value column="es_description">No, la recibí de herencia o traspaso gratuito</Value>
             </Row>
             <Row>
               <Value column="id">5</Value>
               <Value column="description">No Data</Value>
-              <Value column="es_description">sin dato</Value>
+              <Value column="es_description">Sin información</Value>
             </Row>
           </Rows>
         </InlineTable>
 
-        <Level column="id" name="Subsidy Or Program" nameColumn="description" uniqueMembers="true">
+        <Level column="id" name="Subsidy or Program" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
           </Annotations>
@@ -4038,38 +4045,38 @@
           <Rows>
             <Row>
               <Value column="id">1</Value>
-              <Value column="description">sí, serviu (sólo viviendas adquiridas desde 1977 hasta 2001)</Value>
-              <Value column="es_description">sí, serviu (sólo viviendas adquiridas desde 1977 hasta 2001)</Value>
+              <Value column="description">Yes, SERVIU (only homes acquired from 1977 to 2001)</Value>
+              <Value column="es_description">Sí, SERVIU (sólo viviendas adquiridas desde 1977 hasta 2001)</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
-              <Value column="description">sí, banco estado</Value>
-              <Value column="es_description">sí, banco estado</Value>
+              <Value column="description">Yes, BancoEstado</Value>
+              <Value column="es_description">Sí, BancoEstado</Value>
             </Row>
             <Row>
               <Value column="id">3</Value>
-              <Value column="description">sí, banco privado</Value>
-              <Value column="es_description">sí, banco privado</Value>
+              <Value column="description">Yes, private bank</Value>
+              <Value column="es_description">Sí, banco privado</Value>
             </Row>
             <Row>
               <Value column="id">4</Value>
-              <Value column="description">sí, cooperativa</Value>
-              <Value column="es_description">sí, cooperativa</Value>
+              <Value column="description">Yes, cooperative</Value>
+              <Value column="es_description">Sí, cooperativa</Value>
             </Row>
             <Row>
               <Value column="id">5</Value>
-              <Value column="description">sí, financiera u otra institución</Value>
-              <Value column="es_description">sí, financiera u otra institución</Value>
+              <Value column="description">Yes, other financial institutions</Value>
+              <Value column="es_description">Sí, financiera u otra institución</Value>
             </Row>
             <Row>
               <Value column="id">6</Value>
-              <Value column="description">no, sin crédito hipotecario</Value>
-              <Value column="es_description">no, sin crédito hipotecario</Value>
+              <Value column="description">No, without mortgage</Value>
+              <Value column="es_description">No, sin crédito hipotecario</Value>
             </Row>
             <Row>
               <Value column="id">7</Value>
               <Value column="description">No Data</Value>
-              <Value column="es_description">sin dato</Value>
+              <Value column="es_description">Sin información</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -4096,6 +4103,7 @@
             <ColumnDef name="description" type="String"/>
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
+          <!-- TODO: translate -->
           <Rows>
             <Row>
               <Value column="id">1</Value>
@@ -4120,7 +4128,7 @@
             <Row>
               <Value column="id">5</Value>
               <Value column="description">No Data</Value>
-              <Value column="es_description">sin dato</Value>
+              <Value column="es_description">Sin información</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -4330,6 +4338,7 @@
             <ColumnDef name="description" type="String"/>
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
+          <!-- TODO: translate -->
           <Rows>
             <Row>
               <Value column="id">1</Value>
@@ -4489,6 +4498,7 @@
             <ColumnDef name="description" type="String"/>
             <ColumnDef name="es_description" type="String"/>
           </ColumnDefs>
+          <!-- TODO: translate -->
           <Rows>
             <Row>
               <Value column="id">1</Value>
@@ -4799,7 +4809,7 @@
               <Value column="group_description">FONASA</Value>
               <Value column="group_es_description">FONASA</Value>
               <Value column="id">1</Value>
-              <Value column="description">FONASA Grupo A</Value>
+              <Value column="description">FONASA Group A</Value>
               <Value column="es_description">FONASA Grupo A</Value>
             </Row>
             <Row>
@@ -4807,7 +4817,7 @@
               <Value column="group_description">FONASA</Value>
               <Value column="group_es_description">FONASA</Value>
               <Value column="id">2</Value>
-              <Value column="description">FONASA Grupo B</Value>
+              <Value column="description">FONASA Group B</Value>
               <Value column="es_description">FONASA Grupo B</Value>
             </Row>
             <Row>
@@ -4815,7 +4825,7 @@
               <Value column="group_description">FONASA</Value>
               <Value column="group_es_description">FONASA</Value>
               <Value column="id">3</Value>
-              <Value column="description">FONASA Grupo C</Value>
+              <Value column="description">FONASA Group C</Value>
               <Value column="es_description">FONASA Grupo C</Value>
             </Row>
             <Row>
@@ -4823,7 +4833,7 @@
               <Value column="group_description">FONASA</Value>
               <Value column="group_es_description">FONASA</Value>
               <Value column="id">4</Value>
-              <Value column="description">FONASA Grupo D</Value>
+              <Value column="description">FONASA Group D</Value>
               <Value column="es_description">FONASA Grupo D</Value>
             </Row>
             <Row>
@@ -4831,7 +4841,7 @@
               <Value column="group_description">FONASA</Value>
               <Value column="group_es_description">FONASA</Value>
               <Value column="id">5</Value>
-              <Value column="description">FONASA (No Sabe Grupo)</Value>
+              <Value column="description">FONASA (N/A)</Value>
               <Value column="es_description">FONASA (No Sabe Grupo)</Value>
             </Row>
             <Row>
@@ -4844,15 +4854,15 @@
             </Row>
             <Row>
               <Value column="group_id">3</Value>
-              <Value column="group_description">Isapre</Value>
+              <Value column="group_description">Private Health Insurance</Value>
               <Value column="group_es_description">Isapre</Value>
               <Value column="id">7</Value>
-              <Value column="description">Isapre</Value>
+              <Value column="description">Private Health Insurance</Value>
               <Value column="es_description">Isapre</Value>
             </Row>
             <Row>
               <Value column="group_id">4</Value>
-              <Value column="group_description">Otro</Value>
+              <Value column="group_description">Other</Value>
               <Value column="group_es_description">Otro</Value>
               <Value column="id">8</Value>
               <Value column="description">No data</Value>
@@ -4860,23 +4870,23 @@
             </Row>
             <Row>
               <Value column="group_id">4</Value>
-              <Value column="group_description">Otro</Value>
+              <Value column="group_description">Other</Value>
               <Value column="group_es_description">Otro</Value>
               <Value column="id">9</Value>
-              <Value column="description">Otro Sistema</Value>
+              <Value column="description">Another system</Value>
               <Value column="es_description">Otro Sistema</Value>
             </Row>
             <Row>
               <Value column="group_id">4</Value>
-              <Value column="group_description">Otro</Value>
+              <Value column="group_description">Other</Value>
               <Value column="group_es_description">Otro</Value>
               <Value column="id">10</Value>
-              <Value column="description">No Sabe</Value>
-              <Value column="es_description">No Sabe</Value>
+              <Value column="description">Doesn't know</Value>
+              <Value column="es_description">No sabe</Value>
             </Row>
             <Row>
               <Value column="group_id">4</Value>
-              <Value column="group_description">Otro</Value>
+              <Value column="group_description">Other</Value>
               <Value column="group_es_description">Otro</Value>
               <Value column="id">0</Value>
               <Value column="description">No data</Value>
@@ -5155,17 +5165,17 @@
             <Row>
               <Value column="id">1</Value>
               <Value column="description">No disability</Value>
-              <Value column="es_description">sin discapacidad</Value>
+              <Value column="es_description">Sin discapacidad</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
               <Value column="description">Slight to moderate</Value>
-              <Value column="es_description">leve a moderada</Value>
+              <Value column="es_description">Leve a moderada</Value>
             </Row>
             <Row>
               <Value column="id">3</Value>
               <Value column="description">Severe</Value>
-              <Value column="es_description">severa</Value>
+              <Value column="es_description">Severa</Value>
             </Row>
           </Rows>
         </InlineTable>
@@ -5327,10 +5337,10 @@
             </Row>
             <Row>
               <Value column="group_id">5</Value>
-              <Value column="group_description">Violation</Value>
+              <Value column="group_description">Rapings</Value>
               <Value column="group_es_description">Violación</Value>
               <Value column="id">14</Value>
-              <Value column="description">Violation</Value>
+              <Value column="description">Rapings</Value>
               <Value column="es_description">Violación</Value>
             </Row>
           </Rows>
