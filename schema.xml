@@ -5155,17 +5155,17 @@
             <Row>
               <Value column="id">1</Value>
               <Value column="description">No disability</Value>
-              <Value column="es_description">sin discapacidad</Value>
+              <Value column="es_description">Sin discapacidad</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
               <Value column="description">Slight to moderate</Value>
-              <Value column="es_description">leve a moderada</Value>
+              <Value column="es_description">Leve a moderada</Value>
             </Row>
             <Row>
               <Value column="id">3</Value>
               <Value column="description">Severe</Value>
-              <Value column="es_description">severa</Value>
+              <Value column="es_description">Severa</Value>
             </Row>
           </Rows>
         </InlineTable>
