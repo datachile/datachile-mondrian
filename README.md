@@ -6,11 +6,18 @@ Contiene la configuración del esquema de cubos y provee el entrypoint REST de l
 
 Documentación completa para crear un schema aquí: [Mondrian Schema](https://mondrian.pentaho.com/documentation/schema.php)
 
+## Repositorios relacionados de DataChile
+
+*   [ETL para DataChile](https://github.com/Datawheel/datachile-etl)
+*   [API Mondrian para DataChile](https://github.com/Datawheel/datachile-mondrian)
+*   [Sitio web para DataChile](https://github.com/Datawheel/datachile)
+
 ## Para desarrollo local
 1. Instalar [JRuby](http://jruby.org). Usar [RVM](https://rvm.io/) es recomendado.
 2. Instalar dependencias con `bundle install`
-3. Duplicar `config.yaml.example` bajo el nombre `config.yaml` y completar los datos.
-4. Correr server `JRUBY_OPTS=-G MONDRIAN_REST_CONF=`pwd`/config.yaml MONDRIAN_REST_SECRET=lala JAVA_OPTS="-Dlog4j.configuration=file:log4j.properties -Dmondrian.olap.SsasCompatibleNaming=true" rackup` 
+3. Ejecutar `jruby -G -S jbundle install`
+4. Duplicar `config.yaml.example` bajo el nombre `config.yaml` y completar los datos.
+5. Correr server `JRUBY_OPTS=-G MONDRIAN_REST_CONF=`pwd`/config.yaml MONDRIAN_REST_SECRET=lala JAVA_OPTS="-Dlog4j.configuration=file:log4j.properties -Dmondrian.olap.SsasCompatibleNaming=true" rackup` 
 
 ## Conceptos básicos
 * Estrella
@@ -78,4 +85,4 @@ Ejemplo de `Dimension` inline sobre grados de discapacidad:
 </Dimension>
 ```
 
-Luego en el query habrá que solicitar el `caption` al `drilldown` basado en el nombre de la `property.`
+Luego en el query habrá que solicitar el `caption` al `drilldown` basado en el nombre de la `property.
