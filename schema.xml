@@ -116,6 +116,7 @@
     <Annotations>
       <Annotation name="index_as">industries</Annotation>
       <Annotation name="index_max_depth">2</Annotation>
+      <Annotation name="es_element_caption">Industria (ISICrev4)</Annotation>
     </Annotations>
 
     <Hierarchy hasAll="true" primaryKey="level4">
@@ -216,6 +217,9 @@
   </Dimension>
 
   <Dimension name="ISCED">
+    <Annotations>
+      <Annotation name="es_element_caption">Nivel educativo (ISCED)</Annotation>
+    </Annotations>
     <Hierarchy hasAll="true">
       <InlineTable alias="isced">
         <ColumnDefs>
@@ -293,6 +297,9 @@
   </Dimension>
 
   <Dimension name="ICSE">
+    <Annotations>
+      <Annotation name="es_element_caption">Tipo de relación laboral (ICSE)</Annotation>
+    </Annotations>
     <Hierarchy hasAll="true">
       <InlineTable alias="icse">
         <ColumnDefs>
@@ -355,6 +362,9 @@
   </Dimension>
 
   <Dimension name="ISCO">
+    <Annotations>
+      <Annotation name="es_element_caption">Ocupaciones (ISCO)</Annotation>
+    </Annotations>
     <Hierarchy hasAll="true">
       <InlineTable alias="isco">
         <ColumnDefs>
@@ -1377,7 +1387,8 @@
       <Annotation name="source_name">Servicio de Impuestos Internos</Annotation>
       <Annotation name="source_link">http://homer.sii.cl/</Annotation>
       <Annotation name="topic">economy</Annotation>
-      <Annotation name="available_measures"/>
+      <Annotation name="available_dimensions">ISICrev4</Annotation>
+      <Annotation name="available_measures">Output,Labour,Labour Cost,Investment,Intermediates,Value Added,Production per worker,Value added per worker</Annotation>
     </Annotations>
 
     <View alias="tax_data">
@@ -1397,25 +1408,54 @@
     <DimensionUsage foreignKey="comuna_id" name="Tax Geography" source="Geography"/>
     <DimensionUsage foreignKey="ciiu4_ori" name="ISICrev4" source="ISICrev4"/>
 
-    <Measure aggregator="sum" column="output" name="Output"/>
-    <Measure aggregator="sum" column="labour" name="Labour"/>
-    <Measure aggregator="sum" column="labour_cost" name="Labour Cost"/>
-    <Measure aggregator="sum" column="investment" name="Investment"/>
-    <Measure aggregator="sum" column="intermediates" name="Intermediates"/>
+    <Measure aggregator="sum" column="output" name="Output" caption="Output">
+      <Annotations>
+        <Annotation name="es_element_caption">Producción</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="sum" column="labour" name="Labour" caption="Labour Force">
+      <Annotations>
+        <Annotation name="es_element_caption">Fuerza de trabajo</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="sum" column="labour_cost" name="Labour Cost" caption="Labour Cost">
+      <Annotations>
+        <Annotation name="es_element_caption">Costo laboral</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="sum" column="investment" name="Investment" caption="Investment">
+      <Annotations>
+        <Annotation name="es_element_caption">Inversiones</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="sum" column="intermediates" name="Intermediates" caption="Intermediates Revenue">
+      <Annotations>
+        <Annotation name="es_element_caption">Ganacias de intermediarios</Annotation>
+      </Annotations>
+    </Measure>
 
-    <CalculatedMember dimension="Measures" name="Value Added">
+    <CalculatedMember dimension="Measures" name="Value Added" caption="Value Added">
+      <Annotations>
+        <Annotation name="es_element_caption">Valor agregado en producción</Annotation>
+      </Annotations>
       <Formula>
         <![CDATA[[Measures].[Output] - [Measures].[Intermediates]]]>
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Production per worker">
+    <CalculatedMember dimension="Measures" name="Production per worker" caption="Production per worker">
+      <Annotations>
+        <Annotation name="es_element_caption">Producción por trabajador</Annotation>
+      </Annotations>
       <Formula>
         <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Output]/[Measures].[Labour], Null)]]>
       </Formula>
     </CalculatedMember>
 
-    <CalculatedMember dimension="Measures" name="Value added per worker">
+    <CalculatedMember dimension="Measures" name="Value added per worker" caption="Value added per worker">
+      <Annotations>
+        <Annotation name="es_element_caption">Valor agregado por trabajador</Annotation>
+      </Annotations>
       <Formula>
         <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Value Added] / [Measures].[Labour], Null)]]>
       </Formula>
@@ -1455,7 +1495,8 @@
       <Annotation name="source_name">Ministerio de Economía, Fomento y Turismo</Annotation>
       <Annotation name="source_link">http://www.economia.gob.cl/estudios-y-encuestas/encuestas/encuestas-de-innovacion-e-id/encuestas-de-innovacion</Annotation>
       <Annotation name="topic">economy</Annotation>
-      <Annotation name="available_measures"/>
+      <Annotation name="available_dimensions" />
+      <Annotation name="available_measures" />
     </Annotations>
 
     <Table name="fact_rd_survey" schema="public"/>
@@ -1632,7 +1673,8 @@
       <Annotation name="source_name">Encuesta Suplementaria de Ingresos — INE</Annotation>
       <Annotation name="source_link">http://www.ine.cl/estadisticas/ingresos-y-gastos/esi</Annotation>
       <Annotation name="topic">economy</Annotation>
-      <Annotation name="available_measures"/>
+      <Annotation name="available_dimensions">Sex,Age Range,ISCO,ICSE,ISCED,Occupation Length,Workday,Income Range</Annotation>
+      <Annotation name="available_measures">Median Income</Annotation>
     </Annotations>
 
     <!-- Table name="fact_income_nesi" schema="economy" / -->
@@ -1642,7 +1684,12 @@
       </SQL>
     </View>
 
-    <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
     <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range"/>
@@ -1651,6 +1698,9 @@
     <DimensionUsage foreignKey="isced_id" name="ISCED" source="ISCED"/>
 
     <Dimension foreignKey="occupation_id" name="Occupation Length">
+      <Annotations>
+        <Annotation name="es_element_caption">Duración de ocupación</Annotation>
+      </Annotations>
       <Hierarchy hasAll="true">
         <InlineTable alias="occupation">
           <ColumnDefs>
@@ -1683,6 +1733,9 @@
     </Dimension>
 
     <Dimension foreignKey="journey_id" name="Workday">
+      <Annotations>
+        <Annotation name="es_element_caption">Duración de la jornada</Annotation>
+      </Annotations>
       <Hierarchy hasAll="true">
         <InlineTable alias="workdays">
           <ColumnDefs>
@@ -1720,6 +1773,9 @@
     </Dimension>
 
     <Dimension name="Income Range">
+      <Annotations>
+        <Annotation name="es_element_caption">Rango de ingreso</Annotation>
+      </Annotations>
       <Hierarchy hasAll="true">
         <Level name="Income Range">
           <KeyExpression>
@@ -1761,7 +1817,10 @@
     <Measure aggregator="sum" column="income" name="Income" visible="true"/>
     <Measure aggregator="sum" column="weight" name="Expansion Factor" visible="true"/>
     <Measure aggregator="sum" column="weighted_income" name="Income weighted" visible="false"/>
-    <Measure aggregator="None" dataType="Numeric" name="Median Income" visible="true">
+    <Measure aggregator="None" dataType="Numeric" name="Median Income" visible="true" caption="Median Income">
+      <Annotations>
+        <Annotation name="es_element_caption">Ingreso promedio</Annotation>
+      </Annotations>
       <MeasureExpression>
         <SQL dialect="postgres">PERCENTILE_DISC(0.5) WITHIN GROUP (ORDER BY income ASC)</SQL>
       </MeasureExpression>
@@ -1796,7 +1855,8 @@
       <Annotation name="source_name">Encuesta de Acceso, Usos y Usuarios de Internet — INE</Annotation>
       <Annotation name="source_link">http://anda.ine.cl/index.php/catalog/9222</Annotation>
       <Annotation name="topic">environment</Annotation>
-      <Annotation name="available_measures"/>
+      <Annotation name="available_dimensions"></Annotation>
+      <Annotation name="available_measures">Expansion factor</Annotation>
     </Annotations>
 
     <Table name="fact_internet_access_survey" schema="environment"/>
@@ -1812,8 +1872,18 @@
     <DimensionUsage caption="Games or Consoles Access" foreignKey="games_consoles_access_id" name="Games or Consoles Access" source="Binary Survey Response"/>
     <DimensionUsage caption="TV Access" foreignKey="tv_access_id" name="TV Access" source="Binary Survey Response"/>
 
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
     <Measure aggregator="count" column="region_id" name="Number of records" visible="true"/>
-    <Measure aggregator="sum" column="weights" name="Expansion factor" visible="true"/>
+    <Measure aggregator="sum" column="weights" name="Expansion factor" visible="true" caption="Expansion factor">
+      <Annotations>
+        <Annotation name="es_element_caption">Personas conectadas a internet (aproximado)</Annotation>
+      </Annotations>
+    </Measure>
   </Cube>
 
 
@@ -2137,7 +2207,8 @@
       <Annotation name="source_name">Prueba de Selección Universitaria (PSU) - DEMRE</Annotation>
       <Annotation name="source_link">http://demre.cl/</Annotation>
       <Annotation name="topic">education</Annotation>
-      <Annotation name="available_measures"/>
+      <Annotation name="available_dimensions">Sex</Annotation>
+      <Annotation name="available_measures">PSU Average</Annotation>
     </Annotations>
 
     <View alias="fact_psu">
@@ -2146,7 +2217,11 @@
       )]]></SQL>
     </View>
 
-    <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
     <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
@@ -2207,7 +2282,10 @@
     <Measure aggregator="avg" column="language_test" name="Avg language test" visible="true"/>
     <Measure aggregator="avg" column="math_test" name="Avg math test" visible="true"/>
     <Measure aggregator="sum" column="avg_individual" name="PSU AVG individual" visible="true"/>
-    <CalculatedMember dimension="Measures" name="PSU Average" visible="true">
+    <CalculatedMember dimension="Measures" name="PSU Average" visible="true" caption="PSU Average">
+      <Annotations>
+        <Annotation name="es_element_caption">PSU promedio</Annotation>
+      </Annotations>
       <Formula><![CDATA[[Measures].[PSU AVG Individual] / [Measures].[Number of records]]]></Formula>
     </CalculatedMember>
     <CalculatedMember dimension="Measures" name="PSU Rank">
@@ -2223,90 +2301,6 @@
     </CalculatedMember>
   </Cube>
   <!-- / PSU -->
-
-
-  <!-- Electoral data cube -->
-  <Cube name="election_results">
-    <Annotations>
-      <Annotation name="source_name">Resultados Electorales - SERVEL</Annotation>
-      <Annotation name="source_link">https://www.servel.cl/</Annotation>
-      <Annotation name="topic">civics</Annotation>
-      <Annotation name="available_measures"/>
-    </Annotations>
-
-    <Table name="fact_election_results" schema="politics"/>
-
-    <Dimension name="Date">
-      <Hierarchy hasAll="true">
-
-        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
-      </Hierarchy>
-    </Dimension>
-
-    <DimensionUsage foreignKey="comuna_datachile_id" name="GeographyC" source="Geography"/>
-    <DimensionUsage foreignKey="region_id" source="Geography Region" name="GeographyR"/>
-    <DimensionUsage foreignKey="election_id" name="Election Type" source="Election Type"/>
-
-    <Dimension foreignKey="party_id" name="Party">
-      <Annotations>
-        <Annotation name="es_element_caption">Partido Político</Annotation>
-      </Annotations>
-
-      <Hierarchy hasAll="true">
-        <Table name="dim_parties" schema="politics"/>
-
-        <Level column="partido_id" name="Party" nameColumn="partido" uniqueMembers="true"/>
-      </Hierarchy>
-    </Dimension>
-
-    <Dimension foreignKey="elected" name="Elected">
-      <Hierarchy hasAll="true">
-        <InlineTable alias="party">
-          <ColumnDefs>
-            <ColumnDef name="id" type="Numeric"/>
-            <ColumnDef name="description" type="String"/>
-            <ColumnDef name="es_description" type="String"/>
-          </ColumnDefs>
-          <Rows>
-            <Row>
-              <Value column="id">1</Value>
-              <Value column="description">Elected authority</Value>
-              <Value column="es_description">Autoridad electa</Value>
-            </Row>
-            <Row>
-              <Value column="id">0</Value>
-              <Value column="description">Non-elected candidate</Value>
-              <Value column="es_description">Candidato no electo</Value>
-            </Row>
-          </Rows>
-        </InlineTable>
-
-        <Level column="id" name="Elected" nameColumn="description" uniqueMembers="true">
-          <Annotations>
-            <Annotation name="es_caption">Description ES</Annotation>
-          </Annotations>
-
-          <Property column="es_description" name="Description ES"/>
-        </Level>
-      </Hierarchy>
-    </Dimension>
-
-    <Dimension foreignKey="candidate_id" name="Candidates">
-      <Annotations>
-        <Annotation name="es_element_caption">Candidatos</Annotation>
-      </Annotations>
-
-      <Hierarchy hasAll="true" primaryKey="candidate_id">
-        <Table name="dim_candidates" schema="politics"/>
-
-        <Level column="candidate_id" name="Candidate" nameColumn="candidate" uniqueMembers="true"/>
-      </Hierarchy>
-    </Dimension>
-    <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
-    <Measure aggregator="max" column="votes" name="Votes" visible="true"/>
-  </Cube>
-  <!-- / Electoral data cube -->
-
 
   <!-- Electoral data update cube -->
   <Cube name="election_results_update">
@@ -2970,14 +2964,14 @@
       <!-- TODO: Annotation name="source_name"></Annotation-->
       <!-- TODO: Annotation name="source_link"></Annotation-->
       <Annotation name="topic">education</Annotation>
-      <Annotation name="available_measures"/>
+      <Annotation name="available_dimensions">Cluster,Administration</Annotation>
+      <Annotation name="available_measures">Avg efectiveness,Avg overcoming,Avg initiative,Avg integration,Avg improvement,Avg fairness,Avg sned_score</Annotation>
     </Annotations>
 
     <Table name="fact_sned" schema="education"/>
 
     <Dimension name="Date">
       <Hierarchy hasAll="true">
-
         <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
       </Hierarchy>
     </Dimension>
@@ -2986,6 +2980,9 @@
     <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
 
     <Dimension foreignKey="cluster_id" name="Cluster">
+      <Annotations>
+        <Annotation name="es_element_caption">Clúster de escuelas</Annotation>
+      </Annotations>
       <Hierarchy hasAll="true">
         <InlineTable alias="cluster">
           <ColumnDefs>
@@ -3151,6 +3148,9 @@
     </Dimension>
 
     <Dimension foreignKey="administration_id" name="Administration">
+      <Annotations>
+        <Annotation name="es_element_caption">Administración</Annotation>
+      </Annotations>
       <Hierarchy hasAll="true">
         <InlineTable alias="administration">
           <ColumnDefs>
@@ -3270,13 +3270,41 @@
     </Dimension>
 
     <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
-    <Measure aggregator="avg" column="efectiveness" name="Avg efectiveness" visible="true"/>
-    <Measure aggregator="avg" column="overcoming" name="Avg overcoming" visible="true"/>
-    <Measure aggregator="avg" column="initiative" name="Avg initiative" visible="true"/>
-    <Measure aggregator="avg" column="integration" name="Avg integration" visible="true"/>
-    <Measure aggregator="avg" column="improvement" name="Avg improvement" visible="true"/>
-    <Measure aggregator="avg" column="fairness" name="Avg fairness" visible="true"/>
-    <Measure aggregator="avg" column="sned_score" name="Avg sned_score" visible="true"/>
+    <Measure aggregator="avg" column="efectiveness" name="Avg efectiveness" visible="true" caption="Avg efectiveness">
+      <Annotations>
+        <Annotation name="es_element_caption">Efectividad promedio (SNED)</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="avg" column="overcoming" name="Avg overcoming" visible="true" caption="Avg overcoming">
+      <Annotations>
+        <Annotation name="es_element_caption">Superación promedio (SNED)</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="avg" column="initiative" name="Avg initiative" visible="true" caption="Avg initiative">
+      <Annotations>
+        <Annotation name="es_element_caption">Iniciativa promedio (SNED)</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="avg" column="integration" name="Avg integration" visible="true" caption="Avg integration">
+      <Annotations>
+        <Annotation name="es_element_caption">Integración promedio (SNED)</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="avg" column="improvement" name="Avg improvement" visible="true" caption="Avg improvement">
+      <Annotations>
+        <Annotation name="es_element_caption">Mejoras promedio (SNED)</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="avg" column="fairness" name="Avg fairness" visible="true" caption="Avg fairness">
+      <Annotations>
+        <Annotation name="es_element_caption">Justicia promedio (SNED)</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="avg" column="sned_score" name="Avg sned_score" visible="true" caption="Avg sned">
+      <Annotations>
+        <Annotation name="es_element_caption">Puntaje SNED promedio</Annotation>
+      </Annotations>
+    </Measure>
   </Cube>
   <!-- / Education performance data cube -->
 
@@ -4590,7 +4618,7 @@
 
     <CalculatedMember dimension="Measures" name="Expansion Factor">
       <Annotations>
-        <Annotation name="es_element_caption">Vivienda: Factor de expansión</Annotation>
+        <Annotation name="es_element_caption">Cantidad de viviendas (CASEN)</Annotation>
         <!-- <Annotation name="es_format">XXX</Annotation> -->
       </Annotations>
 
@@ -4628,7 +4656,7 @@
 
     <Dimension foreignKey="age_range_id" name="Age Range">
       <Annotations>
-        <Annotation name="es_element_caption">Rango etario</Annotation>
+        <Annotation name="es_element_caption">Rango etáreo</Annotation>
       </Annotations>
 
       <Hierarchy hasAll="true">
@@ -4920,7 +4948,7 @@
 
     <CalculatedMember dimension="Measures" name="Expansion Factor">
       <Annotations>
-        <Annotation name="es_element_caption">Cobertura de salud: Factor de expansión</Annotation>
+        <Annotation name="es_element_caption">Cobertura de salud: Cantidad de personas</Annotation>
         <!-- <Annotation name="es_format">XXX</Annotation> -->
       </Annotations>
 
@@ -5029,18 +5057,35 @@
   <!-- life_expectancy data cube  -->
   <Cube name="life_expectancy">
     <Annotations>
-      <Annotation name="available_measures"/>
+      <Annotation name="source_name"></Annotation>
+      <Annotation name="source_link"></Annotation>
+      <Annotation name="topic">health</Annotation>
+      <Annotation name="available_dimensions">Sex</Annotation>
+      <Annotation name="available_measures">Life Expectancy AVG,Mortality rate per 100 inhabitants AVG</Annotation>
     </Annotations>
 
     <Table name="fact_life_expectancy" schema="health"/>
 
-    <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
     <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography"/>
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
     <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
-    <Measure aggregator="avg" column="life_expectancy" name="Life Expectancy AVG" visible="true"/>
-    <Measure aggregator="avg" column="mortality_rate_per_100_inhabitants" name="Mortality rate per 100 inhabitants AVG" visible="true"/>
+    <Measure aggregator="avg" column="life_expectancy" name="Life Expectancy AVG" visible="true" caption="Life Expectancy AVG">
+      <Annotations>
+        <Annotation name="es_element_caption">Expectativa de vida promedio</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="avg" column="mortality_rate_per_100_inhabitants" name="Mortality rate per 100 inhabitants AVG" visible="true" caption="Mortality rate per 100 inhabitants">
+      <Annotations>
+        <Annotation name="es_element_caption">Tasa de mortalidad cada 100 habitantes</Annotation>
+      </Annotations>
+    </Measure>
   </Cube>
   <!-- / life_expectancy data cube -->
 
@@ -5051,16 +5096,25 @@
       <Annotation name="source_name">Causas de Muerte - DEIS Ministerio de Salud</Annotation>
       <Annotation name="source_link">http://www.deis.cl/</Annotation>
       <Annotation name="topic">health</Annotation>
-      <Annotation name="available_measures"/>
+      <Annotation name="available_dimensions">Sex,CIE 10</Annotation>
+      <Annotation name="available_measures">Casualities Count SUM,Casualities rate per 100 inhabitants</Annotation>
     </Annotations>
 
     <Table name="fact_death_causes" schema="health"/>
 
-    <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
     <DimensionUsage foreignKey="region_id" name="Geography" source="Geography Region"/>
     <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
 
     <Dimension foreignKey="cie_10_id" name="CIE 10">
+      <Annotations>
+        <Annotation name="es_element_caption">Clasificación internacional de enfermedades (CIE 10)</Annotation>
+      </Annotations>
       <Hierarchy hasAll="true">
         <InlineTable alias="cie_10">
           <ColumnDefs>
@@ -5128,8 +5182,16 @@
     </Dimension>
     <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
     <Measure aggregator="avg" column="casualities_count" name="Casualities Count AVG" visible="true"/>
-    <Measure aggregator="sum" column="casualities_count" name="Casualities Count SUM" visible="true"/>
-    <Measure aggregator="avg" column="casualities_rate_per_100_inhabitants" name="Casualities rate per 100 inhabitants" visible="true"/>
+    <Measure aggregator="sum" column="casualities_count" name="Casualities Count SUM" visible="true" caption="Casualities Count SUM">
+      <Annotations>
+        <Annotation name="es_element_caption">Muertes totales</Annotation>
+      </Annotations>
+    </Measure>
+    <Measure aggregator="avg" column="casualities_rate_per_100_inhabitants" name="Casualities rate per 100 inhabitants" visible="true" caption="Muertes cada 100 habitantes">
+      <Annotations>
+        <Annotation name="es_element_caption">Muertes por enfermedad cada 100 habitantes</Annotation>
+      </Annotations>
+    </Measure>
   </Cube>
   <!-- / death_causes data cube -->
 
@@ -5140,12 +5202,18 @@
       <Annotation name="source_name">Encuesta Nacional de Discapacidad (ENDISC) - SENADIS</Annotation>
       <Annotation name="source_link">http://www.senadis.cl/pag/355/1197/ii_estudio_nacional_de_discapacidad</Annotation>
       <Annotation name="topic">health</Annotation>
-      <Annotation name="available_measures"/>
+      <Annotation name="available_dimensions">Sex,Disability Grade</Annotation>
+      <Annotation name="available_measures">Expansion Factor Region</Annotation>
     </Annotations>
 
     <Table name="fact_disability" schema="health"/>
 
-    <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+    <Dimension name="Date">
+      <Hierarchy hasAll="true">
+        <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
     <DimensionUsage foreignKey="region" source="Geography Region" name="Geography"/>
     <DimensionUsage foreignKey="sex" name="Sex" source="Sex"/>
 
@@ -5190,7 +5258,11 @@
       </Hierarchy>
     </Dimension>
     <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
-    <Measure aggregator="sum" column="weight" name="Expansion Factor Region" visible="true"/>
+    <Measure aggregator="sum" column="weight" name="Expansion Factor Region" visible="true" caption="Expansion Factor Region">
+      <Annotations>
+        <Annotation name="es_element_caption">Cantidad de personas aproximada según discapacidad</Annotation>
+      </Annotations>
+    </Measure>
   </Cube>
   <!-- / disabilities data cube -->
 
@@ -5201,14 +5273,14 @@
       <Annotation name="source_name">Carabineros de Chile</Annotation>
       <Annotation name="source_link">http://www.seguridadpublica.gov.cl/media/2017/08/frec_casos_dmcs_mensual_2001_2017w.xlsx</Annotation>
       <Annotation name="topic">environment</Annotation>
-      <Annotation name="available_measures"/>
+      <Annotation name="available_dimensions">Crime</Annotation>
+      <Annotation name="available_measures">Cases</Annotation>
     </Annotations>
 
     <Table name="fact_crimes" schema="safety"/>
 
     <Dimension name="Date">
       <Hierarchy hasAll="true">
-
         <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
       </Hierarchy>
     </Dimension>
@@ -5217,7 +5289,7 @@
 
     <Dimension foreignKey="felony_id" name="Crime">
       <Annotations>
-        <Annotation name="es_element_caption">Crimen</Annotation>
+        <Annotation name="es_element_caption">Tipo de delito</Annotation>
       </Annotations>
 
       <Hierarchy hasAll="true">
@@ -5349,6 +5421,7 @@
         <Level column="group_id" name="Crime Group" nameColumn="group_description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
+            <Annotation name="es_element_caption">Grupo de delito</Annotation>
           </Annotations>
 
           <Property column="group_es_description" name="Description ES"/>
@@ -5357,6 +5430,7 @@
         <Level column="id" name="Crime" nameColumn="description" uniqueMembers="true">
           <Annotations>
             <Annotation name="es_caption">Description ES</Annotation>
+            <Annotation name="es_element_caption">Tipo de delito</Annotation>
           </Annotations>
 
           <Property column="es_description" name="Description ES"/>
@@ -5364,7 +5438,11 @@
       </Hierarchy>
     </Dimension>
     <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
-    <Measure aggregator="sum" column="cases" name="Cases" visible="true"/>
+    <Measure aggregator="sum" column="cases" name="Cases" visible="true" caption="Crimes">
+      <Annotations>
+        <Annotation name="es_element_caption">Denuncias por delitos de mayor connotación social</Annotation>
+      </Annotations>
+    </Measure>
   </Cube>
   <!-- / crimes data cube -->
 
