@@ -186,4 +186,4 @@ Ejemplo de `Dimension` inline sobre grados de discapacidad:
 </Dimension>
 ```
 
-Luego en el query habrá que solicitar el `caption` al `drilldown` basado en el nombre de la `property.
+Luego en el query habrá que solicitar el `caption` al `drilldown` basado en el nombre de la `property`.
