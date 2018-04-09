@@ -1430,7 +1430,7 @@
     </Measure>
     <Measure aggregator="sum" column="intermediates" name="Intermediates" caption="Intermediates Revenue">
       <Annotations>
-        <Annotation name="es_element_caption">Ganacias de intermediarios</Annotation>
+        <Annotation name="es_element_caption">Ganancias de intermediarios</Annotation>
       </Annotations>
     </Measure>
 
