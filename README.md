@@ -220,6 +220,7 @@ Para más detalle de la manera de realizar queries: [Mondrian REST](https://gith
 * [Mondrian REST](https://github.com/jazzido/mondrian-rest): Capa lógica que expone en REST las operaciones de agregación de Mondrian. API genérica.
 * [Mondrian REST js client](https://github.com/Datawheel/mondrian-rest-client): Librería Javascript para generar queries fácilmente y acceder a cualquier API de `Mondrian REST`.
 * [Mondrian REST UI](https://github.com/Datawheel/mondrian-rest-ui): Aplicación de sólo frontend para realizar queries de agregación exploratorios sobre los cubos de cualquier API de `Mondrian REST`.
+* [Cliente de la API de Datachile para Python](https://github.com/datachile/datachile-python-client).
 
 ## Repositorios relacionados sobre DataChile
 
