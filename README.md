@@ -6,12 +6,6 @@ Contiene la configuración del esquema de cubos y provee el entrypoint REST de l
 
 Documentación completa para crear un schema aquí: [Mondrian Schema](https://mondrian.pentaho.com/documentation/schema.php)
 
-## Repositorios relacionados de DataChile
-
-*   [ETL para DataChile](https://github.com/Datawheel/datachile-etl)
-*   [API Mondrian para DataChile](https://github.com/Datawheel/datachile-mondrian)
-*   [Sitio web para DataChile](https://github.com/Datawheel/datachile)
-
 ## Para desarrollo local
 1. Instalar [JRuby](http://jruby.org). Usar [RVM](https://rvm.io/) es recomendado.
 2. Instalar dependencias con `bundle install`
@@ -186,4 +180,50 @@ Ejemplo de `Dimension` inline sobre grados de discapacidad:
 </Dimension>
 ```
 
-Luego en el query habrá que solicitar el `caption` al `drilldown` basado en el nombre de la `property.
+Luego en el query habrá que solicitar el `caption` al `drilldown` basado en el nombre de la `property`.
+
+## LLamadas a la API
+
+Otros conceptos necesarios para comprender la manera de realizar queries:
+
+* Drilldown: Pasar de un nivel de detalle al siguiente:
+  * Agrega una columna de resultado.
+  * [ Dimension ].[ Hierarchy ].[ Level ]
+
+* Cut: Filtrar y cortar el cubo seleccionado:
+  * Exportación total comunal SÓLO de las regiones de `Maule` y `Antofagasta`.
+  * Resultados electorales SÓLO del candidato `X`.
+  * Importación total por región SÓLO proveniente de `Asia`.
+  * Importación total por región SÓLO proveniente de `Colombia`.
+
+```bash
+# Dimensiones y niveles solicitados para
+drilldown[]: [Origin Country].[Country].[Country]
+drilldown[]: [Geography].[Geography].[Comuna]
+drilldown[]: [Date].[Date].[Year]
+
+# Medida de la cual deseo agregación
+measures[]: CIF US
+
+# Cortes a los datos por determinados años. (opcional)
+cut[]: {[Date].[Date].[Year].&[2013], [Date].[Date].[Year].&[2014], [Date].[Date].[Year].&[2015]}
+
+# Agrego otro corte, sólo para la región 1
+cut[]: [Geography].[Geography].[Region].&[1]}
+```
+
+Para más detalle de la manera de realizar queries: [Mondrian REST](https://github.com/jazzido/mondrian-rest).
+
+## Links y repositorios relacionados sobre Mondrian
+
+* [Mondrian Schema](https://mondrian.pentaho.com/documentation/schema.php): Documentación oficial para crear un schema.
+* [Mondrian REST](https://github.com/jazzido/mondrian-rest): Capa lógica que expone en REST las operaciones de agregación de Mondrian. API genérica.
+* [Mondrian REST js client](https://github.com/Datawheel/mondrian-rest-client): Librería Javascript para generar queries fácilmente y acceder a cualquier API de `Mondrian REST`.
+* [Mondrian REST UI](https://github.com/Datawheel/mondrian-rest-ui): Aplicación de sólo frontend para realizar queries de agregación exploratorios sobre los cubos de cualquier API de `Mondrian REST`.
+
+## Repositorios relacionados sobre DataChile
+
+* [ETL para DataChile](https://github.com/Datawheel/datachile-etl)
+* [API Mondrian para DataChile](https://github.com/datachile/datachile-mondrian)
+* [Sitio web para DataChile](https://github.com/datachile/datachile)
+
