@@ -197,7 +197,7 @@ Otros conceptos necesarios para comprender la manera de realizar queries:
   * Importación total por región SÓLO proveniente de `Colombia`.
 
 ```bash
-# Dimensiones y niveles solicitados para
+# Dimensiones solicitadas por las cuales combinar miembros y agregar:
 drilldown[]: [Origin Country].[Country].[Country]
 drilldown[]: [Geography].[Geography].[Comuna]
 drilldown[]: [Date].[Date].[Year]
