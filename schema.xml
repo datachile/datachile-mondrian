@@ -3452,33 +3452,33 @@
           <Rows>
             <Row>
               <Value column="id">1</Value>
-              <Value column="description">hormigón armado</Value>
-              <Value column="es_description">hormigón armado</Value>
+              <Value column="description">Reinforced concrete</Value>
+              <Value column="es_description">Hormigón armado</Value>
             </Row>
             <Row>
               <Value column="id">2</Value>
-              <Value column="description">albañilería (bloque cemento, piedra o ladrillo)</Value>
-              <Value column="es_description">albañilería (bloque cemento, piedra o ladrillo)</Value>
+              <Value column="description">Masonry (cement block, stone or brick)</Value>
+              <Value column="es_description">Albañilería (bloque cemento, piedra o ladrillo)</Value>
             </Row>
             <Row>
               <Value column="id">3</Value>
-              <Value column="description">tabique forrado por ambas caras (madera, acero, lata, u otro)</Value>
-              <Value column="es_description">tabique forrado por ambas caras (madera, acero, lata, u otro)</Value>
+              <Value column="description">Septum lined on both sides (wood, steel, tin, or other)</Value>
+              <Value column="es_description">Tabique forrado por ambas caras (madera, acero, lata, u otro)</Value>
             </Row>
             <Row>
               <Value column="id">4</Value>
-              <Value column="description">tabique sin forro interior (madera u otro)</Value>
-              <Value column="es_description">tabique sin forro interior (madera u otro)</Value>
+              <Value column="description">Septum without interior lining (wood or other)</Value>
+              <Value column="es_description">Tabique sin forro interior (madera u otro)</Value>
             </Row>
             <Row>
               <Value column="id">5</Value>
-              <Value column="description">adobe, barro, quincha, pirca u otro artesanal tradicional</Value>
-              <Value column="es_description">adobe, barro, quincha, pirca u otro artesanal tradicional</Value>
+              <Value column="description">Adobe, mud, quincha, pirca or other traditional craft</Value>
+              <Value column="es_description">Adobe, barro, quincha, pirca u otro artesanal tradicional</Value>
             </Row>
             <Row>
               <Value column="id">6</Value>
-              <Value column="description">materiales precarios o de desecho (cartón, latas, sacos, plásticos, etc.)</Value>
-              <Value column="es_description">materiales precarios o de desecho (cartón, latas, sacos, plásticos, etc.)</Value>
+              <Value column="description">Precarious or waste materials (cardboard, cans, bags, plastics, etc.)</Value>
+              <Value column="es_description">Materiales precarios o de desecho (cartón, latas, sacos, plásticos, etc.)</Value>
             </Row>
             <Row>
               <Value column="id">7</Value>
