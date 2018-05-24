@@ -1,0 +1,166 @@
+<Cube name="nesi_income">
+  <Annotations>
+    <Annotation name="source_name">Encuesta Suplementaria de Ingresos — INE</Annotation>
+    <Annotation name="source_link">http://www.ine.cl/estadisticas/ingresos-y-gastos/esi</Annotation>
+    <Annotation name="topic">economy</Annotation>
+    <Annotation name="available_dimensions">Sex,Age Range,ISCO,ICSE,ISCED,Occupation Length,Workday,Income Range</Annotation>
+    <Annotation name="available_measures">Median Income</Annotation>
+  </Annotations>
+  <!-- Table name="fact_income_nesi" schema="economy" / -->
+  <View alias="nesi_view">
+    <SQL>
+      <![CDATA[(SELECT *, (income * weight) AS weighted_income from economy.fact_income_nesi)]]>
+    </SQL>
+  </View>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range"/>
+  <DimensionUsage foreignKey="isco_id" name="ISCO" source="ISCO"/>
+  <DimensionUsage foreignKey="icse_id" name="ICSE" source="ICSE"/>
+  <DimensionUsage foreignKey="isced_id" name="ISCED" source="ISCED"/>
+  <Dimension foreignKey="occupation_id" name="Occupation Length">
+    <Annotations>
+      <Annotation name="es_element_caption">Duración de ocupación</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="occupation">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">Occupied for less than 1 month at current position</Value>
+            <Value column="es_description">Ocupados con menos de 1 mes en el empleo actual</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Occupied for more than 1 month at current position</Value>
+            <Value column="es_description">Ocupados con más de 1 mes en el empleo actual</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Occupation Length" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="journey_id" name="Workday">
+    <Annotations>
+      <Annotation name="es_element_caption">Duración de la jornada</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="workdays">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Full-time</Value>
+            <Value column="es_description">Completa</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Part-time</Value>
+            <Value column="es_description">Parcial</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Workday" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="Income Range">
+    <Annotations>
+      <Annotation name="es_element_caption">Rango de ingreso</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <Level name="Income Range">
+        <KeyExpression>
+          <SQL>
+            <![CDATA[(case
+                       when income BETWEEN 0 AND 241000 then '01'
+                       when income BETWEEN 241001 AND 482000 then '02'
+                       when income BETWEEN 482001 AND 723000 then '03'
+                       when income BETWEEN 723001 AND 964000 then '04'
+                       when income BETWEEN 964001 AND 1205000 then '05'
+                       when income BETWEEN 1205001 AND 1446000 then '06'
+                       when income BETWEEN 1446001 AND 1687000 then '07'
+                       when income BETWEEN 1687001 AND 1928000 then '08'
+                       when income BETWEEN 1928001 AND 2169000 then '09'
+                       when income >= 2169001 then '10'
+                       end)]]>
+          </SQL>
+        </KeyExpression>
+        <NameExpression>
+          <SQL>
+            <![CDATA[(case
+                       when income BETWEEN 0 AND 241000 then '0-241000'
+                       when income BETWEEN 241001 AND 482000 then '241001-482000'
+                       when income BETWEEN 482001 AND 723000 then '482001-723000'
+                       when income BETWEEN 723001 AND 964000 then '723001-964000'
+                       when income BETWEEN 964001 AND 1205000 then '964001-1205000'
+                       when income BETWEEN 1205001 AND 1446000 then '1205001-1446000'
+                       when income BETWEEN 1446001 AND 1687000 then '1446001-1687000'
+                       when income BETWEEN 1687001 AND 1928000 then '1687001-1928000'
+                       when income BETWEEN 1928001 AND 2169000 then '1928001-2169000'
+                       when income >= 2169001 then '+2169001'
+                       end)]]>
+          </SQL>
+        </NameExpression>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="sum" column="income" name="Income" visible="true"/>
+  <Measure aggregator="sum" column="weight" name="Expansion Factor" visible="true"/>
+  <Measure aggregator="sum" column="weighted_income" name="Income weighted" visible="false"/>
+  <Measure aggregator="None" dataType="Numeric" name="Median Income" visible="true" caption="Median Income">
+    <Annotations>
+      <Annotation name="es_element_caption">Ingreso promedio</Annotation>
+    </Annotations>
+    <MeasureExpression>
+      <SQL dialect="postgres">PERCENTILE_DISC(0.5) WITHIN GROUP (ORDER BY income ASC)</SQL>
+    </MeasureExpression>
+  </Measure>
+  <Measure aggregator="sum" column="weighted_income" name="Weighted Income" visible="true"/>
+  <CalculatedMember dimension="Measures" name="Weighted Median Income Rank" visible="true">
+    <Formula>
+      <![CDATA[Rank([Geography].CurrentMember,
+                 Order(Geography.CurrentMember.Level.Members,
+                 Measures.[Median Income], BDESC))
+        ]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Weighted Median Income Decile" visible="true">
+    <Formula>
+      <![CDATA[((count(Geography.CurrentMember.Level.Members)-Measures.[Weighted Median Income Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Weighted Median Income Total" visible="true">
+    <Formula>
+      <![CDATA[count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+</Cube>

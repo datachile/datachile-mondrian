@@ -1,0 +1,298 @@
+<Cube name="immigration">
+  <Annotations>
+    <Annotation name="source_name">Estadísticas de Migración — Departamento de Extranjería y Migración</Annotation>
+    <Annotation name="source_link">http://www.extranjeria.gob.cl/estadisticas-migratorias/</Annotation>
+    <Annotation name="topic">demography</Annotation>
+    <Annotation name="available_dimensions">Origin Country,Sex,Education,Activity,Visa Type,Calculated Age Range</Annotation>
+    <Annotation name="available_measures">Number of visas,Average Age</Annotation>
+  </Annotations>
+  <Table name="fact_immigration_records" schema="demographics"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage caption="Origin Country" foreignKey="country_code" name="Origin Country" source="Country"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <Dimension foreignKey="studies_id" name="Education">
+    <Annotations>
+      <Annotation name="es_element_caption">Educación</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="education">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">None</Value>
+            <Value column="es_description">Ninguno</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Higher Education</Value>
+            <Value column="es_description">Educación Universitaria</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">High School</Value>
+            <Value column="es_description">Educación Media</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Primary School</Value>
+            <Value column="es_description">Educación Básica</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Technical Education</Value>
+            <Value column="es_description">Educación Técnica</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Some Primary School</Value>
+            <Value column="es_description">Educación Pre-Básica</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">None</Value>
+            <Value column="es_description">Ninguno</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Education" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Nivel Educativo</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="activity_id" name="Activity">
+    <Annotations>
+      <Annotation name="es_element_caption">Actividad</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="activity">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Employee</Value>
+            <Value column="es_description">Empleado</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Student</Value>
+            <Value column="es_description">Estudiante</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Housewife</Value>
+            <Value column="es_description">Dueña de Casa</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Unemployed</Value>
+            <Value column="es_description">Inactivo</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Maid</Value>
+            <Value column="es_description">Empleado Doméstico</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No Informa</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">Other activities</Value>
+            <Value column="es_description">Otras Actividades</Value>
+          </Row>
+          <Row>
+            <Value column="id">11</Value>
+            <Value column="description">Religious</Value>
+            <Value column="es_description">Religioso</Value>
+          </Row>
+          <Row>
+            <Value column="id">14</Value>
+            <Value column="description">Self-Employed</Value>
+            <Value column="es_description">Trabajador por Cuenta Propia</Value>
+          </Row>
+          <Row>
+            <Value column="id">13</Value>
+            <Value column="description">No activity</Value>
+            <Value column="es_description">Sin Actividad</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">Laborer</Value>
+            <Value column="es_description">Obrero o Jornalero</Value>
+          </Row>
+          <Row>
+            <Value column="id">12</Value>
+            <Value column="description">Landlord</Value>
+            <Value column="es_description">Rentista</Value>
+          </Row>
+          <Row>
+            <Value column="id">15</Value>
+            <Value column="description">Pilot</Value>
+            <Value column="es_description">Tripulante</Value>
+          </Row>
+          <Row>
+            <Value column="id">14</Value>
+            <Value column="description">Businessperson</Value>
+            <Value column="es_description">Empresario o Patrón</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Retired</Value>
+            <Value column="es_description">Jubilado o Pensionado</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Activity" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Actividad</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="visa_type_id" name="Visa Type">
+    <Annotations>
+      <Annotation name="es_element_caption">Tipo de Visa</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="visa_type">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Student</Value>
+            <Value column="es_description">Estudiante</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Temporary</Value>
+            <Value column="es_description">Temporaria</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Subject to Contract</Value>
+            <Value column="es_description">Sujeta A Contrato</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">No benefit</Value>
+            <Value column="es_description">Sin Beneficio</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Mercosur Temporary Stay Agreement</Value>
+            <Value column="es_description">Temp. Acuerdo Residencia Mercosur</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Permanent Stay</Value>
+            <Value column="es_description">Permanencia Definitiva</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Definitive Permanence By Grace</Value>
+            <Value column="es_description">Permanencia Definitiva Por Gracia</Value>
+          </Row>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Visa Type" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Tipo de Visa</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="Calculated Age Range">
+    <Annotations>
+      <Annotation name="es_element_caption">Rango etario</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <Level name="Age Range">
+        <KeyExpression>
+          <SQL>
+            <![CDATA[            (case
+                       when age BETWEEN 0 AND 14 then '0-14'
+                       when age BETWEEN 15 AND 19 then '15-19'
+                       when age BETWEEN 20 AND 24 then '20-24'
+                       when age BETWEEN 25 AND 29 then '25-29'
+                       when age BETWEEN 30 AND 64 then '30-64'
+                       when age >= 65 then '65-110'
+                       end)
+              ]]>
+          </SQL>
+        </KeyExpression>
+        <NameExpression>
+          <SQL>
+            <![CDATA[(case
+                       when age BETWEEN 0 AND 14 then '0-14'
+                       when age BETWEEN 15 AND 19 then '15-19'
+                       when age BETWEEN 20 AND 24 then '20-24'
+                       when age BETWEEN 25 AND 29 then '25-29'
+                       when age BETWEEN 30 AND 64 then '30-64'
+                       when age >= 65 then '65-110'
+                       end)]]>
+          </SQL>
+        </NameExpression>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" column="birth_date" name="Number of visas">
+    <Annotations>
+      <Annotation name="es_element_caption">Cantidad de visas entregadas</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="age" name="Average Age">
+    <Annotations>
+      <Annotation name="es_element_caption">Edad promedio según visas entregadas</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+</Cube>

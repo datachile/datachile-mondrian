@@ -1,0 +1,39 @@
+<Cube name="election_participation">
+  <Annotations>
+    <Annotation name="source_name">Participación Electoral - SERVEL</Annotation>
+    <Annotation name="source_link">https://www.servel.cl/</Annotation>
+    <Annotation name="topic">civics</Annotation>
+    <Annotation name="available_dimensions">Election Type</Annotation>
+    <Annotation name="available_measures">Electors,Votes,Participation</Annotation>
+  </Annotations>
+  <Table name="fact_election_participation" schema="politics"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="election_id" name="Election Type" source="Election Type"/>
+  <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="total_electores" name="Electors" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Electores habilitados</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="total_votacion" name="Votes" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Electores que votaron</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <CalculatedMember dimension="Measures" name="Participation" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Participación electoral (%)</Annotation>
+      <Annotation name="es_format">0.0 %</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[([Measures].[Votes] / [Measures].[Electors])]]>
+    </Formula>
+  </CalculatedMember>
+</Cube>

@@ -1,0 +1,26 @@
+<Cube name="casen_banking">
+  <Annotations>
+    <Annotation name="source_name">Encuesta CASEN</Annotation>
+    <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
+    <Annotation name="topic">environment</Annotation>
+    <Annotation name="available_measures"/>
+  </Annotations>
+  <Table name="fact_banking_casen" schema="environment"/>
+  <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage caption="Debit Card" foreignKey="debit_card_id" name="Debit Card" source="Binary Survey Response"/>
+  <DimensionUsage caption="Bank Credit Card" foreignKey="credit_card_bank_id" name="Bank Credit Card" source="Binary Survey Response"/>
+  <DimensionUsage caption="Store Credit Card" foreignKey="credit_card_store_id" name="Store Credit Card" source="Binary Survey Response"/>
+  <DimensionUsage caption="Checks" foreignKey="checks_id" name="Checks" source="Binary Survey Response"/>
+  <DimensionUsage caption="Credit Line" foreignKey="credit_line_id" name="Credit Line" source="Binary Survey Response"/>
+  <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="expr" name="Expansion Factor Region" visible="true"/>
+  <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
+  <CalculatedMember dimension="Measures" name="Expansion Factor">
+    <Formula>
+      <![CDATA[IIF(Geography.CurrentMember.Level.Name = "Comuna",
+                    [Measures].[Expansion Factor Comuna],
+                    [Measures].[Expansion Factor Region])]]>
+    </Formula>
+  </CalculatedMember>
+</Cube>

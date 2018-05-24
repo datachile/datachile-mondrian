@@ -1,0 +1,60 @@
+<Cube name="disabilities">
+  <Annotations>
+    <Annotation name="source_name">Encuesta Nacional de Discapacidad (ENDISC) - SENADIS</Annotation>
+    <Annotation name="source_link">http://www.senadis.cl/pag/355/1197/ii_estudio_nacional_de_discapacidad</Annotation>
+    <Annotation name="topic">health</Annotation>
+    <Annotation name="available_dimensions">Sex,Disability Grade</Annotation>
+    <Annotation name="available_measures">Expansion Factor Region</Annotation>
+  </Annotations>
+  <Table name="fact_disability" schema="health"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="region" source="Geography Region" name="Geography"/>
+  <DimensionUsage foreignKey="sex" name="Sex" source="Sex"/>
+  <Dimension foreignKey="disability_grade" name="Disability Grade">
+    <Annotations>
+      <Annotation name="es_element_caption">Grado de discapacidad</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="disability_grade">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">No disability</Value>
+            <Value column="es_description">Sin discapacidad</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Slight to moderate</Value>
+            <Value column="es_description">Leve a moderada</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Severe</Value>
+            <Value column="es_description">Severa</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Disability Grade" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="weight" name="Expansion Factor Region" visible="true" caption="Expansion Factor Region">
+    <Annotations>
+      <Annotation name="es_element_caption">Cantidad de personas aproximada según discapacidad</Annotation>
+    </Annotations>
+  </Measure>
+</Cube>

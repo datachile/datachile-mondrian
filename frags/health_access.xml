@@ -1,0 +1,44 @@
+<Cube name="health_access">
+  <Annotations>
+    <Annotation name="source_name">Indicadores de Acceso a la Salud - DEIS Ministerio de Salud</Annotation>
+    <Annotation name="source_link">http://www.deis.cl/</Annotation>
+    <Annotation name="topic">health</Annotation>
+    <Annotation name="available_dimensions"></Annotation>
+    <Annotation name="available_measures">Primary Healthcare SUM,Specialized Healthcare SUM,Urgency Healthcare SUM,Dental Discharges Per 100 inhabitants AVG</Annotation>
+  </Annotations>
+  <Table name="fact_health_access" schema="health"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography"/>
+  <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="primary_healthcare" name="Primary Healthcare SUM" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Casos de atención primaria</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="specialized_healthcare" name="Specialized Healthcare SUM" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Casos de atención especializada</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="urgency_healthcare" name="Urgency Healthcare SUM" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Casos de urgencias médicas</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="primary_healthcare" name="Primary Healthcare AVG" visible="true"/>
+  <Measure aggregator="avg" column="specialized_healthcare" name="Specialized Healthcare AVG" visible="true"/>
+  <Measure aggregator="avg" column="urgency_healthcare" name="Urgency Healthcare AVG" visible="true"/>
+  <Measure aggregator="avg" column="dental_discharges_per_100_inhabitants" name="Dental Discharges Per 100 inhabitants AVG" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Altas dentales cada 100 habitantes</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+</Cube>

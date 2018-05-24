@@ -1,0 +1,149 @@
+<Cube name="population_estimate">
+  <Annotations>
+    <Annotation name="source_name">INE - Demográficas y Vitales</Annotation>
+    <Annotation name="source_link">http://www.ine.cl/estadisticas/demograficas-y-vitales</Annotation>
+    <Annotation name="topic">demography</Annotation>
+    <Annotation name="available_dimensions">Sex,Age Range</Annotation>
+    <Annotation name="available_measures">Population</Annotation>
+  </Annotations>
+  <!-- http://www.ine.cl/estadisticas/demograficas-y-vitales -->
+  <Table name="fact_population_estimate" schema="demographics"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <Dimension foreignKey="age_range_id" name="Age Range">
+    <Annotations>
+      <Annotation name="es_element_caption">Rango etáreo</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="age_range">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">0 to 4</Value>
+            <Value column="es_description">0 a 4</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">5 to 9</Value>
+            <Value column="es_description">5 a 9</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">10 to 14</Value>
+            <Value column="es_description">10 a 14</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">15 to 19</Value>
+            <Value column="es_description">15 a 19</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">20 to 24</Value>
+            <Value column="es_description">20 a 24</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">25 to 29</Value>
+            <Value column="es_description">25 a 29</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">30 to 34</Value>
+            <Value column="es_description">30 a 34</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">35 to 39</Value>
+            <Value column="es_description">35 a 39</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">40 to 44</Value>
+            <Value column="es_description">40 a 44</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">45 to 49</Value>
+            <Value column="es_description">45 a 49</Value>
+          </Row>
+          <Row>
+            <Value column="id">11</Value>
+            <Value column="description">50 to 54</Value>
+            <Value column="es_description">50 a 54</Value>
+          </Row>
+          <Row>
+            <Value column="id">12</Value>
+            <Value column="description">55 to 59</Value>
+            <Value column="es_description">55 a 59</Value>
+          </Row>
+          <Row>
+            <Value column="id">13</Value>
+            <Value column="description">60 to 64</Value>
+            <Value column="es_description">60 a 64</Value>
+          </Row>
+          <Row>
+            <Value column="id">14</Value>
+            <Value column="description">65 to 69</Value>
+            <Value column="es_description">65 a 69</Value>
+          </Row>
+          <Row>
+            <Value column="id">15</Value>
+            <Value column="description">70 to 74</Value>
+            <Value column="es_description">70 a 74</Value>
+          </Row>
+          <Row>
+            <Value column="id">16</Value>
+            <Value column="description">75 to 79</Value>
+            <Value column="es_description">75 a 79</Value>
+          </Row>
+          <Row>
+            <Value column="id">17</Value>
+            <Value column="description">80 and older</Value>
+            <Value column="es_description">80 y más</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Age Range" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="count" name="Population" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Proyecciones de Población (INE 2014 basado en Censo 2000)</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <CalculatedMember dimension="Measures" name="Population Rank">
+    <Formula>
+      <![CDATA[Rank(Geography.CurrentMember,
+                 Order(Geography.CurrentMember.Level.Members,
+                 Measures.Population, BDESC))]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Population Rank Decile" visible="true">
+    <Formula>
+      <![CDATA[((count(Geography.CurrentMember.Level.Members)-Measures.[Population Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Population Rank Total" visible="true">
+    <Formula>
+      <![CDATA[count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+</Cube>

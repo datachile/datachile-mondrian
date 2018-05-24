@@ -1,0 +1,74 @@
+<Cube name="mortality_one_to_ten">
+  <Annotations>
+    <Annotation name="source_name">Indicadores de Acceso a la Salud - DEIS Ministerio de Salud</Annotation>
+    <Annotation name="source_link"></Annotation>
+    <Annotation name="topic">health</Annotation>
+    <Annotation name="available_dimensions"></Annotation>
+    <Annotation name="available_measures"></Annotation>
+  </Annotations>
+  <Table name="fact_mortality_one_to_ten" schema="childhood"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <Dimension foreignKey="age_range_id" name="Age Range">
+    <Annotations>
+      <Annotation name="es_element_caption">Rango de Edad</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="en">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Deaths under 7 days</Value>
+            <Value column="es_description">Defunciones menores 7 días</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Deaths under 28 days</Value>
+            <Value column="es_description">Defunciones menores 28 días</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Deaths 28 days to 11 months</Value>
+            <Value column="es_description">Defunciones 28 días a 11 meses</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Deaths under 1 year</Value>
+            <Value column="es_description">Defunciones menores de 1 año</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">1 to 4 years</Value>
+            <Value column="es_description">1 a 4 años</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">5 to 9 years</Value>
+            <Value column="es_description">5 a 9 años</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Age Range" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Rango de Edad</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" column="count" name="Number of records" visible="true" />
+  <Measure aggregator="avg" column="rate_comuna" name="Rate Comuna" visible="true" caption="Rate Comuna" />
+  <Measure aggregator="avg" column="rate_region" name="Rate Region" visible="true" caption="Rate Region" />
+  <Measure aggregator="avg" column="rate_country" name="Rate Country" visible="true" caption="Rate Country" />
+</Cube>
