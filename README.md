@@ -11,7 +11,11 @@ Documentación completa para crear un schema aquí: [Mondrian Schema](https://mo
 2. Instalar dependencias con `bundle install`
 3. Ejecutar `jruby -G -S jbundle install`
 4. Duplicar `config.yaml.example` bajo el nombre `config.yaml` y completar los datos.
-5. Correr server `JRUBY_OPTS=-G MONDRIAN_REST_CONF=`pwd`/config.yaml MONDRIAN_REST_SECRET=lala JAVA_OPTS="-Dlog4j.configuration=file:log4j.properties -Dmondrian.olap.SsasCompatibleNaming=true" rackup` 
+5. Correr server `JRUBY_OPTS=-G MONDRIAN_REST_CONF=``pwd``/config.yaml MONDRIAN_REST_SECRET=lala JAVA_OPTS="-Dlog4j.configuration=file:log4j.properties -Dmondrian.olap.SsasCompatibleNaming=true" rackup` 
+
+## Para concatenar fragmentos
+1. Instalar [mondrian-schema-cat](https://github.com/hwchen/mondrian-schema-cat/)
+2. Ejecutar `moncat -d frags/ -o schema.xml`
 
 ## Conceptos básicos
 Descripción y ejemplos de las palabras clave en Mondrian y OLAP.
