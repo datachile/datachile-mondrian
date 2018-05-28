@@ -1,0 +1,96 @@
+<Cube name="death_causes">
+  <Annotations>
+    <Annotation name="source_name">Causas de Muerte - DEIS Ministerio de Salud</Annotation>
+    <Annotation name="source_link">http://www.deis.cl/</Annotation>
+    <Annotation name="topic">health</Annotation>
+    <Annotation name="available_dimensions">Sex,CIE 10</Annotation>
+    <Annotation name="available_measures">Casualities Count SUM,Casualities rate per 100 inhabitants</Annotation>
+  </Annotations>
+  <Table name="fact_death_causes" schema="health"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="region_id" name="Geography" source="Geography Region"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <Dimension foreignKey="cie_10_id" name="CIE 10">
+    <Annotations>
+      <Annotation name="es_element_caption">Clasificación internacional de enfermedades (CIE 10)</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="cie_10">
+        <ColumnDefs>
+          <ColumnDef name="id" type="String"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">C00-D48</Value>
+            <Value column="description">Tumors (Neoplasms)</Value>
+            <Value column="es_description">Tumores (neoplasias)</Value>
+          </Row>
+          <Row>
+            <Value column="id">E00-E90</Value>
+            <Value column="description">Endocrine, nutritional and metabolic diseases</Value>
+            <Value column="es_description">Enfermedades endocrinas, nutricionales y metabolicas</Value>
+          </Row>
+          <Row>
+            <Value column="id">I00-I99</Value>
+            <Value column="description">Diseases of the circulatory system</Value>
+            <Value column="es_description">Enfermedades del sistema circulatorio</Value>
+          </Row>
+          <Row>
+            <Value column="id">J00-J99</Value>
+            <Value column="description">Diseases of the respiratory system</Value>
+            <Value column="es_description">Enfermedades del sistema respiratorio</Value>
+          </Row>
+          <Row>
+            <Value column="id">K00-K93</Value>
+            <Value column="description">Diseases of the digestive system</Value>
+            <Value column="es_description">Enfermedades del sistema digestivo</Value>
+          </Row>
+          <Row>
+            <Value column="id">V01-Y98</Value>
+            <Value column="description">External causes of morbidity and mortality</Value>
+            <Value column="es_description">Causa Externa de mortalidad</Value>
+          </Row>
+          <Row>
+            <Value column="id">B20-B24</Value>
+            <Value column="description">Human immunodeficiency virus [HIV] disease</Value>
+            <Value column="es_description">Infecciones por VIH y SIDA</Value>
+          </Row>
+          <Row>
+            <Value column="id">V01-V99</Value>
+            <Value column="description">Transport accidents</Value>
+            <Value column="es_description">Accidentes de tránsito</Value>
+          </Row>
+          <Row>
+            <Value column="id">X60-X84</Value>
+            <Value column="description">Intentional self-harm</Value>
+            <Value column="es_description">Lesiones autoinfligidas intencionalmente</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="CIE 10" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
+  <Measure aggregator="avg" column="casualities_count" name="Casualities Count AVG" visible="true"/>
+  <Measure aggregator="sum" column="casualities_count" name="Casualities Count SUM" visible="true" caption="Casualities Count SUM">
+    <Annotations>
+      <Annotation name="es_element_caption">Muertes totales</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="casualities_rate_per_100_inhabitants" name="Casualities rate per 100 inhabitants" visible="true" caption="Muertes cada 100 habitantes">
+    <Annotations>
+      <Annotation name="es_element_caption">Muertes por enfermedad cada 100 habitantes</Annotation>
+    </Annotations>
+  </Measure>
+</Cube>

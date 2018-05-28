@@ -1,0 +1,104 @@
+<Cube name="psu">
+  <Annotations>
+    <Annotation name="source_name">Prueba de Selección Universitaria (PSU) - DEMRE</Annotation>
+    <Annotation name="source_link">http://demre.cl/</Annotation>
+    <Annotation name="topic">education</Annotation>
+    <Annotation name="available_dimensions">Sex</Annotation>
+    <Annotation name="available_measures">PSU Average</Annotation>
+  </Annotations>
+  <View alias="fact_psu">
+    <SQL dialect="generic">
+      <![CDATA[(SELECT
+      *, ((language_test + math_test) / 2) as avg_individual from education.fact_psu
+      )]]>
+    </SQL>
+  </View>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <Dimension name="Calculated PSU Bucket">
+    <Hierarchy hasAll="true">
+      <Level name="Bucket">
+        <KeyExpression>
+          <SQL>
+            <![CDATA[(case
+                       when avg_individual BETWEEN 150 AND 199 then '150-199'
+                       when avg_individual BETWEEN 200 AND 249 then '200-249'
+                       when avg_individual BETWEEN 250 AND 299 then '250-299'
+                       when avg_individual BETWEEN 300 AND 349 then '300-349'
+                       when avg_individual BETWEEN 350 AND 399 then '350-399'
+                       when avg_individual BETWEEN 400 AND 449 then '400-449'
+                       when avg_individual BETWEEN 450 AND 499 then '450-499'
+                       when avg_individual BETWEEN 500 AND 549 then '500-549'
+                       when avg_individual BETWEEN 550 AND 599 then '550-599'
+                       when avg_individual BETWEEN 600 AND 649 then '600-649'
+                       when avg_individual BETWEEN 650 AND 699 then '650-699'
+                       when avg_individual BETWEEN 700 AND 749 then '700-749'
+                       when avg_individual BETWEEN 750 AND 799 then '750-799'
+                       when avg_individual >= 800 then '800'
+                      end)
+              ]]>
+          </SQL>
+        </KeyExpression>
+        <NameExpression>
+          <SQL>
+            <![CDATA[(case
+                       when avg_individual BETWEEN 150 AND 199 then '150-199 pts'
+                       when avg_individual BETWEEN 200 AND 249 then '200-249 pts'
+                       when avg_individual BETWEEN 250 AND 299 then '250-299 pts'
+                       when avg_individual BETWEEN 300 AND 349 then '300-349 pts'
+                       when avg_individual BETWEEN 350 AND 399 then '350-399 pts'
+                       when avg_individual BETWEEN 400 AND 449 then '400-449 pts'
+                       when avg_individual BETWEEN 450 AND 499 then '450-499 pts'
+                       when avg_individual BETWEEN 500 AND 549 then '500-549 pts'
+                       when avg_individual BETWEEN 550 AND 599 then '550-599 pts'
+                       when avg_individual BETWEEN 600 AND 649 then '600-649 pts'
+                       when avg_individual BETWEEN 650 AND 699 then '650-699 pts'
+                       when avg_individual BETWEEN 700 AND 749 then '700-749 pts'
+                       when avg_individual BETWEEN 750 AND 799 then '750-799 pts'
+                       when avg_individual >= 800 then '+800 pts'
+                      end)
+              ]]>
+          </SQL>
+        </NameExpression>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" name="Number of records" visible="true">
+    <MeasureExpression>
+      <SQL>((language_test + math_test) / 2)</SQL>
+    </MeasureExpression>
+  </Measure>
+  <Measure aggregator="avg" column="language_test" name="Avg language test" visible="true"/>
+  <Measure aggregator="avg" column="math_test" name="Avg math test" visible="true"/>
+  <Measure aggregator="sum" column="avg_individual" name="PSU AVG individual" visible="true"/>
+  <CalculatedMember dimension="Measures" name="PSU Average" visible="true" caption="PSU Average">
+    <Annotations>
+      <Annotation name="es_element_caption">PSU promedio</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[[Measures].[PSU AVG Individual] / [Measures].[Number of records]]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="PSU Rank">
+    <Formula>
+      <![CDATA[Rank(Geography.CurrentMember,
+                 Order(Geography.CurrentMember.Level.Members,
+                 Measures.[PSU Average], BDESC))]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="PSU Rank Decile" visible="true">
+    <Formula>
+      <![CDATA[((count(Geography.CurrentMember.Level.Members)-Measures.[PSU Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="PSU Rank Total" visible="true">
+    <Formula>
+      <![CDATA[count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+</Cube>

@@ -1,0 +1,27 @@
+<VirtualCube name="exports_and_imports">
+  <VirtualCubeDimension name="Date"/>
+  <VirtualCubeDimension name="Geography"/>
+  <VirtualCubeDimension name="Country"/>
+  <VirtualCubeMeasure cubeName="exports" name="[Measures].[FOB US]" visible="false"/>
+  <VirtualCubeMeasure cubeName="imports" name="[Measures].[CIF US]" visible="false"/>
+  <CalculatedMember dimension="Measures" name="FOB" visible="true">
+    <Formula>
+      <![CDATA[ValidMeasure([Measures].[FOB US])]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="CIF" visible="true">
+    <Formula>
+      <![CDATA[ValidMeasure([Measures].[CIF US])]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Trade Balance" visible="true">
+    <Formula>
+      <![CDATA[([Measures].[FOB US] - [Measures].[CIF US])]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Trade Exchange" visible="true">
+    <Formula>
+      <![CDATA[([Measures].[FOB] + [Measures].[CIF])]]>
+    </Formula>
+  </CalculatedMember>
+</VirtualCube>

@@ -1,0 +1,1223 @@
+<Cube name="casen_household">
+  <Annotations>
+    <Annotation name="source_name">Encuesta CASEN</Annotation>
+    <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
+    <Annotation name="topic">environment</Annotation>
+    <Annotation name="available_dimensions">Zone Id,Household Type,Walls Material,Floor Material,Ceiling Material,Land Using,Household Sq Meters,Household Using,Subsidy Or Program,Credit,Paying Credit,Water Source,Water Distribution,Waste Disposal,Electricity</Annotation>
+    <Annotation name="available_measures">Expansion Factor</Annotation>
+  </Annotations>
+  <Table name="fact_household_casen" schema="environment"/>
+  <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <Dimension foreignKey="zone_id" name="Zone Id">
+    <Annotations>
+      <Annotation name="es_element_caption">Zona</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="zone_id">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Urban</Value>
+            <Value column="es_description">urbano</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Rural</Value>
+            <Value column="es_description">rural</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Zone Id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="household_type" name="Household Type">
+    <Annotations>
+      <Annotation name="es_element_caption">Tipo de Casa</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="household_type">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Detached</Value>
+            <Value column="es_description">Casa aislada (no pareada)</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Semi detached</Value>
+            <Value column="es_description">Casa pareada por un lado</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Undetached</Value>
+            <Value column="es_description">Casa pareada por ambos lados</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Apartment in builiding with elevator</Value>
+            <Value column="es_description">Departamento en edificio con ascensor</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Apartment in builiding without elevator</Value>
+            <Value column="es_description">Departamento en edificio sin ascensor</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Room in old house or conventillo</Value>
+            <Value column="es_description">Pieza en casa antigua o conventillo</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">mediagua, mejora o vivienda de emergencia</Value>
+            <Value column="es_description">Mediagua, mejora o vivienda de emergencia</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Indigenous native house</Value>
+            <Value column="es_description">Vivienda tradicional indígena</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">Ranch or shack</Value>
+            <Value column="es_description">Rancho o choza</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">Precarious house made out of recycling materials (cans, plastics, cardboard, etc.)</Value>
+            <Value column="es_description">Vivienda precaria de materiales reutilizados (latas, plásticos, cartones, etc.)</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Household Type" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="walls_material" name="Walls Material">
+    <Annotations>
+      <Annotation name="es_element_caption">Material de las paredes</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="walls_material">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <!-- TODO: translate -->
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Reinforced concrete</Value>
+            <Value column="es_description">Hormigón armado</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Masonry (cement block, stone or brick)</Value>
+            <Value column="es_description">Albañilería (bloque cemento, piedra o ladrillo)</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Septum lined on both sides (wood, steel, tin, or other)</Value>
+            <Value column="es_description">Tabique forrado por ambas caras (madera, acero, lata, u otro)</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Septum without interior lining (wood or other)</Value>
+            <Value column="es_description">Tabique sin forro interior (madera u otro)</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Adobe, mud, quincha, pirca or other traditional craft</Value>
+            <Value column="es_description">Adobe, barro, quincha, pirca u otro artesanal tradicional</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Precarious or waste materials (cardboard, cans, bags, plastics, etc.)</Value>
+            <Value column="es_description">Materiales precarios o de desecho (cartón, latas, sacos, plásticos, etc.)</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Walls Material" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="floor_material" name="Floor Material">
+    <Annotations>
+      <Annotation name="es_element_caption">Material del piso</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="floor_material">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Parquet tiles, wooden floor, floating floor or similar</Value>
+            <Value column="es_description">Parquet, madera, piso flotante o similar</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Ceramic, porcelain, flexit or similar</Value>
+            <Value column="es_description">Cerámico, porcelanato, flexit o similar</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Carpet o floor coverings</Value>
+            <Value column="es_description">Alfombra o cubrepiso</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Cement tiles</Value>
+            <Value column="es_description">Baldosa de cemento</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Cement</Value>
+            <Value column="es_description">Radier</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Ground floor</Value>
+            <Value column="es_description">Tierra</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Floor Material" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="ceiling_material" name="Ceiling Material">
+    <Annotations>
+      <Annotation name="es_element_caption">Material del techo</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="ceiling_material">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <!-- TODO: translate -->
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">tejas o tejuela (arcilla, metálica, cemento, madera, asfáltica)</Value>
+            <Value column="es_description">tejas o tejuela (arcilla, metálica, cemento, madera, asfáltica)</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">losa hormigón</Value>
+            <Value column="es_description">losa hormigón</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">planchas metálicas (zinc, cobre, etc.)</Value>
+            <Value column="es_description">planchas metálicas (zinc, cobre, etc.)</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">planchas de fibrocemento (pizarreño)</Value>
+            <Value column="es_description">planchas de fibrocemento (pizarreño)</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">fonolita o plancha de fieltro embreado</Value>
+            <Value column="es_description">fonolita o plancha de fieltro embreado</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">paja, coirón, totora, caña</Value>
+            <Value column="es_description">paja, coirón, totora, caña</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">materiales precarios o de desecho</Value>
+            <Value column="es_description">materiales precarios o de desecho</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">sin cubierta en el techo</Value>
+            <Value column="es_description">sin cubierta en el techo</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Ceiling Material" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="households_in_land" name="Households In Land">
+    <Annotations>
+      <Annotation name="es_element_caption">Viviendas en el terreno</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="households_in_land">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Households In Land" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="land_using" name="Land Using">
+    <Annotations>
+      <Annotation name="es_element_caption">Condición del terreno</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="land_using">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Own, paid</Value>
+            <Value column="es_description">Propio pagado</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Own, in payment</Value>
+            <Value column="es_description">Propio pagándose</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">propio compartido (pagado) con otras viviendas del sitio</Value>
+            <Value column="es_description">propio compartido (pagado) con otras viviendas del sitio</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">propio compartido (pagándose) con otras viviendas del sitio</Value>
+            <Value column="es_description">propio compartido (pagándose) con otras viviendas del sitio</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Leased with contract</Value>
+            <Value column="es_description">Arrendado con contrato</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Leased without contract</Value>
+            <Value column="es_description">Arrendado sin contrato</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Ceded for service or work</Value>
+            <Value column="es_description">Cedido por servicio o trabajo</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Ceded by family or other</Value>
+            <Value column="es_description">Cedido por familiar u otro</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">Usufruct (only use and enjoyment)</Value>
+            <Value column="es_description">Usufructo (sólo uso y goce)</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">Irregular occupation (de facto)</Value>
+            <Value column="es_description">Ocupación irregular (de hecho)</Value>
+          </Row>
+          <Row>
+            <Value column="id">11</Value>
+            <Value column="description">Irregular possessor</Value>
+            <Value column="es_description">Poseedor irregular</Value>
+          </Row>
+          <Row>
+            <Value column="id">12</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Land Using" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="household_sq_meters" name="Household Sq Meters">
+    <Annotations>
+      <Annotation name="es_element_caption">Área construída de la vivienda</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="household_sq_meters">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Less than 30 m²</Value>
+            <Value column="es_description">Menos de 30 m²</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">30 to 40 m²</Value>
+            <Value column="es_description">30 a 40 m²</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">41 to 60 m²</Value>
+            <Value column="es_description">41 a 60 m²</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">61 to 100 m²</Value>
+            <Value column="es_description">61 a 100 m²</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">101 to 150 m²</Value>
+            <Value column="es_description">101 a 150 m²</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">More than 150 m²</Value>
+            <Value column="es_description">más de 150 m²</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Don't know</Value>
+            <Value column="es_description">no sabe</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Household Sq Meters" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="household_using" name="Household Using">
+    <Annotations>
+      <Annotation name="es_element_caption">Condición de la vivienda</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="household_using">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Own and paid</Value>
+            <Value column="es_description">Propia pagada</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Own, in payment</Value>
+            <Value column="es_description">Propia pagándose</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Own, shared, paid with the help of others</Value>
+            <Value column="es_description">Propia compartida (pagada) con otros hogares de la vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Own, shared, in payment with the help of others</Value>
+            <Value column="es_description">Propia compartida (pagándose) con otros hogares de la vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Leased with contract</Value>
+            <Value column="es_description">Arrendada con contrato</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Leased without contract</Value>
+            <Value column="es_description">Arrendada sin contrato</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Ceded for service or work</Value>
+            <Value column="es_description">Cedida por servicio o trabajo</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Ceded by family or other</Value>
+            <Value column="es_description">Cedida por familiar u otro</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">Usufruct (only use and enjoyment)</Value>
+            <Value column="es_description">Usufructo (sólo uso y goce)</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">Irregular occupation (de facto)</Value>
+            <Value column="es_description">Ocupación irregular (de hecho)</Value>
+          </Row>
+          <Row>
+            <Value column="id">11</Value>
+            <Value column="description">Irregular possessor</Value>
+            <Value column="es_description">Poseedor irregular</Value>
+          </Row>
+          <Row>
+            <Value column="id">12</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Household Using" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="family_member_owner" name="Family Member Owner">
+    <Annotations>
+      <Annotation name="es_element_caption">Miembro familiar es dueño</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="family_member_owner">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Yes</Value>
+            <Value column="es_description">Sí</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">No</Value>
+            <Value column="es_description">No</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Family Member Owner" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="family_member_owner_2" name="Family Member Owner 2">
+    <Annotations>
+      <Annotation name="es_element_caption">Miembro familiar dueño</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="family_member_owner_2">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Head of household</Value>
+            <Value column="es_description">Jefe(a) del hogar</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Spouse</Value>
+            <Value column="es_description">Cónyuge</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Partner</Value>
+            <Value column="es_description">Conviviente o pareja</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Child or stepchild</Value>
+            <Value column="es_description">Hijo(a)</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Other relative</Value>
+            <Value column="es_description">Otro pariente</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Non-relative</Value>
+            <Value column="es_description">Otro no pariente</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Head of household and partner</Value>
+            <Value column="es_description">Jefe(a) y cónyuge</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Head of household and other relative</Value>
+            <Value column="es_description">Jefe(a) y otro pariente</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Family Member Owner 2" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="subsidy_or_program" name="Subsidy Or Program">
+    <Annotations>
+      <Annotation name="es_element_caption">Subsidio o programa</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="subsidy_or_program">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Yes, with housing subsidy (without mortgage)</Value>
+            <Value column="es_description">Sí, con subsidio habitacional (sin crédito)</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Yes, with housing subsidy and mortgage</Value>
+            <Value column="es_description">Sí, con subsidio habitacional y crédito</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">No, only with own resources</Value>
+            <Value column="es_description">No, sólo con recursos propios</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">No, received from inheritance or free transfer</Value>
+            <Value column="es_description">No, la recibí de herencia o traspaso gratuito</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Subsidy or Program" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="credit" name="Credit">
+    <Annotations>
+      <Annotation name="es_element_caption">Financiamiento hipotecario</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="credit">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Yes, SERVIU (only homes acquired from 1977 to 2001)</Value>
+            <Value column="es_description">Sí, SERVIU (sólo viviendas adquiridas desde 1977 hasta 2001)</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Yes, BancoEstado</Value>
+            <Value column="es_description">Sí, BancoEstado</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Yes, private bank</Value>
+            <Value column="es_description">Sí, banco privado</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Yes, cooperative</Value>
+            <Value column="es_description">Sí, cooperativa</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Yes, other financial institutions</Value>
+            <Value column="es_description">Sí, financiera u otra institución</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">No, without mortgage</Value>
+            <Value column="es_description">No, sin crédito hipotecario</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Credit" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="paying_credit" name="Paying Credit">
+    <Annotations>
+      <Annotation name="es_element_caption">Estado del pago hipotecario</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="paying_credit">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <!-- TODO: translate -->
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">sí, está pagando al día sus dividendos</Value>
+            <Value column="es_description">sí, está pagando al día sus dividendos</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">sí, está pagando con atraso sus dividendos</Value>
+            <Value column="es_description">sí, está pagando con atraso sus dividendos</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">no está pagando, aunque tiene deuda pendiente</Value>
+            <Value column="es_description">no está pagando, aunque tiene deuda pendiente</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">no está pagando, terminó de pagar</Value>
+            <Value column="es_description">no está pagando, terminó de pagar</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Paying Credit" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="water_source" name="Water Source">
+    <Annotations>
+      <Annotation name="es_element_caption">Fuente del agua</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="water_source">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">red pública con medidor propio</Value>
+            <Value column="es_description">red pública con medidor propio</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">red pública con medidor compartido</Value>
+            <Value column="es_description">red pública con medidor compartido</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">red pública sin medidor</Value>
+            <Value column="es_description">red pública sin medidor</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">pozo o noria</Value>
+            <Value column="es_description">pozo o noria</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">río, vertiente, lago o estero</Value>
+            <Value column="es_description">río, vertiente, lago o estero</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">camión aljibe</Value>
+            <Value column="es_description">camión aljibe</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">otra fuente.</Value>
+            <Value column="es_description">otra fuente.</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Water Source" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="water_distribution" name="Water Distribution">
+    <Annotations>
+      <Annotation name="es_element_caption">Distribución del agua</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="water_distribution">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">con llave dentro de la vivienda</Value>
+            <Value column="es_description">con llave dentro de la vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">con llave dentro del sitio, pero fuera de la vivienda</Value>
+            <Value column="es_description">con llave dentro del sitio, pero fuera de la vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">no tiene sistema, la acarrea</Value>
+            <Value column="es_description">no tiene sistema, la acarrea</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Water Distribution" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="waste_disposal" name="Waste Disposal">
+    <Annotations>
+      <Annotation name="es_element_caption">Eliminación de desechos</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="waste_disposal">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">sí, con wc conectado al alcantarillado</Value>
+            <Value column="es_description">sí, con wc conectado al alcantarillado</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">sí, con wc conectado a fosa séptica</Value>
+            <Value column="es_description">sí, con wc conectado a fosa séptica</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">sí, con letrina sanitaria conectada a pozo negro</Value>
+            <Value column="es_description">sí, con letrina sanitaria conectada a pozo negro</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">sí, con cajón sobre pozo negro</Value>
+            <Value column="es_description">sí, con cajón sobre pozo negro</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">sí, con cajón sobre acequia o canal</Value>
+            <Value column="es_description">sí, con cajón sobre acequia o canal</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">sí, con cajón conectado a otro sistema</Value>
+            <Value column="es_description">sí, con cajón conectado a otro sistema</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">sí, con baño químico dentro del sitio</Value>
+            <Value column="es_description">sí, con baño químico dentro del sitio</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">no dispone de sistema</Value>
+            <Value column="es_description">no dispone de sistema</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Waste Disposal" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="electricity" name="Electricity">
+    <Annotations>
+      <Annotation name="es_element_caption">Fuente de electricidad</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="electricity">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <!-- TODO: translate -->
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">sí, de la red pública con medidor propio</Value>
+            <Value column="es_description">sí, de la red pública con medidor propio</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">sí, de la red pública con medidor compartido</Value>
+            <Value column="es_description">sí, de la red pública con medidor compartido</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">sí, de la red pública sin medidor</Value>
+            <Value column="es_description">sí, de la red pública sin medidor</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">sí, de un generador propio o comunitario</Value>
+            <Value column="es_description">sí, de un generador propio o comunitario</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">sí, a través de placa solar</Value>
+            <Value column="es_description">sí, a través de placa solar</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">sí, de otra fuente. especifique</Value>
+            <Value column="es_description">sí, de otra fuente. especifique</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">no dispone de energía eléctrica</Value>
+            <Value column="es_description">no dispone de energía eléctrica</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">ns/nr</Value>
+            <Value column="es_description">ns/nr</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Electricity" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="rooms" name="Rooms">
+    <Annotations>
+      <Annotation name="es_element_caption">Habitaciones</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="rooms">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Rooms" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="bathrooms" name="Bathrooms">
+    <Annotations>
+      <Annotation name="es_element_caption">Baños</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="bathrooms">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Bathrooms" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="families_in_household" name="Families In Household">
+    <Annotations>
+      <Annotation name="es_element_caption">Familias en la vivienda</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="families_in_household">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Families In Household" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="reason_to_share" name="Reason To Share">
+    <Annotations>
+      <Annotation name="es_element_caption">Motivo del allegamiento</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="reason_to_share">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <!-- TODO: translate -->
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">cuidar niños, enfermos, ancianos o personas con discapacidad</Value>
+            <Value column="es_description">cuidar niños, enfermos, ancianos o personas con discapacidad</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">razones económicas</Value>
+            <Value column="es_description">razones económicas</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">razones de estudio</Value>
+            <Value column="es_description">razones de estudio</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">razones laborales</Value>
+            <Value column="es_description">razones laborales</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">por emergencia</Value>
+            <Value column="es_description">por emergencia</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">prefiere vivir así o se siente cómodo</Value>
+            <Value column="es_description">prefiere vivir así o se siente cómodo</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">costumbre o tradición familiar</Value>
+            <Value column="es_description">costumbre o tradición familiar</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">otra. especifique</Value>
+            <Value column="es_description">otra. especifique</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Reason To Share" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <!-- Energy Source Survey Response -->
+  <DimensionUsage caption="Cooking Energy Source" foreignKey="cooking_energy_source" name="Cooking Energy Source" source="Energy Source Survey Response"/>
+  <DimensionUsage caption="Heating Energy Source" foreignKey="heating_energy_source" name="Heating Energy Source" source="Energy Source Survey Response"/>
+  <DimensionUsage caption="Hot Water Energy Source" foreignKey="hot_water_energy_source" name="Hot Water Energy Source" source="Energy Source Survey Response"/>
+  <!-- Binary Survey Response -->
+  <DimensionUsage caption="Less Than 8 Blocks Public Transport" foreignKey="less_than_8_blocks_public_transport" name="Less Than 8 Blocks Public Transport" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Educational Center" foreignKey="less_than_20_blocks_educational_center" name="Less Than 20 Blocks Educational Center" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Health Center" foreignKey="less_than_20_blocks_health_center" name="Less Than 20 Blocks Health Center" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Market" foreignKey="less_than_20_blocks_market" name="Less Than 20 Blocks Market" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Atm" foreignKey="less_than_20_blocks_atm" name="Less Than 20 Blocks Atm" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Sports Center" foreignKey="less_than_20_blocks_sports_center" name="Less Than 20 Blocks Sports Center" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Green Areas" foreignKey="less_than_20_blocks_green_areas" name="Less Than 20 Blocks Green Areas" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Community Equipment" foreignKey="less_than_20_blocks_community_equipment" name="Less Than 20 Blocks Community Equipment" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Pharmacy" foreignKey="less_than_20_blocks_pharmacy" name="Less Than 20 Blocks Pharmacy" source="Binary Survey Response"/>
+  <!-- Frequency Survey Response -->
+  <DimensionUsage caption="Affected By Acoustic Contamination" foreignKey="affected_by_acoustic_contamination" name="Affected By Acoustic Contamination" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By Air Contamination" foreignKey="affected_by_air_contamination" name="Affected By Air Contamination" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By River Or Lake Contamination" foreignKey="affected_by_river_or_lake_contamination" name="Affected By River Or Lake Contamination" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By Public Water Source Contamination" foreignKey="affected_by_public_water_source_contamination" name="Affected By Public Water Source Contamination" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By Graffitis Or Advertising" foreignKey="affected_by_graffitis_or_advertising" name="Affected By Graffitis Or Advertising" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By Accumulation Of Trash Public Areas" foreignKey="affected_by_accumulation_of_trash_public_areas" name="Affected By Accumulation Of Trash Public Areas" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By Animal Or Insect Plague" foreignKey="affected_by_animal_or_insect_plague" name="Affected By Animal Or Insect Plague" source="Frequency Survey Response"/>
+  <!-- Mesaures -->
+  <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="expr" name="Expansion Factor Region" visible="true"/>
+  <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
+  <CalculatedMember dimension="Measures" name="Expansion Factor">
+    <Annotations>
+      <Annotation name="es_element_caption">Cantidad de viviendas (CASEN)</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+    <Formula>
+      <![CDATA[IIF(Geography.CurrentMember.Level.Name = "Comuna",
+                    [Measures].[Expansion Factor Comuna],
+                    [Measures].[Expansion Factor Region])]]>
+    </Formula>
+  </CalculatedMember>
+</Cube>

@@ -1,0 +1,45 @@
+<Cube name="imports">
+  <Annotations>
+    <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
+    <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
+    <Annotation name="topic">economy</Annotation>
+    <Annotation name="available_dimensions">Origin Country,Import HS</Annotation>
+    <Annotation name="available_measures">CIF US</Annotation>
+  </Annotations>
+  <!-- Table name="fact_imports" schema="economy" / -->
+  <View alias="fact_imports">
+    <SQL>
+      <![CDATA[(SELECT * FROM economy.fact_imports WHERE "year">= 2011)]]>
+    </SQL>
+  </View>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="country_code" name="Origin Country" caption="Origin Country" source="Country"/>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="hs12" name="Import HS" source="HS"/>
+  <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
+  <DimensionUsage caption="Country" foreignKey="country_code" name="Country" source="Country"/>
+  <Measure aggregator="sum" column="cif_value_usd" name="CIF US">
+    <Annotations>
+      <Annotation name="es_element_caption">Importaciones (CIF USD)</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <CalculatedMember dimension="Measures" name="Geo Rank Across Time">
+    <Annotations>
+      <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[Iif(IsEmpty([Measures].[CIF US]),
+                 Null,
+                 Rank([Geography].CurrentMember,
+                 Order([Geography].CurrentMember.Siblings,
+                 Aggregate({[Date].CurrentMember}*{[Origin Country].[All Countrys]}*{[Import HS].[All HSs]},
+                 [Measures].[CIF US]),
+                 BDESC)))]]>
+    </Formula>
+  </CalculatedMember>
+</Cube>

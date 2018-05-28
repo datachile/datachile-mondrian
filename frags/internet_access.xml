@@ -1,0 +1,31 @@
+<Cube name="internet_access">
+  <Annotations>
+    <Annotation name="source_name">Encuesta de Acceso, Usos y Usuarios de Internet — INE</Annotation>
+    <Annotation name="source_link">http://anda.ine.cl/index.php/catalog/9222</Annotation>
+    <Annotation name="topic">environment</Annotation>
+    <Annotation name="available_dimensions"></Annotation>
+    <Annotation name="available_measures">Expansion factor</Annotation>
+  </Annotations>
+  <Table name="fact_internet_access_survey" schema="environment"/>
+  <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography"/>
+  <DimensionUsage foreignKey="zone_id" name="Zone" source="Zone"/>
+  <DimensionUsage caption="Internet Plan" foreignKey="internet_plan_id" name="Internet Plan" source="Binary Survey Response"/>
+  <DimensionUsage caption="Home Access" foreignKey="home_access_id" name="Home Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="Desktop Access" foreignKey="desktop_access_id" name="Desktop Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="Laptop Access" foreignKey="laptop_access_id" name="Laptop Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="Tablet Access" foreignKey="tablet_access_id" name="Tablet Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="Cellphone Access" foreignKey="cellphone_access_id" name="Cellphone Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="Games or Consoles Access" foreignKey="games_consoles_access_id" name="Games or Consoles Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="TV Access" foreignKey="tv_access_id" name="TV Access" source="Binary Survey Response"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" column="region_id" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="weights" name="Expansion factor" visible="true" caption="Expansion factor">
+    <Annotations>
+      <Annotation name="es_element_caption">Personas conectadas a internet (aproximado)</Annotation>
+    </Annotations>
+  </Measure>
+</Cube>

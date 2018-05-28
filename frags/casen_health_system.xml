@@ -1,0 +1,151 @@
+<Cube name="casen_health_system">
+  <Annotations>
+    <Annotation name="source_name">Encuesta CASEN</Annotation>
+    <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
+    <Annotation name="topic">health</Annotation>
+    <Annotation name="available_dimensions">Health System</Annotation>
+    <Annotation name="available_measures">Expansion Factor</Annotation>
+  </Annotations>
+  <Table name="fact_health_system_casen" schema="health"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <Dimension foreignKey="health_system_id" name="Health System">
+    <Annotations>
+      <Annotation name="es_element_caption">Sistema de salud</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="health_system">
+        <ColumnDefs>
+          <ColumnDef name="group_id" type="Numeric"/>
+          <ColumnDef name="group_description" type="String"/>
+          <ColumnDef name="group_es_description" type="String"/>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">FONASA</Value>
+            <Value column="group_es_description">FONASA</Value>
+            <Value column="id">1</Value>
+            <Value column="description">FONASA Group A</Value>
+            <Value column="es_description">FONASA Grupo A</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">FONASA</Value>
+            <Value column="group_es_description">FONASA</Value>
+            <Value column="id">2</Value>
+            <Value column="description">FONASA Group B</Value>
+            <Value column="es_description">FONASA Grupo B</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">FONASA</Value>
+            <Value column="group_es_description">FONASA</Value>
+            <Value column="id">3</Value>
+            <Value column="description">FONASA Group C</Value>
+            <Value column="es_description">FONASA Grupo C</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">FONASA</Value>
+            <Value column="group_es_description">FONASA</Value>
+            <Value column="id">4</Value>
+            <Value column="description">FONASA Group D</Value>
+            <Value column="es_description">FONASA Grupo D</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">FONASA</Value>
+            <Value column="group_es_description">FONASA</Value>
+            <Value column="id">5</Value>
+            <Value column="description">FONASA (N/A)</Value>
+            <Value column="es_description">FONASA (No Sabe Grupo)</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">2</Value>
+            <Value column="group_description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
+            <Value column="group_es_description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
+            <Value column="id">6</Value>
+            <Value column="description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
+            <Value column="es_description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">3</Value>
+            <Value column="group_description">Private Health Insurance</Value>
+            <Value column="group_es_description">Isapre</Value>
+            <Value column="id">7</Value>
+            <Value column="description">Private Health Insurance</Value>
+            <Value column="es_description">Isapre</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">4</Value>
+            <Value column="group_description">Other</Value>
+            <Value column="group_es_description">Otro</Value>
+            <Value column="id">8</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">4</Value>
+            <Value column="group_description">Other</Value>
+            <Value column="group_es_description">Otro</Value>
+            <Value column="id">9</Value>
+            <Value column="description">Another system</Value>
+            <Value column="es_description">Otro Sistema</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">4</Value>
+            <Value column="group_description">Other</Value>
+            <Value column="group_es_description">Otro</Value>
+            <Value column="id">10</Value>
+            <Value column="description">Doesn't know</Value>
+            <Value column="es_description">No sabe</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">4</Value>
+            <Value column="group_description">Other</Value>
+            <Value column="group_es_description">Otro</Value>
+            <Value column="id">0</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="group_id" name="Health System Group" nameColumn="group_description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Grupo</Annotation>
+        </Annotations>
+        <Property column="group_es_description" name="Description ES"/>
+      </Level>
+      <Level column="id" name="Health System" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Subgrupo</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="expr" name="Expansion Factor Region" visible="true"/>
+  <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
+  <CalculatedMember dimension="Measures" name="Expansion Factor">
+    <Annotations>
+      <Annotation name="es_element_caption">Cobertura de salud: Cantidad de personas</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+    <Formula>
+      <![CDATA[IIF(Geography.CurrentMember.Level.Name = "Comuna",
+                    [Measures].[Expansion Factor Comuna],
+                    [Measures].[Expansion Factor Region])]]>
+    </Formula>
+  </CalculatedMember>
+</Cube>

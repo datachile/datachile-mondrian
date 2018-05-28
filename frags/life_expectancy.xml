@@ -1,0 +1,28 @@
+<Cube name="life_expectancy">
+  <Annotations>
+    <Annotation name="source_name"></Annotation>
+    <Annotation name="source_link"></Annotation>
+    <Annotation name="topic">health</Annotation>
+    <Annotation name="available_dimensions">Sex</Annotation>
+    <Annotation name="available_measures">Life Expectancy AVG,Mortality rate per 100 inhabitants AVG</Annotation>
+  </Annotations>
+  <Table name="fact_life_expectancy" schema="health"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
+  <Measure aggregator="avg" column="life_expectancy" name="Life Expectancy AVG" visible="true" caption="Life Expectancy AVG">
+    <Annotations>
+      <Annotation name="es_element_caption">Expectativa de vida promedio</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="mortality_rate_per_100_inhabitants" name="Mortality rate per 100 inhabitants AVG" visible="true" caption="Mortality rate per 100 inhabitants">
+    <Annotations>
+      <Annotation name="es_element_caption">Tasa de mortalidad cada 100 habitantes</Annotation>
+    </Annotations>
+  </Measure>
+</Cube>

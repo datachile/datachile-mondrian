@@ -1,0 +1,36 @@
+<Cube name="education_enrollment">
+  <Annotations>
+    <Annotation name="source_name">Matricula escolar - MINEDUC</Annotation>
+    <Annotation name="source_link">http://datosabiertos.mineduc.cl/informacion-investigadores-establecimientos/</Annotation>
+    <Annotation name="topic">education</Annotation>
+    <Annotation name="available_dimensions">Sex,Zone,Administration,Institutions,Teachings</Annotation>
+    <Annotation name="available_measures">Number of records,Average Age</Annotation>
+  </Annotations>
+  <Table name="fact_enrollment" schema="education"/>
+  <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
+  <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+  <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
+  <Measure aggregator="count" column="year" name="Number of records" caption="Enrolled students" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Estudiantes matriculados</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="age" name="Average Age" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Edad promedio de estudiantes matriculados</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <!--<NamedSet description="Set of school types (Teachings) that indicate special education" name="Special Education Teachings">
+      <Formula>
+        <![CDATA[
+                 {[Teachings].[Teaching].[Teaching].&[211],[Teachings].[Teaching].[Teaching].&[212],[Teachings].[Teaching].[Teaching].&[213],[Teachings].[Teaching].[Teaching].&[214],[Teachings].[Teaching].[Teaching].&[215],[Teachings].[Teaching].[Teaching].&[216],[Teachings].[Teaching].[Teaching].&[217]}
+        ]]>
+      </Formula>
+    </NamedSet>-->
+</Cube>

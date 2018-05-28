@@ -90,6 +90,7 @@ GEM
 
 PLATFORMS
   java
+  ruby
 
 DEPENDENCIES
   jbundler
@@ -103,4 +104,4 @@ DEPENDENCIES
   slop
 
 BUNDLED WITH
-   1.15.4
+   1.16.2

@@ -1,0 +1,18 @@
+<Cube name="education_performance">
+  <Annotations>
+    <Annotation name="source_name">Rendimiento escolar y PSU - DEMRE</Annotation>
+    <Annotation name="source_link">http://psu.demre.cl/</Annotation>
+    <Annotation name="topic">education</Annotation>
+    <Annotation name="available_measures"/>
+  </Annotations>
+  <Table name="fact_performance" schema="education"/>
+  <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
+  <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+  <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
+  <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
+  <Measure aggregator="avg" column="scores_average" name="Average Score Average (?)" visible="true"/>
+</Cube>

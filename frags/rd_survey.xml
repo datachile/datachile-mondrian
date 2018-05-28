@@ -1,0 +1,162 @@
+<Cube name="rd_survey">
+  <Annotations>
+    <Annotation name="source_name">Ministerio de Economía, Fomento y Turismo</Annotation>
+    <Annotation name="source_link">http://www.economia.gob.cl/estudios-y-encuestas/encuestas/encuestas-de-innovacion-e-id/encuestas-de-innovacion</Annotation>
+    <Annotation name="topic">economy</Annotation>
+    <Annotation name="available_dimensions" />
+    <Annotation name="available_measures" />
+  </Annotations>
+  <Table name="fact_rd_survey" schema="public"/>
+  <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+  <DimensionUsage foreignKey="headquarters_country_id" name="Headquarters Country" caption="Headquarters Country" source="Country"/>
+  <DimensionUsage foreignKey="CIIU_level1" name="ISICrev4" source="ISICrev4 Level 1"/>
+  <Dimension foreignKey="org_juridica" name="Business Type">
+    <Annotations>
+      <Annotation name="es_element_caption">Tipo de negocio</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="ownership_type">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Private Domestic</Value>
+            <Value column="es_description">Privada Nacional</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Private Foreign</Value>
+            <Value column="es_description">Privada Extranjera</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Mixed</Value>
+            <Value column="es_description">Mixta</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">State-owned</Value>
+            <Value column="es_description">Estatal</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Open Stock Coporation</Value>
+            <Value column="es_description">Sociedad Anónima Abierta</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Cooperative</Value>
+            <Value column="es_description">Cooperativa</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">State-owned</Value>
+            <Value column="es_description">Pública</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Joint-stock company</Value>
+            <Value column="es_description">Sociedad por Acciones</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">Single-owner limited liability company</Value>
+            <Value column="es_description">EIRL</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">Other</Value>
+            <Value column="es_description">Otro</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Business Type" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="forma_propiedad" name="Ownership Type">
+    <Annotations>
+      <Annotation name="es_element_caption">Tipo de propiedad</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="ownership_type">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Private Domestic</Value>
+            <Value column="es_description">Privada Nacional</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Private Foreign</Value>
+            <Value column="es_description">Privada Extranjera</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Mixed</Value>
+            <Value column="es_description">Mixta</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">State-owned</Value>
+            <Value column="es_description">Estatal</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Ownership Type" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="sum" column="ventas" name="sales" visible="true"/>
+  <Measure aggregator="sum" column="exportaciones" name="exports" visible="true"/>
+  <Measure aggregator="sum" column="gasto_total" name="Total Spending" visible="true"/>
+  <!-- expenditure by region -->
+  <Measure aggregator="sum" column="gasto_XV_ARICA" name="gasto_region_15" visible="true"/>
+  <Measure aggregator="sum" column="gasto_I_TARAPACA" name="gasto_region_1" visible="true"/>
+  <Measure aggregator="sum" column="gasto_II_ANTOFAGASTA" name="gasto_region_2" visible="true"/>
+  <Measure aggregator="sum" column="gasto_III_ATACAMA" name="gasto_region_3" visible="true"/>
+  <Measure aggregator="sum" column="gasto_IV_COQUIMBO" name="gasto_region_4" visible="true"/>
+  <Measure aggregator="sum" column="gasto_V_VALPARAISO" name="gasto_region_5" visible="true"/>
+  <Measure aggregator="sum" column="gasto_VI_OHIGGINS" name="gasto_region_6" visible="true"/>
+  <Measure aggregator="sum" column="gasto_VII_MAULE" name="gasto_region_7" visible="true"/>
+  <Measure aggregator="sum" column="gasto_VIII_BIOBIO" name="gasto_region_8" visible="true"/>
+  <Measure aggregator="sum" column="gasto_IX_ARAUCANIA" name="gasto_region_9" visible="true"/>
+  <Measure aggregator="sum" column="gasto_XIV_RIOS" name="gasto_region_14" visible="true"/>
+  <Measure aggregator="sum" column="gasto_X_LAGOS" name="gasto_region_10" visible="true"/>
+  <Measure aggregator="sum" column="gasto_XI_AYSEN" name="gasto_region_11" visible="true"/>
+  <Measure aggregator="sum" column="gasto_XII_MAGALLANES" name="gasto_region_12" visible="true"/>
+  <Measure aggregator="sum" column="gasto_XIII_METROPOLITANA" name="gasto_region_13" visible="true"/>
+  <!-- staff by region -->
+  <Measure aggregator="sum" column="personal_72" name="staff_region_15" visible="true"/>
+  <Measure aggregator="sum" column="personal_73" name="staff_region_1" visible="true"/>
+  <Measure aggregator="sum" column="personal_74" name="staff_region_2" visible="true"/>
+  <Measure aggregator="sum" column="personal_75" name="staff_region_3" visible="true"/>
+  <Measure aggregator="sum" column="personal_76" name="staff_region_4" visible="true"/>
+  <Measure aggregator="sum" column="personal_77" name="staff_region_5" visible="true"/>
+  <Measure aggregator="sum" column="personal_78" name="staff_region_6" visible="true"/>
+  <Measure aggregator="sum" column="personal_79" name="staff_region_7" visible="true"/>
+  <Measure aggregator="sum" column="personal_80" name="staff_region_8" visible="true"/>
+  <Measure aggregator="sum" column="personal_81" name="staff_region_9" visible="true"/>
+  <Measure aggregator="sum" column="personal_82" name="staff_region_14" visible="true"/>
+  <Measure aggregator="sum" column="personal_83" name="staff_region_10" visible="true"/>
+  <Measure aggregator="sum" column="personal_84" name="staff_region_11" visible="true"/>
+  <Measure aggregator="sum" column="personal_85" name="staff_region_12" visible="true"/>
+  <Measure aggregator="sum" column="personal_86" name="staff_region_13" visible="true"/>
+</Cube>

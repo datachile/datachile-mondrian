@@ -1,0 +1,94 @@
+<Cube name="tax_data">
+  <Annotations>
+    <Annotation name="source_name">Servicio de Impuestos Internos</Annotation>
+    <Annotation name="source_link">http://homer.sii.cl/</Annotation>
+    <Annotation name="topic">economy</Annotation>
+    <Annotation name="available_dimensions">ISICrev4</Annotation>
+    <Annotation name="available_measures">Output,Labour,Labour Cost,Investment,Intermediates,Value Added,Production per worker,Value added per worker</Annotation>
+  </Annotations>
+  <View alias="tax_data">
+    <SQL>
+      <![CDATA[(SELECT * from economy.tax_data WHERE ciiu4_ori is not NULL and the_year <> 0 and the_year is not NULL and output > 0)]]>
+    </SQL>
+  </View>
+  <!-- <DimensionUsage foreignKey="date_id" name="Date" source="Date"/> -->
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="the_year" nameColumn="the_year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_id" name="Tax Geography" source="Geography"/>
+  <DimensionUsage foreignKey="ciiu4_ori" name="ISICrev4" source="ISICrev4"/>
+  <Measure aggregator="sum" column="output" name="Output" caption="Output">
+    <Annotations>
+      <Annotation name="es_element_caption">Producción</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="labour" name="Labour" caption="Labour Force">
+    <Annotations>
+      <Annotation name="es_element_caption">Fuerza de trabajo</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="labour_cost" name="Labour Cost" caption="Labour Cost">
+    <Annotations>
+      <Annotation name="es_element_caption">Costo laboral</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="investment" name="Investment" caption="Investment">
+    <Annotations>
+      <Annotation name="es_element_caption">Inversiones</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="intermediates" name="Intermediates" caption="Intermediates Revenue">
+    <Annotations>
+      <Annotation name="es_element_caption">Ganancias de intermediarios</Annotation>
+    </Annotations>
+  </Measure>
+  <CalculatedMember dimension="Measures" name="Value Added" caption="Value Added">
+    <Annotations>
+      <Annotation name="es_element_caption">Valor agregado en producción</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[[Measures].[Output] - [Measures].[Intermediates]]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Production per worker" caption="Production per worker">
+    <Annotations>
+      <Annotation name="es_element_caption">Producción por trabajador</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Output]/[Measures].[Labour], Null)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Value added per worker" caption="Value added per worker">
+    <Annotations>
+      <Annotation name="es_element_caption">Valor agregado por trabajador</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Value Added] / [Measures].[Labour], Null)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Output for year (sum_c_p_xcp)" visible="false">
+    <!-- all geos, all industries, current year -->
+    <Formula>
+      <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].[All Geographys])]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Output for Geography and year (sum_p_xcp)" visible="false">
+    <!-- all industries, current geo, current year -->
+    <Formula>
+      <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].CurrentMember)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Output for Industry and year (sum_c_xcp)" visible="false">
+    <!-- all geos, current industry, current year -->
+    <Formula>
+      <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].CurrentMember, [Tax Geography].[Geography].[All Geographys])]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Output RCA">
+    <Formula>
+      <![CDATA[(Measures.[Output] / Measures.[Output for Industry and year (sum_c_xcp)]) / (Measures.[Output for Geography and year (sum_p_xcp)] / Measures.[Output for year (sum_c_p_xcp)]) ]]>
+    </Formula>
+  </CalculatedMember>
+</Cube>
