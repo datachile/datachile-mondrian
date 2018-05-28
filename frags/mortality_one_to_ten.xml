@@ -15,7 +15,7 @@
   <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
   <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
   <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range DEIS"/>
-  <Measure aggregator="count" column="count" name="Number of records" visible="true" />
+  <Measure aggregator="sum" column="count" name="Number of deaths" visible="true" />
   <Measure aggregator="avg" column="rate_comuna" name="Rate Comuna" visible="true" caption="Rate Comuna" />
   <Measure aggregator="avg" column="rate_region" name="Rate Region" visible="true" caption="Rate Region" />
   <Measure aggregator="avg" column="rate_country" name="Rate Country" visible="true" caption="Rate Country" />
