@@ -1,4 +1,4 @@
-<Cube name="mortality_one_to_ten">
+<Cube name="mortality">
   <Annotations>
     <Annotation name="source_name">Indicadores de Acceso a la Salud - DEIS Ministerio de Salud</Annotation>
     <Annotation name="source_link"></Annotation>
@@ -6,15 +6,15 @@
     <Annotation name="available_dimensions"></Annotation>
     <Annotation name="available_measures"></Annotation>
   </Annotations>
-  <Table name="fact_mortality_one_to_ten" schema="childhood"/>
+  <Table name="fact_mortality" schema="mortality"/>
   <Dimension name="Date">
     <Hierarchy hasAll="true">
       <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
     </Hierarchy>
   </Dimension>
   <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
-  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
   <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range DEIS"/>
+
   <Measure aggregator="sum" column="count" name="Number of deaths" visible="true" />
   <Measure aggregator="avg" column="rate_comuna" name="Rate Comuna" visible="true" caption="Rate Comuna" />
   <Measure aggregator="avg" column="rate_region" name="Rate Region" visible="true" caption="Rate Region" />
