@@ -1,0 +1,927 @@
+<Cube name="census_population">
+
+  <!-- Annotations -->
+  <Annotations>
+    <Annotation name="source_name">CENSO 2017</Annotation>
+    <Annotation name="source_link"></Annotation>
+    <Annotation name="topic">demography</Annotation>
+    <Annotation name="available_dimensions">Zone,Sex</Annotation>
+    <Annotation name="available_measures">People</Annotation>
+  </Annotations>
+  <Table name="fact_population_census" schema="census"/>
+
+  <!-- Shared Dimensions -->
+  <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="area_id" name="Zone" source="Zone"/>
+  <DimensionUsage foreignKey="sex" name="Sex" source="Sex"/>
+  <!-- Inline Dimensions -->
+
+  <!-- Aboriginal People -->
+  <Dimension name="Aboriginal People" foreignKey="aboriginal_people">
+    <Hierarchy hasAll="true">
+      <InlineTable alias="aboriginal_people">
+        <ColumnDefs>
+          <ColumnDef name="group_id" type="Numeric" />
+          <ColumnDef name="group_description" type="String" />
+          <ColumnDef name="group_es_description" type="String" />
+          <ColumnDef name="subgroup_id" type="Numeric" />
+          <ColumnDef name="subgroup_description" type="String" />
+          <ColumnDef name="subgroup_es_description" type="String" />
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">1</Value>
+            <Value column="subgroup_description">Mapuche</Value>
+            <Value column="subgroup_es_description">Mapuche</Value>
+            <Value column="id">1</Value>
+            <Value column="description">Mapuche</Value>
+            <Value column="es_description">Mapuche</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">2</Value>
+            <Value column="subgroup_description">Aymara</Value>
+            <Value column="subgroup_es_description">Aymara</Value>
+            <Value column="id">2</Value>
+            <Value column="description">Aymara</Value>
+            <Value column="es_description">Aymara</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">3</Value>
+            <Value column="subgroup_description">Rapa Nui</Value>
+            <Value column="subgroup_es_description">Rapa Nui</Value>
+            <Value column="id">3</Value>
+            <Value column="description">Rapa Nui</Value>
+            <Value column="es_description">Rapa Nui</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">4</Value>
+            <Value column="subgroup_description">Lican Antai</Value>
+            <Value column="subgroup_es_description">Lican Antai</Value>
+            <Value column="id">4</Value>
+            <Value column="description">Lican Antai</Value>
+            <Value column="es_description">Lican Antai</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">5</Value>
+            <Value column="subgroup_description">Quechua</Value>
+            <Value column="subgroup_es_description">Quechua</Value>
+            <Value column="id">5</Value>
+            <Value column="description">Quechua</Value>
+            <Value column="es_description">Quechua</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">6</Value>
+            <Value column="subgroup_description">Colla</Value>
+            <Value column="subgroup_es_description">Colla</Value>
+            <Value column="id">6</Value>
+            <Value column="description">Colla</Value>
+            <Value column="es_description">Colla</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">7</Value>
+            <Value column="subgroup_description">Diaguita</Value>
+            <Value column="subgroup_es_description">Diaguita</Value>
+            <Value column="id">7</Value>
+            <Value column="description">Diaguita</Value>
+            <Value column="es_description">Diaguita</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">8</Value>
+            <Value column="subgroup_description">Kawésqar</Value>
+            <Value column="subgroup_es_description">Kawésqar</Value>
+            <Value column="id">8</Value>
+            <Value column="description">Kawésqar</Value>
+            <Value column="es_description">Kawésqar</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">9</Value>
+            <Value column="subgroup_description">Yagán o Yámana</Value>
+            <Value column="subgroup_es_description">Yagán o Yámana</Value>
+            <Value column="id">9</Value>
+            <Value column="description">Yagán o Yámana</Value>
+            <Value column="es_description">Yagán o Yámana</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">1</Value>
+            <Value column="subgroup_description">Mapuche</Value>
+            <Value column="subgroup_es_description">Mapuche</Value>
+            <Value column="id">13</Value>
+            <Value column="description">Lafquenche</Value>
+            <Value column="es_description">Lafquenche</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">1</Value>
+            <Value column="subgroup_description">Mapuche</Value>
+            <Value column="subgroup_es_description">Mapuche</Value>
+            <Value column="id">14</Value>
+            <Value column="description">Pehuenche</Value>
+            <Value column="es_description">Pehuenche</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">1</Value>
+            <Value column="subgroup_description">Mapuche</Value>
+            <Value column="subgroup_es_description">Mapuche</Value>
+            <Value column="id">15</Value>
+            <Value column="description">Huilliche</Value>
+            <Value column="es_description">Huilliche</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">1</Value>
+            <Value column="subgroup_description">Mapuche</Value>
+            <Value column="subgroup_es_description">Mapuche</Value>
+            <Value column="id">16</Value>
+            <Value column="description">Picunche</Value>
+            <Value column="es_description">Picunche</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">1</Value>
+            <Value column="subgroup_description">Mapuche</Value>
+            <Value column="subgroup_es_description">Mapuche</Value>
+            <Value column="id">21</Value>
+            <Value column="description">Changos</Value>
+            <Value column="es_description">Changos</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">10</Value>
+            <Value column="subgroup_description">Otro pueblo</Value>
+            <Value column="subgroup_es_description">Otro pueblo</Value>
+            <Value column="id">22</Value>
+            <Value column="description">Chonos</Value>
+            <Value column="es_description">Chonos</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">10</Value>
+            <Value column="subgroup_description">Otro pueblo</Value>
+            <Value column="subgroup_es_description">Otro pueblo</Value>
+            <Value column="id">23</Value>
+            <Value column="description">Ona</Value>
+            <Value column="es_description">Ona</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">10</Value>
+            <Value column="subgroup_description">Otro pueblo</Value>
+            <Value column="subgroup_es_description">Otro pueblo</Value>
+            <Value column="id">28</Value>
+            <Value column="description">Tehuelches</Value>
+            <Value column="es_description">Tehuelches</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">10</Value>
+            <Value column="subgroup_description">Otro pueblo</Value>
+            <Value column="subgroup_es_description">Otro pueblo</Value>
+            <Value column="id">33</Value>
+            <Value column="description">Pueblos de América</Value>
+            <Value column="es_description">Pueblos de América</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">10</Value>
+            <Value column="subgroup_description">Otro pueblo</Value>
+            <Value column="subgroup_es_description">Otro pueblo</Value>
+            <Value column="id">34</Value>
+            <Value column="description">Pueblos del resto del Mundo</Value>
+            <Value column="es_description">Pueblos del resto del Mundo</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">10</Value>
+            <Value column="subgroup_description">Otro pueblo</Value>
+            <Value column="subgroup_es_description">Otro pueblo</Value>
+            <Value column="id">35</Value>
+            <Value column="description">Afrodescendientes</Value>
+            <Value column="es_description">Afrodescendientes</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">10</Value>
+            <Value column="subgroup_description">Otro pueblo</Value>
+            <Value column="subgroup_es_description">Otro pueblo</Value>
+            <Value column="id">37</Value>
+            <Value column="description">Otros pueblos presentes en el territorio nacional</Value>
+            <Value column="es_description">Otros pueblos presentes en el territorio nacional</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Yes</Value>
+            <Value column="group_es_description">Si</Value>
+            <Value column="subgroup_id">97</Value>
+            <Value column="subgroup_description">Pueblo no declarado</Value>
+            <Value column="subgroup_es_description">Pueblo no declarado</Value>
+            <Value column="id">97</Value>
+            <Value column="description">Pueblo no declarado</Value>
+            <Value column="es_description">Pueblo no declarado</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">2</Value>
+            <Value column="group_description">No</Value>
+            <Value column="group_es_description">No</Value>
+            <Value column="subgroup_id">98</Value>
+            <Value column="subgroup_description">No</Value>
+            <Value column="subgroup_es_description">No</Value>
+            <Value column="id">98</Value>
+            <Value column="description">No aplica</Value>
+            <Value column="es_description">No aplica</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">99</Value>
+            <Value column="group_description">Missing</Value>
+            <Value column="group_es_description">Missing</Value>
+            <Value column="subgroup_id">99</Value>
+            <Value column="subgroup_description">Missing</Value>
+            <Value column="subgroup_es_description">Missing</Value>
+            <Value column="id">99</Value>
+            <Value column="description">Missing</Value>
+            <Value column="es_description">Missing</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+
+      <Level name="Aboriginal People Group" column="group_id" nameColumn="group_description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="group_es_description" />
+      </Level>
+
+      <Level name="Aboriginal People Subgroup" column="subgroup_id" nameColumn="subgroup_description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="subgroup_es_description" />
+      </Level>
+
+      <Level name="Aboriginal People" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Children Born Alive -->
+  <Dimension name="Children Born Alive" foreignKey="children_born_alive">
+    <Hierarchy hasAll="true">
+      <Level column="children_born_alive" nameColumn="children_born_alive" name="Children Born Alive" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+
+
+  <!-- Highest Level Approved -->
+  <Dimension name="Highest Level Approved" foreignKey="highest_level_approved">
+    <Hierarchy hasAll="true">
+
+      <InlineTable alias="highest_level_approved">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Sala cuna o jardín infantil</Value>
+            <Value column="es_description">Sala cuna o jardín infantil</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Prekínder</Value>
+            <Value column="es_description">Prekínder</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Kínder</Value>
+            <Value column="es_description">Kínder</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Especial o diferencial</Value>
+            <Value column="es_description">Especial o diferencial</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Educación básica</Value>
+            <Value column="es_description">Educación básica</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Primaria o preparatorio (sistema antiguo)</Value>
+            <Value column="es_description">Primaria o preparatorio (sistema antiguo)</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Científico-humanista</Value>
+            <Value column="es_description">Científico-humanista</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Técnica profesional</Value>
+            <Value column="es_description">Técnica profesional</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">Humanidades (sistema antiguo)</Value>
+            <Value column="es_description">Humanidades (sistema antiguo)</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">Técnica comercial, industrial/normalista (sistema antiguo)</Value>
+            <Value column="es_description">Técnica comercial, industrial/normalista (sistema antiguo)</Value>
+          </Row>
+          <Row>
+            <Value column="id">11</Value>
+            <Value column="description">Técnico superior (1-3 años)</Value>
+            <Value column="es_description">Técnico superior (1-3 años)</Value>
+          </Row>
+          <Row>
+            <Value column="id">12</Value>
+            <Value column="description">Profesional (4 o más años)</Value>
+            <Value column="es_description">Profesional (4 o más años)</Value>
+          </Row>
+          <Row>
+            <Value column="id">13</Value>
+            <Value column="description">Magíster</Value>
+            <Value column="es_description">Magíster</Value>
+          </Row>
+          <Row>
+            <Value column="id">14</Value>
+            <Value column="description">Doctorado</Value>
+            <Value column="es_description">Doctorado</Value>
+          </Row>
+          <Row>
+            <Value column="id">98</Value>
+            <Value column="description">No aplica</Value>
+            <Value column="es_description">No aplica</Value>
+          </Row>
+          <Row>
+            <Value column="id">99</Value>
+            <Value column="description">Missing</Value>
+            <Value column="es_description">Missing</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+
+      <Level name="Highest Level Approved" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+
+  <!-- Arrival To Chile -->
+  <Dimension name="Arrival To Chile" foreignKey="year_of_arrival_to_chile">
+    <Hierarchy hasAll="true">
+      <Level name="Year Range">
+        <KeyExpression>
+          <SQL>
+            <![CDATA[
+              (case
+                when year_of_arrival_to_chile BETWEEN 1950 AND 1954 then '1950-1954'
+                when year_of_arrival_to_chile BETWEEN 1955 AND 1959 then '1955-1959'
+                when year_of_arrival_to_chile BETWEEN 1960 AND 1964 then '1960-1964'
+                when year_of_arrival_to_chile BETWEEN 1965 AND 1969 then '1965-1969'
+                when year_of_arrival_to_chile BETWEEN 1970 AND 1974 then '1970-1974'
+                when year_of_arrival_to_chile BETWEEN 1975 AND 1979 then '1975-1979'
+                when year_of_arrival_to_chile BETWEEN 1980 AND 1984 then '1980-1984'
+                when year_of_arrival_to_chile BETWEEN 1985 AND 1989 then '1985-1990'
+                when year_of_arrival_to_chile BETWEEN 1990 AND 1994 then '1990-1994'
+                when year_of_arrival_to_chile BETWEEN 1995 AND 1999 then '1995-1999'
+                when year_of_arrival_to_chile BETWEEN 2000 AND 2004 then '2000-2004'
+                when year_of_arrival_to_chile BETWEEN 2005 AND 2009 then '2005-2009'
+                when year_of_arrival_to_chile BETWEEN 2010 AND 2014 then '2010-2014'
+                when year_of_arrival_to_chile BETWEEN 2015 AND 2017 then '2015-2017'
+                when year_of_arrival_to_chile = 9998 then '9998'
+                when year_of_arrival_to_chile = 9999 then '9999'
+                end)
+            ]]>
+          </SQL>
+        </KeyExpression>
+        <NameExpression>
+          <SQL>
+            <![CDATA[
+              (case
+                when year_of_arrival_to_chile BETWEEN 1950 AND 1954 then '1950-1954'
+                when year_of_arrival_to_chile BETWEEN 1955 AND 1959 then '1955-1959'
+                when year_of_arrival_to_chile BETWEEN 1960 AND 1964 then '1960-1964'
+                when year_of_arrival_to_chile BETWEEN 1965 AND 1969 then '1965-1969'
+                when year_of_arrival_to_chile BETWEEN 1970 AND 1974 then '1970-1974'
+                when year_of_arrival_to_chile BETWEEN 1975 AND 1979 then '1975-1979'
+                when year_of_arrival_to_chile BETWEEN 1980 AND 1984 then '1980-1984'
+                when year_of_arrival_to_chile BETWEEN 1985 AND 1989 then '1985-1990'
+                when year_of_arrival_to_chile BETWEEN 1990 AND 1994 then '1990-1994'
+                when year_of_arrival_to_chile BETWEEN 1995 AND 1999 then '1995-1999'
+                when year_of_arrival_to_chile BETWEEN 2000 AND 2004 then '2000-2004'
+                when year_of_arrival_to_chile BETWEEN 2005 AND 2009 then '2005-2009'
+                when year_of_arrival_to_chile BETWEEN 2010 AND 2014 then '2010-2014'
+                when year_of_arrival_to_chile BETWEEN 2015 AND 2017 then '2015-2017'
+                when year_of_arrival_to_chile = 9998 then '9998'
+                when year_of_arrival_to_chile = 9999 then '9999'
+                end)
+            ]]>
+          </SQL>
+        </NameExpression>
+      </Level>
+      <Level name="Year Of Arrival To Chile" column="year_of_arrival_to_chile" nameColumn="year_of_arrival_to_chile" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Año de llegada a Chile</Annotation>
+        </Annotations>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Formal Education -->
+  <Dimension name="Formal Education" foreignKey="formal_education">
+    <Hierarchy hasAll="true">
+
+      <InlineTable alias="formal_education">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Sí</Value>
+            <Value column="es_description">Sí</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">No asiste actualmente</Value>
+            <Value column="es_description">No asiste actualmente</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Nunca asistió</Value>
+            <Value column="es_description">Nunca asistió</Value>
+          </Row>
+          <Row>
+            <Value column="id">98</Value>
+            <Value column="description">No aplica</Value>
+            <Value column="es_description">No aplica</Value>
+          </Row>
+          <Row>
+            <Value column="id">99</Value>
+            <Value column="description">Missing</Value>
+            <Value column="es_description">Missing</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+
+      <Level name="Formal Education" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+
+  <!-- Habitual Residence -->
+  <Dimension name="Habitual Residence" foreignKey="habitual_residence">
+    <Hierarchy hasAll="true">
+
+      <InlineTable alias="habitual_residence">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">En esta vivienda</Value>
+            <Value column="es_description">En esta vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">En otra vivienda</Value>
+            <Value column="es_description">En otra vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">En otra comuna</Value>
+            <Value column="es_description">En otra comuna</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">En otro país</Value>
+            <Value column="es_description">En otro país</Value>
+          </Row>
+          <Row>
+            <Value column="id">98</Value>
+            <Value column="description">No aplica</Value>
+            <Value column="es_description">No aplica</Value>
+          </Row>
+          <Row>
+            <Value column="id">99</Value>
+            <Value column="description">Missing</Value>
+            <Value column="es_description">Missing</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+
+      <Level name="Habitual Residence" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Children Currently Alive -->
+  <Dimension name="Children Currently Alive">
+    <Hierarchy hasAll="true">
+      <Level column="children_currently_alive" nameColumn="children_currently_alive" name="Children Currently Alive" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Birth Place -->
+  <Dimension name="Birth Place" foreignKey="birth_place">
+    <Hierarchy hasAll="true">
+
+      <InlineTable alias="birth_place">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">En esta comuna</Value>
+            <Value column="es_description">En esta comuna</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">En otra comuna</Value>
+            <Value column="es_description">En otra comuna</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Perú</Value>
+            <Value column="es_description">Perú</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Argentina</Value>
+            <Value column="es_description">Argentina</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Bolivia</Value>
+            <Value column="es_description">Bolivia</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Ecuador</Value>
+            <Value column="es_description">Ecuador</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Colombia</Value>
+            <Value column="es_description">Colombia</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Otro</Value>
+            <Value column="es_description">Otro</Value>
+          </Row>
+          <Row>
+            <Value column="id">98</Value>
+            <Value column="description">No aplica</Value>
+            <Value column="es_description">No aplica</Value>
+          </Row>
+          <Row>
+            <Value column="id">99</Value>
+            <Value column="description">Missing</Value>
+            <Value column="es_description">Missing</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+
+      <Level name="Birth Place" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+
+  <Dimension name="Age" foreignKey="age">
+    <Hierarchy hasAll="true">
+
+      <InlineTable alias="age">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+
+        </Rows>
+      </InlineTable>
+
+      <Level name="Age" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Residence 5 Years Ago -->
+  <Dimension name="Residence 5 Years Ago" foreignKey="residence_5_years_ago">
+    <Hierarchy hasAll="true">
+
+      <InlineTable alias="residence_5_years_ago">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Aún no nacía</Value>
+            <Value column="es_description">Aún no nacía</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">En esta comuna</Value>
+            <Value column="es_description">En esta comuna</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">En otra comuna</Value>
+            <Value column="es_description">En otra comuna</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Perú</Value>
+            <Value column="es_description">Perú</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Argentina</Value>
+            <Value column="es_description">Argentina</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Bolivia</Value>
+            <Value column="es_description">Bolivia</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Ecuador</Value>
+            <Value column="es_description">Ecuador</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Colombia</Value>
+            <Value column="es_description">Colombia</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">Otro</Value>
+            <Value column="es_description">Otro</Value>
+          </Row>
+          <Row>
+            <Value column="id">98</Value>
+            <Value column="description">No aplica</Value>
+            <Value column="es_description">No aplica</Value>
+          </Row>
+          <Row>
+            <Value column="id">99</Value>
+            <Value column="description">Missing</Value>
+            <Value column="es_description">Missing</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+
+      <Level name="Residence 5 Years Ago" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Highest Course Approved -->
+  <Dimension name="Highest Course Approved" foreignKey="highest_course_approved">
+    <Hierarchy hasAll="true">
+
+      <InlineTable alias="highest_course_approved">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">0</Value>
+            <Value column="es_description">0</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">1°</Value>
+            <Value column="es_description">1°</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">2°</Value>
+            <Value column="es_description">2°</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">3°</Value>
+            <Value column="es_description">3°</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">4°</Value>
+            <Value column="es_description">4°</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">5°</Value>
+            <Value column="es_description">5°</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">6°</Value>
+            <Value column="es_description">6°</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">7°</Value>
+            <Value column="es_description">7°</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">8°</Value>
+            <Value column="es_description">8°</Value>
+          </Row>
+          <Row>
+            <Value column="id">98</Value>
+            <Value column="description">No aplica</Value>
+            <Value column="es_description">No aplica</Value>
+          </Row>
+          <Row>
+            <Value column="id">99</Value>
+            <Value column="description">Missing</Value>
+            <Value column="es_description">Missing</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+
+      <Level name="Highest Course Approved" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- KeyExpression -->
+  <Dimension name="Calculated Age Range">
+    <Annotations>
+      <Annotation name="es_element_caption">Rango etario</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <Level name="Age Range">
+        <KeyExpression>
+          <SQL>
+            <![CDATA[
+              (case
+                when age BETWEEN 0 AND 14 then '0-14'
+                when age BETWEEN 15 AND 19 then '15-19'
+                when age BETWEEN 20 AND 24 then '20-24'
+                when age BETWEEN 25 AND 29 then '25-29'
+                when age BETWEEN 30 AND 64 then '30-64'
+                when age >= 65 then '65-110'
+                end)
+            ]]>
+          </SQL>
+        </KeyExpression>
+        <NameExpression>
+          <SQL>
+            <![CDATA[
+              (case
+                when age BETWEEN 0 AND 14 then '0-14'
+                when age BETWEEN 15 AND 19 then '15-19'
+                when age BETWEEN 20 AND 24 then '20-24'
+                when age BETWEEN 25 AND 29 then '25-29'
+                when age BETWEEN 30 AND 64 then '30-64'
+                when age >= 65 then '65-110'
+                end)
+            ]]>
+          </SQL>
+        </NameExpression>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Measures -->
+  <Measure aggregator="sum" column="cant_per" name="People" visible="true" caption="People" />
+
+  <CalculatedMember dimension="Measures" name="Total" visible="false">
+    <!-- current geo, current year -->
+    <!--<Formula>
+      <![CDATA[(
+        Measures.[People], 
+        [Aboriginal People].[Aboriginal People].[All Aboriginal Peoples], 
+        [Sex].[Sex].[All Sexs], 
+        [Habitual Residence].[Habitual Residence].[All Habitual Residences],
+        [Zone].[Zone].[All Zones], 
+        [Geography].[Geography].CurrentMember
+        )]]>
+    </Formula>-->
+    <Formula>
+      <![CDATA[
+        sum([Habitual Residence].CurrentMember.Level.Members)
+      ]]>
+    </Formula>
+  </CalculatedMember>
+
+  <CalculatedMember dimension="Measures" name="% People" visible="true">
+    <Formula>
+      <![CDATA[
+        ( [Measures].[People] / [Measures].[Total] )]]>
+    </Formula>
+  </CalculatedMember>
+</Cube>
