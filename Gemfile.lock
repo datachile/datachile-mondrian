@@ -1,7 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (5.1.6)
+    activesupport (5.2.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
@@ -19,7 +19,7 @@ GEM
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
-    grape (1.0.2)
+    grape (1.0.3)
       activesupport
       builder
       mustermann-grape (~> 1.0.0)
@@ -28,7 +28,7 @@ GEM
       virtus (>= 1.0.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (1.0.0)
+    i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     jar-dependencies (0.3.12)
@@ -46,7 +46,8 @@ GEM
     minitest (5.11.3)
     mondrian-olap (0.8.0)
       nokogiri
-    mondrian-rest (0.7.9-java)
+    mondrian-rest (1.0.0-java)
+      activesupport (~> 5.1, >= 5.1.5)
       grape (~> 1.0, >= 1.0.0)
       mondrian-olap (~> 0.8.0)
       writeexcel (~> 1.0, >= 1.0.5)
@@ -54,7 +55,7 @@ GEM
     mustermann-grape (1.0.0)
       mustermann (~> 1.0.0)
     netrc (0.11.0)
-    nokogiri (1.8.2-java)
+    nokogiri (1.8.4-java)
     puma (3.11.3-java)
     rack (2.0.4)
     rack-accept (0.4.5)
@@ -76,11 +77,15 @@ GEM
       rack-protection (= 2.0.1)
       tilt (~> 2.0)
     slop (4.6.2)
+    thread_safe (0.3.6)
     thread_safe (0.3.6-java)
     tilt (2.0.8)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    unf (0.1.4)
+      unf_ext
     unf (0.1.4-java)
+    unf_ext (0.0.7.5)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -95,7 +100,7 @@ PLATFORMS
 DEPENDENCIES
   jbundler
   jdbc-postgres (~> 9.4, >= 9.4.1206)
-  mondrian-rest (= 0.7.9)
+  mondrian-rest (= 1.0.0)
   puma
   rack-cors
   rest-client
