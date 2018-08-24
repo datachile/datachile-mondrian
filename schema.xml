@@ -2834,13 +2834,13 @@
       <!-- <Annotation name="es_format">XXX</Annotation> -->
     </Annotations>
   </Measure>
-  <!--<NamedSet description="Set of school types (Teachings) that indicate special education" name="Special Education Teachings">
+  <NamedSet description="Set of school types (Teachings) that indicate special education" name="Special Education Teachings">
       <Formula>
         <![CDATA[
                  {[Teachings].[Teaching].[Teaching].&[211],[Teachings].[Teaching].[Teaching].&[212],[Teachings].[Teaching].[Teaching].&[213],[Teachings].[Teaching].[Teaching].&[214],[Teachings].[Teaching].[Teaching].&[215],[Teachings].[Teaching].[Teaching].&[216],[Teachings].[Teaching].[Teaching].&[217]}
         ]]>
       </Formula>
-    </NamedSet>-->
+    </NamedSet>
 </Cube><Cube name="education_performance">
   <Annotations>
     <Annotation name="source_name">Rendimiento escolar y PSU - DEMRE</Annotation>
