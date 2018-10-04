@@ -793,7 +793,7 @@
           <Row>
             <Value column="id">4</Value>
             <Value column="description">Under 1 year</Value>
-            <Value column="es_description">Menores 1 año</Value>
+            <Value column="es_description">Menor 1 año</Value>
           </Row>
           <Row>
             <Value column="id">5</Value>
