@@ -777,23 +777,23 @@
         <Rows>
           <Row>
             <Value column="id">1</Value>
-            <Value column="description">Deaths under 7 days</Value>
-            <Value column="es_description">Defunciones menores 7 días</Value>
+            <Value column="description">Under 7 days</Value>
+            <Value column="es_description">Menores 7 días</Value>
           </Row>
           <Row>
             <Value column="id">2</Value>
-            <Value column="description">Deaths under 28 days</Value>
-            <Value column="es_description">Defunciones menores 28 días</Value>
+            <Value column="description">Under 28 days</Value>
+            <Value column="es_description">Menores 28 días</Value>
           </Row>
           <Row>
             <Value column="id">3</Value>
-            <Value column="description">Deaths 28 days to 11 months</Value>
-            <Value column="es_description">Defunciones 28 días a 11 meses</Value>
+            <Value column="description">28 days to 11 months</Value>
+            <Value column="es_description">28 días a 11 meses</Value>
           </Row>
           <Row>
             <Value column="id">4</Value>
-            <Value column="description">Deaths under 1 year</Value>
-            <Value column="es_description">Defunciones menores 1 año</Value>
+            <Value column="description">Under 1 year</Value>
+            <Value column="es_description">Menores 1 año</Value>
           </Row>
           <Row>
             <Value column="id">5</Value>
