@@ -775,6 +775,9 @@
     <Hierarchy hasAll="true">
       <InlineTable alias="age_range_id">
         <ColumnDefs>
+          <ColumnDef name="group_id" type="Numeric" />
+          <ColumnDef name="group_description" type="String" />
+          <ColumnDef name="group_es_description" type="String" />
           <ColumnDef name="id" type="Numeric" />
           <ColumnDef name="description" type="String" />
           <ColumnDef name="es_description" type="String" />
@@ -838,7 +841,7 @@
           </Row>
           <Row>
             <Value column="group_id">3</Value>
-            <Value column="group_description">Childhood</Value>
+            <Value column="group_description">Adolescence</Value>
             <Value column="group_es_description">Adolescencia</Value>
             <Value column="id">8</Value>
             <Value column="description">15 to 19 years</Value>
@@ -846,7 +849,7 @@
           </Row>
         </Rows>
       </InlineTable>
-      <Level column="group_id" name="Age Bucket" nameColumn="group_description" uniqueMembers="true">
+      <Level column="group_id" name="Age Group" nameColumn="group_description" uniqueMembers="true">
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
           <Annotation name="es_element_caption">Grupo etario</Annotation>
