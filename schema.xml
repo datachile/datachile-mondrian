@@ -160,6 +160,11 @@
             <Value column="description">Female</Value>
             <Value column="es_description">Femenino</Value>
           </Row>
+          <Row>
+            <Value column="sex_id">3</Value>
+            <Value column="description">Both Sexs</Value>
+            <Value column="es_description">Ambos Sexos</Value>
+          </Row>
         </Rows>
       </InlineTable>
       <Level column="sex_id" name="Sex" nameColumn="description" uniqueMembers="true" caption="Sex">
