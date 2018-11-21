@@ -14,8 +14,8 @@ module Datachile
       content_type :jsonrecords, "application/x-jsonrecords"
       formatter :jsonrecords, Mondrian::REST::Formatters::JSONRecords
 
-      content_type :jsonstat, "application/x-jsonstat"
-      formatter :jsonstat, Mondrian::REST::Formatters::JSONStat
+      # content_type :jsonstat, "application/x-jsonstat"
+      # formatter :jsonstat, Mondrian::REST::Formatters::JSONStat
 
 
       get '/testquery' do

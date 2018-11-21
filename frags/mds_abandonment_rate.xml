@@ -19,8 +19,87 @@
             <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
         </Hierarchy>
     </Dimension>
-    <!--<DimensionUsage foreignKey="education_id" name="Teaching" source="Teaching"/> -->
-    <!-- falta promotion_id -->
+    
+    <Dimension name="Education Level" foreignKey="education_id"> 
+        <Annotations>
+            <Annotation name="es_element_caption">Nivel Educacional</Annotation>
+        </Annotations>
+
+        <Hierarchy hasAll="true" primaryKey="id">
+            <InlineTable alias="dim_education">
+                <ColumnDefs>
+                    <ColumnDef name="id" type="Numeric" />
+                    <ColumnDef name="description" type="String" />
+                    <ColumnDef name="es_description" type="String" />
+                </ColumnDefs>
+                <Rows>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="description">Enseñanza Básica</Value>
+                        <Value column="es_description">Enseñanza Básica</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="description">Enseñanza Media</Value>
+                        <Value column="es_description">Enseñanza Media</Value>
+                    </Row>
+                </Rows>
+            </InlineTable>
+
+            <Level column="education_id" name="Education Level" nameColumn="description" uniqueMembers="true" caption="Level">
+            <Annotations>
+                <Annotation name="es_caption">Description ES</Annotation>
+                <Annotation name="es_element_caption">Nivel Educacional</Annotation>
+            </Annotations>
+
+            <Property column="es_description" name="Description ES"/>
+            </Level>
+        </Hierarchy>
+    </Dimension>
+
+    <Dimension name="Promotion Status" foreignKey="promotion_id"> 
+        <Annotations>
+            <Annotation name="es_element_caption">Estado de Promoción</Annotation>
+        </Annotations>
+
+        <Hierarchy hasAll="true" primaryKey="id">
+            <InlineTable alias="dim_promotion">
+                <ColumnDefs>
+                    <ColumnDef name="id" type="Numeric" />
+                    <ColumnDef name="description" type="String" />
+                    <ColumnDef name="es_description" type="String" />
+                </ColumnDefs>
+                <Rows>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="description">Aprobados</Value>
+                        <Value column="es_description">Aprobados</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="description">Reprobados</Value>
+                        <Value column="es_description">Reprobados</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="description">Abandonos</Value>
+                        <Value column="es_description">Abandonos</Value>
+                    </Row>
+                </Rows>
+            </InlineTable>
+
+            <Level column="promotion_id" name="Promotion Status" nameColumn="description" uniqueMembers="true" caption="Promotion">
+            <Annotations>
+                <Annotation name="es_caption">Description ES</Annotation>
+                <Annotation name="es_element_caption">Estado de Promoción</Annotation>
+            </Annotations>
+
+            <Property column="es_description" name="Description ES"/>
+            </Level>
+        </Hierarchy>
+    </Dimension>
+
+
 
     <Measure aggregator="sum" column="total" name="Number of students" visible="true"/>
 </Cube>
