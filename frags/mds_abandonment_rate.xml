@@ -1,105 +1,94 @@
 <Cube name="mds_abandonment_rate">
+  <Annotations>
+    <Annotation name="source_name">Creciendo con Derechos - Ministerior de Desarrollo Social</Annotation>
+    <Annotation name="source_description">Sistema de indicadores para el seguimiento de los derechos de niños, niñas y adolescentes, en relación a sus condiciones de vida y en sintonía con la Convención sobre los Derechos del Niño.</Annotation>
+    <Annotation name="source_link">http://www.creciendoconderechos.gob.cl/indicadores</Annotation>
+    <Annotation name="dataset_name">mds_abandonment_rate</Annotation>
+    <Annotation name="dataset_link">https://github.com/datachile/datachile-etl/tree/master/childhood/mds_abandonment_rate</Annotation>
+    <Annotation name="topic">childhood</Annotation>
+    <Annotation name="subtopic">abandonment_rate</Annotation>
+    <Annotation name="available_dimensions"></Annotation>
+    <Annotation name="available_measures"></Annotation>
+  </Annotations>
+  <Table name="fact_abandonment" schema="childhood"/>
+  <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
+  <Dimension name="Year">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <!-- EDUCATION LEVEL -->
+  <Dimension foreignKey="education_id" name="Education Level">
     <Annotations>
-        <Annotation name="source_name">Creciendo con Derechos - Ministerior de Desarrollo Social</Annotation>
-        <Annotation name="source_description">Sistema de indicadores para el seguimiento de los derechos de niños, niñas y adolescentes, en relación a sus condiciones de vida y en sintonía con la Convención sobre los Derechos del Niño.</Annotation>
-        <Annotation name="source_link">http://www.creciendoconderechos.gob.cl/indicadores</Annotation>
-        <Annotation name="dataset_name">mds_abandonment_rate</Annotation>
-        <Annotation name="dataset_link">https://github.com/datachile/datachile-etl/tree/master/childhood/mds_abandonment_rate</Annotation>
-        <Annotation name="topic">childhood</Annotation>
-        <Annotation name="subtopic">abandonment_rate</Annotation>
-        <Annotation name="available_dimensions"></Annotation>
-        <Annotation name="available_measures"></Annotation>
+      <Annotation name="es_element_caption">Nivel Educacional</Annotation>
     </Annotations>
-
-    <Table name="fact_abandonment" schema="childhood"/>
-
-    <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
-    <Dimension name="Year">
-        <Hierarchy hasAll="true">
-            <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
-        </Hierarchy>
-    </Dimension>
-    
-    <Dimension name="Education Level" foreignKey="education_id"> 
+    <Hierarchy hasAll="true">
+      <InlineTable alias="education_id">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Enseñanza Básica</Value>
+            <Value column="es_description">Enseñanza Básica</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Enseñanza Media</Value>
+            <Value column="es_description">Enseñanza Media</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Education Level" nameColumn="description" uniqueMembers="true">
         <Annotations>
-            <Annotation name="es_element_caption">Nivel Educacional</Annotation>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Nivel Educacional</Annotation>
         </Annotations>
-
-        <Hierarchy hasAll="true" primaryKey="id">
-            <InlineTable alias="dim_education">
-                <ColumnDefs>
-                    <ColumnDef name="id" type="Numeric" />
-                    <ColumnDef name="description" type="String" />
-                    <ColumnDef name="es_description" type="String" />
-                </ColumnDefs>
-                <Rows>
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="description">Enseñanza Básica</Value>
-                        <Value column="es_description">Enseñanza Básica</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">2</Value>
-                        <Value column="description">Enseñanza Media</Value>
-                        <Value column="es_description">Enseñanza Media</Value>
-                    </Row>
-                </Rows>
-            </InlineTable>
-
-            <Level column="education_id" name="Education Level" nameColumn="description" uniqueMembers="true" caption="Level">
-            <Annotations>
-                <Annotation name="es_caption">Description ES</Annotation>
-                <Annotation name="es_element_caption">Nivel Educacional</Annotation>
-            </Annotations>
-
-            <Property column="es_description" name="Description ES"/>
-            </Level>
-        </Hierarchy>
-    </Dimension>
-
-    <Dimension name="Promotion Status" foreignKey="promotion_id"> 
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <!-- PROMOTION STATUS-->
+  <Dimension foreignKey="promotion_id" name="Promotion Status">
+    <Annotations>
+      <Annotation name="es_element_caption">Estado de Promoción</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="prom_id">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Aprobados</Value>
+            <Value column="es_description">Aprobados</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Reprobados</Value>
+            <Value column="es_description">Reprobados</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Abandonos</Value>
+            <Value column="es_description">Abandonos</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Promotion Status" nameColumn="description" uniqueMembers="true" caption="Promotion">
         <Annotations>
-            <Annotation name="es_element_caption">Estado de Promoción</Annotation>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Estado de Promoción</Annotation>
         </Annotations>
-
-        <Hierarchy hasAll="true" primaryKey="id">
-            <InlineTable alias="dim_promotion">
-                <ColumnDefs>
-                    <ColumnDef name="id" type="Numeric" />
-                    <ColumnDef name="description" type="String" />
-                    <ColumnDef name="es_description" type="String" />
-                </ColumnDefs>
-                <Rows>
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="description">Aprobados</Value>
-                        <Value column="es_description">Aprobados</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">2</Value>
-                        <Value column="description">Reprobados</Value>
-                        <Value column="es_description">Reprobados</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">3</Value>
-                        <Value column="description">Abandonos</Value>
-                        <Value column="es_description">Abandonos</Value>
-                    </Row>
-                </Rows>
-            </InlineTable>
-
-            <Level column="promotion_id" name="Promotion Status" nameColumn="description" uniqueMembers="true" caption="Promotion">
-            <Annotations>
-                <Annotation name="es_caption">Description ES</Annotation>
-                <Annotation name="es_element_caption">Estado de Promoción</Annotation>
-            </Annotations>
-
-            <Property column="es_description" name="Description ES"/>
-            </Level>
-        </Hierarchy>
-    </Dimension>
-
-
-
-    <Measure aggregator="sum" column="total" name="Number of students" visible="true"/>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="sum" column="total" name="Number of students" visible="true"/>
 </Cube>
