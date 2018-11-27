@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Schema name="datachile">
+
   <Dimension name="Date" type="TimeDimension">
     <Hierarchy hasAll="true" primaryKey="id">
       <Table name="dim_date" schema="public"/>
@@ -14,6 +15,7 @@
       <Level column="day_of_month" levelType="TimeDays" name="Day" type="Numeric" uniqueMembers="false"/>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="Geography">
     <Annotations>
       <Annotation name="index_as">geo</Annotation>
@@ -24,6 +26,7 @@
       <Level column="comuna_datachile_id" name="Comuna" nameColumn="comuna_name" uniqueMembers="true"/>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="Geography Region">
     <Hierarchy hasAll="true" primaryKey="region_id" name="Geography">
       <View alias="dim_regions">
@@ -32,6 +35,7 @@
       <Level column="region_id" name="Region" nameColumn="region_name" uniqueMembers="true"/>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="Country">
     <Annotations>
       <Annotation name="index_as">countries</Annotation>
@@ -57,6 +61,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="HS">
     <Annotations>
       <Annotation name="index_as">products</Annotation>
@@ -85,6 +90,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="ISICrev4">
     <Annotations>
       <Annotation name="index_as">industries</Annotation>
@@ -119,6 +125,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="ISICrev4 Level 1">
     <Hierarchy hasAll="true" primaryKey="level1" name="ISICrev4">
       <View alias="dim_isic">
@@ -134,6 +141,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="Sex">
     <Annotations>
       <Annotation name="es_element_caption">Sexo</Annotation>
@@ -161,6 +169,11 @@
             <Value column="description">Female</Value>
             <Value column="es_description">Femenino</Value>
           </Row>
+          <Row>
+            <Value column="sex_id">3</Value>
+            <Value column="description">Both Sexs</Value>
+            <Value column="es_description">Ambos Sexos</Value>
+          </Row>
         </Rows>
       </InlineTable>
       <Level column="sex_id" name="Sex" nameColumn="description" uniqueMembers="true" caption="Sex">
@@ -172,6 +185,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="ISCED">
     <Annotations>
       <Annotation name="es_element_caption">Nivel educativo (ISCED)</Annotation>
@@ -249,6 +263,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="ICSE">
     <Annotations>
       <Annotation name="es_element_caption">Tipo de relación laboral (ICSE)</Annotation>
@@ -311,6 +326,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="ISCO">
     <Annotations>
       <Annotation name="es_element_caption">Ocupaciones (ISCO)</Annotation>
@@ -388,6 +404,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="Binary Survey Response">
     <Hierarchy hasAll="true">
       <InlineTable alias="survey_response">
@@ -422,6 +439,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="Frequency Survey Response">
     <Hierarchy hasAll="true">
       <InlineTable alias="frequency_response">
@@ -461,6 +479,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="Energy Source Survey Response">
     <Hierarchy hasAll="true">
       <InlineTable alias="energy_source_response">
@@ -520,6 +539,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="Age Range">
     <Annotations>
       <Annotation name="es_element_caption">Rango etario</Annotation>
@@ -577,6 +597,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="Zone">
     <Annotations>
       <Annotation name="es_element_caption">Zona</Annotation>
@@ -614,6 +635,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="Administration">
     <Annotations>
       <Annotation name="es_element_caption">Tipo de administración</Annotation>
@@ -666,6 +688,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+
   <Dimension name="Institution">
     <Annotations>
       <Annotation name="es_element_caption">Institución</Annotation>
@@ -770,53 +793,87 @@
     <Hierarchy hasAll="true">
       <InlineTable alias="age_range_id">
         <ColumnDefs>
+          <ColumnDef name="group_id" type="Numeric" />
+          <ColumnDef name="group_description" type="String" />
+          <ColumnDef name="group_es_description" type="String" />
           <ColumnDef name="id" type="Numeric" />
           <ColumnDef name="description" type="String" />
           <ColumnDef name="es_description" type="String" />
         </ColumnDefs>
         <Rows>
           <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Infancy</Value>
+            <Value column="group_es_description">Infancia</Value>
             <Value column="id">1</Value>
-            <Value column="description">Deaths under 7 days</Value>
-            <Value column="es_description">Defunciones menores 7 días</Value>
+            <Value column="description">Under 7 days</Value>
+            <Value column="es_description">Menores 7 días</Value>
           </Row>
           <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Infancy</Value>
+            <Value column="group_es_description">Infancia</Value>
             <Value column="id">2</Value>
-            <Value column="description">Deaths under 28 days</Value>
-            <Value column="es_description">Defunciones menores 28 días</Value>
+            <Value column="description">Under 28 days</Value>
+            <Value column="es_description">Menores 28 días</Value>
           </Row>
           <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Infancy</Value>
+            <Value column="group_es_description">Infancia</Value>
             <Value column="id">3</Value>
-            <Value column="description">Deaths 28 days to 11 months</Value>
-            <Value column="es_description">Defunciones 28 días a 11 meses</Value>
+            <Value column="description">28 days to 11 months</Value>
+            <Value column="es_description">28 días a 11 meses</Value>
           </Row>
           <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">Infancy</Value>
+            <Value column="group_es_description">Infancia</Value>
             <Value column="id">4</Value>
-            <Value column="description">Deaths under 1 year</Value>
-            <Value column="es_description">Defunciones menores 1 año</Value>
+            <Value column="description">Under 1 year</Value>
+            <Value column="es_description">Menor 1 año</Value>
           </Row>
           <Row>
+            <Value column="group_id">2</Value>
+            <Value column="group_description">Childhood</Value>
+            <Value column="group_es_description">Niñez</Value>
             <Value column="id">5</Value>
             <Value column="description">1 to 4 years</Value>
             <Value column="es_description">1 a 4 años</Value>
           </Row>
           <Row>
+            <Value column="group_id">2</Value>
+            <Value column="group_description">Childhood</Value>
+            <Value column="group_es_description">Niñez</Value>
             <Value column="id">6</Value>
             <Value column="description">5 to 9 years</Value>
             <Value column="es_description">5 a 9 años</Value>
           </Row>
           <Row>
+            <Value column="group_id">3</Value>
+            <Value column="group_description">Adolescence</Value>
+            <Value column="group_es_description">Adolescencia</Value>
             <Value column="id">7</Value>
             <Value column="description">10 to 14 years</Value>
             <Value column="es_description">10 a 14 años</Value>
           </Row>
           <Row>
+            <Value column="group_id">3</Value>
+            <Value column="group_description">Adolescence</Value>
+            <Value column="group_es_description">Adolescencia</Value>
             <Value column="id">8</Value>
             <Value column="description">15 to 19 years</Value>
             <Value column="es_description">15 a 19 años</Value>
           </Row>
         </Rows>
       </InlineTable>
+      <Level column="group_id" name="Age Group" nameColumn="group_description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Grupo etario</Annotation>
+        </Annotations>
+        <Property column="group_es_description" name="Description ES"/>
+      </Level>
       <Level column="id" name="Age Range" nameColumn="description" uniqueMembers="true">
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
