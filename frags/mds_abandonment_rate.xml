@@ -90,5 +90,17 @@
       </Level>
     </Hierarchy>
   </Dimension>
-  <Measure aggregator="sum" column="total" name="Number of students" visible="true"/>
+  <Measure aggregator="sum" column="total" name="Number of Students" visible="true"/>
+  <Measure name="Abandonments" aggregator="sum" formatString="#,###.00" visible="false"> 
+    <MeasureExpression>
+      <SQL dialect="generic">
+        (case when fact_abandonment.promotion_id =
+        3 then fact_abandonment.total else 0 end)
+      </SQL>
+    </MeasureExpression>
+  </Measure>
+  <CalculatedMember name="Abandonment Percentage" dimension="Measures">
+    <Formula>([Measures].[Abandonments]/[Measures].[Number of Students])</Formula>
+    <CalculatedMemberProperty name="FORMAT_STRING" value="#,##0.00%"/>
+  </CalculatedMember>
 </Cube>
