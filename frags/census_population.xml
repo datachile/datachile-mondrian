@@ -543,6 +543,30 @@
     </Hierarchy>
   </Dimension>
 
+  <!-- Residence Comuna 5 years ago-->
+
+  <Dimension name="Residence Comuna 5 Years Ago" foreignKey="residence_comuna_5_years_ago">
+  <Hierarchy hasAll="true">
+            
+  <InlineTable alias="residence_comuna_5_years_ago">
+    <ColumnDefs>
+      <ColumnDef name="id" type="Numeric" />
+      <ColumnDef name="description" type="String" />
+      <ColumnDef name="es_description" type="String" />
+    </ColumnDefs>
+    <Rows>
+    
+    </Rows>
+  </InlineTable>
+      
+      <Level name="Residence Comuna 5 Years Ago" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
 
   <!-- Habitual Residence -->
   <Dimension name="Habitual Residence" foreignKey="habitual_residence">
@@ -601,6 +625,197 @@
   <Dimension name="Children Currently Alive">
     <Hierarchy hasAll="true">
       <Level column="children_currently_alive" nameColumn="children_currently_alive" name="Children Currently Alive" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+
+  <!--Economy Activity -->
+  <Dimension name="Economy Activity" foreignKey="economy_activity">
+    <Hierarchy hasAll="true">
+              
+  <InlineTable alias="economy_activity">
+    <ColumnDefs>
+      <ColumnDef name="id" type="Numeric" />
+      <ColumnDef name="description" type="String" />
+      <ColumnDef name="es_description" type="String" />
+    </ColumnDefs>
+    <Rows>
+      <Row>
+        <Value column="id">A'</Value>
+        <Value column="description">Agricultura, ganadería, silvicultura y pesca</Value>
+        <Value column="es_description">Agricultura, ganadería, silvicultura y pesca</Value>
+      </Row>
+    <Row>
+        <Value column="id">B'</Value>
+        <Value column="description">Explotación de minas y canteras</Value>
+        <Value column="es_description">Explotación de minas y canteras</Value>
+      </Row>
+    <Row>
+        <Value column="id">C'</Value>
+        <Value column="description">Industrias manufactureras</Value>
+        <Value column="es_description">Industrias manufactureras</Value>
+      </Row>
+    <Row>
+        <Value column="id">D'</Value>
+        <Value column="description">Suministro de electricidad, gas, vapor y aire acondicionado</Value>
+        <Value column="es_description">Suministro de electricidad, gas, vapor y aire acondicionado</Value>
+      </Row>
+    <Row>
+        <Value column="id">E'</Value>
+        <Value column="description">Suministro de agua, evacuación de aguas residuales, gestión de desechos y descontaminación</Value>
+        <Value column="es_description">Suministro de agua, evacuación de aguas residuales, gestión de desechos y descontaminación</Value>
+      </Row>
+    <Row>
+        <Value column="id">F'</Value>
+        <Value column="description">Construcción</Value>
+        <Value column="es_description">Construcción</Value>
+      </Row>
+    <Row>
+        <Value column="id">G'</Value>
+        <Value column="description">Comercio al por mayor y al por menor, reparación de vehículos automotores y motocicletas</Value>
+        <Value column="es_description">Comercio al por mayor y al por menor, reparación de vehículos automotores y motocicletas</Value>
+      </Row>
+    <Row>
+        <Value column="id">H'</Value>
+        <Value column="description">Transporte y almacenamiento</Value>
+        <Value column="es_description">Transporte y almacenamiento</Value>
+      </Row>
+    <Row>
+        <Value column="id">I'</Value>
+        <Value column="description">Actividades de alojamiento y de servicios de comidas</Value>
+        <Value column="es_description">Actividades de alojamiento y de servicios de comidas</Value>
+      </Row>
+    <Row>
+        <Value column="id">J'</Value>
+        <Value column="description">Información y comunicaciones</Value>
+        <Value column="es_description">Información y comunicaciones</Value>
+      </Row>
+    <Row>
+        <Value column="id">K'</Value>
+        <Value column="description">Actividades financieras y de seguros</Value>
+        <Value column="es_description">Actividades financieras y de seguros</Value>
+      </Row>
+    <Row>
+        <Value column="id">L'</Value>
+        <Value column="description">Actividades inmobiliarias</Value>
+        <Value column="es_description">Actividades inmobiliarias</Value>
+      </Row>
+    <Row>
+        <Value column="id">M'</Value>
+        <Value column="description">Actividades profesionales, científicas y técnicas</Value>
+        <Value column="es_description">Actividades profesionales, científicas y técnicas</Value>
+      </Row>
+    <Row>
+        <Value column="id">N'</Value>
+        <Value column="description">Actividades de servicios administrativos y de apoyo</Value>
+        <Value column="es_description">Actividades de servicios administrativos y de apoyo</Value>
+      </Row>
+    <Row>
+        <Value column="id">O'</Value>
+        <Value column="description">Administración pública y defensa; planes de seguridad social de afiliación obligatoria</Value>
+        <Value column="es_description">Administración pública y defensa; planes de seguridad social de afiliación obligatoria</Value>
+      </Row>
+    <Row>
+        <Value column="id">P'</Value>
+        <Value column="description">Enseñanza</Value>
+        <Value column="es_description">Enseñanza</Value>
+      </Row>
+    <Row>
+        <Value column="id">Q'</Value>
+        <Value column="description">Actividades de atención de la salud humana y de asistencia social</Value>
+        <Value column="es_description">Actividades de atención de la salud humana y de asistencia social</Value>
+      </Row>
+    <Row>
+        <Value column="id">R'</Value>
+        <Value column="description">Actividades artísticas, de entretenimiento y recreativas</Value>
+        <Value column="es_description">Actividades artísticas, de entretenimiento y recreativas</Value>
+      </Row>
+    <Row>
+        <Value column="id">S'</Value>
+        <Value column="description">Otras actividades de servicios</Value>
+        <Value column="es_description">Otras actividades de servicios</Value>
+      </Row>
+    <Row>
+        <Value column="id">T'</Value>
+        <Value column="description">Actividades de los hogares como empleadores; actividades no diferenciadas de los hogares como productores de  bienes y servicios para uso propio</Value>
+        <Value column="es_description">Actividades de los hogares como empleadores; actividades no diferenciadas de los hogares como productores de  bienes y servicios para uso propio</Value>
+      </Row>
+    <Row>
+        <Value column="id">U'</Value>
+        <Value column="description">Actividades de organizaciones y órganos extraterritoriales</Value>
+        <Value column="es_description">Actividades de organizaciones y órganos extraterritoriales</Value>
+      </Row>
+    <Row>
+        <Value column="id">Z'</Value>
+        <Value column="description">Rama no declarada</Value>
+        <Value column="es_description">Rama no declarada</Value>
+      </Row>
+    <Row>
+        <Value column="id">98</Value>
+        <Value column="description">No Aplica</Value>
+        <Value column="es_description">No Aplica</Value>
+      </Row>
+    <Row>
+        <Value column="id">99</Value>
+        <Value column="description">Missing</Value>
+        <Value column="es_description">Missing</Value>
+      </Row>
+    </Rows>
+  </InlineTable>
+      
+      <Level name="Economy Activity" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Birth Country -->
+  <Dimension name="Birth Country" foreignKey="birth_country">
+  <Hierarchy hasAll="true">
+            
+  <InlineTable alias="birth_country">
+    <ColumnDefs>
+      <ColumnDef name="id" type="Numeric" />
+      <ColumnDef name="description" type="String" />
+      <ColumnDef name="es_description" type="String" />
+    </ColumnDefs>
+    <Rows>
+    
+    </Rows>
+  </InlineTable>
+      
+      <Level name="Birth Country" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Birth Comuna -->
+  <Dimension name="Birth Comuna" foreignKey="birth_comuna">
+  <Hierarchy hasAll="true">
+            
+  <InlineTable alias="birth_comuna">
+    <ColumnDefs>
+      <ColumnDef name="id" type="Numeric" />
+      <ColumnDef name="description" type="String" />
+      <ColumnDef name="es_description" type="String" />
+    </ColumnDefs>
+    <Rows>
+    
+    </Rows>
+  </InlineTable>
+      
+      <Level name="Birth Comuna" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
     </Hierarchy>
   </Dimension>
 
@@ -693,6 +908,78 @@
       </InlineTable>
 
       <Level name="Age" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Residence Comuna -->
+  <Dimension name="Residence Comuna" foreignKey="residence_comuna">
+  <Hierarchy hasAll="true">
+            
+  <InlineTable alias="residence_comuna">
+    <ColumnDefs>
+      <ColumnDef name="id" type="Numeric" />
+      <ColumnDef name="description" type="String" />
+      <ColumnDef name="es_description" type="String" />
+    </ColumnDefs>
+    <Rows>
+    
+    </Rows>
+  </InlineTable>
+      
+      <Level name="Residence Comuna" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Residence Country -->
+  <Dimension name="Residence Country" foreignKey="residence_country">
+  <Hierarchy hasAll="true">
+            
+  <InlineTable alias="residence_country">
+    <ColumnDefs>
+      <ColumnDef name="id" type="Numeric" />
+      <ColumnDef name="description" type="String" />
+      <ColumnDef name="es_description" type="String" />
+    </ColumnDefs>
+    <Rows>
+    
+    </Rows>
+  </InlineTable>
+      
+      <Level name="Residence Country" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Residence Country 5 Years Ago -->
+  <Dimension name="Residence Country 5 Years Ago" foreignKey="residence_country_5_years_ago">
+  <Hierarchy hasAll="true">
+            
+  <InlineTable alias="residence_country_5_years_ago">
+    <ColumnDefs>
+      <ColumnDef name="id" type="Numeric" />
+      <ColumnDef name="description" type="String" />
+      <ColumnDef name="es_description" type="String" />
+    </ColumnDefs>
+    <Rows>
+    
+    </Rows>
+  </InlineTable>
+      
+      <Level name="Residence Country 5 Years Ago" column="id" nameColumn="description" uniqueMembers="true">
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
         </Annotations>
@@ -892,6 +1179,49 @@
             ]]>
           </SQL>
         </NameExpression>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <!-- Native People -->
+  <Dimension name="Native People" foreignKey="native_people">
+  <Hierarchy hasAll="true">
+            
+  <InlineTable alias="native_people">
+    <ColumnDefs>
+      <ColumnDef name="id" type="Numeric" />
+      <ColumnDef name="description" type="String" />
+      <ColumnDef name="es_description" type="String" />
+    </ColumnDefs>
+    <Rows>
+      <Row>
+        <Value column="id">1</Value>
+        <Value column="description">Sí</Value>
+        <Value column="es_description">Sí</Value>
+      </Row>
+    <Row>
+        <Value column="id">2</Value>
+        <Value column="description">No</Value>
+        <Value column="es_description">No</Value>
+      </Row>
+    <Row>
+        <Value column="id">98</Value>
+        <Value column="description">No aplica</Value>
+        <Value column="es_description">No aplica</Value>
+      </Row>
+    <Row>
+        <Value column="id">99</Value>
+        <Value column="description">Missing</Value>
+        <Value column="es_description">Missing</Value>
+      </Row>
+    </Rows>
+  </InlineTable>
+      
+      <Level name="Native People" column="id" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property name="Description ES" column="es_description" />
       </Level>
     </Hierarchy>
   </Dimension>
