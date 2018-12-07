@@ -458,9 +458,6 @@
     </Hierarchy>
   </Dimension>
     
-
-​
-
   <Measure aggregator="sum" column="cant_viv" name="Housing Units" visible="true" caption="Housing Unit" />
   <Measure aggregator="sum" column="cant_hog" name="Household" visible="true" caption="Household" />
   <Measure aggregator="sum" column="cant_per" name="People" visible="true" caption="People" />

@@ -2105,9 +2105,6 @@
     </Hierarchy>
   </Dimension>
     
-
-​
-
   <Measure aggregator="sum" column="cant_viv" name="Housing Units" visible="true" caption="Housing Unit" />
   <Measure aggregator="sum" column="cant_hog" name="Household" visible="true" caption="Household" />
   <Measure aggregator="sum" column="cant_per" name="People" visible="true" caption="People" />
@@ -5529,6 +5526,7 @@
   <DimensionUsage foreignKey="sex" name="Sex" source="Sex"/>
   <!-- Inline Dimensions -->
 
+
   <!-- Aboriginal People -->
   <Dimension name="Aboriginal People" foreignKey="aboriginal_people">
     <Hierarchy hasAll="true">
@@ -6405,30 +6403,6 @@
     </Hierarchy>
   </Dimension>
 
-
-  <Dimension name="Age" foreignKey="age">
-    <Hierarchy hasAll="true">
-
-      <InlineTable alias="age">
-        <ColumnDefs>
-          <ColumnDef name="id" type="Numeric" />
-          <ColumnDef name="description" type="String" />
-          <ColumnDef name="es_description" type="String" />
-        </ColumnDefs>
-        <Rows>
-
-        </Rows>
-      </InlineTable>
-
-      <Level name="Age" column="id" nameColumn="description" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">Description ES</Annotation>
-        </Annotations>
-        <Property name="Description ES" column="es_description" />
-      </Level>
-    </Hierarchy>
-  </Dimension>
-
   <!-- Residence Comuna -->
   <Dimension name="Residence Comuna" foreignKey="residence_comuna">
   <Hierarchy hasAll="true">
@@ -6657,7 +6631,7 @@
     </Hierarchy>
   </Dimension>
 
-  <!-- KeyExpression -->
+  <!-- KeyExpression Calculated Age Range-->
   <Dimension name="Calculated Age Range">
     <Annotations>
       <Annotation name="es_element_caption">Rango etario</Annotation>
