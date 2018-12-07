@@ -1,7 +1,7 @@
 <Cube name="mortality_one_to_ten">
   <Annotations>
     <Annotation name="source_name">Indicadores de Acceso a la Salud - DEIS Ministerio de Salud</Annotation>
-    <Annotation name="source_link"></Annotation>
+    <Annotation name="source_link">http://www.deis.cl/defunciones-y-mortalidad-general-y-por-grupos-de-edad/</Annotation>
     <Annotation name="topic">health</Annotation>
     <Annotation name="available_dimensions"></Annotation>
     <Annotation name="available_measures"></Annotation>
