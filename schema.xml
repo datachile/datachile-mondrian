@@ -39,7 +39,7 @@
       <Annotation name="index_as">countries</Annotation>
       <Annotation name="es_element_caption">País</Annotation>
     </Annotations>
-    <Hierarchy hasAll="true" primaryKey="country_code">
+    <Hierarchy hasAll="true" primaryKey="id">
       <Table name="dim_countries_new" schema="public"/>
       <Level column="region_code" name="Continent" nameColumn="region" uniqueMembers="true">
         <Annotations>
@@ -5522,6 +5522,7 @@
 
   <!-- Shared Dimensions -->
   <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="birth_country" name="Country" source="Country"/>
   <DimensionUsage foreignKey="area_id" name="Zone" source="Zone"/>
   <DimensionUsage foreignKey="sex" name="Sex" source="Sex"/>
   <!-- Inline Dimensions -->

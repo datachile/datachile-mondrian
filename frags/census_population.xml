@@ -12,6 +12,7 @@
 
   <!-- Shared Dimensions -->
   <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="birth_country" name="Country" source="Country"/>
   <DimensionUsage foreignKey="area_id" name="Zone" source="Zone"/>
   <DimensionUsage foreignKey="sex" name="Sex" source="Sex"/>
   <!-- Inline Dimensions -->

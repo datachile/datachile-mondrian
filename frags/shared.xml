@@ -41,7 +41,7 @@
       <Annotation name="index_as">countries</Annotation>
       <Annotation name="es_element_caption">País</Annotation>
     </Annotations>
-    <Hierarchy hasAll="true" primaryKey="country_code">
+    <Hierarchy hasAll="true" primaryKey="id">
       <Table name="dim_countries_new" schema="public"/>
       <Level column="region_code" name="Continent" nameColumn="region" uniqueMembers="true">
         <Annotations>
