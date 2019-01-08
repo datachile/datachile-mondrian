@@ -1,6 +1,7 @@
 require 'yaml'
 
 require 'jbundler'
+require 'forwardable'
 
 require 'rack/cors'
 require 'rack/config'
