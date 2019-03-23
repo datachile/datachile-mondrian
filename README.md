@@ -1,5 +1,7 @@
 # Datachile Mondrian
 
+[![Build Status](https://travis-ci.org/datachile/datachile-mondrian.svg?branch=master)](https://travis-ci.org/datachile/datachile-mondrian)
+
 Es la implementación de la capa lógica usando [Mondrian REST](https://github.com/jazzido/mondrian-rest) para Datachile.
 
 Contiene la configuración del esquema de cubos y provee el entrypoint REST de la API para consultas.
