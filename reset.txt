@@ -1,0 +1,4 @@
+createdb datachile-dev;
+psql datachile-dev;
+create user datawheel with encrypted password 'ba1landosolo';
+grant all privileges on database "datachile-dev" to datawheel;
