@@ -7421,6 +7421,7 @@
           </SQL>
         </NameExpression>
       </Level>
+      <Level name="Age" column="age" nameColumn="age" uniqueMembers="true" /> 
     </Hierarchy>
   </Dimension>
 
