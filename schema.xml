@@ -1618,6 +1618,72 @@
   <Measure aggregator="avg" column="mortality_rate_per_100_inhabitants" name="Mortality rate per 100 inhabitants AVG" visible="true" caption="Mortality rate per 100 inhabitants">
     <Annotations>
       <Annotation name="es_element_caption">Tasa de mortalidad cada 100 habitantes</Annotation>
+<<<<<<< HEAD
+=======
+    </Annotations>
+  </Measure>
+</Cube><Cube name="casen_banking">
+  <Annotations>
+    <Annotation name="source_name">Encuesta CASEN</Annotation>
+    <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
+    <Annotation name="topic">environment</Annotation>
+    <Annotation name="available_measures"/>
+  </Annotations>
+  <Table name="fact_banking_casen" schema="environment"/>
+  <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage caption="Debit Card" foreignKey="debit_card_id" name="Debit Card" source="Binary Survey Response"/>
+  <DimensionUsage caption="Bank Credit Card" foreignKey="credit_card_bank_id" name="Bank Credit Card" source="Binary Survey Response"/>
+  <DimensionUsage caption="Store Credit Card" foreignKey="credit_card_store_id" name="Store Credit Card" source="Binary Survey Response"/>
+  <DimensionUsage caption="Checks" foreignKey="checks_id" name="Checks" source="Binary Survey Response"/>
+  <DimensionUsage caption="Credit Line" foreignKey="credit_line_id" name="Credit Line" source="Binary Survey Response"/>
+  <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="expr" name="Expansion Factor Region" visible="true"/>
+  <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
+  <CalculatedMember dimension="Measures" name="Expansion Factor">
+    <Formula>
+      <![CDATA[IIF(Geography.CurrentMember.Level.Name = "Comuna",
+                    [Measures].[Expansion Factor Comuna],
+                    [Measures].[Expansion Factor Region])]]>
+    </Formula>
+  </CalculatedMember>
+</Cube><Cube name="mortality_one_to_ten">
+  <Annotations>
+    <Annotation name="source_name">Indicadores de Acceso a la Salud - DEIS Ministerio de Salud</Annotation>
+    <Annotation name="source_link">http://www.deis.cl/defunciones-y-mortalidad-general-y-por-grupos-de-edad/</Annotation>
+    <Annotation name="topic">health</Annotation>
+    <Annotation name="available_dimensions"></Annotation>
+    <Annotation name="available_measures"></Annotation>
+  </Annotations>
+  <Table name="fact_mortality_one_to_ten" schema="childhood"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range DEIS"/>
+  <Measure aggregator="sum" column="count" name="Number of deaths" visible="true" />
+  <Measure aggregator="avg" column="rate_comuna" name="Rate Comuna" visible="true" caption="Rate Comuna" />
+  <Measure aggregator="avg" column="rate_region" name="Rate Region" visible="true" caption="Rate Region" />
+  <Measure aggregator="avg" column="rate_country" name="Rate Country" visible="true" caption="Rate Country" />
+</Cube><Cube name="rd_survey">
+  <Annotations>
+    <Annotation name="source_name">Ministerio de Economía, Fomento y Turismo</Annotation>
+    <Annotation name="source_link">http://www.economia.gob.cl/estudios-y-encuestas/encuestas/encuestas-de-innovacion-e-id/encuestas-de-innovacion</Annotation>
+    <Annotation name="topic">economy</Annotation>
+    <Annotation name="available_dimensions" />
+    <Annotation name="available_measures" />
+  </Annotations>
+  <Table name="fact_rd_survey" schema="public"/>
+  <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+  <DimensionUsage foreignKey="headquarters_country_id" name="Headquarters Country" caption="Headquarters Country" source="Country"/>
+  <DimensionUsage foreignKey="CIIU_level1" name="ISICrev4" source="ISICrev4 Level 1"/>
+  <Dimension foreignKey="org_juridica" name="Business Type">
+    <Annotations>
+      <Annotation name="es_element_caption">Tipo de negocio</Annotation>
+>>>>>>> master
     </Annotations>
   </Measure>
 </Cube><Cube name="casen_banking">
@@ -1662,8 +1728,12 @@
 
   <Dimension name="Housing Type" foreignKey="housing_type">
     <Hierarchy hasAll="true">
+<<<<<<< HEAD
 
       <InlineTable alias="housing_type">
+=======
+      <InlineTable alias="ownership_type">
+>>>>>>> master
         <ColumnDefs>
           <ColumnDef name="id" type="Numeric" />
           <ColumnDef name="description" type="String" />
@@ -1672,6 +1742,7 @@
         <Rows>
           <Row>
             <Value column="id">1</Value>
+<<<<<<< HEAD
             <Value column="description">Casa</Value>
             <Value column="es_description">Casa</Value>
           </Row>
@@ -1787,6 +1858,59 @@
       </InlineTable>
 
       <Level name="Housing Occupation" column="id" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="description">Private Domestic</Value>
+            <Value column="es_description">Privada Nacional</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Private Foreign</Value>
+            <Value column="es_description">Privada Extranjera</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Mixed</Value>
+            <Value column="es_description">Mixta</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">State-owned</Value>
+            <Value column="es_description">Estatal</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Open Stock Coporation</Value>
+            <Value column="es_description">Sociedad Anónima Abierta</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Cooperative</Value>
+            <Value column="es_description">Cooperativa</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">State-owned</Value>
+            <Value column="es_description">Pública</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Joint-stock company</Value>
+            <Value column="es_description">Sociedad por Acciones</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">Single-owner limited liability company</Value>
+            <Value column="es_description">EIRL</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">Other</Value>
+            <Value column="es_description">Otro</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Business Type" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
         </Annotations>
@@ -1794,12 +1918,21 @@
       </Level>
     </Hierarchy>
   </Dimension>
+<<<<<<< HEAD
 
 
   <Dimension name="Walls Material" foreignKey="walls_material">
     <Hierarchy hasAll="true">
 
       <InlineTable alias="walls_material">
+=======
+  <Dimension foreignKey="forma_propiedad" name="Ownership Type">
+    <Annotations>
+      <Annotation name="es_element_caption">Tipo de propiedad</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="ownership_type">
+>>>>>>> master
         <ColumnDefs>
           <ColumnDef name="id" type="Numeric" />
           <ColumnDef name="description" type="String" />
@@ -1808,6 +1941,7 @@
         <Rows>
           <Row>
             <Value column="id">1</Value>
+<<<<<<< HEAD
             <Value column="description">Hormigón armado</Value>
             <Value column="es_description">Hormigón armado</Value>
           </Row>
@@ -1850,6 +1984,29 @@
       </InlineTable>
 
       <Level name="Walls Material" column="id" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="description">Private Domestic</Value>
+            <Value column="es_description">Privada Nacional</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Private Foreign</Value>
+            <Value column="es_description">Privada Extranjera</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Mixed</Value>
+            <Value column="es_description">Mixta</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">State-owned</Value>
+            <Value column="es_description">Estatal</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Ownership Type" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
         </Annotations>
@@ -1857,6 +2014,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+<<<<<<< HEAD
 
 
   <Dimension name="Ceiling Material" foreignKey="ceiling_material">
@@ -2216,8 +2374,374 @@
   <Dimension foreignKey="forma_propiedad" name="Ownership Type">
     <Annotations>
       <Annotation name="es_element_caption">Tipo de propiedad</Annotation>
-    </Annotations>
+=======
+  <Measure aggregator="sum" column="ventas" name="sales" visible="true"/>
+  <Measure aggregator="sum" column="exportaciones" name="exports" visible="true"/>
+  <Measure aggregator="sum" column="gasto_total" name="Total Spending" visible="true"/>
+  <!-- expenditure by region -->
+  <Measure aggregator="sum" column="gasto_XV_ARICA" name="gasto_region_15" visible="true"/>
+  <Measure aggregator="sum" column="gasto_I_TARAPACA" name="gasto_region_1" visible="true"/>
+  <Measure aggregator="sum" column="gasto_II_ANTOFAGASTA" name="gasto_region_2" visible="true"/>
+  <Measure aggregator="sum" column="gasto_III_ATACAMA" name="gasto_region_3" visible="true"/>
+  <Measure aggregator="sum" column="gasto_IV_COQUIMBO" name="gasto_region_4" visible="true"/>
+  <Measure aggregator="sum" column="gasto_V_VALPARAISO" name="gasto_region_5" visible="true"/>
+  <Measure aggregator="sum" column="gasto_VI_OHIGGINS" name="gasto_region_6" visible="true"/>
+  <Measure aggregator="sum" column="gasto_VII_MAULE" name="gasto_region_7" visible="true"/>
+  <Measure aggregator="sum" column="gasto_VIII_BIOBIO" name="gasto_region_8" visible="true"/>
+  <Measure aggregator="sum" column="gasto_IX_ARAUCANIA" name="gasto_region_9" visible="true"/>
+  <Measure aggregator="sum" column="gasto_XIV_RIOS" name="gasto_region_14" visible="true"/>
+  <Measure aggregator="sum" column="gasto_X_LAGOS" name="gasto_region_10" visible="true"/>
+  <Measure aggregator="sum" column="gasto_XI_AYSEN" name="gasto_region_11" visible="true"/>
+  <Measure aggregator="sum" column="gasto_XII_MAGALLANES" name="gasto_region_12" visible="true"/>
+  <Measure aggregator="sum" column="gasto_XIII_METROPOLITANA" name="gasto_region_13" visible="true"/>
+  <!-- staff by region -->
+  <Measure aggregator="sum" column="personal_72" name="staff_region_15" visible="true"/>
+  <Measure aggregator="sum" column="personal_73" name="staff_region_1" visible="true"/>
+  <Measure aggregator="sum" column="personal_74" name="staff_region_2" visible="true"/>
+  <Measure aggregator="sum" column="personal_75" name="staff_region_3" visible="true"/>
+  <Measure aggregator="sum" column="personal_76" name="staff_region_4" visible="true"/>
+  <Measure aggregator="sum" column="personal_77" name="staff_region_5" visible="true"/>
+  <Measure aggregator="sum" column="personal_78" name="staff_region_6" visible="true"/>
+  <Measure aggregator="sum" column="personal_79" name="staff_region_7" visible="true"/>
+  <Measure aggregator="sum" column="personal_80" name="staff_region_8" visible="true"/>
+  <Measure aggregator="sum" column="personal_81" name="staff_region_9" visible="true"/>
+  <Measure aggregator="sum" column="personal_82" name="staff_region_14" visible="true"/>
+  <Measure aggregator="sum" column="personal_83" name="staff_region_10" visible="true"/>
+  <Measure aggregator="sum" column="personal_84" name="staff_region_11" visible="true"/>
+  <Measure aggregator="sum" column="personal_85" name="staff_region_12" visible="true"/>
+  <Measure aggregator="sum" column="personal_86" name="staff_region_13" visible="true"/>
+</Cube><Cube name="exports">
+  <Annotations>
+    <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
+    <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
+    <Annotation name="topic">economy</Annotation>
+    <Annotation name="available_dimensions">Destination Country,Export HS</Annotation>
+    <Annotation name="available_measures">FOB US</Annotation>
+  </Annotations>
+  <!-- Table name="fact_exports" schema="economy"/ -->
+  <View alias="fact_exports">
+    <SQL>
+      <![CDATA[(SELECT * FROM economy.fact_exports WHERE "year">= 2011)]]>
+    </SQL>
+  </View>
+  <Dimension name="Date">
     <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage caption="Destination Country" foreignKey="country_code" name="Destination Country" source="Country"/>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="hs12" name="Export HS" source="HS"/>
+  <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
+  <DimensionUsage caption="Country" foreignKey="country_code" name="Country" source="Country"/>
+  <Measure aggregator="sum" column="fob_value_usd" name="FOB US" caption="Exports (USD FOB)">
+    <Annotations>
+      <Annotation name="es_element_caption">Exportaciones (FOB USD)</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <CalculatedMember dimension="Measures" name="Geo Rank">
+    <Formula>
+      <![CDATA[IIf(IsEmpty([Measures].[FOB US]),
+                 Null,
+                 Rank([Geography].CurrentMember,
+                 Order([Geography].CurrentMember.Siblings,
+                 Measures.[FOB US], BDESC)))]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Geo Rank Across Time">
+    <Annotations>
+      <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[Iif(IsEmpty([Measures].[FOB US]),
+                 Null,
+                 Rank([Geography].CurrentMember,
+                 Order([Geography].CurrentMember.Siblings,
+                 Aggregate({[Date].CurrentMember}*{[Destination Country].[All Countrys]}*{[Export HS].[All HSs]},
+                 [Measures].[FOB US]),
+                 BDESC)))]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="HS Rank">
+    <Formula>
+      <![CDATA[Rank([Export HS].CurrentMember,
+                 Order([Export HS].CurrentMember.Level.Members,
+                 Measures.[FOB US], BDESC))]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="HS Rank Decile" visible="true">
+    <Formula>
+      <![CDATA[((count([Export HS].CurrentMember.Level.Members)-Measures.[HS Rank]+1) * 10) / count([Export HS].CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="HS Rank Total" visible="true">
+    <Formula>
+      <![CDATA[count([Export HS].CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Exports for year (sum_c_p_xcp)" visible="true">
+    <!-- all geos, all products, current year -->
+    <Formula>
+      <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].[All HSs], [Geography].[Geography].[All Geographys])]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Exports for Geography and year (sum_p_xcp)" visible="false">
+    <!-- all products, current geo, current year -->
+    <Formula>
+      <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].[All HSs], [Geography].[Geography].CurrentMember)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Exports for Product and year (sum_c_xcp)" visible="false">
+    <!-- all geos, current product, current year -->
+    <Formula>
+      <![CDATA[(Measures.[FOB US], [Date].[Year].CurrentMember, [Export HS].[HS].CurrentMember, [Geography].[Geography].[All Geographys])]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Exports RCA">
+    <Formula>
+      <![CDATA[(Measures.[FOB US] / Measures.[Exports for Product and year (sum_c_xcp)]) / (Measures.[Exports for Geography and year (sum_p_xcp)] / Measures.[Exports for year (sum_c_p_xcp)]) ]]>
+    </Formula>
+  </CalculatedMember>
+</Cube><Cube name="internet_access">
+  <Annotations>
+    <Annotation name="source_name">Encuesta de Acceso, Usos y Usuarios de Internet — INE</Annotation>
+    <Annotation name="source_link">http://anda.ine.cl/index.php/catalog/9222</Annotation>
+    <Annotation name="topic">environment</Annotation>
+    <Annotation name="available_dimensions"></Annotation>
+    <Annotation name="available_measures">Expansion factor</Annotation>
+  </Annotations>
+  <Table name="fact_internet_access_survey" schema="environment"/>
+  <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography"/>
+  <DimensionUsage foreignKey="zone_id" name="Zone" source="Zone"/>
+  <DimensionUsage caption="Internet Plan" foreignKey="internet_plan_id" name="Internet Plan" source="Binary Survey Response"/>
+  <DimensionUsage caption="Home Access" foreignKey="home_access_id" name="Home Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="Desktop Access" foreignKey="desktop_access_id" name="Desktop Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="Laptop Access" foreignKey="laptop_access_id" name="Laptop Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="Tablet Access" foreignKey="tablet_access_id" name="Tablet Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="Cellphone Access" foreignKey="cellphone_access_id" name="Cellphone Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="Games or Consoles Access" foreignKey="games_consoles_access_id" name="Games or Consoles Access" source="Binary Survey Response"/>
+  <DimensionUsage caption="TV Access" foreignKey="tv_access_id" name="TV Access" source="Binary Survey Response"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" column="region_id" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="weights" name="Expansion factor" visible="true" caption="Expansion factor">
+    <Annotations>
+      <Annotation name="es_element_caption">Personas conectadas a internet (aproximado)</Annotation>
+    </Annotations>
+  </Measure>
+</Cube><Cube name="psu">
+  <Annotations>
+    <Annotation name="source_name">Prueba de Selección Universitaria (PSU) - DEMRE</Annotation>
+    <Annotation name="source_link">http://demre.cl/</Annotation>
+    <Annotation name="topic">education</Annotation>
+    <Annotation name="available_dimensions">Sex</Annotation>
+    <Annotation name="available_measures">PSU Average</Annotation>
+  </Annotations>
+  <View alias="fact_psu">
+    <SQL dialect="generic">
+      <![CDATA[(SELECT
+      *, ((language_test + math_test) / 2) as avg_individual from education.fact_psu
+      )]]>
+    </SQL>
+  </View>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <Dimension name="Calculated PSU Bucket">
+    <Hierarchy hasAll="true">
+      <Level name="Bucket">
+        <KeyExpression>
+          <SQL>
+            <![CDATA[(case
+                       when avg_individual BETWEEN 150 AND 199 then '150-199'
+                       when avg_individual BETWEEN 200 AND 249 then '200-249'
+                       when avg_individual BETWEEN 250 AND 299 then '250-299'
+                       when avg_individual BETWEEN 300 AND 349 then '300-349'
+                       when avg_individual BETWEEN 350 AND 399 then '350-399'
+                       when avg_individual BETWEEN 400 AND 449 then '400-449'
+                       when avg_individual BETWEEN 450 AND 499 then '450-499'
+                       when avg_individual BETWEEN 500 AND 549 then '500-549'
+                       when avg_individual BETWEEN 550 AND 599 then '550-599'
+                       when avg_individual BETWEEN 600 AND 649 then '600-649'
+                       when avg_individual BETWEEN 650 AND 699 then '650-699'
+                       when avg_individual BETWEEN 700 AND 749 then '700-749'
+                       when avg_individual BETWEEN 750 AND 799 then '750-799'
+                       when avg_individual >= 800 then '800'
+                      end)
+              ]]>
+          </SQL>
+        </KeyExpression>
+        <NameExpression>
+          <SQL>
+            <![CDATA[(case
+                       when avg_individual BETWEEN 150 AND 199 then '150-199 pts'
+                       when avg_individual BETWEEN 200 AND 249 then '200-249 pts'
+                       when avg_individual BETWEEN 250 AND 299 then '250-299 pts'
+                       when avg_individual BETWEEN 300 AND 349 then '300-349 pts'
+                       when avg_individual BETWEEN 350 AND 399 then '350-399 pts'
+                       when avg_individual BETWEEN 400 AND 449 then '400-449 pts'
+                       when avg_individual BETWEEN 450 AND 499 then '450-499 pts'
+                       when avg_individual BETWEEN 500 AND 549 then '500-549 pts'
+                       when avg_individual BETWEEN 550 AND 599 then '550-599 pts'
+                       when avg_individual BETWEEN 600 AND 649 then '600-649 pts'
+                       when avg_individual BETWEEN 650 AND 699 then '650-699 pts'
+                       when avg_individual BETWEEN 700 AND 749 then '700-749 pts'
+                       when avg_individual BETWEEN 750 AND 799 then '750-799 pts'
+                       when avg_individual >= 800 then '+800 pts'
+                      end)
+              ]]>
+          </SQL>
+        </NameExpression>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" name="Number of records" visible="true">
+    <MeasureExpression>
+      <SQL>((language_test + math_test) / 2)</SQL>
+    </MeasureExpression>
+  </Measure>
+  <Measure aggregator="avg" column="language_test" name="Avg language test" visible="true"/>
+  <Measure aggregator="avg" column="math_test" name="Avg math test" visible="true"/>
+  <Measure aggregator="sum" column="avg_individual" name="PSU AVG individual" visible="true"/>
+  <CalculatedMember dimension="Measures" name="PSU Average" visible="true" caption="PSU Average">
+    <Annotations>
+      <Annotation name="es_element_caption">PSU promedio</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[[Measures].[PSU AVG Individual] / [Measures].[Number of records]]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="PSU Rank">
+    <Formula>
+      <![CDATA[Rank(Geography.CurrentMember,
+                 Order(Geography.CurrentMember.Level.Members,
+                 Measures.[PSU Average], BDESC))]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="PSU Rank Decile" visible="true">
+    <Formula>
+      <![CDATA[((count(Geography.CurrentMember.Level.Members)-Measures.[PSU Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="PSU Rank Total" visible="true">
+    <Formula>
+      <![CDATA[count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+</Cube><Cube name="tax_data">
+  <Annotations>
+    <Annotation name="source_name">Servicio de Impuestos Internos</Annotation>
+    <Annotation name="source_link">http://homer.sii.cl/</Annotation>
+    <Annotation name="topic">economy</Annotation>
+    <Annotation name="available_dimensions">ISICrev4</Annotation>
+    <Annotation name="available_measures">Output,Labour,Labour Cost,Investment,Intermediates,Value Added,Production per worker,Value added per worker</Annotation>
+  </Annotations>
+  <View alias="tax_data">
+    <SQL>
+      <![CDATA[(SELECT * from economy.tax_data WHERE ciiu4_ori is not NULL and the_year <> 0 and the_year is not NULL and output > 0)]]>
+    </SQL>
+  </View>
+  <!-- <DimensionUsage foreignKey="date_id" name="Date" source="Date"/> -->
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="the_year" nameColumn="the_year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_id" name="Tax Geography" source="Geography"/>
+  <DimensionUsage foreignKey="ciiu4_ori" name="ISICrev4" source="ISICrev4"/>
+  <Measure aggregator="sum" column="output" name="Output" caption="Output">
+    <Annotations>
+      <Annotation name="es_element_caption">Producción</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="labour" name="Labour" caption="Labour Force">
+    <Annotations>
+      <Annotation name="es_element_caption">Fuerza de trabajo</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="labour_cost" name="Labour Cost" caption="Labour Cost">
+    <Annotations>
+      <Annotation name="es_element_caption">Costo laboral</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="investment" name="Investment" caption="Investment">
+    <Annotations>
+      <Annotation name="es_element_caption">Inversiones</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="intermediates" name="Intermediates" caption="Intermediates Revenue">
+    <Annotations>
+      <Annotation name="es_element_caption">Ganancias de intermediarios</Annotation>
+    </Annotations>
+  </Measure>
+  <CalculatedMember dimension="Measures" name="Value Added" caption="Value Added">
+    <Annotations>
+      <Annotation name="es_element_caption">Valor agregado en producción</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[[Measures].[Output] - [Measures].[Intermediates]]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Production per worker" caption="Production per worker">
+    <Annotations>
+      <Annotation name="es_element_caption">Producción por trabajador</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Output]/[Measures].[Labour], Null)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Value added per worker" caption="Value added per worker">
+    <Annotations>
+      <Annotation name="es_element_caption">Valor agregado por trabajador</Annotation>
+>>>>>>> master
+    </Annotations>
+    <Formula>
+      <![CDATA[Iif([Measures].[Labour] > 0, [Measures].[Value Added] / [Measures].[Labour], Null)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Output for year (sum_c_p_xcp)" visible="false">
+    <!-- all geos, all industries, current year -->
+    <Formula>
+      <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].[All Geographys])]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Output for Geography and year (sum_p_xcp)" visible="false">
+    <!-- all industries, current geo, current year -->
+    <Formula>
+      <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].[All ISICrev4s], [Tax Geography].[Geography].CurrentMember)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Output for Industry and year (sum_c_xcp)" visible="false">
+    <!-- all geos, current industry, current year -->
+    <Formula>
+      <![CDATA[(Measures.[Output], [Date].[Year].CurrentMember, [ISICrev4].[ISICrev4].CurrentMember, [Tax Geography].[Geography].[All Geographys])]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Output RCA">
+    <Formula>
+      <![CDATA[(Measures.[Output] / Measures.[Output for Industry and year (sum_c_xcp)]) / (Measures.[Output for Geography and year (sum_p_xcp)] / Measures.[Output for year (sum_c_p_xcp)]) ]]>
+    </Formula>
+  </CalculatedMember>
+</Cube><Cube name="health_access">
+  <Annotations>
+    <Annotation name="source_name">Indicadores de Acceso a la Salud - DEIS Ministerio de Salud</Annotation>
+    <Annotation name="source_link">http://www.deis.cl/</Annotation>
+    <Annotation name="topic">health</Annotation>
+    <Annotation name="available_dimensions"></Annotation>
+    <Annotation name="available_measures">Primary Healthcare SUM,Specialized Healthcare SUM,Urgency Healthcare SUM,Dental Discharges Per 100 inhabitants AVG</Annotation>
+  </Annotations>
+  <Table name="fact_health_access" schema="health"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+<<<<<<< HEAD
       <InlineTable alias="ownership_type">
         <ColumnDefs>
           <ColumnDef name="id" type="Numeric"/>
@@ -2291,10 +2815,46 @@
   <Measure aggregator="sum" column="personal_85" name="staff_region_12" visible="true"/>
   <Measure aggregator="sum" column="personal_86" name="staff_region_13" visible="true"/>
 </Cube><Cube name="exports">
+=======
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="region_id" source="Geography Region" name="Geography"/>
+  <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="primary_healthcare" name="Primary Healthcare SUM" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Casos de atención primaria</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="specialized_healthcare" name="Specialized Healthcare SUM" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Casos de atención especializada</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="urgency_healthcare" name="Urgency Healthcare SUM" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Casos de urgencias médicas</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="primary_healthcare" name="Primary Healthcare AVG" visible="true"/>
+  <Measure aggregator="avg" column="specialized_healthcare" name="Specialized Healthcare AVG" visible="true"/>
+  <Measure aggregator="avg" column="urgency_healthcare" name="Urgency Healthcare AVG" visible="true"/>
+  <Measure aggregator="avg" column="dental_discharges_per_100_inhabitants" name="Dental Discharges Per 100 inhabitants AVG" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Altas dentales cada 100 habitantes</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+</Cube><Cube name="imports">
+>>>>>>> master
   <Annotations>
     <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
     <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
     <Annotation name="topic">economy</Annotation>
+<<<<<<< HEAD
     <Annotation name="available_dimensions">Destination Country,Export HS</Annotation>
     <Annotation name="available_measures">FOB US</Annotation>
   </Annotations>
@@ -2302,6 +2862,15 @@
   <View alias="fact_exports">
     <SQL>
       <![CDATA[(SELECT * FROM economy.fact_exports WHERE "year">= 2011)]]>
+=======
+    <Annotation name="available_dimensions">Origin Country,Import HS</Annotation>
+    <Annotation name="available_measures">CIF US</Annotation>
+  </Annotations>
+  <!-- Table name="fact_imports" schema="economy" / -->
+  <View alias="fact_imports">
+    <SQL>
+      <![CDATA[(SELECT * FROM economy.fact_imports WHERE "year">= 2011)]]>
+>>>>>>> master
     </SQL>
   </View>
   <Dimension name="Date">
@@ -2309,6 +2878,7 @@
       <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
     </Hierarchy>
   </Dimension>
+<<<<<<< HEAD
   <DimensionUsage caption="Destination Country" foreignKey="country_code" name="Destination Country" source="Country"/>
   <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
   <DimensionUsage foreignKey="hs12" name="Export HS" source="HS"/>
@@ -2698,6 +3268,35 @@
   </CalculatedMember>
 </Cube><Cube name="casen_household">
   <Annotations>
+=======
+  <DimensionUsage foreignKey="country_code" name="Origin Country" caption="Origin Country" source="Country"/>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="hs12" name="Import HS" source="HS"/>
+  <!-- duplicate of dimension `Destination Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
+  <DimensionUsage caption="Country" foreignKey="country_code" name="Country" source="Country"/>
+  <Measure aggregator="sum" column="cif_value_usd" name="CIF US">
+    <Annotations>
+      <Annotation name="es_element_caption">Importaciones (CIF USD)</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <CalculatedMember dimension="Measures" name="Geo Rank Across Time">
+    <Annotations>
+      <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[Iif(IsEmpty([Measures].[CIF US]),
+                 Null,
+                 Rank([Geography].CurrentMember,
+                 Order([Geography].CurrentMember.Siblings,
+                 Aggregate({[Date].CurrentMember}*{[Origin Country].[All Countrys]}*{[Import HS].[All HSs]},
+                 [Measures].[CIF US]),
+                 BDESC)))]]>
+    </Formula>
+  </CalculatedMember>
+</Cube><Cube name="casen_household">
+  <Annotations>
+>>>>>>> master
     <Annotation name="source_name">Encuesta CASEN</Annotation>
     <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
     <Annotation name="topic">environment</Annotation>
@@ -2719,6 +3318,7 @@
           <ColumnDef name="es_description" type="String"/>
         </ColumnDefs>
         <Rows>
+<<<<<<< HEAD
           <Row>
             <Value column="id">1</Value>
             <Value column="description">Urban</Value>
@@ -3014,6 +3614,21 @@
         </Rows>
       </InlineTable>
       <Level column="id" name="Households In Land" nameColumn="description" uniqueMembers="true">
+=======
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Urban</Value>
+            <Value column="es_description">urbano</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Rural</Value>
+            <Value column="es_description">rural</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Zone Id" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
         </Annotations>
@@ -3021,12 +3636,21 @@
       </Level>
     </Hierarchy>
   </Dimension>
+<<<<<<< HEAD
   <Dimension foreignKey="land_using" name="Land Using">
     <Annotations>
       <Annotation name="es_element_caption">Condición del terreno</Annotation>
     </Annotations>
     <Hierarchy hasAll="true">
       <InlineTable alias="land_using">
+=======
+  <Dimension foreignKey="household_type" name="Household Type">
+    <Annotations>
+      <Annotation name="es_element_caption">Tipo de Casa</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="household_type">
+>>>>>>> master
         <ColumnDefs>
           <ColumnDef name="id" type="Numeric"/>
           <ColumnDef name="description" type="String"/>
@@ -3035,6 +3659,7 @@
         <Rows>
           <Row>
             <Value column="id">1</Value>
+<<<<<<< HEAD
             <Value column="description">Own, paid</Value>
             <Value column="es_description">Propio pagado</Value>
           </Row>
@@ -3153,6 +3778,59 @@
         </Rows>
       </InlineTable>
       <Level column="id" name="Household Sq Meters" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="description">Detached</Value>
+            <Value column="es_description">Casa aislada (no pareada)</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Semi detached</Value>
+            <Value column="es_description">Casa pareada por un lado</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Undetached</Value>
+            <Value column="es_description">Casa pareada por ambos lados</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Apartment in builiding with elevator</Value>
+            <Value column="es_description">Departamento en edificio con ascensor</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Apartment in builiding without elevator</Value>
+            <Value column="es_description">Departamento en edificio sin ascensor</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Room in old house or conventillo</Value>
+            <Value column="es_description">Pieza en casa antigua o conventillo</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">mediagua, mejora o vivienda de emergencia</Value>
+            <Value column="es_description">Mediagua, mejora o vivienda de emergencia</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Indigenous native house</Value>
+            <Value column="es_description">Vivienda tradicional indígena</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">Ranch or shack</Value>
+            <Value column="es_description">Rancho o choza</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">Precarious house made out of recycling materials (cans, plastics, cardboard, etc.)</Value>
+            <Value column="es_description">Vivienda precaria de materiales reutilizados (latas, plásticos, cartones, etc.)</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Household Type" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
         </Annotations>
@@ -3160,20 +3838,31 @@
       </Level>
     </Hierarchy>
   </Dimension>
+<<<<<<< HEAD
   <Dimension foreignKey="household_using" name="Household Using">
     <Annotations>
       <Annotation name="es_element_caption">Condición de la vivienda</Annotation>
     </Annotations>
     <Hierarchy hasAll="true">
       <InlineTable alias="household_using">
+=======
+  <Dimension foreignKey="walls_material" name="Walls Material">
+    <Annotations>
+      <Annotation name="es_element_caption">Material de las paredes</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="walls_material">
+>>>>>>> master
         <ColumnDefs>
           <ColumnDef name="id" type="Numeric"/>
           <ColumnDef name="description" type="String"/>
           <ColumnDef name="es_description" type="String"/>
         </ColumnDefs>
+        <!-- TODO: translate -->
         <Rows>
           <Row>
             <Value column="id">1</Value>
+<<<<<<< HEAD
             <Value column="description">Own and paid</Value>
             <Value column="es_description">Propia pagada</Value>
           </Row>
@@ -3272,6 +3961,44 @@
         </Rows>
       </InlineTable>
       <Level column="id" name="Family Member Owner" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="description">Reinforced concrete</Value>
+            <Value column="es_description">Hormigón armado</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Masonry (cement block, stone or brick)</Value>
+            <Value column="es_description">Albañilería (bloque cemento, piedra o ladrillo)</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Septum lined on both sides (wood, steel, tin, or other)</Value>
+            <Value column="es_description">Tabique forrado por ambas caras (madera, acero, lata, u otro)</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Septum without interior lining (wood or other)</Value>
+            <Value column="es_description">Tabique sin forro interior (madera u otro)</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Adobe, mud, quincha, pirca or other traditional craft</Value>
+            <Value column="es_description">Adobe, barro, quincha, pirca u otro artesanal tradicional</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Precarious or waste materials (cardboard, cans, bags, plastics, etc.)</Value>
+            <Value column="es_description">Materiales precarios o de desecho (cartón, latas, sacos, plásticos, etc.)</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Walls Material" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
         </Annotations>
@@ -3279,12 +4006,21 @@
       </Level>
     </Hierarchy>
   </Dimension>
+<<<<<<< HEAD
   <Dimension foreignKey="family_member_owner_2" name="Family Member Owner 2">
     <Annotations>
       <Annotation name="es_element_caption">Miembro familiar dueño</Annotation>
     </Annotations>
     <Hierarchy hasAll="true">
       <InlineTable alias="family_member_owner_2">
+=======
+  <Dimension foreignKey="floor_material" name="Floor Material">
+    <Annotations>
+      <Annotation name="es_element_caption">Material del piso</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="floor_material">
+>>>>>>> master
         <ColumnDefs>
           <ColumnDef name="id" type="Numeric"/>
           <ColumnDef name="description" type="String"/>
@@ -3293,6 +4029,7 @@
         <Rows>
           <Row>
             <Value column="id">1</Value>
+<<<<<<< HEAD
             <Value column="description">Head of household</Value>
             <Value column="es_description">Jefe(a) del hogar</Value>
           </Row>
@@ -3380,8 +4117,923 @@
           </Row>
           <Row>
             <Value column="id">5</Value>
+=======
+            <Value column="description">Parquet tiles, wooden floor, floating floor or similar</Value>
+            <Value column="es_description">Parquet, madera, piso flotante o similar</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Ceramic, porcelain, flexit or similar</Value>
+            <Value column="es_description">Cerámico, porcelanato, flexit o similar</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Carpet o floor coverings</Value>
+            <Value column="es_description">Alfombra o cubrepiso</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Cement tiles</Value>
+            <Value column="es_description">Baldosa de cemento</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Cement</Value>
+            <Value column="es_description">Radier</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Ground floor</Value>
+            <Value column="es_description">Tierra</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+>>>>>>> master
             <Value column="description">No Data</Value>
             <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+<<<<<<< HEAD
+      <Level column="id" name="Subsidy or Program" nameColumn="description" uniqueMembers="true">
+=======
+      <Level column="id" name="Floor Material" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+<<<<<<< HEAD
+  <Dimension foreignKey="credit" name="Credit">
+    <Annotations>
+      <Annotation name="es_element_caption">Financiamiento hipotecario</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="credit">
+=======
+  <Dimension foreignKey="ceiling_material" name="Ceiling Material">
+    <Annotations>
+      <Annotation name="es_element_caption">Material del techo</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="ceiling_material">
+>>>>>>> master
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <!-- TODO: translate -->
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+<<<<<<< HEAD
+            <Value column="description">Yes, SERVIU (only homes acquired from 1977 to 2001)</Value>
+            <Value column="es_description">Sí, SERVIU (sólo viviendas adquiridas desde 1977 hasta 2001)</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Yes, BancoEstado</Value>
+            <Value column="es_description">Sí, BancoEstado</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Yes, private bank</Value>
+            <Value column="es_description">Sí, banco privado</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Yes, cooperative</Value>
+            <Value column="es_description">Sí, cooperativa</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Yes, other financial institutions</Value>
+            <Value column="es_description">Sí, financiera u otra institución</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">No, without mortgage</Value>
+            <Value column="es_description">No, sin crédito hipotecario</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Credit" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="paying_credit" name="Paying Credit">
+    <Annotations>
+      <Annotation name="es_element_caption">Estado del pago hipotecario</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="paying_credit">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <!-- TODO: translate -->
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">sí, está pagando al día sus dividendos</Value>
+            <Value column="es_description">sí, está pagando al día sus dividendos</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">sí, está pagando con atraso sus dividendos</Value>
+            <Value column="es_description">sí, está pagando con atraso sus dividendos</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">no está pagando, aunque tiene deuda pendiente</Value>
+            <Value column="es_description">no está pagando, aunque tiene deuda pendiente</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">no está pagando, terminó de pagar</Value>
+            <Value column="es_description">no está pagando, terminó de pagar</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+=======
+            <Value column="description">tejas o tejuela (arcilla, metálica, cemento, madera, asfáltica)</Value>
+            <Value column="es_description">tejas o tejuela (arcilla, metálica, cemento, madera, asfáltica)</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">losa hormigón</Value>
+            <Value column="es_description">losa hormigón</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">planchas metálicas (zinc, cobre, etc.)</Value>
+            <Value column="es_description">planchas metálicas (zinc, cobre, etc.)</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">planchas de fibrocemento (pizarreño)</Value>
+            <Value column="es_description">planchas de fibrocemento (pizarreño)</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">fonolita o plancha de fieltro embreado</Value>
+            <Value column="es_description">fonolita o plancha de fieltro embreado</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">paja, coirón, totora, caña</Value>
+            <Value column="es_description">paja, coirón, totora, caña</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">materiales precarios o de desecho</Value>
+            <Value column="es_description">materiales precarios o de desecho</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">sin cubierta en el techo</Value>
+            <Value column="es_description">sin cubierta en el techo</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+>>>>>>> master
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+<<<<<<< HEAD
+      <Level column="id" name="Paying Credit" nameColumn="description" uniqueMembers="true">
+=======
+      <Level column="id" name="Ceiling Material" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+<<<<<<< HEAD
+  <Dimension foreignKey="water_source" name="Water Source">
+    <Annotations>
+      <Annotation name="es_element_caption">Fuente del agua</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="water_source">
+=======
+  <Dimension foreignKey="households_in_land" name="Households In Land">
+    <Annotations>
+      <Annotation name="es_element_caption">Viviendas en el terreno</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="households_in_land">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Households In Land" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="land_using" name="Land Using">
+    <Annotations>
+      <Annotation name="es_element_caption">Condición del terreno</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="land_using">
+>>>>>>> master
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+<<<<<<< HEAD
+            <Value column="description">red pública con medidor propio</Value>
+            <Value column="es_description">red pública con medidor propio</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">red pública con medidor compartido</Value>
+            <Value column="es_description">red pública con medidor compartido</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">red pública sin medidor</Value>
+            <Value column="es_description">red pública sin medidor</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">pozo o noria</Value>
+            <Value column="es_description">pozo o noria</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">río, vertiente, lago o estero</Value>
+            <Value column="es_description">río, vertiente, lago o estero</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">camión aljibe</Value>
+            <Value column="es_description">camión aljibe</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">otra fuente.</Value>
+            <Value column="es_description">otra fuente.</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+=======
+            <Value column="description">Own, paid</Value>
+            <Value column="es_description">Propio pagado</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Own, in payment</Value>
+            <Value column="es_description">Propio pagándose</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">propio compartido (pagado) con otras viviendas del sitio</Value>
+            <Value column="es_description">propio compartido (pagado) con otras viviendas del sitio</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">propio compartido (pagándose) con otras viviendas del sitio</Value>
+            <Value column="es_description">propio compartido (pagándose) con otras viviendas del sitio</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Leased with contract</Value>
+            <Value column="es_description">Arrendado con contrato</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Leased without contract</Value>
+            <Value column="es_description">Arrendado sin contrato</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Ceded for service or work</Value>
+            <Value column="es_description">Cedido por servicio o trabajo</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Ceded by family or other</Value>
+            <Value column="es_description">Cedido por familiar u otro</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">Usufruct (only use and enjoyment)</Value>
+            <Value column="es_description">Usufructo (sólo uso y goce)</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">Irregular occupation (de facto)</Value>
+            <Value column="es_description">Ocupación irregular (de hecho)</Value>
+          </Row>
+          <Row>
+            <Value column="id">11</Value>
+            <Value column="description">Irregular possessor</Value>
+            <Value column="es_description">Poseedor irregular</Value>
+          </Row>
+          <Row>
+            <Value column="id">12</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Land Using" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="household_sq_meters" name="Household Sq Meters">
+    <Annotations>
+      <Annotation name="es_element_caption">Área construída de la vivienda</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="household_sq_meters">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Less than 30 m²</Value>
+            <Value column="es_description">Menos de 30 m²</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">30 to 40 m²</Value>
+            <Value column="es_description">30 a 40 m²</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">41 to 60 m²</Value>
+            <Value column="es_description">41 a 60 m²</Value>
+>>>>>>> master
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Water Source" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="water_distribution" name="Water Distribution">
+    <Annotations>
+      <Annotation name="es_element_caption">Distribución del agua</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="water_distribution">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+<<<<<<< HEAD
+            <Value column="id">1</Value>
+            <Value column="description">con llave dentro de la vivienda</Value>
+            <Value column="es_description">con llave dentro de la vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">con llave dentro del sitio, pero fuera de la vivienda</Value>
+            <Value column="es_description">con llave dentro del sitio, pero fuera de la vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">no tiene sistema, la acarrea</Value>
+            <Value column="es_description">no tiene sistema, la acarrea</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Water Distribution" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="id">4</Value>
+            <Value column="description">61 to 100 m²</Value>
+            <Value column="es_description">61 a 100 m²</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">101 to 150 m²</Value>
+            <Value column="es_description">101 a 150 m²</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">More than 150 m²</Value>
+            <Value column="es_description">más de 150 m²</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Don't know</Value>
+            <Value column="es_description">no sabe</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Household Sq Meters" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+<<<<<<< HEAD
+  <Dimension foreignKey="waste_disposal" name="Waste Disposal">
+    <Annotations>
+      <Annotation name="es_element_caption">Eliminación de desechos</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="waste_disposal">
+=======
+  <Dimension foreignKey="household_using" name="Household Using">
+    <Annotations>
+      <Annotation name="es_element_caption">Condición de la vivienda</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="household_using">
+>>>>>>> master
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+<<<<<<< HEAD
+            <Value column="description">sí, con wc conectado al alcantarillado</Value>
+            <Value column="es_description">sí, con wc conectado al alcantarillado</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">sí, con wc conectado a fosa séptica</Value>
+            <Value column="es_description">sí, con wc conectado a fosa séptica</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">sí, con letrina sanitaria conectada a pozo negro</Value>
+            <Value column="es_description">sí, con letrina sanitaria conectada a pozo negro</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">sí, con cajón sobre pozo negro</Value>
+            <Value column="es_description">sí, con cajón sobre pozo negro</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">sí, con cajón sobre acequia o canal</Value>
+            <Value column="es_description">sí, con cajón sobre acequia o canal</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">sí, con cajón conectado a otro sistema</Value>
+            <Value column="es_description">sí, con cajón conectado a otro sistema</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">sí, con baño químico dentro del sitio</Value>
+            <Value column="es_description">sí, con baño químico dentro del sitio</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">no dispone de sistema</Value>
+            <Value column="es_description">no dispone de sistema</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Waste Disposal" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="description">Own and paid</Value>
+            <Value column="es_description">Propia pagada</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Own, in payment</Value>
+            <Value column="es_description">Propia pagándose</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Own, shared, paid with the help of others</Value>
+            <Value column="es_description">Propia compartida (pagada) con otros hogares de la vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Own, shared, in payment with the help of others</Value>
+            <Value column="es_description">Propia compartida (pagándose) con otros hogares de la vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Leased with contract</Value>
+            <Value column="es_description">Arrendada con contrato</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Leased without contract</Value>
+            <Value column="es_description">Arrendada sin contrato</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Ceded for service or work</Value>
+            <Value column="es_description">Cedida por servicio o trabajo</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Ceded by family or other</Value>
+            <Value column="es_description">Cedida por familiar u otro</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">Usufruct (only use and enjoyment)</Value>
+            <Value column="es_description">Usufructo (sólo uso y goce)</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">Irregular occupation (de facto)</Value>
+            <Value column="es_description">Ocupación irregular (de hecho)</Value>
+          </Row>
+          <Row>
+            <Value column="id">11</Value>
+            <Value column="description">Irregular possessor</Value>
+            <Value column="es_description">Poseedor irregular</Value>
+          </Row>
+          <Row>
+            <Value column="id">12</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Household Using" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+<<<<<<< HEAD
+  <Dimension foreignKey="electricity" name="Electricity">
+    <Annotations>
+      <Annotation name="es_element_caption">Fuente de electricidad</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="electricity">
+=======
+  <Dimension foreignKey="family_member_owner" name="Family Member Owner">
+    <Annotations>
+      <Annotation name="es_element_caption">Miembro familiar es dueño</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="family_member_owner">
+>>>>>>> master
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <!-- TODO: translate -->
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+<<<<<<< HEAD
+            <Value column="description">sí, de la red pública con medidor propio</Value>
+            <Value column="es_description">sí, de la red pública con medidor propio</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">sí, de la red pública con medidor compartido</Value>
+            <Value column="es_description">sí, de la red pública con medidor compartido</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">sí, de la red pública sin medidor</Value>
+            <Value column="es_description">sí, de la red pública sin medidor</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">sí, de un generador propio o comunitario</Value>
+            <Value column="es_description">sí, de un generador propio o comunitario</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">sí, a través de placa solar</Value>
+            <Value column="es_description">sí, a través de placa solar</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">sí, de otra fuente. especifique</Value>
+            <Value column="es_description">sí, de otra fuente. especifique</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">no dispone de energía eléctrica</Value>
+            <Value column="es_description">no dispone de energía eléctrica</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">ns/nr</Value>
+            <Value column="es_description">ns/nr</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Electricity" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="description">Yes</Value>
+            <Value column="es_description">Sí</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">No</Value>
+            <Value column="es_description">No</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Family Member Owner" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+<<<<<<< HEAD
+  <Dimension foreignKey="rooms" name="Rooms">
+    <Annotations>
+      <Annotation name="es_element_caption">Habitaciones</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="rooms">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Rooms" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="bathrooms" name="Bathrooms">
+    <Annotations>
+      <Annotation name="es_element_caption">Baños</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="bathrooms">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Bathrooms" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="families_in_household" name="Families In Household">
+    <Annotations>
+      <Annotation name="es_element_caption">Familias en la vivienda</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="families_in_household">
+=======
+  <Dimension foreignKey="family_member_owner_2" name="Family Member Owner 2">
+    <Annotations>
+      <Annotation name="es_element_caption">Miembro familiar dueño</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="family_member_owner_2">
+>>>>>>> master
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+<<<<<<< HEAD
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Families In Household" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="description">Head of household</Value>
+            <Value column="es_description">Jefe(a) del hogar</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Spouse</Value>
+            <Value column="es_description">Cónyuge</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">Partner</Value>
+            <Value column="es_description">Conviviente o pareja</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Child or stepchild</Value>
+            <Value column="es_description">Hijo(a)</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">Other relative</Value>
+            <Value column="es_description">Otro pariente</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">Non-relative</Value>
+            <Value column="es_description">Otro no pariente</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">Head of household and partner</Value>
+            <Value column="es_description">Jefe(a) y cónyuge</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">Head of household and other relative</Value>
+            <Value column="es_description">Jefe(a) y otro pariente</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Family Member Owner 2" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+<<<<<<< HEAD
+  <Dimension foreignKey="reason_to_share" name="Reason To Share">
+    <Annotations>
+      <Annotation name="es_element_caption">Motivo del allegamiento</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="reason_to_share">
+=======
+  <Dimension foreignKey="subsidy_or_program" name="Subsidy Or Program">
+    <Annotations>
+      <Annotation name="es_element_caption">Subsidio o programa</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="subsidy_or_program">
+>>>>>>> master
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+<<<<<<< HEAD
+        <!-- TODO: translate -->
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">cuidar niños, enfermos, ancianos o personas con discapacidad</Value>
+            <Value column="es_description">cuidar niños, enfermos, ancianos o personas con discapacidad</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">razones económicas</Value>
+            <Value column="es_description">razones económicas</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">razones de estudio</Value>
+            <Value column="es_description">razones de estudio</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">razones laborales</Value>
+            <Value column="es_description">razones laborales</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">por emergencia</Value>
+            <Value column="es_description">por emergencia</Value>
+=======
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Yes, with housing subsidy (without mortgage)</Value>
+            <Value column="es_description">Sí, con subsidio habitacional (sin crédito)</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Yes, with housing subsidy and mortgage</Value>
+            <Value column="es_description">Sí, con subsidio habitacional y crédito</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">No, only with own resources</Value>
+            <Value column="es_description">No, sólo con recursos propios</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">No, received from inheritance or free transfer</Value>
+            <Value column="es_description">No, la recibí de herencia o traspaso gratuito</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">Sin información</Value>
+>>>>>>> master
           </Row>
         </Rows>
       </InlineTable>
@@ -3406,6 +5058,24 @@
         </ColumnDefs>
         <Rows>
           <Row>
+<<<<<<< HEAD
+            <Value column="id">6</Value>
+            <Value column="description">prefiere vivir así o se siente cómodo</Value>
+            <Value column="es_description">prefiere vivir así o se siente cómodo</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">costumbre o tradición familiar</Value>
+            <Value column="es_description">costumbre o tradición familiar</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">otra. especifique</Value>
+            <Value column="es_description">otra. especifique</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+=======
             <Value column="id">1</Value>
             <Value column="description">Yes, SERVIU (only homes acquired from 1977 to 2001)</Value>
             <Value column="es_description">Sí, SERVIU (sólo viviendas adquiridas desde 1977 hasta 2001)</Value>
@@ -3547,333 +5217,17 @@
           </Row>
           <Row>
             <Value column="id">8</Value>
+>>>>>>> master
             <Value column="description">No Data</Value>
             <Value column="es_description">sin dato</Value>
           </Row>
         </Rows>
       </InlineTable>
-      <Level column="id" name="Water Source" nameColumn="description" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">Description ES</Annotation>
-        </Annotations>
-        <Property column="es_description" name="Description ES"/>
-      </Level>
-    </Hierarchy>
-  </Dimension>
-  <Dimension foreignKey="water_distribution" name="Water Distribution">
-    <Annotations>
-      <Annotation name="es_element_caption">Distribución del agua</Annotation>
-    </Annotations>
-    <Hierarchy hasAll="true">
-      <InlineTable alias="water_distribution">
-        <ColumnDefs>
-          <ColumnDef name="id" type="Numeric"/>
-          <ColumnDef name="description" type="String"/>
-          <ColumnDef name="es_description" type="String"/>
-        </ColumnDefs>
-        <Rows>
-          <Row>
-            <Value column="id">1</Value>
-            <Value column="description">con llave dentro de la vivienda</Value>
-            <Value column="es_description">con llave dentro de la vivienda</Value>
-          </Row>
-          <Row>
-            <Value column="id">2</Value>
-            <Value column="description">con llave dentro del sitio, pero fuera de la vivienda</Value>
-            <Value column="es_description">con llave dentro del sitio, pero fuera de la vivienda</Value>
-          </Row>
-          <Row>
-            <Value column="id">3</Value>
-            <Value column="description">no tiene sistema, la acarrea</Value>
-            <Value column="es_description">no tiene sistema, la acarrea</Value>
-          </Row>
-          <Row>
-            <Value column="id">4</Value>
-            <Value column="description">No Data</Value>
-            <Value column="es_description">sin dato</Value>
-          </Row>
-        </Rows>
-      </InlineTable>
-      <Level column="id" name="Water Distribution" nameColumn="description" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">Description ES</Annotation>
-        </Annotations>
-        <Property column="es_description" name="Description ES"/>
-      </Level>
-    </Hierarchy>
-  </Dimension>
-  <Dimension foreignKey="waste_disposal" name="Waste Disposal">
-    <Annotations>
-      <Annotation name="es_element_caption">Eliminación de desechos</Annotation>
-    </Annotations>
-    <Hierarchy hasAll="true">
-      <InlineTable alias="waste_disposal">
-        <ColumnDefs>
-          <ColumnDef name="id" type="Numeric"/>
-          <ColumnDef name="description" type="String"/>
-          <ColumnDef name="es_description" type="String"/>
-        </ColumnDefs>
-        <Rows>
-          <Row>
-            <Value column="id">1</Value>
-            <Value column="description">sí, con wc conectado al alcantarillado</Value>
-            <Value column="es_description">sí, con wc conectado al alcantarillado</Value>
-          </Row>
-          <Row>
-            <Value column="id">2</Value>
-            <Value column="description">sí, con wc conectado a fosa séptica</Value>
-            <Value column="es_description">sí, con wc conectado a fosa séptica</Value>
-          </Row>
-          <Row>
-            <Value column="id">3</Value>
-            <Value column="description">sí, con letrina sanitaria conectada a pozo negro</Value>
-            <Value column="es_description">sí, con letrina sanitaria conectada a pozo negro</Value>
-          </Row>
-          <Row>
-            <Value column="id">4</Value>
-            <Value column="description">sí, con cajón sobre pozo negro</Value>
-            <Value column="es_description">sí, con cajón sobre pozo negro</Value>
-          </Row>
-          <Row>
-            <Value column="id">5</Value>
-            <Value column="description">sí, con cajón sobre acequia o canal</Value>
-            <Value column="es_description">sí, con cajón sobre acequia o canal</Value>
-          </Row>
-          <Row>
-            <Value column="id">6</Value>
-            <Value column="description">sí, con cajón conectado a otro sistema</Value>
-            <Value column="es_description">sí, con cajón conectado a otro sistema</Value>
-          </Row>
-          <Row>
-            <Value column="id">7</Value>
-            <Value column="description">sí, con baño químico dentro del sitio</Value>
-            <Value column="es_description">sí, con baño químico dentro del sitio</Value>
-          </Row>
-          <Row>
-            <Value column="id">8</Value>
-            <Value column="description">no dispone de sistema</Value>
-            <Value column="es_description">no dispone de sistema</Value>
-          </Row>
-          <Row>
-            <Value column="id">9</Value>
-            <Value column="description">No Data</Value>
-            <Value column="es_description">sin dato</Value>
-          </Row>
-        </Rows>
-      </InlineTable>
-      <Level column="id" name="Waste Disposal" nameColumn="description" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">Description ES</Annotation>
-        </Annotations>
-        <Property column="es_description" name="Description ES"/>
-      </Level>
-    </Hierarchy>
-  </Dimension>
-  <Dimension foreignKey="electricity" name="Electricity">
-    <Annotations>
-      <Annotation name="es_element_caption">Fuente de electricidad</Annotation>
-    </Annotations>
-    <Hierarchy hasAll="true">
-      <InlineTable alias="electricity">
-        <ColumnDefs>
-          <ColumnDef name="id" type="Numeric"/>
-          <ColumnDef name="description" type="String"/>
-          <ColumnDef name="es_description" type="String"/>
-        </ColumnDefs>
-        <!-- TODO: translate -->
-        <Rows>
-          <Row>
-            <Value column="id">1</Value>
-            <Value column="description">sí, de la red pública con medidor propio</Value>
-            <Value column="es_description">sí, de la red pública con medidor propio</Value>
-          </Row>
-          <Row>
-            <Value column="id">2</Value>
-            <Value column="description">sí, de la red pública con medidor compartido</Value>
-            <Value column="es_description">sí, de la red pública con medidor compartido</Value>
-          </Row>
-          <Row>
-            <Value column="id">3</Value>
-            <Value column="description">sí, de la red pública sin medidor</Value>
-            <Value column="es_description">sí, de la red pública sin medidor</Value>
-          </Row>
-          <Row>
-            <Value column="id">4</Value>
-            <Value column="description">sí, de un generador propio o comunitario</Value>
-            <Value column="es_description">sí, de un generador propio o comunitario</Value>
-          </Row>
-          <Row>
-            <Value column="id">5</Value>
-            <Value column="description">sí, a través de placa solar</Value>
-            <Value column="es_description">sí, a través de placa solar</Value>
-          </Row>
-          <Row>
-            <Value column="id">6</Value>
-            <Value column="description">sí, de otra fuente. especifique</Value>
-            <Value column="es_description">sí, de otra fuente. especifique</Value>
-          </Row>
-          <Row>
-            <Value column="id">7</Value>
-            <Value column="description">no dispone de energía eléctrica</Value>
-            <Value column="es_description">no dispone de energía eléctrica</Value>
-          </Row>
-          <Row>
-            <Value column="id">8</Value>
-            <Value column="description">ns/nr</Value>
-            <Value column="es_description">ns/nr</Value>
-          </Row>
-        </Rows>
-      </InlineTable>
-      <Level column="id" name="Electricity" nameColumn="description" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">Description ES</Annotation>
-        </Annotations>
-        <Property column="es_description" name="Description ES"/>
-      </Level>
-    </Hierarchy>
-  </Dimension>
-  <Dimension foreignKey="rooms" name="Rooms">
-    <Annotations>
-      <Annotation name="es_element_caption">Habitaciones</Annotation>
-    </Annotations>
-    <Hierarchy hasAll="true">
-      <InlineTable alias="rooms">
-        <ColumnDefs>
-          <ColumnDef name="id" type="Numeric"/>
-          <ColumnDef name="description" type="String"/>
-          <ColumnDef name="es_description" type="String"/>
-        </ColumnDefs>
-        <Rows>
-          <Row>
-            <Value column="id">1</Value>
-            <Value column="description">No Data</Value>
-            <Value column="es_description">sin dato</Value>
-          </Row>
-        </Rows>
-      </InlineTable>
-      <Level column="id" name="Rooms" nameColumn="description" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">Description ES</Annotation>
-        </Annotations>
-        <Property column="es_description" name="Description ES"/>
-      </Level>
-    </Hierarchy>
-  </Dimension>
-  <Dimension foreignKey="bathrooms" name="Bathrooms">
-    <Annotations>
-      <Annotation name="es_element_caption">Baños</Annotation>
-    </Annotations>
-    <Hierarchy hasAll="true">
-      <InlineTable alias="bathrooms">
-        <ColumnDefs>
-          <ColumnDef name="id" type="Numeric"/>
-          <ColumnDef name="description" type="String"/>
-          <ColumnDef name="es_description" type="String"/>
-        </ColumnDefs>
-        <Rows>
-          <Row>
-            <Value column="id">1</Value>
-            <Value column="description">No Data</Value>
-            <Value column="es_description">sin dato</Value>
-          </Row>
-        </Rows>
-      </InlineTable>
-      <Level column="id" name="Bathrooms" nameColumn="description" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">Description ES</Annotation>
-        </Annotations>
-        <Property column="es_description" name="Description ES"/>
-      </Level>
-    </Hierarchy>
-  </Dimension>
-  <Dimension foreignKey="families_in_household" name="Families In Household">
-    <Annotations>
-      <Annotation name="es_element_caption">Familias en la vivienda</Annotation>
-    </Annotations>
-    <Hierarchy hasAll="true">
-      <InlineTable alias="families_in_household">
-        <ColumnDefs>
-          <ColumnDef name="id" type="Numeric"/>
-          <ColumnDef name="description" type="String"/>
-          <ColumnDef name="es_description" type="String"/>
-        </ColumnDefs>
-        <Rows>
-          <Row>
-            <Value column="id">1</Value>
-            <Value column="description">No Data</Value>
-            <Value column="es_description">sin dato</Value>
-          </Row>
-        </Rows>
-      </InlineTable>
-      <Level column="id" name="Families In Household" nameColumn="description" uniqueMembers="true">
-        <Annotations>
-          <Annotation name="es_caption">Description ES</Annotation>
-        </Annotations>
-        <Property column="es_description" name="Description ES"/>
-      </Level>
-    </Hierarchy>
-  </Dimension>
-  <Dimension foreignKey="reason_to_share" name="Reason To Share">
-    <Annotations>
-      <Annotation name="es_element_caption">Motivo del allegamiento</Annotation>
-    </Annotations>
-    <Hierarchy hasAll="true">
-      <InlineTable alias="reason_to_share">
-        <ColumnDefs>
-          <ColumnDef name="id" type="Numeric"/>
-          <ColumnDef name="description" type="String"/>
-          <ColumnDef name="es_description" type="String"/>
-        </ColumnDefs>
-        <!-- TODO: translate -->
-        <Rows>
-          <Row>
-            <Value column="id">1</Value>
-            <Value column="description">cuidar niños, enfermos, ancianos o personas con discapacidad</Value>
-            <Value column="es_description">cuidar niños, enfermos, ancianos o personas con discapacidad</Value>
-          </Row>
-          <Row>
-            <Value column="id">2</Value>
-            <Value column="description">razones económicas</Value>
-            <Value column="es_description">razones económicas</Value>
-          </Row>
-          <Row>
-            <Value column="id">3</Value>
-            <Value column="description">razones de estudio</Value>
-            <Value column="es_description">razones de estudio</Value>
-          </Row>
-          <Row>
-            <Value column="id">4</Value>
-            <Value column="description">razones laborales</Value>
-            <Value column="es_description">razones laborales</Value>
-          </Row>
-          <Row>
-            <Value column="id">5</Value>
-            <Value column="description">por emergencia</Value>
-            <Value column="es_description">por emergencia</Value>
-          </Row>
-          <Row>
-            <Value column="id">6</Value>
-            <Value column="description">prefiere vivir así o se siente cómodo</Value>
-            <Value column="es_description">prefiere vivir así o se siente cómodo</Value>
-          </Row>
-          <Row>
-            <Value column="id">7</Value>
-            <Value column="description">costumbre o tradición familiar</Value>
-            <Value column="es_description">costumbre o tradición familiar</Value>
-          </Row>
-          <Row>
-            <Value column="id">8</Value>
-            <Value column="description">otra. especifique</Value>
-            <Value column="es_description">otra. especifique</Value>
-          </Row>
-          <Row>
-            <Value column="id">9</Value>
-            <Value column="description">No Data</Value>
-            <Value column="es_description">sin dato</Value>
-          </Row>
-        </Rows>
-      </InlineTable>
+<<<<<<< HEAD
       <Level column="id" name="Reason To Share" nameColumn="description" uniqueMembers="true">
+=======
+      <Level column="id" name="Water Source" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
         </Annotations>
@@ -3881,6 +5235,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+<<<<<<< HEAD
   <!-- Energy Source Survey Response -->
   <DimensionUsage caption="Cooking Energy Source" foreignKey="cooking_energy_source" name="Cooking Energy Source" source="Energy Source Survey Response"/>
   <DimensionUsage caption="Heating Energy Source" foreignKey="heating_energy_source" name="Heating Energy Source" source="Energy Source Survey Response"/>
@@ -4204,6 +5559,749 @@
         <Property column="career_group" name="Description ES"/>
       </Level>
       <Level column="career_id" name="Career" nameColumn="career_en" uniqueMembers="true">
+=======
+  <Dimension foreignKey="water_distribution" name="Water Distribution">
+    <Annotations>
+      <Annotation name="es_element_caption">Distribución del agua</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="water_distribution">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">con llave dentro de la vivienda</Value>
+            <Value column="es_description">con llave dentro de la vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">con llave dentro del sitio, pero fuera de la vivienda</Value>
+            <Value column="es_description">con llave dentro del sitio, pero fuera de la vivienda</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">no tiene sistema, la acarrea</Value>
+            <Value column="es_description">no tiene sistema, la acarrea</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Water Distribution" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="waste_disposal" name="Waste Disposal">
+    <Annotations>
+      <Annotation name="es_element_caption">Eliminación de desechos</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="waste_disposal">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">sí, con wc conectado al alcantarillado</Value>
+            <Value column="es_description">sí, con wc conectado al alcantarillado</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">sí, con wc conectado a fosa séptica</Value>
+            <Value column="es_description">sí, con wc conectado a fosa séptica</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">sí, con letrina sanitaria conectada a pozo negro</Value>
+            <Value column="es_description">sí, con letrina sanitaria conectada a pozo negro</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">sí, con cajón sobre pozo negro</Value>
+            <Value column="es_description">sí, con cajón sobre pozo negro</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">sí, con cajón sobre acequia o canal</Value>
+            <Value column="es_description">sí, con cajón sobre acequia o canal</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">sí, con cajón conectado a otro sistema</Value>
+            <Value column="es_description">sí, con cajón conectado a otro sistema</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">sí, con baño químico dentro del sitio</Value>
+            <Value column="es_description">sí, con baño químico dentro del sitio</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">no dispone de sistema</Value>
+            <Value column="es_description">no dispone de sistema</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Waste Disposal" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Carrera</Annotation>
+        </Annotations>
+<<<<<<< HEAD
+        <Property column="career" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="higher_educational_institution_id" name="Higher Institutions">
+    <Annotations>
+      <Annotation name="index_as">institutions</Annotation>
+      <Annotation name="index_min_depth">2</Annotation>
+      <Annotation name="es_element_caption">Instituciones</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true" primaryKey="institution_id">
+      <Table name="dim_higher_educational_institutions" schema="education"/>
+      <Level column="institution_group_id" name="Higher Institution Group" nameColumn="institution_group" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Group ES</Annotation>
+          <Annotation name="es_element_caption">Grupo</Annotation>
+        </Annotations>
+        <Property column="institution_group_es" name="Group ES"/>
+      </Level>
+      <Level column="institution_subgroup_id" name="Higher Institution Subgroup" nameColumn="institution_subgroup" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Subgroup ES</Annotation>
+          <Annotation name="es_element_caption">Subgrupo</Annotation>
+        </Annotations>
+        <Property column="institution_subgroup_es" name="Subgroup ES"/>
+      </Level>
+      <Level column="institution_id" name="Higher Institution" nameColumn="institution" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="accreditation_id" name="Accreditations">
+    <Annotations>
+      <Annotation name="es_element_caption">Acreditación</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="accreditation">
+=======
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="electricity" name="Electricity">
+    <Annotations>
+      <Annotation name="es_element_caption">Fuente de electricidad</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="electricity">
+>>>>>>> master
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+<<<<<<< HEAD
+            <Value column="id">0</Value>
+            <Value column="description">No</Value>
+            <Value column="es_description">No</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">2 years</Value>
+            <Value column="es_description">2 años</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">3 years</Value>
+            <Value column="es_description">3 años</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">4 years</Value>
+            <Value column="es_description">4 años</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">5 years</Value>
+            <Value column="es_description">5 años</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">6 years</Value>
+            <Value column="es_description">6 años</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">7 years</Value>
+            <Value column="es_description">7 años</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Accreditation" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="id">1</Value>
+            <Value column="description">sí, de la red pública con medidor propio</Value>
+            <Value column="es_description">sí, de la red pública con medidor propio</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">sí, de la red pública con medidor compartido</Value>
+            <Value column="es_description">sí, de la red pública con medidor compartido</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">sí, de la red pública sin medidor</Value>
+            <Value column="es_description">sí, de la red pública sin medidor</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">sí, de un generador propio o comunitario</Value>
+            <Value column="es_description">sí, de un generador propio o comunitario</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">sí, a través de placa solar</Value>
+            <Value column="es_description">sí, a través de placa solar</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">sí, de otra fuente. especifique</Value>
+            <Value column="es_description">sí, de otra fuente. especifique</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">no dispone de energía eléctrica</Value>
+            <Value column="es_description">no dispone de energía eléctrica</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">ns/nr</Value>
+            <Value column="es_description">ns/nr</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Electricity" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Acreditación</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+<<<<<<< HEAD
+  <Dimension foreignKey="fourth_year_average_salary_id" name="Avg Income 4th year">
+    <Annotations>
+      <Annotation name="es_element_caption">Salario promedio al 4to año de egreso</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="fourth_year_average_salary_id">
+=======
+  <Dimension foreignKey="rooms" name="Rooms">
+    <Annotations>
+      <Annotation name="es_element_caption">Habitaciones</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="rooms">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Rooms" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="bathrooms" name="Bathrooms">
+    <Annotations>
+      <Annotation name="es_element_caption">Baños</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="bathrooms">
+>>>>>>> master
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+<<<<<<< HEAD
+            <Value column="id">0</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
+          </Row>
+=======
+            <Value column="id">1</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Bathrooms" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="families_in_household" name="Families In Household">
+    <Annotations>
+      <Annotation name="es_element_caption">Familias en la vivienda</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="families_in_household">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Families In Household" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="reason_to_share" name="Reason To Share">
+    <Annotations>
+      <Annotation name="es_element_caption">Motivo del allegamiento</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="reason_to_share">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <!-- TODO: translate -->
+        <Rows>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">cuidar niños, enfermos, ancianos o personas con discapacidad</Value>
+            <Value column="es_description">cuidar niños, enfermos, ancianos o personas con discapacidad</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">razones económicas</Value>
+            <Value column="es_description">razones económicas</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">razones de estudio</Value>
+            <Value column="es_description">razones de estudio</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">razones laborales</Value>
+            <Value column="es_description">razones laborales</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">por emergencia</Value>
+            <Value column="es_description">por emergencia</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">prefiere vivir así o se siente cómodo</Value>
+            <Value column="es_description">prefiere vivir así o se siente cómodo</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">costumbre o tradición familiar</Value>
+            <Value column="es_description">costumbre o tradición familiar</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">otra. especifique</Value>
+            <Value column="es_description">otra. especifique</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">No Data</Value>
+            <Value column="es_description">sin dato</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Reason To Share" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <!-- Energy Source Survey Response -->
+  <DimensionUsage caption="Cooking Energy Source" foreignKey="cooking_energy_source" name="Cooking Energy Source" source="Energy Source Survey Response"/>
+  <DimensionUsage caption="Heating Energy Source" foreignKey="heating_energy_source" name="Heating Energy Source" source="Energy Source Survey Response"/>
+  <DimensionUsage caption="Hot Water Energy Source" foreignKey="hot_water_energy_source" name="Hot Water Energy Source" source="Energy Source Survey Response"/>
+  <!-- Binary Survey Response -->
+  <DimensionUsage caption="Less Than 8 Blocks Public Transport" foreignKey="less_than_8_blocks_public_transport" name="Less Than 8 Blocks Public Transport" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Educational Center" foreignKey="less_than_20_blocks_educational_center" name="Less Than 20 Blocks Educational Center" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Health Center" foreignKey="less_than_20_blocks_health_center" name="Less Than 20 Blocks Health Center" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Market" foreignKey="less_than_20_blocks_market" name="Less Than 20 Blocks Market" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Atm" foreignKey="less_than_20_blocks_atm" name="Less Than 20 Blocks Atm" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Sports Center" foreignKey="less_than_20_blocks_sports_center" name="Less Than 20 Blocks Sports Center" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Green Areas" foreignKey="less_than_20_blocks_green_areas" name="Less Than 20 Blocks Green Areas" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Community Equipment" foreignKey="less_than_20_blocks_community_equipment" name="Less Than 20 Blocks Community Equipment" source="Binary Survey Response"/>
+  <DimensionUsage caption="Less Than 20 Blocks Pharmacy" foreignKey="less_than_20_blocks_pharmacy" name="Less Than 20 Blocks Pharmacy" source="Binary Survey Response"/>
+  <!-- Frequency Survey Response -->
+  <DimensionUsage caption="Affected By Acoustic Contamination" foreignKey="affected_by_acoustic_contamination" name="Affected By Acoustic Contamination" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By Air Contamination" foreignKey="affected_by_air_contamination" name="Affected By Air Contamination" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By River Or Lake Contamination" foreignKey="affected_by_river_or_lake_contamination" name="Affected By River Or Lake Contamination" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By Public Water Source Contamination" foreignKey="affected_by_public_water_source_contamination" name="Affected By Public Water Source Contamination" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By Graffitis Or Advertising" foreignKey="affected_by_graffitis_or_advertising" name="Affected By Graffitis Or Advertising" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By Accumulation Of Trash Public Areas" foreignKey="affected_by_accumulation_of_trash_public_areas" name="Affected By Accumulation Of Trash Public Areas" source="Frequency Survey Response"/>
+  <DimensionUsage caption="Affected By Animal Or Insect Plague" foreignKey="affected_by_animal_or_insect_plague" name="Affected By Animal Or Insect Plague" source="Frequency Survey Response"/>
+  <!-- Mesaures -->
+  <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="expr" name="Expansion Factor Region" visible="true"/>
+  <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
+  <CalculatedMember dimension="Measures" name="Expansion Factor">
+    <Annotations>
+      <Annotation name="es_element_caption">Cantidad de viviendas (CASEN)</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+    <Formula>
+      <![CDATA[IIF(Geography.CurrentMember.Level.Name = "Comuna",
+                    [Measures].[Expansion Factor Comuna],
+                    [Measures].[Expansion Factor Region])]]>
+    </Formula>
+  </CalculatedMember>
+</Cube><Cube name="education_enrollment">
+  <Annotations>
+    <Annotation name="source_name">Matricula escolar - MINEDUC</Annotation>
+    <Annotation name="source_link">http://datosabiertos.mineduc.cl/informacion-investigadores-establecimientos/</Annotation>
+    <Annotation name="topic">education</Annotation>
+    <Annotation name="available_dimensions">Sex,Zone,Administration,Institutions,Teachings</Annotation>
+    <Annotation name="available_measures">Number of records,Average Age</Annotation>
+  </Annotations>
+  <Table name="fact_enrollment" schema="education"/>
+  <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
+  <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+  <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
+  <Measure aggregator="count" column="year" name="Number of records" caption="Enrolled students" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Estudiantes matriculados</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="age" name="Average Age" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Edad promedio de estudiantes matriculados</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <!--<NamedSet description="Set of school types (Teachings) that indicate special education" name="Special Education Teachings">
+      <Formula>
+        <![CDATA[
+                 {[Teachings].[Teaching].[Teaching].&[211],[Teachings].[Teaching].[Teaching].&[212],[Teachings].[Teaching].[Teaching].&[213],[Teachings].[Teaching].[Teaching].&[214],[Teachings].[Teaching].[Teaching].&[215],[Teachings].[Teaching].[Teaching].&[216],[Teachings].[Teaching].[Teaching].&[217]}
+        ]]>
+      </Formula>
+    </NamedSet>-->
+</Cube><Cube name="election_participation">
+  <Annotations>
+    <Annotation name="source_name">Participación Electoral - SERVEL</Annotation>
+    <Annotation name="source_link">https://www.servel.cl/</Annotation>
+    <Annotation name="topic">civics</Annotation>
+    <Annotation name="available_dimensions">Election Type</Annotation>
+    <Annotation name="available_measures">Electors,Votes,Participation</Annotation>
+  </Annotations>
+  <Table name="fact_election_participation" schema="politics"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="election_id" name="Election Type" source="Election Type"/>
+  <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="total_electores" name="Electors" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Electores habilitados</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="sum" column="total_votacion" name="Votes" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Electores que votaron</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <CalculatedMember dimension="Measures" name="Participation" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Participación electoral (%)</Annotation>
+      <Annotation name="es_format">0.0 %</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[([Measures].[Votes] / [Measures].[Electors])]]>
+    </Formula>
+  </CalculatedMember>
+</Cube><Cube name="mortality_under_one">
+  <Annotations>
+    <Annotation name="source_name">Indicadores de Acceso a la Salud - DEIS Ministerio de Salud</Annotation>
+    <Annotation name="source_link">http://www.deis.cl/defunciones-y-mortalidad-general-y-por-grupos-de-edad/</Annotation>
+    <Annotation name="topic">health</Annotation>
+    <Annotation name="available_dimensions"></Annotation>
+    <Annotation name="available_measures"></Annotation>
+  </Annotations>
+  <Table name="fact_mortality_under_one" schema="childhood"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range DEIS"/>
+
+  <Measure aggregator="sum" column="count" name="Number of deaths" visible="true" />
+  <Measure aggregator="avg" column="rate_comuna" name="Rate Comuna" visible="true" caption="Rate Comuna" />
+  <Measure aggregator="avg" column="rate_region" name="Rate Region" visible="true" caption="Rate Region" />
+  <Measure aggregator="avg" column="rate_country" name="Rate Country" visible="true" caption="Rate Country" />
+</Cube><Cube name="junaeb_vulnerability">
+
+  <Annotations>
+    <Annotation name="source_name">Índice de Vulnerabilidad Escolar - JUNAEB</Annotation>
+    <Annotation name="source_link">https://www.junaeb.cl/ive/</Annotation>
+    <Annotation name="topic">education</Annotation>
+    <Annotation name="available_dimensions"></Annotation>
+    <Annotation name="available_measures"></Annotation>
+  </Annotations>
+
+  <Table name="fact_vulnerability" schema="childhood" />
+
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true" />
+    </Hierarchy>
+  </Dimension>
+
+  <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration" />
+  <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography" />
+  <DimensionUsage foreignKey="rbd" name="Institution" source="Institution New" />
+  <DimensionUsage foreignKey="zone_id" name="Zone" source="Zone" />
+
+  <Dimension foreignKey="priority_id" name="Priority">
+    <Annotations>
+      <Annotation name="es_element_caption">Actividad</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="priority">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric" />
+          <ColumnDef name="description" type="String" />
+          <ColumnDef name="es_description" type="String" />
+        </ColumnDefs>
+        <Rows>
+>>>>>>> master
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">No Information</Value>
+            <Value column="es_description">Sin Información</Value>
+          </Row>
+        <Row>
+            <Value column="id">1</Value>
+<<<<<<< HEAD
+            <Value column="description">De $300 mil a $400 mil</Value>
+            <Value column="es_description">De $300 mil a $400 mil</Value>
+=======
+            <Value column="description">First Priority</Value>
+            <Value column="es_description">Primera Prioridad</Value>
+>>>>>>> master
+          </Row>
+        <Row>
+            <Value column="id">2</Value>
+<<<<<<< HEAD
+            <Value column="description">De $400 mil a $500 mil</Value>
+            <Value column="es_description">De $400 mil a $500 mil</Value>
+=======
+            <Value column="description">Second Priority</Value>
+            <Value column="es_description">Segunda Prioridad</Value>
+>>>>>>> master
+          </Row>
+        <Row>
+            <Value column="id">3</Value>
+<<<<<<< HEAD
+            <Value column="description">De $500 mil a $600 mil</Value>
+            <Value column="es_description">De $500 mil a $600 mil</Value>
+=======
+            <Value column="description">Third Priority</Value>
+            <Value column="es_description">Tercera Prioridad</Value>
+>>>>>>> master
+          </Row>
+        <Row>
+            <Value column="id">4</Value>
+<<<<<<< HEAD
+            <Value column="description">De $600 mil a $700 mil</Value>
+            <Value column="es_description">De $600 mil a $700 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">De $700 mil a $800 mil</Value>
+            <Value column="es_description">De $700 mil a $800 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">De $800 mil a $900 mil</Value>
+            <Value column="es_description">De $800 mil a $900 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">De $900 mil a $1 millón</Value>
+            <Value column="es_description">De $900 mil a $1 millón</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">De $1 millón a $1 millón 100 mil</Value>
+            <Value column="es_description">De $1 millón a $1 millón 100 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">De $1 millón 100 mil a $1 millón 200 mil</Value>
+            <Value column="es_description">De $1 millón 100 mil a $1 millón 200 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">De $1 millón 200 mil a $1 millón 300 mil</Value>
+            <Value column="es_description">De $1 millón 200 mil a $1 millón 300 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">11</Value>
+            <Value column="description">De $1 millón 300 mil a $1 millón 400 mil</Value>
+            <Value column="es_description">De $1 millón 300 mil a $1 millón 400 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">12</Value>
+            <Value column="description">De $1 millón 400 mil a $1 millón 500 mil</Value>
+            <Value column="es_description">De $1 millón 400 mil a $1 millón 500 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">13</Value>
+            <Value column="description">De $1 millón 500 mil a $1 millón 600 mil</Value>
+            <Value column="es_description">De $1 millón 500 mil a $1 millón 600 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">14</Value>
+            <Value column="description">De $1 millón 600 mil a $1 millón 700 mil</Value>
+            <Value column="es_description">De $1 millón 600 mil a $1 millón 700 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">15</Value>
+            <Value column="description">De $1 millón 700 mil a $1 millón 800 mil</Value>
+            <Value column="es_description">De $1 millón 700 mil a $1 millón 800 mil</Value>
+=======
+            <Value column="description">Not Vulnerable</Value>
+            <Value column="es_description">No Vulnerable</Value>
+>>>>>>> master
+          </Row>
+        </Rows>
+      </InlineTable>
+
+      <Level column="id" name="Priority" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Actividad</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <Measure aggregator="sum" column="total" name="Count" visible="true" />
+
+</Cube><Cube name="mortality">
+  <Annotations>
+    <Annotation name="source_name">Indicadores de Acceso a la Salud - DEIS Ministerio de Salud</Annotation>
+    <Annotation name="source_link"></Annotation>
+    <Annotation name="topic">health</Annotation>
+    <Annotation name="available_dimensions"></Annotation>
+    <Annotation name="available_measures"></Annotation>
+  </Annotations>
+  <Table name="fact_mortality" schema="mortality"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range DEIS"/>
+
+  <Measure aggregator="sum" column="count" name="Number of deaths" visible="true" />
+  <Measure aggregator="avg" column="rate_comuna" name="Rate Comuna" visible="true" caption="Rate Comuna" />
+  <Measure aggregator="avg" column="rate_region" name="Rate Region" visible="true" caption="Rate Region" />
+  <Measure aggregator="avg" column="rate_country" name="Rate Country" visible="true" caption="Rate Country" />
+</Cube><Cube name="education_employability">
+  <Annotations>
+    <!-- TODO: Annotation name="source_name"></Annotation-->
+    <!-- TODO: Annotation name="source_link"></Annotation-->
+    <Annotation name="topic">education</Annotation>
+    <Annotation name="available_measures"/>
+  </Annotations>
+  <Table name="fact_employability" schema="education"/>
+  <Dimension foreignKey="career_id" name="Careers">
+    <Annotations>
+      <Annotation name="index_as">careers</Annotation>
+      <Annotation name="es_element_caption">Carreras</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true" primaryKey="career_id">
+      <Table name="dim_careers" schema="education"/>
+      <Level column="career_group_id" name="Career Group" nameColumn="career_group_en" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Área</Annotation>
+        </Annotations>
+        <Property column="career_group" name="Description ES"/>
+      </Level>
+      <Level column="career_id" name="Career" nameColumn="career_en" uniqueMembers="true">
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
           <Annotation name="es_element_caption">Carrera</Annotation>
@@ -4250,6 +6348,47 @@
         </ColumnDefs>
         <Rows>
           <Row>
+<<<<<<< HEAD
+            <Value column="id">16</Value>
+            <Value column="description">De $1 millón 800 mil a $1 millón 900 mil</Value>
+            <Value column="es_description">De $1 millón 800 mil a $1 millón 900 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">17</Value>
+            <Value column="description">De $1 millón 900 mil a $2 millones</Value>
+            <Value column="es_description">De $1 millón 900 mil a $2 millones</Value>
+          </Row>
+          <Row>
+            <Value column="id">18</Value>
+            <Value column="description">De $2 millones a $2 millones 100 mil</Value>
+            <Value column="es_description">De $2 millones a $2 millones 100 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">19</Value>
+            <Value column="description">De $2 millones 100 mil a $2 millones 200 mil</Value>
+            <Value column="es_description">De $2 millones 100 mil a $2 millones 200 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">20</Value>
+            <Value column="description">De $2 millones 200 mil a $2 millones 300 mil</Value>
+            <Value column="es_description">De $2 millones 200 mil a $2 millones 300 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">21</Value>
+            <Value column="description">De $2 millones 300 mil a $2 millones 400 mil</Value>
+            <Value column="es_description">De $2 millones 300 mil a $2 millones 400 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">22</Value>
+            <Value column="description">De $2 millones 400 mil a $2 millones 500 mil</Value>
+            <Value column="es_description">De $2 millones 400 mil a $2 millones 500 mil</Value>
+          </Row>
+          <Row>
+            <Value column="id">23</Value>
+            <Value column="description">Sobre $2 millones 500 mil</Value>
+            <Value column="es_description">Sobre $2 millones 500 mil</Value>
+          </Row>
+=======
             <Value column="id">0</Value>
             <Value column="description">No</Value>
             <Value column="es_description">No</Value>
@@ -4428,6 +6567,7 @@
             <Value column="description">Sobre $2 millones 500 mil</Value>
             <Value column="es_description">Sobre $2 millones 500 mil</Value>
           </Row>
+>>>>>>> master
         </Rows>
       </InlineTable>
       <Level column="id" name="Avg Income 4th year" nameColumn="description" uniqueMembers="true">
@@ -4728,6 +6868,7 @@
           </SQL>
         </NameExpression>
       </Level>
+<<<<<<< HEAD
     </Hierarchy>
   </Dimension>
   <Measure aggregator="count" column="birth_date" name="Number of visas">
@@ -4840,6 +6981,37 @@
     <Annotations>
       <Annotation name="es_element_caption">Rango de ingreso</Annotation>
     </Annotations>
+=======
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" column="birth_date" name="Number of visas">
+    <Annotations>
+      <Annotation name="es_element_caption">Cantidad de visas entregadas</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="age" name="Average Age">
+    <Annotations>
+      <Annotation name="es_element_caption">Edad promedio según visas entregadas</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+</Cube><Cube name="nesi_income">
+  <Annotations>
+    <Annotation name="source_name">Encuesta Suplementaria de Ingresos — INE</Annotation>
+    <Annotation name="source_link">http://www.ine.cl/estadisticas/ingresos-y-gastos/esi</Annotation>
+    <Annotation name="topic">economy</Annotation>
+    <Annotation name="available_dimensions">Sex,Age Range,ISCO,ICSE,ISCED,Occupation Length,Workday,Income Range</Annotation>
+    <Annotation name="available_measures">Median Income</Annotation>
+  </Annotations>
+  <!-- Table name="fact_income_nesi" schema="economy" / -->
+  <View alias="nesi_view">
+    <SQL>
+      <![CDATA[(SELECT *, (income * weight) AS weighted_income from economy.fact_income_nesi)]]>
+    </SQL>
+  </View>
+  <Dimension name="Date">
+>>>>>>> master
     <Hierarchy hasAll="true">
       <Level name="Income Range">
         <KeyExpression>
@@ -4877,6 +7049,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+<<<<<<< HEAD
   <Measure aggregator="sum" column="income" name="Income" visible="true"/>
   <Measure aggregator="sum" column="weight" name="Expansion Factor" visible="true"/>
   <Measure aggregator="sum" column="weighted_income" name="Income weighted" visible="false"/>
@@ -4917,10 +7090,84 @@
   </Annotations>
   <Table name="fact_health_system_casen" schema="health"/>
   <Dimension name="Date">
+=======
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <DimensionUsage foreignKey="age_range_id" name="Age Range" source="Age Range"/>
+  <DimensionUsage foreignKey="isco_id" name="ISCO" source="ISCO"/>
+  <DimensionUsage foreignKey="icse_id" name="ICSE" source="ICSE"/>
+  <DimensionUsage foreignKey="isced_id" name="ISCED" source="ISCED"/>
+  <Dimension foreignKey="occupation_id" name="Occupation Length">
+    <Annotations>
+      <Annotation name="es_element_caption">Duración de ocupación</Annotation>
+    </Annotations>
     <Hierarchy hasAll="true">
-      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+      <InlineTable alias="occupation">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">Occupied for less than 1 month at current position</Value>
+            <Value column="es_description">Ocupados con menos de 1 mes en el empleo actual</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Occupied for more than 1 month at current position</Value>
+            <Value column="es_description">Ocupados con más de 1 mes en el empleo actual</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Occupation Length" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
     </Hierarchy>
   </Dimension>
+  <Dimension foreignKey="journey_id" name="Workday">
+    <Annotations>
+      <Annotation name="es_element_caption">Duración de la jornada</Annotation>
+    </Annotations>
+>>>>>>> master
+    <Hierarchy hasAll="true">
+      <InlineTable alias="workdays">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Full-time</Value>
+            <Value column="es_description">Completa</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Part-time</Value>
+            <Value column="es_description">Parcial</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Workday" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+<<<<<<< HEAD
   <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
   <Dimension foreignKey="health_system_id" name="Health System">
     <Annotations>
@@ -5929,49 +8176,227 @@
             <Value column="id">1</Value>
             <Value column="description">Sala cuna o jardín infantil</Value>
             <Value column="es_description">Sala cuna o jardín infantil</Value>
+=======
+  <Dimension name="Income Range">
+    <Annotations>
+      <Annotation name="es_element_caption">Rango de ingreso</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <Level name="Income Range">
+        <KeyExpression>
+          <SQL>
+            <![CDATA[(case
+                       when income BETWEEN 0 AND 241000 then '01'
+                       when income BETWEEN 241001 AND 482000 then '02'
+                       when income BETWEEN 482001 AND 723000 then '03'
+                       when income BETWEEN 723001 AND 964000 then '04'
+                       when income BETWEEN 964001 AND 1205000 then '05'
+                       when income BETWEEN 1205001 AND 1446000 then '06'
+                       when income BETWEEN 1446001 AND 1687000 then '07'
+                       when income BETWEEN 1687001 AND 1928000 then '08'
+                       when income BETWEEN 1928001 AND 2169000 then '09'
+                       when income >= 2169001 then '10'
+                       end)]]>
+          </SQL>
+        </KeyExpression>
+        <NameExpression>
+          <SQL>
+            <![CDATA[(case
+                       when income BETWEEN 0 AND 241000 then '0-241000'
+                       when income BETWEEN 241001 AND 482000 then '241001-482000'
+                       when income BETWEEN 482001 AND 723000 then '482001-723000'
+                       when income BETWEEN 723001 AND 964000 then '723001-964000'
+                       when income BETWEEN 964001 AND 1205000 then '964001-1205000'
+                       when income BETWEEN 1205001 AND 1446000 then '1205001-1446000'
+                       when income BETWEEN 1446001 AND 1687000 then '1446001-1687000'
+                       when income BETWEEN 1687001 AND 1928000 then '1687001-1928000'
+                       when income BETWEEN 1928001 AND 2169000 then '1928001-2169000'
+                       when income >= 2169001 then '+2169001'
+                       end)]]>
+          </SQL>
+        </NameExpression>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="sum" column="income" name="Income" visible="true"/>
+  <Measure aggregator="sum" column="weight" name="Expansion Factor" visible="true"/>
+  <Measure aggregator="sum" column="weighted_income" name="Income weighted" visible="false"/>
+  <Measure aggregator="None" dataType="Numeric" name="Median Income" visible="true" caption="Median Income">
+    <Annotations>
+      <Annotation name="es_element_caption">Ingreso promedio</Annotation>
+    </Annotations>
+    <MeasureExpression>
+      <SQL dialect="postgres">PERCENTILE_DISC(0.5) WITHIN GROUP (ORDER BY income ASC)</SQL>
+    </MeasureExpression>
+  </Measure>
+  <Measure aggregator="sum" column="weighted_income" name="Weighted Income" visible="true"/>
+  <CalculatedMember dimension="Measures" name="Weighted Median Income Rank" visible="true">
+    <Formula>
+      <![CDATA[Rank([Geography].CurrentMember,
+                 Order(Geography.CurrentMember.Level.Members,
+                 Measures.[Median Income], BDESC))
+        ]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Weighted Median Income Decile" visible="true">
+    <Formula>
+      <![CDATA[((count(Geography.CurrentMember.Level.Members)-Measures.[Weighted Median Income Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Weighted Median Income Total" visible="true">
+    <Formula>
+      <![CDATA[count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+</Cube><Cube name="casen_health_system">
+  <Annotations>
+    <Annotation name="source_name">Encuesta CASEN</Annotation>
+    <Annotation name="source_link">http://observatorio.ministeriodesarrollosocial.gob.cl/casen-multidimensional/casen/basedatos.php</Annotation>
+    <Annotation name="topic">health</Annotation>
+    <Annotation name="available_dimensions">Health System</Annotation>
+    <Annotation name="available_measures">Expansion Factor</Annotation>
+  </Annotations>
+  <Table name="fact_health_system_casen" schema="health"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <Dimension foreignKey="health_system_id" name="Health System">
+    <Annotations>
+      <Annotation name="es_element_caption">Sistema de salud</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="health_system">
+        <ColumnDefs>
+          <ColumnDef name="group_id" type="Numeric"/>
+          <ColumnDef name="group_description" type="String"/>
+          <ColumnDef name="group_es_description" type="String"/>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">FONASA</Value>
+            <Value column="group_es_description">FONASA</Value>
+            <Value column="id">1</Value>
+            <Value column="description">FONASA Group A</Value>
+            <Value column="es_description">FONASA Grupo A</Value>
+>>>>>>> master
           </Row>
           <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">FONASA</Value>
+            <Value column="group_es_description">FONASA</Value>
             <Value column="id">2</Value>
+<<<<<<< HEAD
             <Value column="description">Prekínder</Value>
             <Value column="es_description">Prekínder</Value>
+=======
+            <Value column="description">FONASA Group B</Value>
+            <Value column="es_description">FONASA Grupo B</Value>
+>>>>>>> master
           </Row>
           <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">FONASA</Value>
+            <Value column="group_es_description">FONASA</Value>
             <Value column="id">3</Value>
+<<<<<<< HEAD
             <Value column="description">Kínder</Value>
             <Value column="es_description">Kínder</Value>
+=======
+            <Value column="description">FONASA Group C</Value>
+            <Value column="es_description">FONASA Grupo C</Value>
+>>>>>>> master
           </Row>
           <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">FONASA</Value>
+            <Value column="group_es_description">FONASA</Value>
             <Value column="id">4</Value>
+<<<<<<< HEAD
             <Value column="description">Especial o diferencial</Value>
             <Value column="es_description">Especial o diferencial</Value>
+=======
+            <Value column="description">FONASA Group D</Value>
+            <Value column="es_description">FONASA Grupo D</Value>
+>>>>>>> master
           </Row>
           <Row>
+            <Value column="group_id">1</Value>
+            <Value column="group_description">FONASA</Value>
+            <Value column="group_es_description">FONASA</Value>
             <Value column="id">5</Value>
+<<<<<<< HEAD
             <Value column="description">Educación básica</Value>
             <Value column="es_description">Educación básica</Value>
+=======
+            <Value column="description">FONASA (N/A)</Value>
+            <Value column="es_description">FONASA (No Sabe Grupo)</Value>
+>>>>>>> master
           </Row>
           <Row>
+            <Value column="group_id">2</Value>
+            <Value column="group_description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
+            <Value column="group_es_description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
             <Value column="id">6</Value>
+<<<<<<< HEAD
             <Value column="description">Primaria o preparatorio (sistema antiguo)</Value>
             <Value column="es_description">Primaria o preparatorio (sistema antiguo)</Value>
+=======
+            <Value column="description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
+            <Value column="es_description">Fuerzas Armadas, de Orden y Seguridad Pública</Value>
+>>>>>>> master
           </Row>
           <Row>
+            <Value column="group_id">3</Value>
+            <Value column="group_description">Private Health Insurance</Value>
+            <Value column="group_es_description">Isapre</Value>
             <Value column="id">7</Value>
+<<<<<<< HEAD
             <Value column="description">Científico-humanista</Value>
             <Value column="es_description">Científico-humanista</Value>
+=======
+            <Value column="description">Private Health Insurance</Value>
+            <Value column="es_description">Isapre</Value>
+>>>>>>> master
           </Row>
           <Row>
+            <Value column="group_id">4</Value>
+            <Value column="group_description">Other</Value>
+            <Value column="group_es_description">Otro</Value>
             <Value column="id">8</Value>
+<<<<<<< HEAD
             <Value column="description">Técnica profesional</Value>
             <Value column="es_description">Técnica profesional</Value>
+=======
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
+>>>>>>> master
           </Row>
           <Row>
+            <Value column="group_id">4</Value>
+            <Value column="group_description">Other</Value>
+            <Value column="group_es_description">Otro</Value>
             <Value column="id">9</Value>
+<<<<<<< HEAD
             <Value column="description">Humanidades (sistema antiguo)</Value>
             <Value column="es_description">Humanidades (sistema antiguo)</Value>
+=======
+            <Value column="description">Another system</Value>
+            <Value column="es_description">Otro Sistema</Value>
+>>>>>>> master
           </Row>
           <Row>
+            <Value column="group_id">4</Value>
+            <Value column="group_description">Other</Value>
+            <Value column="group_es_description">Otro</Value>
             <Value column="id">10</Value>
+<<<<<<< HEAD
             <Value column="description">Técnica comercial, industrial/normalista (sistema antiguo)</Value>
             <Value column="es_description">Técnica comercial, industrial/normalista (sistema antiguo)</Value>
           </Row>
@@ -6119,9 +8544,27 @@
       </InlineTable>
 
       <Level name="Formal Education" column="id" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="description">Doesn't know</Value>
+            <Value column="es_description">No sabe</Value>
+          </Row>
+          <Row>
+            <Value column="group_id">4</Value>
+            <Value column="group_description">Other</Value>
+            <Value column="group_es_description">Otro</Value>
+            <Value column="id">0</Value>
+            <Value column="description">No data</Value>
+            <Value column="es_description">No informa</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="group_id" name="Health System Group" nameColumn="group_description" uniqueMembers="true">
+>>>>>>> master
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Grupo</Annotation>
         </Annotations>
+<<<<<<< HEAD
         <Property name="Description ES" column="es_description" />
       </Level>
     </Hierarchy>
@@ -7931,13 +10374,20 @@
       </InlineTable>
 
       <Level name="Habitual Residence" column="id" nameColumn="description" uniqueMembers="true">
+=======
+        <Property column="group_es_description" name="Description ES"/>
+      </Level>
+      <Level column="id" name="Health System" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
+          <Annotation name="es_element_caption">Subgrupo</Annotation>
         </Annotations>
         <Property name="Description ES" column="es_description" />
       </Level>
     </Hierarchy>
   </Dimension>
+<<<<<<< HEAD
 
   <!-- Children Currently Alive -->
   <Dimension name="Children Currently Alive">
@@ -10230,6 +12680,62 @@
     <Hierarchy hasAll="true">
 
       <InlineTable alias="birth_place">
+=======
+  <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="expr" name="Expansion Factor Region" visible="true"/>
+  <Measure aggregator="sum" column="expc" name="Expansion Factor Comuna" visible="true"/>
+  <CalculatedMember dimension="Measures" name="Expansion Factor">
+    <Annotations>
+      <Annotation name="es_element_caption">Cobertura de salud: Cantidad de personas</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+    <Formula>
+      <![CDATA[IIF(Geography.CurrentMember.Level.Name = "Comuna",
+                    [Measures].[Expansion Factor Comuna],
+                    [Measures].[Expansion Factor Region])]]>
+    </Formula>
+  </CalculatedMember>
+</Cube><Cube name="education_performance">
+  <Annotations>
+    <Annotation name="source_name">Rendimiento escolar y PSU - DEMRE</Annotation>
+    <Annotation name="source_link">http://psu.demre.cl/</Annotation>
+    <Annotation name="topic">education</Annotation>
+    <Annotation name="available_measures"/>
+  </Annotations>
+  <Table name="fact_performance" schema="education"/>
+  <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
+  <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+  <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
+  <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
+  <Measure aggregator="avg" column="scores_average" name="Average Score Average (?)" visible="true"/>
+</Cube><Cube name="population_estimate">
+  <Annotations>
+    <Annotation name="source_name">INE - Demográficas y Vitales</Annotation>
+    <Annotation name="source_link">http://www.ine.cl/estadisticas/demograficas-y-vitales</Annotation>
+    <Annotation name="topic">demography</Annotation>
+    <Annotation name="available_dimensions">Sex,Age Range</Annotation>
+    <Annotation name="available_measures">Population</Annotation>
+  </Annotations>
+  <!-- http://www.ine.cl/estadisticas/demograficas-y-vitales -->
+  <Table name="fact_population_estimate" schema="demographics"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
+  <Dimension foreignKey="age_range_id" name="Age Range">
+    <Annotations>
+      <Annotation name="es_element_caption">Rango etáreo</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="age_range">
+>>>>>>> master
         <ColumnDefs>
           <ColumnDef name="id" type="Numeric" />
           <ColumnDef name="description" type="String" />
@@ -10238,6 +12744,7 @@
         <Rows>
           <Row>
             <Value column="id">1</Value>
+<<<<<<< HEAD
             <Value column="description">En esta comuna</Value>
             <Value column="es_description">En esta comuna</Value>
           </Row>
@@ -12048,6 +14555,338 @@
   </InlineTable>
       
       <Level name="Residence Comuna" column="id" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="description">0 to 4</Value>
+            <Value column="es_description">0 a 4</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">5 to 9</Value>
+            <Value column="es_description">5 a 9</Value>
+          </Row>
+          <Row>
+            <Value column="id">3</Value>
+            <Value column="description">10 to 14</Value>
+            <Value column="es_description">10 a 14</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">15 to 19</Value>
+            <Value column="es_description">15 a 19</Value>
+          </Row>
+          <Row>
+            <Value column="id">5</Value>
+            <Value column="description">20 to 24</Value>
+            <Value column="es_description">20 a 24</Value>
+          </Row>
+          <Row>
+            <Value column="id">6</Value>
+            <Value column="description">25 to 29</Value>
+            <Value column="es_description">25 a 29</Value>
+          </Row>
+          <Row>
+            <Value column="id">7</Value>
+            <Value column="description">30 to 34</Value>
+            <Value column="es_description">30 a 34</Value>
+          </Row>
+          <Row>
+            <Value column="id">8</Value>
+            <Value column="description">35 to 39</Value>
+            <Value column="es_description">35 a 39</Value>
+          </Row>
+          <Row>
+            <Value column="id">9</Value>
+            <Value column="description">40 to 44</Value>
+            <Value column="es_description">40 a 44</Value>
+          </Row>
+          <Row>
+            <Value column="id">10</Value>
+            <Value column="description">45 to 49</Value>
+            <Value column="es_description">45 a 49</Value>
+          </Row>
+          <Row>
+            <Value column="id">11</Value>
+            <Value column="description">50 to 54</Value>
+            <Value column="es_description">50 a 54</Value>
+          </Row>
+          <Row>
+            <Value column="id">12</Value>
+            <Value column="description">55 to 59</Value>
+            <Value column="es_description">55 a 59</Value>
+          </Row>
+          <Row>
+            <Value column="id">13</Value>
+            <Value column="description">60 to 64</Value>
+            <Value column="es_description">60 a 64</Value>
+          </Row>
+          <Row>
+            <Value column="id">14</Value>
+            <Value column="description">65 to 69</Value>
+            <Value column="es_description">65 a 69</Value>
+          </Row>
+          <Row>
+            <Value column="id">15</Value>
+            <Value column="description">70 to 74</Value>
+            <Value column="es_description">70 a 74</Value>
+          </Row>
+          <Row>
+            <Value column="id">16</Value>
+            <Value column="description">75 to 79</Value>
+            <Value column="es_description">75 a 79</Value>
+          </Row>
+          <Row>
+            <Value column="id">17</Value>
+            <Value column="description">80 and older</Value>
+            <Value column="es_description">80 y más</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Age Range" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Measure aggregator="count" column="date_id" name="Number of records" visible="true"/>
+  <Measure aggregator="sum" column="count" name="Population" visible="true">
+    <Annotations>
+      <Annotation name="es_element_caption">Proyecciones de Población (INE 2014 basado en Censo 2000)</Annotation>
+      <!-- <Annotation name="es_format">XXX</Annotation> -->
+    </Annotations>
+  </Measure>
+  <CalculatedMember dimension="Measures" name="Population Rank">
+    <Formula>
+      <![CDATA[Rank(Geography.CurrentMember,
+                 Order(Geography.CurrentMember.Level.Members,
+                 Measures.Population, BDESC))]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Population Rank Decile" visible="true">
+    <Formula>
+      <![CDATA[((count(Geography.CurrentMember.Level.Members)-Measures.[Population Rank]+1) * 10) / count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+  <CalculatedMember dimension="Measures" name="Population Rank Total" visible="true">
+    <Formula>
+      <![CDATA[count(Geography.CurrentMember.Level.Members)]]>
+    </Formula>
+  </CalculatedMember>
+</Cube><Cube name="education_sned">
+  <Annotations>
+    <!-- TODO: Annotation name="source_name"></Annotation-->
+    <!-- TODO: Annotation name="source_link"></Annotation-->
+    <Annotation name="topic">education</Annotation>
+    <Annotation name="available_dimensions">Cluster,Administration</Annotation>
+    <Annotation name="available_measures">Avg efectiveness,Avg overcoming,Avg initiative,Avg integration,Avg improvement,Avg fairness,Avg sned_score</Annotation>
+  </Annotations>
+  <Table name="fact_sned" schema="education"/>
+  <Dimension name="Date">
+    <Hierarchy hasAll="true">
+      <Level column="year" nameColumn="year" name="Year" uniqueMembers="true"/>
+    </Hierarchy>
+  </Dimension>
+  <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+  <Dimension foreignKey="cluster_id" name="Cluster">
+    <Annotations>
+      <Annotation name="es_element_caption">Clúster de escuelas</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="cluster">
+        <ColumnDefs>
+          <ColumnDef name="e1a_id" type="Numeric"/>
+          <ColumnDef name="e1a_description" type="String"/>
+          <ColumnDef name="e1a_es_description" type="String"/>
+          <ColumnDef name="e1b_id" type="Numeric"/>
+          <ColumnDef name="e1b_description" type="String"/>
+          <ColumnDef name="e1b_es_description" type="String"/>
+          <ColumnDef name="e2_id" type="Numeric"/>
+          <ColumnDef name="e2_description" type="String"/>
+          <ColumnDef name="e2_es_description" type="String"/>
+        </ColumnDefs>
+        <Rows>
+          <Row>
+            <Value column="e1a_id">1</Value>
+            <Value column="e1a_description">Urban</Value>
+            <Value column="e1a_es_description">Urbana</Value>
+            <Value column="e1b_id">1</Value>
+            <Value column="e1b_description">Urban primary</Value>
+            <Value column="e1b_es_description">Básica urbana</Value>
+            <Value column="e2_id">11</Value>
+            <Value column="e2_description">Urban primary group 1</Value>
+            <Value column="e2_es_description">Básica urbana grupo 1</Value>
+          </Row>
+          <Row>
+            <Value column="e1a_id">1</Value>
+            <Value column="e1a_description">Urban</Value>
+            <Value column="e1a_es_description">Urbana</Value>
+            <Value column="e1b_id">1</Value>
+            <Value column="e1b_description">Urban primary</Value>
+            <Value column="e1b_es_description">Básica urbana</Value>
+            <Value column="e2_id">12</Value>
+            <Value column="e2_description">Urban primary group 2</Value>
+            <Value column="e2_es_description">Básica urbana grupo 2</Value>
+          </Row>
+          <Row>
+            <Value column="e1a_id">1</Value>
+            <Value column="e1a_description">Urban</Value>
+            <Value column="e1a_es_description">Urbana</Value>
+            <Value column="e1b_id">1</Value>
+            <Value column="e1b_description">Urban primary</Value>
+            <Value column="e1b_es_description">Básica urbana</Value>
+            <Value column="e2_id">13</Value>
+            <Value column="e2_description">Urban primary group 3</Value>
+            <Value column="e2_es_description">Básica urbana grupo 3</Value>
+          </Row>
+          <Row>
+            <Value column="e1a_id">1</Value>
+            <Value column="e1a_description">Urban</Value>
+            <Value column="e1a_es_description">Urbana</Value>
+            <Value column="e1b_id">2</Value>
+            <Value column="e1b_description">Urban secondary (with or without primary)</Value>
+            <Value column="e1b_es_description">Media urbana (con o sin básica)</Value>
+            <Value column="e2_id">31</Value>
+            <Value column="e2_description">Urban secondary (with or without primary) group 1</Value>
+            <Value column="e2_es_description">Media urbana (con o sin básica) grupo 1</Value>
+          </Row>
+          <Row>
+            <Value column="e1a_id">1</Value>
+            <Value column="e1a_description">Urban</Value>
+            <Value column="e1a_es_description">Urbana</Value>
+            <Value column="e1b_id">2</Value>
+            <Value column="e1b_description">Urban secondary (with or without primary)</Value>
+            <Value column="e1b_es_description">Media urbana (con o sin básica)</Value>
+            <Value column="e2_id">32</Value>
+            <Value column="e2_description">Urban secondary (with or without primary) group 2</Value>
+            <Value column="e2_es_description">Media urbana (con o sin básica) grupo 2</Value>
+          </Row>
+          <Row>
+            <Value column="e1a_id">1</Value>
+            <Value column="e1a_description">Urban</Value>
+            <Value column="e1a_es_description">Urbana</Value>
+            <Value column="e1b_id">2</Value>
+            <Value column="e1b_description">Urban secondary (with or without primary)</Value>
+            <Value column="e1b_es_description">Media urbana (con o sin básica)</Value>
+            <Value column="e2_id">33</Value>
+            <Value column="e2_description">Urban secondary (with or without primary) group 3</Value>
+            <Value column="e2_es_description">Media urbana (con o sin básica) grupo 3</Value>
+          </Row>
+          <Row>
+            <Value column="e1a_id">2</Value>
+            <Value column="e1a_description">Rural</Value>
+            <Value column="e1a_es_description">Rural</Value>
+            <Value column="e1b_id">3</Value>
+            <Value column="e1b_description">Rural primary</Value>
+            <Value column="e1b_es_description">Básica rural</Value>
+            <Value column="e2_id">21</Value>
+            <Value column="e2_description">Rural primary group 1</Value>
+            <Value column="e2_es_description">Básica rural grupo 1</Value>
+          </Row>
+          <Row>
+            <Value column="e1a_id">2</Value>
+            <Value column="e1a_description">Rural</Value>
+            <Value column="e1a_es_description">Rural</Value>
+            <Value column="e1b_id">3</Value>
+            <Value column="e1b_description">Rural primary</Value>
+            <Value column="e1b_es_description">Básica rural</Value>
+            <Value column="e2_id">22</Value>
+            <Value column="e2_description">Rural primary group 2</Value>
+            <Value column="e2_es_description">Básica rural grupo 2</Value>
+          </Row>
+          <Row>
+            <Value column="e1a_id">2</Value>
+            <Value column="e1a_description">Rural</Value>
+            <Value column="e1a_es_description">Rural</Value>
+            <Value column="e1b_id">3</Value>
+            <Value column="e1b_description">Rural primary</Value>
+            <Value column="e1b_es_description">Básica rural</Value>
+            <Value column="e2_id">23</Value>
+            <Value column="e2_description">Rural primary group 3</Value>
+            <Value column="e2_es_description">Básica rural grupo 3</Value>
+          </Row>
+          <Row>
+            <Value column="e1a_id">2</Value>
+            <Value column="e1a_description">Rural</Value>
+            <Value column="e1a_es_description">Rural</Value>
+            <Value column="e1b_id">4</Value>
+            <Value column="e1b_description">Rural secondary (with or without primary)</Value>
+            <Value column="e1b_es_description">Media rural (con o sin básica)</Value>
+            <Value column="e2_id">41</Value>
+            <Value column="e2_description">Rural secondary (with or without primary) group 1</Value>
+            <Value column="e2_es_description">Media rural (con o sin básica) grupo 1</Value>
+          </Row>
+          <Row>
+            <Value column="e1a_id">3</Value>
+            <Value column="e1a_description">Special education</Value>
+            <Value column="e1a_es_description">Educación especial</Value>
+            <Value column="e1b_id">5</Value>
+            <Value column="e1b_description">Special education</Value>
+            <Value column="e1b_es_description">Educación especial</Value>
+            <Value column="e2_id">51</Value>
+            <Value column="e2_description">Special education group 1</Value>
+            <Value column="e2_es_description">Educación especial grupo 1</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="e1a_id" name="Stage 1a" nameColumn="e1a_description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="e1a_es_description" name="Description ES"/>
+      </Level>
+      <Level column="e1b_id" name="Stage 1b" nameColumn="e1b_description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="e1b_es_description" name="Description ES"/>
+      </Level>
+      <Level column="e2_id" name="Stage 2" nameColumn="e2_description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="e2_es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="administration_id" name="Administration">
+    <Annotations>
+      <Annotation name="es_element_caption">Administración</Annotation>
+    </Annotations>
+    <Hierarchy hasAll="true">
+      <InlineTable alias="administration">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <!-- TODO: translate -->
+        <Rows>
+          <Row>
+            <Value column="id">0</Value>
+            <Value column="description">nan</Value>
+            <Value column="es_description">nan</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Municipal</Value>
+            <Value column="es_description">Municipal</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Particular Subvencionado</Value>
+            <Value column="es_description">Particular Subvencionado</Value>
+          </Row>
+          <Row>
+            <Value column="id">4</Value>
+            <Value column="description">Corporación de Administración Delegada</Value>
+            <Value column="es_description">Corporación de Administración Delegada</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Administration" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
         </Annotations>
@@ -12055,6 +14894,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+<<<<<<< HEAD
 
   <!-- Residence Country -->
   <Dimension name="Residence Country" foreignKey="residence_country">
@@ -12817,13 +15657,20 @@
     <Hierarchy hasAll="true">
 
       <InlineTable alias="residence_5_years_ago">
+=======
+  <Dimension foreignKey="subsidized_100pc_id" name="Subsidized 100%">
+    <Hierarchy hasAll="true">
+      <InlineTable alias="subsidized_100pc">
+>>>>>>> master
         <ColumnDefs>
           <ColumnDef name="id" type="Numeric" />
           <ColumnDef name="description" type="String" />
           <ColumnDef name="es_description" type="String" />
         </ColumnDefs>
+        <!-- TODO: rename nan -->
         <Rows>
           <Row>
+<<<<<<< HEAD
             <Value column="id">1</Value>
             <Value column="description">Aún no nacía</Value>
             <Value column="es_description">Aún no nacía</Value>
@@ -12935,8 +15782,44 @@
             <Value column="id">6</Value>
             <Value column="description">6°</Value>
             <Value column="es_description">6°</Value>
+=======
+            <Value column="id">0</Value>
+            <Value column="description">nan</Value>
+            <Value column="es_description">nan</Value>
           </Row>
           <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Obtains 100% subsidy</Value>
+            <Value column="es_description">Obtiene 100% subvención</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Does not obtain 100% subsidy</Value>
+            <Value column="es_description">No obtiene 100% subvención</Value>
+>>>>>>> master
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Subsidized 100%" nameColumn="description" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Description ES</Annotation>
+        </Annotations>
+        <Property column="es_description" name="Description ES"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension foreignKey="subsidized_60pc_id" name="Subsidized 60%">
+    <Hierarchy hasAll="true">
+      <InlineTable alias="subsidized_60pc">
+        <ColumnDefs>
+          <ColumnDef name="id" type="Numeric"/>
+          <ColumnDef name="description" type="String"/>
+          <ColumnDef name="es_description" type="String"/>
+        </ColumnDefs>
+        <!-- TODO: rename nan -->
+        <Rows>
+          <Row>
+<<<<<<< HEAD
             <Value column="id">7</Value>
             <Value column="description">7°</Value>
             <Value column="es_description">7°</Value>
@@ -12960,6 +15843,25 @@
       </InlineTable>
 
       <Level name="Highest Course Approved" column="id" nameColumn="description" uniqueMembers="true">
+=======
+            <Value column="id">0</Value>
+            <Value column="description">nan</Value>
+            <Value column="es_description">nan</Value>
+          </Row>
+          <Row>
+            <Value column="id">1</Value>
+            <Value column="description">Obtains 60% subsidy</Value>
+            <Value column="es_description">Obtiene 60% subvención</Value>
+          </Row>
+          <Row>
+            <Value column="id">2</Value>
+            <Value column="description">Does not obtain 60% subsidy</Value>
+            <Value column="es_description">No obtiene 60% subvención</Value>
+          </Row>
+        </Rows>
+      </InlineTable>
+      <Level column="id" name="Subsidized 60%" nameColumn="description" uniqueMembers="true">
+>>>>>>> master
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
         </Annotations>
@@ -12967,6 +15869,7 @@
       </Level>
     </Hierarchy>
   </Dimension>
+<<<<<<< HEAD
 
   <!-- KeyExpression Calculated Age Range-->
   <Dimension name="Calculated Age Range">
@@ -13076,6 +15979,75 @@
     <Formula>
       <![CDATA[
         ( [Measures].[People] / [Measures].[Total] )]]>
+=======
+  <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
+  <Measure aggregator="avg" column="efectiveness" name="Avg efectiveness" visible="true" caption="Avg efectiveness">
+    <Annotations>
+      <Annotation name="es_element_caption">Efectividad promedio (SNED)</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="overcoming" name="Avg overcoming" visible="true" caption="Avg overcoming">
+    <Annotations>
+      <Annotation name="es_element_caption">Superación promedio (SNED)</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="initiative" name="Avg initiative" visible="true" caption="Avg initiative">
+    <Annotations>
+      <Annotation name="es_element_caption">Iniciativa promedio (SNED)</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="integration" name="Avg integration" visible="true" caption="Avg integration">
+    <Annotations>
+      <Annotation name="es_element_caption">Integración promedio (SNED)</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="improvement" name="Avg improvement" visible="true" caption="Avg improvement">
+    <Annotations>
+      <Annotation name="es_element_caption">Mejoras promedio (SNED)</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="fairness" name="Avg fairness" visible="true" caption="Avg fairness">
+    <Annotations>
+      <Annotation name="es_element_caption">Justicia promedio (SNED)</Annotation>
+    </Annotations>
+  </Measure>
+  <Measure aggregator="avg" column="sned_score" name="Avg sned_score" visible="true" caption="Avg sned">
+    <Annotations>
+      <Annotation name="es_element_caption">Puntaje SNED promedio</Annotation>
+    </Annotations>
+  </Measure>
+</Cube><Cube name="imports_old">
+  <Annotations>
+    <Annotation name="source_name">Servicio Nacional de Aduanas</Annotation>
+    <Annotation name="source_link">http://www.aduana.cl/aduana/site/edic/base/port/inicio.html</Annotation>
+    <Annotation name="available_measures"/>
+  </Annotations>
+  <!-- Table name="pg_imports_grouped" schema="economy"></Table -->
+  <View alias="pg_imports_grouped">
+    <SQL>
+      <![CDATA[(SELECT * FROM economy.pg_imports_grouped INNER JOIN dim_date d ON d.id = economy.pg_imports_grouped.date_id WHERE d.the_year >= 2002)]]>
+    </SQL>
+  </View>
+  <DimensionUsage foreignKey="date_id" name="Date" source="Date"/>
+  <DimensionUsage foreignKey="country_origin_id" name="Origin Country" caption="Origin Country" source="Country"/>
+  <DimensionUsage foreignKey="importer_comuna_id" name="Geography" source="Geography"/>
+  <DimensionUsage foreignKey="hs_6digits" name="Import HS" source="HS"/>
+  <!-- duplicate of dimension `Origin Country` called `Country`, so we can use it in the VirtualCube exports_and_imports -->
+  <DimensionUsage caption="Country" foreignKey="country_origin_id" name="Country" source="Country"/>
+  <Measure aggregator="sum" column="cif_us" name="CIF US"/>
+  <CalculatedMember dimension="Measures" name="Geo Rank Across Time">
+    <Annotations>
+      <Annotation name="description">Rank of this geography across all its siblings, by time</Annotation>
+    </Annotations>
+    <Formula>
+      <![CDATA[Iif(IsEmpty([Measures].[CIF US]),
+                 Null,
+                 Rank([Geography].CurrentMember,
+                 Order([Geography].CurrentMember.Siblings,
+                 Aggregate({[Date].CurrentMember}*{[Origin Country].[All Countrys]}*{[Import HS].[All HSs]},
+                 [Measures].[CIF US]),
+                 BDESC)))]]>
+>>>>>>> master
     </Formula>
   </CalculatedMember>
 </Cube><Cube name="education_performance_new">
