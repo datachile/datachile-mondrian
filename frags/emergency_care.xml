@@ -1,0 +1,75 @@
+<Schema name="datachile">
+  <Cube name="emergency_care" visible="true" cache="true" enabled="true">
+    <Table name="fact_emergency" schema="emergency_care">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" foreignKey="date_id" highCardinality="false" name="Date">
+      <Hierarchy name="Date" visible="true" hasAll="true">
+        <Table name="date_dimension" schema="emergency_care">
+        </Table>
+        <Level name="Year" visible="true" column="year_id" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Quarter" visible="true" column="quarter_name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Month" visible="true" column="month_name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Week" visible="true" column="date_id" nameColumn="week_name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="geography_id" highCardinality="false" name="Geography">
+      <Hierarchy name="Geography" visible="true" hasAll="true">
+        <Table name="geography_dimension" schema="emergency_care">
+        </Table>
+        <Level name="Region" visible="true" column="geography_id" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+          <Annotations>
+            <Annotation name="es_caption">
+              <![CDATA[Region ES]]>
+            </Annotation>
+          </Annotations>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="emergency_id" highCardinality="false" name="Emergency">
+      <Hierarchy name="Emergency" visible="true" hasAll="true">
+        <Table name="emergency_dimension" schema="emergency_care">
+        </Table>
+        <Level name="Action-L1" visible="true" column="action_id" nameColumn="action" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+          <Annotations>
+            <Annotation name="es_caption">
+              <![CDATA[Action ES]]>
+            </Annotation>
+          </Annotations>
+        </Level>
+        <Level name="Cause-L2" visible="true" column="cause_id" nameColumn="cause" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+          <Annotations>
+            <Annotation name="es_caption">
+              <![CDATA[Cause ES]]>
+            </Annotation>
+          </Annotations>
+        </Level>
+        <Level name="Name-L3" visible="true" column="emergency_id" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+          <Annotations>
+            <Annotation name="es_caption">
+              <![CDATA[Name ES]]>
+            </Annotation>
+          </Annotations>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="age_id" highCardinality="false" name="Age">
+      <Hierarchy name="Age" visible="true" hasAll="true">
+        <Table name="age_dimension" schema="emergency_care">
+        </Table>
+        <Level name="Age" visible="true" column="age_id" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+          <Annotations>
+            <Annotation name="es_caption">
+              <![CDATA[Age ES]]>
+            </Annotation>
+          </Annotations>
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Total" column="total" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
