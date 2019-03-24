@@ -41,6 +41,32 @@
       <Annotation name="index_as">countries</Annotation>
       <Annotation name="es_element_caption">País</Annotation>
     </Annotations>
+    <Hierarchy hasAll="true" primaryKey="country_code">
+      <Table name="dim_countries_new" schema="public"/>
+      <Level column="region_code" name="Continent" nameColumn="region" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Region ES</Annotation>
+          <Annotation name="es_element_caption">Continente</Annotation>
+        </Annotations>
+        <Property column="es_region" name="Region ES"/>
+      </Level>
+      <!-- Level column="sub_region_code" name="Subregion" nameColumn="sub_region" uniqueMembers="true"/ -->
+      <Level column="country_code" name="Country" nameColumn="country_name" uniqueMembers="true">
+        <Annotations>
+          <Annotation name="es_caption">Country ES</Annotation>
+          <Annotation name="es_element_caption">País</Annotation>
+        </Annotations>
+        <Property column="es_country_name" name="Country ES"/>
+        <Property column="iso3" name="iso3"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+
+  <Dimension name="Country Census">
+    <Annotations>
+      <Annotation name="index_as">countries</Annotation>
+      <Annotation name="es_element_caption">País</Annotation>
+    </Annotations>
     <Hierarchy hasAll="true" primaryKey="id">
       <Table name="dim_countries_new" schema="public"/>
       <Level column="region_code" name="Continent" nameColumn="region" uniqueMembers="true">
