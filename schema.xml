@@ -3980,24 +3980,24 @@
         </Table>
         <Level name="Action-L1" visible="true" column="action_id" nameColumn="action" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
           <Annotations>
-            <Annotation name="es_caption">
-              <![CDATA[Action ES]]>
-            </Annotation>
+            <Annotation name="es_caption">Action-L1 ES</Annotation>
+            <Annotation name="es_element_caption">Acción-L1</Annotation>
           </Annotations>
+          <Property column="action_es" name="Description ES"/>
         </Level>
         <Level name="Cause-L2" visible="true" column="cause_id" nameColumn="cause" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
           <Annotations>
-            <Annotation name="es_caption">
-              <![CDATA[Cause ES]]>
-            </Annotation>
+            <Annotation name="es_caption">Cause-L2 ES</Annotation>
+            <Annotation name="es_element_caption">Causa-L2</Annotation>
           </Annotations>
+          <Property column="cause_es" name="Description ES"/>
         </Level>
         <Level name="Name-L3" visible="true" column="emergency_id" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
           <Annotations>
-            <Annotation name="es_caption">
-              <![CDATA[Name ES]]>
-            </Annotation>
+            <Annotation name="es_caption">Name-L3 ES</Annotation>
+            <Annotation name="es_element_caption">Nombre-L3</Annotation>
           </Annotations>
+          <Property column="name_es" name="Description ES"/>
         </Level>
       </Hierarchy>
     </Dimension>
@@ -4007,10 +4007,10 @@
         </Table>
         <Level name="Age" visible="true" column="age_id" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
           <Annotations>
-            <Annotation name="es_caption">
-              <![CDATA[Age ES]]>
-            </Annotation>
+            <Annotation name="es_caption">Age ES</Annotation>
+            <Annotation name="es_element_caption">Edad</Annotation>
           </Annotations>
+          <Property column="name_es" name="Description ES"/>
         </Level>
       </Hierarchy>
     </Dimension>
