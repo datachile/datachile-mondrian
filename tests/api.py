@@ -1,6 +1,6 @@
 import requests
 
-APIBASE = "https://chilecube.datachile.io%s"
+APIBASE = "https://chilecube.prod.datachile.io%s"
 
 
 def fetch(pathname, method="GET", params=None, data=None):
@@ -23,6 +23,10 @@ def query(cube, measures, *drilldowns):
     }
 
     try:
-        return fetch(url, params=params).get("data") or []
+        result = fetch(url, params=params)
+        if not "data" in result:
+            raise Exception(f"{result}")
+        return result.get("data") or []
     except Exception as e:
+        print(f"\nQUERY FAIL: {measures}, {drilldowns}")
         return []
