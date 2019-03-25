@@ -22,10 +22,10 @@
         </Table>
         <Level name="Region" visible="true" column="geography_id" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
           <Annotations>
-            <Annotation name="es_caption">
-              <![CDATA[Region ES]]>
-            </Annotation>
+            <Annotation name="es_caption">Region ES</Annotation>
+            <Annotation name="es_element_caption">Region ES</Annotation>
           </Annotations>
+          <Property column="name_es" name="Region ES"/>
         </Level>
       </Hierarchy>
     </Dimension>
@@ -38,21 +38,21 @@
             <Annotation name="es_caption">Action-L1 ES</Annotation>
             <Annotation name="es_element_caption">Acción-L1</Annotation>
           </Annotations>
-          <Property column="action_es" name="Description ES"/>
+          <Property column="action_es" name="Action-L1 ES"/>
         </Level>
         <Level name="Cause-L2" visible="true" column="cause_id" nameColumn="cause" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
           <Annotations>
             <Annotation name="es_caption">Cause-L2 ES</Annotation>
             <Annotation name="es_element_caption">Causa-L2</Annotation>
           </Annotations>
-          <Property column="cause_es" name="Description ES"/>
+          <Property column="cause_es" name="Cause-L2 ES"/>
         </Level>
         <Level name="Name-L3" visible="true" column="emergency_id" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
           <Annotations>
             <Annotation name="es_caption">Name-L3 ES</Annotation>
             <Annotation name="es_element_caption">Nombre-L3</Annotation>
           </Annotations>
-          <Property column="name_es" name="Description ES"/>
+          <Property column="name_es" name="Name-L3 ES"/>
         </Level>
       </Hierarchy>
     </Dimension>
@@ -60,9 +60,9 @@
       <Hierarchy name="Age" visible="true" hasAll="true">
         <Table name="age_dimension" schema="emergency_care">
         </Table>
-        <Level name="Age" visible="true" column="age_id" nameColumn="name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        <Level name="Age" visible="true" column="age_id" nameColumn="name" type="String" uniqueMembers="true">
           <Annotations>
-            <Annotation name="es_caption">Age ES</Annotation>
+            <Annotation name="es_caption">Description ES</Annotation>
             <Annotation name="es_element_caption">Edad</Annotation>
           </Annotations>
           <Property column="name_es" name="Description ES"/>
