@@ -1,6 +1,13 @@
-.git
+.git/
+.mvn/
+.vscode/
+docs/
+frags/
+tests/
+
+*.csv
 .jbundler
-.mvn
-Jarfile.lock
 Gemfile.lock
+Jarfile.lock
 Jars.lock
+README.md
