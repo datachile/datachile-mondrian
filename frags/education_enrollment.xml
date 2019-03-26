@@ -12,7 +12,7 @@
   <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
   <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
   <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration"/>
-  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution New"/>
   <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
   <Measure aggregator="count" column="year" name="Number of records" caption="Enrolled students" visible="true">
     <Annotations>

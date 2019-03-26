@@ -717,9 +717,9 @@
     <Annotations>
       <Annotation name="es_element_caption">Institución</Annotation>
     </Annotations>
-    <Hierarchy hasAll="true" primaryKey="institution_id">
-      <Table name="dim_educational_institutions" schema="education"/>
-      <Level column="institution_id" name="Institution" nameColumn="institution" uniqueMembers="true"/>
+    <Hierarchy hasAll="true" primaryKey="rbd">
+      <Table name="dim_educational_institutions_new" schema="education"/>
+      <Level column="rbd" name="Institution" nameColumn="institution" uniqueMembers="true"/>
     </Hierarchy>
   </Dimension>
   <!--
@@ -732,21 +732,24 @@
     <Annotations>
       <Annotation name="es_element_caption">Institución</Annotation>
     </Annotations>
+    
     <Hierarchy hasAll="true" primaryKey="rbd" name="Institution">
       <Table name="dim_educational_institutions_new" schema="education"/>
-      <Level column="cod_depe2" name="Administration" uniqueMembers="true">
+    
+      <Level column="cod_depe2" type="Numeric" name="Administration" nameColumn="cod_depe2_es" uniqueMembers="true">
         <Annotations>
           <Annotation name="es_caption">Description ES</Annotation>
           <Annotation name="es_element_caption">Administración</Annotation>
         </Annotations>
-        <NameExpression>
+
+        <!-- <NameExpression>
           <SQL>
-            <![CDATA[(CASE WHEN cod_depe2=1 THEN 'Municipal' WHEN cod_depe2=2 THEN 'Private Subsidized' WHEN cod_depe2=3 THEN 'Private' WHEN cod_depe2=4 THEN 'Delegated Administration' END)]]>
+            <![CDATA[(CASE WHEN cod_depe2='1.0' THEN 'Municipal' WHEN cod_depe2='2.0' THEN 'Private Subsidized' WHEN cod_depe2='3.0' THEN 'Private' WHEN cod_depe2='4.0' THEN 'Delegated Administration' END)]]>
           </SQL>
-        </NameExpression>
+        </NameExpression> -->
         <Property column="cod_depe2_es" name="Description ES"/>
       </Level>
-      <Level column="rbd" name="Institution" nameColumn="nom_rbd" uniqueMembers="true"/>
+      <Level column="rbd" name="Institution" type="String" nameColumn="nom_rbd" uniqueMembers="true"/>
     </Hierarchy>
   </Dimension>
   <Dimension name="Teaching">
@@ -4031,7 +4034,7 @@
   <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
   <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
   <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration"/>
-  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution New"/>
   <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
   <Measure aggregator="count" column="year" name="Number of records" caption="Enrolled students" visible="true">
     <Annotations>
@@ -5096,7 +5099,7 @@
   <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
   <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
   <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration"/>
-  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution New"/>
   <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
   <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
   <Measure aggregator="avg" column="scores_average" name="Average Score Average (?)" visible="true"/>
@@ -5263,7 +5266,7 @@
     </Hierarchy>
   </Dimension>
   <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
-  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution New"/>
   <Dimension foreignKey="cluster_id" name="Cluster">
     <Annotations>
       <Annotation name="es_element_caption">Clúster de escuelas</Annotation>
