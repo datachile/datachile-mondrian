@@ -719,7 +719,7 @@
     </Annotations>
     <Hierarchy hasAll="true" primaryKey="rbd">
       <Table name="dim_educational_institutions_new" schema="education"/>
-      <Level column="rbd" name="Institution" nameColumn="institution" uniqueMembers="true"/>
+      <Level column="rbd" name="Institution" type="String" nameColumn="nom_rbd" uniqueMembers="true"/>
     </Hierarchy>
   </Dimension>
   <!--
@@ -733,7 +733,7 @@
       <Annotation name="es_element_caption">Institución</Annotation>
     </Annotations>
     
-    <Hierarchy hasAll="true" primaryKey="rbd" name="Institution">
+    <Hierarchy hasAll="true" name="Institution">
       <Table name="dim_educational_institutions_new" schema="education"/>
     
       <Level column="cod_depe2" type="Numeric" name="Administration" nameColumn="cod_depe2_es" uniqueMembers="true">
@@ -4034,7 +4034,7 @@
   <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
   <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
   <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration"/>
-  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution New"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
   <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
   <Measure aggregator="count" column="year" name="Number of records" caption="Enrolled students" visible="true">
     <Annotations>
@@ -5099,7 +5099,7 @@
   <DimensionUsage foreignKey="sex_id" name="Sex" source="Sex"/>
   <DimensionUsage foreignKey="rural_id" name="Zone" source="Zone"/>
   <DimensionUsage foreignKey="administration_id" name="Administration" source="Administration"/>
-  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution New"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
   <DimensionUsage foreignKey="teaching_id" name="Teachings" source="Teaching"/>
   <Measure aggregator="count" column="year" name="Number of records" visible="true"/>
   <Measure aggregator="avg" column="scores_average" name="Average Score Average (?)" visible="true"/>

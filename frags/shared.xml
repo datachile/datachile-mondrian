@@ -721,7 +721,7 @@
     </Annotations>
     <Hierarchy hasAll="true" primaryKey="rbd">
       <Table name="dim_educational_institutions_new" schema="education"/>
-      <Level column="rbd" name="Institution" nameColumn="institution" uniqueMembers="true"/>
+      <Level column="rbd" name="Institution" type="String" nameColumn="nom_rbd" uniqueMembers="true"/>
     </Hierarchy>
   </Dimension>
   <!--
@@ -735,7 +735,7 @@
       <Annotation name="es_element_caption">Institución</Annotation>
     </Annotations>
     
-    <Hierarchy hasAll="true" primaryKey="rbd" name="Institution">
+    <Hierarchy hasAll="true" name="Institution">
       <Table name="dim_educational_institutions_new" schema="education"/>
     
       <Level column="cod_depe2" type="Numeric" name="Administration" nameColumn="cod_depe2_es" uniqueMembers="true">
