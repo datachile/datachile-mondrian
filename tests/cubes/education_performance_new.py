@@ -47,7 +47,7 @@ class CountMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Number of records"
         measure_sum = sum(item["Number of records"] for item in result)
-        self.assertEqual(measure_sum, 0)
+        self.assertEqual(measure_sum, 3152985.0)
 
     def test_sex_sex(self):
         level_fullname = "[Sex].[Sex]"
@@ -55,7 +55,7 @@ class CountMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Number of records"
         measure_sum = sum(item["Number of records"] for item in result)
-        self.assertEqual(measure_sum, 0)
+        self.assertEqual(measure_sum, 3209428.0)
 
     def test_year_year(self):
         level_fullname = "[Year].[Year]"

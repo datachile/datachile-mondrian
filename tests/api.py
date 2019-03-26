@@ -8,6 +8,8 @@ def fetch(pathname, method="GET", params=None, data=None):
         req = requests.get(APIBASE % pathname, params=params)
     elif method == "POST":
         req = requests.post(APIBASE % pathname, data=data)
+    if req.status_code != 200:
+        raise Exception(req.url)
     return req.json()
 
 
@@ -19,14 +21,18 @@ def query(cube, measures, *drilldowns):
         "nonempty": "true",
         "distinct": "false",
         "parents": "false",
-        "debug": "true",
+        "debug": "false",
     }
 
     try:
         result = fetch(url, params=params)
-        if not "data" in result:
-            raise Exception(f"{result}")
-        return result.get("data") or []
+        
+        if "error" in result:
+            raise Exception(result["error"][0])
+        elif "data" not in result:
+            raise Exception(f"{result}"[:80])
+        else:
+            return result.get("data") or []
     except Exception as e:
-        print(f"\nQUERY FAIL: {measures}, {drilldowns}")
+        print(f"\nQUERY FAIL: {e}\n{measures}, {drilldowns}")
         return []

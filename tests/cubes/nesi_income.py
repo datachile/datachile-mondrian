@@ -19,11 +19,11 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Expansion Factor"
         measure_sum = sum(item["Expansion Factor"] for item in result)
-        self.assertEqual(measure_sum, 42752480.5)
+        self.assertEqual(measure_sum, 42752529.5)
 
         # Check sum for measure "Weighted Income"
         measure_sum = sum(item["Weighted Income"] for item in result)
-        self.assertEqual(measure_sum, 19075900059462.566)
+        self.assertEqual(measure_sum, 19075900059462.484)
 
     def test_date_year(self):
         level_fullname = "[Date].[Year]"
@@ -35,11 +35,11 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Expansion Factor"
         measure_sum = sum(item["Expansion Factor"] for item in result)
-        self.assertEqual(measure_sum, 42752507.5)
+        self.assertEqual(measure_sum, 42752349.5)
 
         # Check sum for measure "Weighted Income"
         measure_sum = sum(item["Weighted Income"] for item in result)
-        self.assertEqual(measure_sum, 19075900059462.7)
+        self.assertEqual(measure_sum, 19075900059462.69)
 
     def test_geography_comuna(self):
         level_fullname = "[Geography].[Comuna]"
@@ -51,11 +51,11 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Expansion Factor"
         measure_sum = sum(item["Expansion Factor"] for item in result)
-        self.assertEqual(measure_sum, 42752510.45629883)
+        self.assertEqual(measure_sum, 42752506.23510742)
 
         # Check sum for measure "Weighted Income"
         measure_sum = sum(item["Weighted Income"] for item in result)
-        self.assertEqual(measure_sum, 19075900059462.668)
+        self.assertEqual(measure_sum, 19075900059462.67)
 
     def test_geography_region(self):
         level_fullname = "[Geography].[Region]"
@@ -67,11 +67,11 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Expansion Factor"
         measure_sum = sum(item["Expansion Factor"] for item in result)
-        self.assertEqual(measure_sum, 42752601.90625)
+        self.assertEqual(measure_sum, 42752405.3125)
 
         # Check sum for measure "Weighted Income"
         measure_sum = sum(item["Weighted Income"] for item in result)
-        self.assertEqual(measure_sum, 19075900059462.68)
+        self.assertEqual(measure_sum, 19075900059462.688)
 
     def test_icse_icse(self):
         level_fullname = "[ICSE].[ICSE]"
@@ -83,11 +83,11 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Expansion Factor"
         measure_sum = sum(item["Expansion Factor"] for item in result)
-        self.assertEqual(measure_sum, 42752665.15625)
+        self.assertEqual(measure_sum, 42752581.6875)
 
         # Check sum for measure "Weighted Income"
         measure_sum = sum(item["Weighted Income"] for item in result)
-        self.assertEqual(measure_sum, 19075900059462.633)
+        self.assertEqual(measure_sum, 19075900059462.684)
 
     def test_incomerange_incomerange(self):
         level_fullname = "[Income Range].[Income Range]"
@@ -99,11 +99,11 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Expansion Factor"
         measure_sum = sum(item["Expansion Factor"] for item in result)
-        self.assertEqual(measure_sum, 42752386.46875)
+        self.assertEqual(measure_sum, 42752425.875)
 
         # Check sum for measure "Weighted Income"
         measure_sum = sum(item["Weighted Income"] for item in result)
-        self.assertEqual(measure_sum, 19075900059462.7)
+        self.assertEqual(measure_sum, 19075900059462.695)
 
     def test_isced_isced(self):
         level_fullname = "[ISCED].[ISCED]"
@@ -115,11 +115,11 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Expansion Factor"
         measure_sum = sum(item["Expansion Factor"] for item in result)
-        self.assertEqual(measure_sum, 42752459.5)
+        self.assertEqual(measure_sum, 42752634.3125)
 
         # Check sum for measure "Weighted Income"
         measure_sum = sum(item["Weighted Income"] for item in result)
-        self.assertEqual(measure_sum, 19075900059462.69)
+        self.assertEqual(measure_sum, 19075900059462.74)
 
     def test_isco_isco(self):
         level_fullname = "[ISCO].[ISCO]"
@@ -131,11 +131,11 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Expansion Factor"
         measure_sum = sum(item["Expansion Factor"] for item in result)
-        self.assertEqual(measure_sum, 42752437.1875)
+        self.assertEqual(measure_sum, 42752387.875)
 
         # Check sum for measure "Weighted Income"
         measure_sum = sum(item["Weighted Income"] for item in result)
-        self.assertEqual(measure_sum, 19075900059462.652)
+        self.assertEqual(measure_sum, 19075900059462.656)
 
     def test_occupationlength_occupationlength(self):
         level_fullname = "[Occupation Length].[Occupation Length]"
@@ -147,11 +147,11 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Expansion Factor"
         measure_sum = sum(item["Expansion Factor"] for item in result)
-        self.assertEqual(measure_sum, 42752024.0)
+        self.assertEqual(measure_sum, 42752312.0)
 
         # Check sum for measure "Weighted Income"
         measure_sum = sum(item["Weighted Income"] for item in result)
-        self.assertEqual(measure_sum, 19075900059462.676)
+        self.assertEqual(measure_sum, 19075900059462.645)
 
     def test_sex_sex(self):
         level_fullname = "[Sex].[Sex]"
@@ -163,11 +163,11 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Expansion Factor"
         measure_sum = sum(item["Expansion Factor"] for item in result)
-        self.assertEqual(measure_sum, 42752474.0)
+        self.assertEqual(measure_sum, 42752384.0)
 
         # Check sum for measure "Weighted Income"
         measure_sum = sum(item["Weighted Income"] for item in result)
-        self.assertEqual(measure_sum, 19075900059462.492)
+        self.assertEqual(measure_sum, 19075900059462.5)
 
     def test_workday_workday(self):
         level_fullname = "[Workday].[Workday]"
@@ -179,8 +179,8 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "Expansion Factor"
         measure_sum = sum(item["Expansion Factor"] for item in result)
-        self.assertEqual(measure_sum, 42752718.0)
+        self.assertEqual(measure_sum, 42752936.0)
 
         # Check sum for measure "Weighted Income"
         measure_sum = sum(item["Weighted Income"] for item in result)
-        self.assertEqual(measure_sum, 19075900059462.684)
+        self.assertEqual(measure_sum, 19075900059462.723)

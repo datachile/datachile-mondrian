@@ -65,13 +65,21 @@ class CountMeasuresTestCase(unittest.TestCase):
         measure_sum = sum(item["Number of records"] for item in result)
         self.assertEqual(measure_sum, 66225.0)
 
+    def test_institutions_institution_administration(self):
+        level_fullname = "[Institutions].[Institution].[Administration]"
+        result = query(CUBE, MEASURES_COUNT, level_fullname)
+
+        # Check sum for measure "Number of records"
+        measure_sum = sum(item["Number of records"] for item in result)
+        self.assertEqual(measure_sum, 66225.0)
+
     def test_institutions_institution_institution(self):
         level_fullname = "[Institutions].[Institution].[Institution]"
         result = query(CUBE, MEASURES_COUNT, level_fullname)
 
         # Check sum for measure "Number of records"
         measure_sum = sum(item["Number of records"] for item in result)
-        self.assertEqual(measure_sum, 0)
+        self.assertEqual(measure_sum, 66225.0)
 
     def test_subsidized100_subsidized100(self):
         level_fullname = "[Subsidized 100%].[Subsidized 100%]"
