@@ -1,6 +1,6 @@
 import requests
 
-APIBASE = "https://chilecube.prod.datachile.io%s"
+APIBASE = "https://chilecube.datachile.io%s"
 
 
 def fetch(pathname, method="GET", params=None, data=None):
