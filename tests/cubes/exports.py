@@ -15,7 +15,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "FOB US"
         measure_sum = sum(item["FOB US"] for item in result)
-        self.assertEqual(measure_sum, 414297263872.0)
+        self.assertEqual(measure_sum, 414297706496.0)
 
     def test_country_country(self):
         level_fullname = "[Country].[Country]"
@@ -23,7 +23,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "FOB US"
         measure_sum = sum(item["FOB US"] for item in result)
-        self.assertEqual(measure_sum, 414316697995.66504)
+        self.assertEqual(measure_sum, 414316305677.0713)
 
     def test_date_year(self):
         level_fullname = "[Date].[Year]"
@@ -31,7 +31,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "FOB US"
         measure_sum = sum(item["FOB US"] for item in result)
-        self.assertEqual(measure_sum, 414309818368.0)
+        self.assertEqual(measure_sum, 414308814848.0)
 
     def test_destinationcountry_country_continent(self):
         level_fullname = "[Destination Country].[Country].[Continent]"
@@ -39,7 +39,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "FOB US"
         measure_sum = sum(item["FOB US"] for item in result)
-        self.assertEqual(measure_sum, 414297263872.0)
+        self.assertEqual(measure_sum, 414297706496.0)
 
     def test_destinationcountry_country_country(self):
         level_fullname = "[Destination Country].[Country].[Country]"
@@ -47,7 +47,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "FOB US"
         measure_sum = sum(item["FOB US"] for item in result)
-        self.assertEqual(measure_sum, 414316697995.66504)
+        self.assertEqual(measure_sum, 414316305677.0713)
 
     def test_exporths_hs_hs0(self):
         level_fullname = "[Export HS].[HS].[HS0]"
@@ -55,7 +55,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "FOB US"
         measure_sum = sum(item["FOB US"] for item in result)
-        self.assertEqual(measure_sum, 414314320214.0)
+        self.assertEqual(measure_sum, 414314223389.0)
 
     def test_exporths_hs_hs2(self):
         level_fullname = "[Export HS].[HS].[HS2]"
@@ -63,7 +63,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "FOB US"
         measure_sum = sum(item["FOB US"] for item in result)
-        self.assertEqual(measure_sum, 414317588077.1788)
+        self.assertEqual(measure_sum, 414317603497.34467)
 
     def test_exporths_hs_hs4(self):
         level_fullname = "[Export HS].[HS].[HS4]"
@@ -71,7 +71,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "FOB US"
         measure_sum = sum(item["FOB US"] for item in result)
-        self.assertEqual(measure_sum, 414317619056.1784)
+        self.assertEqual(measure_sum, 414317607608.5573)
 
     def test_geography_comuna(self):
         level_fullname = "[Geography].[Comuna]"
@@ -79,7 +79,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "FOB US"
         measure_sum = sum(item["FOB US"] for item in result)
-        self.assertEqual(measure_sum, 414314566226.5039)
+        self.assertEqual(measure_sum, 414314489632.53516)
 
     def test_geography_region(self):
         level_fullname = "[Geography].[Region]"
@@ -87,4 +87,4 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "FOB US"
         measure_sum = sum(item["FOB US"] for item in result)
-        self.assertEqual(measure_sum, 414266380096.0)
+        self.assertEqual(measure_sum, 414313367696.0)

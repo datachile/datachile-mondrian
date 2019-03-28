@@ -15,7 +15,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "CIF US"
         measure_sum = sum(item["CIF US"] for item in result)
-        self.assertEqual(measure_sum, 366129726088.0)
+        self.assertEqual(measure_sum, 366130386312.0)
 
     def test_country_country(self):
         level_fullname = "[Country].[Country]"
@@ -23,7 +23,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "CIF US"
         measure_sum = sum(item["CIF US"] for item in result)
-        self.assertEqual(measure_sum, 366161686831.0505)
+        self.assertEqual(measure_sum, 366161981424.3737)
 
     def test_date_year(self):
         level_fullname = "[Date].[Year]"
@@ -31,7 +31,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "CIF US"
         measure_sum = sum(item["CIF US"] for item in result)
-        self.assertEqual(measure_sum, 366155603968.0)
+        self.assertEqual(measure_sum, 366155739136.0)
 
     def test_geography_comuna(self):
         level_fullname = "[Geography].[Comuna]"
@@ -39,7 +39,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "CIF US"
         measure_sum = sum(item["CIF US"] for item in result)
-        self.assertEqual(measure_sum, 366164795033.0154)
+        self.assertEqual(measure_sum, 366167210952.0836)
 
     def test_geography_region(self):
         level_fullname = "[Geography].[Region]"
@@ -47,7 +47,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "CIF US"
         measure_sum = sum(item["CIF US"] for item in result)
-        self.assertEqual(measure_sum, 366065260808.0)
+        self.assertEqual(measure_sum, 366107115389.5)
 
     def test_imporths_hs_hs0(self):
         level_fullname = "[Import HS].[HS].[HS0]"
@@ -55,7 +55,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "CIF US"
         measure_sum = sum(item["CIF US"] for item in result)
-        self.assertEqual(measure_sum, 366161109196.0)
+        self.assertEqual(measure_sum, 366161774216.0)
 
     def test_imporths_hs_hs2(self):
         level_fullname = "[Import HS].[HS].[HS2]"
@@ -63,7 +63,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "CIF US"
         measure_sum = sum(item["CIF US"] for item in result)
-        self.assertEqual(measure_sum, 366167726630.7906)
+        self.assertEqual(measure_sum, 366167730773.76154)
 
     def test_imporths_hs_hs4(self):
         level_fullname = "[Import HS].[HS].[HS4]"
@@ -71,7 +71,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "CIF US"
         measure_sum = sum(item["CIF US"] for item in result)
-        self.assertEqual(measure_sum, 366167741560.6806)
+        self.assertEqual(measure_sum, 366167739419.9306)
 
     def test_origincountry_country_continent(self):
         level_fullname = "[Origin Country].[Country].[Continent]"
@@ -79,7 +79,7 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "CIF US"
         measure_sum = sum(item["CIF US"] for item in result)
-        self.assertEqual(measure_sum, 366129726088.0)
+        self.assertEqual(measure_sum, 366130386312.0)
 
     def test_origincountry_country_country(self):
         level_fullname = "[Origin Country].[Country].[Country]"
@@ -87,4 +87,4 @@ class SumMeasuresTestCase(unittest.TestCase):
 
         # Check sum for measure "CIF US"
         measure_sum = sum(item["CIF US"] for item in result)
-        self.assertEqual(measure_sum, 366161686831.0505)
+        self.assertEqual(measure_sum, 366161981424.3737)
