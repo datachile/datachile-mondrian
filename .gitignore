@@ -1,2 +1,7 @@
 config.yaml
 .jbundler/
+datachile_dump_2018_11_20.sql
+Countries_Comparison.ipynb
+datachile_census_country_id.csv
+datachile_comunas.csv
+dim_countries_new.csv

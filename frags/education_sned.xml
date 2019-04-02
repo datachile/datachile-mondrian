@@ -13,7 +13,7 @@
     </Hierarchy>
   </Dimension>
   <DimensionUsage foreignKey="comuna_datachile_id" name="Geography" source="Geography"/>
-  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution"/>
+  <DimensionUsage foreignKey="institution_id" name="Institutions" source="Institution New"/>
   <Dimension foreignKey="cluster_id" name="Cluster">
     <Annotations>
       <Annotation name="es_element_caption">Clúster de escuelas</Annotation>

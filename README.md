@@ -1,5 +1,7 @@
 # Datachile Mondrian
 
+[![Build Status](https://travis-ci.org/datachile/datachile-mondrian.svg?branch=master)](https://travis-ci.org/datachile/datachile-mondrian)
+
 Es la implementación de la capa lógica usando [Mondrian REST](https://github.com/jazzido/mondrian-rest) para Datachile.
 
 Contiene la configuración del esquema de cubos y provee el entrypoint REST de la API para consultas.
@@ -8,14 +10,25 @@ Documentación completa para crear un schema aquí: [Mondrian Schema](https://mo
 
 ## Para desarrollo local
 1. Instalar [JRuby](http://jruby.org). Usar [RVM](https://rvm.io/) es recomendado.
+1. rvm install "jruby-9.2.5.0"
 2. Instalar dependencias con `bundle install`
 3. Ejecutar `jruby -G -S jbundle install`
+3. Ejecutar `jruby -S gem install jbundler`
 4. Duplicar `config.yaml.example` bajo el nombre `config.yaml` y completar los datos.
-5. Correr server `JRUBY_OPTS=-G MONDRIAN_REST_CONF=``pwd``/config.yaml MONDRIAN_REST_SECRET=lala JAVA_OPTS="-Dlog4j.configuration=file:log4j.properties -Dmondrian.olap.SsasCompatibleNaming=true" rackup` 
+5. Correr server `JRUBY_OPTS=-G MONDRIAN_REST_CONF=`pwd`/config.yaml MONDRIAN_REST_SECRET=lala JAVA_OPTS="-Dlog4j.configuration=file:log4j.properties -Dmondrian.olap.SsasCompatibleNaming=true" rackup` 
 
 ## Para concatenar fragmentos
 1. Instalar [mondrian-schema-cat](https://github.com/hwchen/mondrian-schema-cat/)
 2. Ejecutar `moncat -d frags/ -o schema.xml`
+
+## Para crear archivo de ejecución
+Ejecutar los comandos anteriormente descritos puede resultar una labor tediosa cada vez que se realicen modificaciones en `frags`, teniendo que reiniciar el servidor. Se sugiere crear un archivo de script, que permita tener todos los comandos necesarios para iniciar el servidor.
+1. Crear el archivo `init.sh`, y agregar los comandos necesarios para inicializar (como sugerencia, primero `moncat` y luego `rackup`)
+2. Ejecutar `chmod +x init.sh`
+3. Ejecutar `./init.sh`
+
+Luego de estas etapas, a futuro sólo basta ejecutando `./init.sh`.
+
 
 ## Conceptos básicos
 Descripción y ejemplos de las palabras clave en Mondrian y OLAP.
